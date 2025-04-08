@@ -1,2 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" />
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="System">
+      <UniqueIdentifier>{34406ab0-99fb-406e-bc12-c4f2cd9de959}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\System\framework.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\System\Resource.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\System\targetver.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\System\WindowsProject.h">
+      <Filter>System</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\System\small.ico">
+      <Filter>System</Filter>
+    </Image>
+    <Image Include="..\System\WindowsProject.ico">
+      <Filter>System</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\System\WindowsProject.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\System\WindowsProject.rc">
+      <Filter>System</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

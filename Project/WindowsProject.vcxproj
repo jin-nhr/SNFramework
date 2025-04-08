@@ -10,6 +10,22 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\System\framework.h" />
+    <ClInclude Include="..\System\Resource.h" />
+    <ClInclude Include="..\System\targetver.h" />
+    <ClInclude Include="..\System\WindowsProject.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\System\small.ico" />
+    <Image Include="..\System\WindowsProject.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\System\WindowsProject.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\System\WindowsProject.rc" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
