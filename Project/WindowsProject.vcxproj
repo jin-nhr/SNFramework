@@ -11,20 +11,49 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\System\framework.h" />
-    <ClInclude Include="..\System\Resource.h" />
-    <ClInclude Include="..\System\targetver.h" />
-    <ClInclude Include="..\System\WindowsProject.h" />
+    <ClCompile Include="..\SNFramework\Application\SNApplication.cpp" />
+    <ClCompile Include="..\SNFramework\Application\SNFPSCounter.cpp" />
+    <ClCompile Include="..\SNFramework\Application\SNFPSTimer.cpp" />
+    <ClCompile Include="..\SNFramework\AudioVideo\SNAudioVideo.cpp" />
+    <ClCompile Include="..\SNFramework\Configuration\SNConfiguration.cpp" />
+    <ClCompile Include="..\SNFramework\Graphics\SNGraphics.cpp" />
+    <ClCompile Include="..\SNFramework\InputDevice\SNInputDevice.cpp" />
+    <ClCompile Include="..\SNFramework\Library\SNArithmetic.cpp" />
+    <ClCompile Include="..\SNFramework\Library\SNMemory.cpp" />
+    <ClCompile Include="..\SNFramework\Library\SNMutex.cpp" />
+    <ClCompile Include="..\SNFramework\Library\SNThread.cpp" />
+    <ClCompile Include="..\SNFramework\Storage\SNStorage.cpp" />
+    <ClCompile Include="..\SNFramework\System\SNEntryPoint.cpp" />
+    <ClCompile Include="..\SNFramework\System\SNSystem.cpp" />
+    <ClCompile Include="..\SNFramework\System\SNWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\System\small.ico" />
-    <Image Include="..\System\WindowsProject.ico" />
+    <ClInclude Include="..\SNFramework\Application\SNApplication.h" />
+    <ClInclude Include="..\SNFramework\Application\SNFPSCounter.h" />
+    <ClInclude Include="..\SNFramework\Application\SNFPSTimer.h" />
+    <ClInclude Include="..\SNFramework\AudioVideo\SNAudioVideo.h" />
+    <ClInclude Include="..\SNFramework\Configuration\SNConfiguration.h" />
+    <ClInclude Include="..\SNFramework\Graphics\SNGraphics.h" />
+    <ClInclude Include="..\SNFramework\Include\SNFramework.h" />
+    <ClInclude Include="..\SNFramework\Include\SNTypes.h" />
+    <ClInclude Include="..\SNFramework\InputDevice\SNInputDevice.h" />
+    <ClInclude Include="..\SNFramework\Library\SNArithmetic.h" />
+    <ClInclude Include="..\SNFramework\Library\SNMemory.h" />
+    <ClInclude Include="..\SNFramework\Library\SNMutex.h" />
+    <ClInclude Include="..\SNFramework\Library\SNThread.h" />
+    <ClInclude Include="..\SNFramework\Resource\Resource.h" />
+    <ClInclude Include="..\SNFramework\Storage\SNStorage.h" />
+    <ClInclude Include="..\SNFramework\System\SNSystem.h" />
+    <ClInclude Include="..\SNFramework\System\SNTargetVersion.h" />
+    <ClInclude Include="..\SNFramework\System\SNWindow.h" />
+    <ClInclude Include="..\SNFramework\System\SNWindowsAPI.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\System\WindowsProject.cpp" />
+    <ResourceCompile Include="..\SNFramework\Resource\Resource.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\System\WindowsProject.rc" />
+    <Image Include="..\SNFramework\Resource\SNFrameworkIcon.ico" />
+    <Image Include="..\SNFramework\Resource\SNFrameworkSmallIcon.ico" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -62,10 +91,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)\Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Build\$(Configuration)\</IntDir>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)\Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)\Build\$(Configuration)\</IntDir>
+    <IncludePath>$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

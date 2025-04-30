@@ -1,40 +1,157 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="System">
-      <UniqueIdentifier>{34406ab0-99fb-406e-bc12-c4f2cd9de959}</UniqueIdentifier>
+    <Filter Include="SNFramework">
+      <UniqueIdentifier>{8d8088ad-67db-4cb0-9ad2-d739a6d14531}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SNFramework\Resource">
+      <UniqueIdentifier>{29222079-1520-4318-8b0b-df9eb706eb92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SNFramework\Library">
+      <UniqueIdentifier>{83d8afbb-c46c-473a-9c6e-22a7b6a91dbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SNFramework\System">
+      <UniqueIdentifier>{883a3be9-e14d-4413-a036-ad27efd2a1bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SNFramework\Storage">
+      <UniqueIdentifier>{0e55addb-47dc-4295-9ad1-c24dcaa67f23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SNFramework\InputDevice">
+      <UniqueIdentifier>{9e0ce90b-31c3-43bd-b595-bb4d1846e7cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SNFramework\Graphics">
+      <UniqueIdentifier>{c530029e-1406-4fad-a0b5-41b7bbebb34d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SNFramework\Configuration">
+      <UniqueIdentifier>{a2c860e4-5f1a-4148-a151-1f734a28c5dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SNFramework\Include">
+      <UniqueIdentifier>{50a264af-6a2c-48cb-b1db-c035c50c9480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SNFramework\Application">
+      <UniqueIdentifier>{165f2fab-379c-4180-8c2a-e9fec16ab74e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SNFramework\AudioVideo">
+      <UniqueIdentifier>{c7ca0d1c-bb62-40e6-b8c0-67ca29fca2df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\System\framework.h">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\System\Resource.h">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\System\targetver.h">
-      <Filter>System</Filter>
-    </ClInclude>
-    <ClInclude Include="..\System\WindowsProject.h">
-      <Filter>System</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\System\small.ico">
-      <Filter>System</Filter>
-    </Image>
-    <Image Include="..\System\WindowsProject.ico">
-      <Filter>System</Filter>
-    </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\System\WindowsProject.cpp">
-      <Filter>System</Filter>
+    <ClCompile Include="..\SNFramework\System\SNEntryPoint.cpp">
+      <Filter>SNFramework\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\System\SNSystem.cpp">
+      <Filter>SNFramework\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Library\SNMemory.cpp">
+      <Filter>SNFramework\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Configuration\SNConfiguration.cpp">
+      <Filter>SNFramework\Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Application\SNApplication.cpp">
+      <Filter>SNFramework\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\AudioVideo\SNAudioVideo.cpp">
+      <Filter>SNFramework\AudioVideo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Storage\SNStorage.cpp">
+      <Filter>SNFramework\Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\InputDevice\SNInputDevice.cpp">
+      <Filter>SNFramework\InputDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Graphics\SNGraphics.cpp">
+      <Filter>SNFramework\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\System\SNWindow.cpp">
+      <Filter>SNFramework\System</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Library\SNMutex.cpp">
+      <Filter>SNFramework\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Library\SNThread.cpp">
+      <Filter>SNFramework\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Application\SNFPSTimer.cpp">
+      <Filter>SNFramework\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Application\SNFPSCounter.cpp">
+      <Filter>SNFramework\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Library\SNArithmetic.cpp">
+      <Filter>SNFramework\Library</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\System\WindowsProject.rc">
-      <Filter>System</Filter>
+    <ClInclude Include="..\SNFramework\System\SNSystem.h">
+      <Filter>SNFramework\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\System\SNTargetVersion.h">
+      <Filter>SNFramework\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\System\SNWindowsAPI.h">
+      <Filter>SNFramework\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Resource\Resource.h">
+      <Filter>SNFramework\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Include\SNFramework.h">
+      <Filter>SNFramework\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Include\SNTypes.h">
+      <Filter>SNFramework\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Library\SNMemory.h">
+      <Filter>SNFramework\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Configuration\SNConfiguration.h">
+      <Filter>SNFramework\Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Application\SNApplication.h">
+      <Filter>SNFramework\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\AudioVideo\SNAudioVideo.h">
+      <Filter>SNFramework\AudioVideo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Storage\SNStorage.h">
+      <Filter>SNFramework\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\InputDevice\SNInputDevice.h">
+      <Filter>SNFramework\InputDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Graphics\SNGraphics.h">
+      <Filter>SNFramework\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\System\SNWindow.h">
+      <Filter>SNFramework\System</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Library\SNMutex.h">
+      <Filter>SNFramework\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Library\SNThread.h">
+      <Filter>SNFramework\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Application\SNFPSTimer.h">
+      <Filter>SNFramework\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Application\SNFPSCounter.h">
+      <Filter>SNFramework\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Library\SNArithmetic.h">
+      <Filter>SNFramework\Library</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\SNFramework\Resource\Resource.rc">
+      <Filter>SNFramework\Resource</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\SNFramework\Resource\SNFrameworkIcon.ico">
+      <Filter>SNFramework\Resource</Filter>
+    </Image>
+    <Image Include="..\SNFramework\Resource\SNFrameworkSmallIcon.ico">
+      <Filter>SNFramework\Resource</Filter>
+    </Image>
   </ItemGroup>
 </Project>
