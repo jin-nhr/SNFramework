@@ -23,7 +23,6 @@ public:
 	~SNStorage();
 	
 	// 初期化処理
-	// パラメータ：WinMainのパラメータを渡す
 	Void Initialize();
 	
 	// 起動準備

@@ -42,9 +42,6 @@
     <ClCompile Include="..\SNFramework\System\SNSystem.cpp">
       <Filter>SNFramework\System</Filter>
     </ClCompile>
-    <ClCompile Include="..\SNFramework\Library\SNMemory.cpp">
-      <Filter>SNFramework\Library</Filter>
-    </ClCompile>
     <ClCompile Include="..\SNFramework\Configuration\SNConfiguration.cpp">
       <Filter>SNFramework\Configuration</Filter>
     </ClCompile>
@@ -81,6 +78,33 @@
     <ClCompile Include="..\SNFramework\Library\SNArithmetic.cpp">
       <Filter>SNFramework\Library</Filter>
     </ClCompile>
+    <ClCompile Include="..\SNFramework\Library\SNCriticalSection.cpp">
+      <Filter>SNFramework\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Graphics\SNDeviceContext.cpp">
+      <Filter>SNFramework\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Graphics\SNDDB.cpp">
+      <Filter>SNFramework\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Graphics\SNDIBSection.cpp">
+      <Filter>SNFramework\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Graphics\SNSurface.cpp">
+      <Filter>SNFramework\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Library\SNMemory.cpp">
+      <Filter>SNFramework\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Library\SNState.cpp">
+      <Filter>SNFramework\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Library\SNStateManager.cpp">
+      <Filter>SNFramework\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Library\SNLayerManager.cpp">
+      <Filter>SNFramework\Library</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\SNFramework\System\SNSystem.h">
@@ -100,9 +124,6 @@
     </ClInclude>
     <ClInclude Include="..\SNFramework\Include\SNTypes.h">
       <Filter>SNFramework\Include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SNFramework\Library\SNMemory.h">
-      <Filter>SNFramework\Library</Filter>
     </ClInclude>
     <ClInclude Include="..\SNFramework\Configuration\SNConfiguration.h">
       <Filter>SNFramework\Configuration</Filter>
@@ -138,6 +159,33 @@
       <Filter>SNFramework\Application</Filter>
     </ClInclude>
     <ClInclude Include="..\SNFramework\Library\SNArithmetic.h">
+      <Filter>SNFramework\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Library\SNCriticalSection.h">
+      <Filter>SNFramework\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Graphics\SNDeviceContext.h">
+      <Filter>SNFramework\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Graphics\SNDDB.h">
+      <Filter>SNFramework\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Graphics\SNDIBSection.h">
+      <Filter>SNFramework\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Graphics\SNSurface.h">
+      <Filter>SNFramework\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Library\SNMemory.h">
+      <Filter>SNFramework\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Library\SNState.h">
+      <Filter>SNFramework\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Library\SNStateManager.h">
+      <Filter>SNFramework\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Library\SNLayerManager.h">
       <Filter>SNFramework\Library</Filter>
     </ClInclude>
   </ItemGroup>

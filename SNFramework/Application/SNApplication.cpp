@@ -51,7 +51,6 @@ SNApplication::~SNApplication()
 
 
 // 初期化処理
-// パラメータ：WinMainのパラメータを渡す
 Void SNApplication::Initialize()
 {
 
@@ -132,6 +131,8 @@ SNApplication::SNApplication() : SNThread()
 // スレッドクラスのユーザー実行関数
 Void SNApplication::UserMain()
 {
+	SNGraphics* graphics = SNGraphics::GetInstance();
+
 	// FPSタイマを起動
 	FPSTimer.Start();
 
@@ -167,10 +168,23 @@ Void SNApplication::UserMain()
 
 			// アプリケーション実行
 
-			// 画面更新
+			// 描画処理
+			BitBlt(
+				(HDC)SNGraphics::GetInstance()->GetSurface()->GetDC()->GetDeviceContext(),
+				0,
+				0,
+				SNGraphics::GetInstance()->GetSurface()->GetWidth(),
+				SNGraphics::GetInstance()->GetSurface()->GetHeight(),
+				0,
+				0,
+				0,
+				WHITENESS);
 
+			// サーフェスフリップ
+			graphics->FlipSurface();
 
-			// 画面スワップ
+			// 画面更新通知
+			SNSystem::GetInstance()->NoticeRefreshScreen();
 
 			// FPSカウンター更新
 			FPSCounter.Count();

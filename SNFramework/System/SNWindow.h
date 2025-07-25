@@ -22,6 +22,10 @@ public:
 	// ウインドウハンドル取得
 	Handle GetWindowHandle();
 
+	// クライアント領域DC取得
+	Handle GetClientDC();
+
 private:
 	 Handle WindowHandle;	// ウインドウハンドル
+	 Handle ClientDC;		// クライアント領域DC
 };

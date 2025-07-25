@@ -178,6 +178,28 @@ Void SNSystem::NoticeExitApplication(Boolean permission)
 	return;
 }
 
+// 画面更新通知
+Void SNSystem::NoticeRefreshScreen()
+{
+	// 画面更新通知
+	PostMessage((HWND)Window.GetWindowHandle(), WM_SNFRAMEWORK_NOTICE_REFRESHSCREEN, 0, 0);
+
+	return;
+}
+
+// アプリケーションハンドル取得
+Handle SNSystem::GetApplicationHandle()
+{
+	return ApplicationHandle;
+}
+
+// ウインドウDC取得
+Handle SNSystem::GetWindowDC()
+{
+	// ウインドウDCを返す
+	return Window.GetClientDC();
+}
+
 // コンストラクタ
 // 外部からのインスタンス生成は禁止
 SNSystem::SNSystem()
@@ -191,8 +213,3 @@ SNSystem::SNSystem()
 	return;
 }
 
-// アプリケーションハンドル取得
-Handle SNSystem::GetApplicationHandle()
-{
-	return ApplicationHandle;
-}

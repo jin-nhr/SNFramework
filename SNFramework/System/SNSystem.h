@@ -47,19 +47,23 @@ public:
 	// 終了
 	Void Terminate();
 
-
 	// 終了通知
 	// パラメータ：終了許可(true)/不可(false)
 	Void NoticeExitApplication(Boolean permission);
+
+	// 画面更新通知
+	Void NoticeRefreshScreen();
+
+	// アプリケーションハンドル取得
+	Handle	GetApplicationHandle();
+
+	// ウインドウDC取得
+	Handle GetWindowDC();
 
 private:
 	// コンストラクタ
 	// 外部からのインスタンス生成は禁止
 	SNSystem();
-
-	// アプリケーションハンドル取得
-	Handle	GetApplicationHandle();
-
 
 	Handle	ApplicationHandle;		// アプリケーションハンドル
 	Handle  ApplicationPrevHandle;	// 既存アプリケーションハンドル

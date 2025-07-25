@@ -45,7 +45,6 @@ SNAudioVideo::~SNAudioVideo()
 
 
 // 初期化処理
-// パラメータ：WinMainのパラメータを渡す
 Void SNAudioVideo::Initialize()
 {
 

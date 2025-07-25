@@ -4,6 +4,9 @@
 // メモリクラス
 class SNMemory
 {
+private:
+	static Int32 AlignSize;	// メモリ境界サイズ
+
 public:
 	// コンストラクタ
 	SNMemory();

@@ -16,11 +16,12 @@
 
 // ウインドウズ、Cランタイムのライブラリ
 #pragma comment(lib, "Winmm.lib")
-
+#pragma comment(lib, "Msimg32.lib")
 
 
 // フレームワーク固有のメッセージ
 enum
 {
 	WM_SNFRAMEWORK_NOTICE_EXIT = WM_APP,		// 終了応答
+	WM_SNFRAMEWORK_NOTICE_REFRESHSCREEN,		// 画面更新通知
 };

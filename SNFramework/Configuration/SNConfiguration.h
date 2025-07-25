@@ -10,7 +10,8 @@ struct SNSystemConfiguration
 	Char ApplicationName[SNApplicationNameLength];	// アプリケーション名
 	Boolean DualBootPermission;	// 二重起動許可
 	UInt8 FPS;					// FPS
-	Int8 Reserve[2];			// リザーブ
+	UInt8 SurfaceType;			// サーフェスタイプ
+	Int8 Reserve;				// リザーブ
 	UInt32 ScreenWidth;			// 画面幅
 	UInt32 ScreenHeight;		// 画面高さ
 };

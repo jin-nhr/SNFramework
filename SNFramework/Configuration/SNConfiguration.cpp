@@ -7,12 +7,12 @@
 static const SNSystemConfiguration SystemConfigurationInitialValue = {
 	L"9c8e9666-fd5f-841a-932e-b2635956048e",	// アプリケーションID
 	L"TestApplication",	// アプリケーション名
-	false,		// 二重起動許可 true:許可 false:禁止
-	60,			// FPS
-	0,			// リザーブ
-	0,			// リザーブ
-	800,		// 画面幅
-	600,		// 画面高さ
+	false,			// 二重起動許可 true:許可 false:禁止
+	60,				// FPS
+	SurfaceTypeDDB,	// サーフェスタイプ
+	0,				// リザーブ
+	800,			// 画面幅
+	600,			// 画面高さ
 };
 
 // ユーザーコンフィギュレーション初期値

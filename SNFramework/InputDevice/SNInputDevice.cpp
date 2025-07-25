@@ -45,7 +45,6 @@ SNInputDevice::~SNInputDevice()
 
 
 // 初期化処理
-// パラメータ：WinMainのパラメータを渡す
 Void SNInputDevice::Initialize()
 {
 

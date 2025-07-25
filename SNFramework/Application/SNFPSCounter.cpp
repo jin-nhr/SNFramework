@@ -74,7 +74,7 @@ Void SNFPSCounter::Count()
 		// 現在のカウント値を履歴に保存する
 		history_array[HistoryIndex] = CurrentCount;
 		CurrentCount = 0;
-		HistoryIndex = SNArithmetic::CyclicIncrement(HistoryIndex, 0, SNFPSCOUNTER_MEASURE_TIME - 1);
+		HistoryIndex = (Int32)SNArithmetic::CyclicIncrement(HistoryIndex, 0, SNFPSCOUNTER_MEASURE_TIME - 1);
 
 		// 次のタイムアウト時間をセットする
 		StartTimeMilliSecond = now_time;

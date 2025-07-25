@@ -3,6 +3,7 @@
 #include "../Resource/Resource.h"
 #include "SNSystem.h"
 #include "../Application/SNApplication.h"
+#include "../Graphics/SNGraphics.h"
 
 
 // ウインドウクラス
@@ -14,7 +15,6 @@ Void* __stdcall SNWindow::WindowProc(
     Void* w_param,
     Void* l_param)
 {
-    PAINTSTRUCT ps;
     HDC hdc;
     RECT rect;
     void* ret = 0;
@@ -37,6 +37,19 @@ Void* __stdcall SNWindow::WindowProc(
             // 要求をキャンセルする
             SNApplication::GetInstance()->RequestExitApplication(false);
         }
+        break;
+
+    // 画面更新通知
+    case WM_SNFRAMEWORK_NOTICE_REFRESHSCREEN:
+
+        // DC取得
+        hdc = GetDC((HWND)window_handle);
+
+        // クライアント領域サイズを取得
+        GetClientRect((HWND)window_handle, &rect);
+
+        // 画面描画処理
+        SNGraphics::GetInstance()->DrawScreen((Handle)hdc, rect.right, rect.bottom);
 
         break;
 
@@ -56,17 +69,7 @@ Void* __stdcall SNWindow::WindowProc(
 
     // 描画イベント
     case WM_PAINT:
-        // 描画開始
-        hdc = BeginPaint((HWND)window_handle, &ps);
-
-        // 描画コード
-        GetClientRect((HWND)window_handle, &rect);
-
-        // 黒画描画
-        BitBlt(hdc, 0, 0, rect.right, rect.bottom, hdc, 0, 0, BLACKNESS);
-
-        // 描画終了
-        EndPaint((HWND)window_handle, &ps);
+        // 画面更新はユーザーイベントで行うためWM_PAINTでは処理しない
         break;
 
     // バックグラウンド消去
@@ -107,6 +110,7 @@ SNWindow::SNWindow()
 {
     // 変数初期化
     WindowHandle = nullptr;
+    ClientDC = nullptr;
 
     return;
 }
@@ -133,7 +137,7 @@ Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
 
             wcex.cbSize = sizeof(WNDCLASSEX);
 
-            wcex.style = CS_HREDRAW | CS_VREDRAW;
+            wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
             wcex.lpfnWndProc = (WNDPROC)WindowProc;
             wcex.cbClsExtra = 0;
             wcex.cbWndExtra = 0;
@@ -152,7 +156,6 @@ Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
         {
             // サイズ計算
             RECT win_rect;
-            RECT client_rect;
 
             // 画面幅、高さからクライアント領域の座標を計算
             win_rect.left = 0;
@@ -182,6 +185,14 @@ Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
             ShowWindow((HWND)WindowHandle, show_cmd);
             UpdateWindow((HWND)WindowHandle);
         }
+
+        // クライアント領域DCを取得
+        ClientDC = (Handle)GetDC((HWND)WindowHandle);
+
+        // DCへの初期設定を行う
+        SetBkMode((HDC)ClientDC, TRANSPARENT);
+        SetStretchBltMode((HDC)ClientDC, STRETCH_HALFTONE);
+        SetBrushOrgEx((HDC)ClientDC, 0, 0, NULL);
     }
 
     return;
@@ -194,3 +205,9 @@ Handle SNWindow::GetWindowHandle()
     return WindowHandle;
 }
 
+// クライアント領域DC取得
+Handle SNWindow::GetClientDC()
+{
+    // クライアント領域DCを返す
+    return ClientDC;
+}

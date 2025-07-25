@@ -5,10 +5,24 @@
 // 算術処理クラス
 // 静的メソッドのみの実装とする
 
- // サイクリックインクリメント
-Int32 SNArithmetic::CyclicIncrement(Int32 index, Int32 min, Int32 max)
+
+// 大きい値を選択
+Int64 SNArithmetic::SelectMaximum(Int64 value1, Int64 value2)
 {
-	Int32 ret_index;
+	return (value1 > value2) ? value1 : value2;
+}
+
+// 小さい値を選択
+Int64 SNArithmetic::SelectMinimum(Int64 value1, Int64 value2)
+{
+	return (value1 < value2) ? value1 : value2;
+}
+
+// サイクリックインクリメント
+// 戻り値：min～max
+Int64 SNArithmetic::CyclicIncrement(Int64 index, Int64 min, Int64 max)
+{
+	Int64 ret_index;
 
 	// 最大値以上なら最小値に戻す
 	if (index >= max)
@@ -32,9 +46,10 @@ Int32 SNArithmetic::CyclicIncrement(Int32 index, Int32 min, Int32 max)
 }
 
 // サイクリックデクリメント
-Int32 SNArithmetic::CyclicDecrement(Int32 index, Int32 min, Int32 max)
+// 戻り値：min～max
+Int64 SNArithmetic::CyclicDecrement(Int64 index, Int64 min, Int64 max)
 {
-	Int32 ret_index;
+	Int64 ret_index;
 
 	// 最小値以下なら最大値にする
 	if (index <= min)
