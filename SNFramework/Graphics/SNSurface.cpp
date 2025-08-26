@@ -90,6 +90,12 @@ Int32 SNSurfaceDDB::GetHeight()
 	return DDB.GetHeight();
 }
 
+// DDBŽæ“¾
+SNDDB* SNSurfaceDDB::GetDDB()
+{
+	return &DDB;
+}
+
 
 
 
@@ -156,4 +162,10 @@ Int32 SNSurfaceDIB::GetWidth()
 Int32 SNSurfaceDIB::GetHeight()
 {
 	return DIBSection.GetHeight();
+}
+
+// DIBSectionŽæ“¾
+SNDIBSection* SNSurfaceDIB::GetDIBSection()
+{
+	return &DIBSection;
 }

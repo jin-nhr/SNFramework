@@ -170,10 +170,10 @@ Void SNSystem::Terminate()
 
 // 終了通知
 // パラメータ：終了許可(true)/不可(false)
-Void SNSystem::NoticeExitApplication(Boolean permission)
+Void SNSystem::NoticeExitApplication()
 {
 	// Windowに終了通知を送る
-	PostMessage((HWND)Window.GetWindowHandle(), WM_SNFRAMEWORK_NOTICE_EXIT, (WPARAM)permission, 0);
+	PostMessage((HWND)Window.GetWindowHandle(), WM_SNFRAMEWORK_NOTICE_EXIT, 0, 0);
 
 	return;
 }
@@ -182,7 +182,8 @@ Void SNSystem::NoticeExitApplication(Boolean permission)
 Void SNSystem::NoticeRefreshScreen()
 {
 	// 画面更新通知
-	PostMessage((HWND)Window.GetWindowHandle(), WM_SNFRAMEWORK_NOTICE_REFRESHSCREEN, 0, 0);
+	SNWindow::EnableUpdate = true;
+	InvalidateRect((HWND)Window.GetWindowHandle(), nullptr, FALSE);
 
 	return;
 }
@@ -198,6 +199,21 @@ Handle SNSystem::GetWindowDC()
 {
 	// ウインドウDCを返す
 	return Window.GetClientDC();
+}
+
+Void SNSystem::ScreenToClient(SNPoint* point)
+{
+	POINT win_point;
+
+	win_point.x = point->X;
+	win_point.y = point->Y;
+
+	::ScreenToClient((HWND)Window.GetWindowHandle(), &win_point);
+
+	point->X = win_point.x;
+	point->Y = win_point.y;
+
+	return;
 }
 
 // コンストラクタ

@@ -49,7 +49,7 @@ public:
 
 	// 終了通知
 	// パラメータ：終了許可(true)/不可(false)
-	Void NoticeExitApplication(Boolean permission);
+	Void NoticeExitApplication();
 
 	// 画面更新通知
 	Void NoticeRefreshScreen();
@@ -59,6 +59,10 @@ public:
 
 	// ウインドウDC取得
 	Handle GetWindowDC();
+
+	// 画面座標→クライアント座標変換
+	// パラメータに変換結果を返す
+	Void ScreenToClient(SNPoint* point);
 
 private:
 	// コンストラクタ

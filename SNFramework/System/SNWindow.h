@@ -5,6 +5,9 @@
 class SNWindow
 {
 // 共有メソッド
+public:
+	static Boolean EnableUpdate;
+
 private:
 	// ウインドウプロシージャ
 	static Void* __stdcall WindowProc(Void* window_handle, UInt message, Void* w_param, Void* l_param);

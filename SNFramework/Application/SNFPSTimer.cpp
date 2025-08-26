@@ -1,10 +1,9 @@
 #include "SNFPSTimer.h"
 #include "../System/SNWindowsAPI.h"
+#include "../Configuration/SNConfiguration.h"
+#include "../Configuration/SNConfiguration.h"
 
 // FPSタイマクラス
-
-#define SNFPSTIMER_SLEEP_THRESHOLD_TIME	(2000)
-
 
 // コンストラクタ
 SNFPSTimer::SNFPSTimer()
@@ -13,6 +12,8 @@ SNFPSTimer::SNFPSTimer()
 	IntervalMicroSecond = 0;
 	NextTimeMicroSecond = 0;
 	StartTimeMilliSecond = timeGetTime();
+	SkipFlag = false;
+	SkipCounter = 0;
 
 	return;
 }
@@ -58,6 +59,19 @@ Void SNFPSTimer::Restart()
 	// 開始時間を現在時間で更新
 	StartTimeMilliSecond = now_time;
 
+	// 次回タイムアウト時間を既に経過している場合は
+	// スキップフラグをセットし、カウンタをインクリメントする
+	if ((NextTimeMicroSecond <= 0) && (SkipCounter <= SNConfiguration::GetInstance()->ConfigurationData.System.FrameSkip))
+	{
+		SkipFlag = true;
+		SkipCounter++;
+	}
+	else
+	{
+		SkipFlag = false;
+		SkipCounter = 0;
+	}
+
 	return;
 }
 
@@ -74,14 +88,16 @@ Boolean SNFPSTimer::CheckTimeout()
 // Sleepする
 Void SNFPSTimer::Sleep()
 {
+	UInt32 sleep_threshold = SNConfiguration::GetInstance()->ConfigurationData.System.SleepTimeThreshold;
+
 	// タイムアウトまでの残り時間計算
 	Int64 remaining_time = NextTimeMicroSecond - ((timeGetTime() - StartTimeMilliSecond) * 1000);
 
 	// 残り2ms以上ある？
-	if (remaining_time >= SNFPSTIMER_SLEEP_THRESHOLD_TIME)
+	if (remaining_time >= sleep_threshold)
 	{
 		// 1msのSleepを行う
-		::Sleep(1);
+		::Sleep(0);
 	}
 	else
 	{
@@ -90,4 +106,10 @@ Void SNFPSTimer::Sleep()
 	}
 
 	return;
+}
+
+// スキップフラグ取得
+Boolean SNFPSTimer::GetSkipFlag()
+{
+	return SkipFlag;
 }

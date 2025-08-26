@@ -1,7 +1,7 @@
 #include "SNLayerManager.h"
 
 
-// 状態管理クラス
+// レイヤ管理クラス
 
 // コンストラクタ
 SNLayerManager::SNLayerManager()
@@ -73,17 +73,32 @@ Void SNLayerManager::Exit()
 
 // 1フレーム実行
 // リターン：遷移先コード -1:遷移なし
-SNState::TransitionCode SNLayerManager::Step()
+SNTransitionCode SNLayerManager::Step(SNEvent* event)
 {
 	Int32 loop_cnt;
 
 	for (loop_cnt = 0; loop_cnt < LayerNum; loop_cnt++)
 	{
-		LayerList[loop_cnt]->Step();
+		LayerList[loop_cnt]->Step(event);
 	}
 
 	// リターンコードを還す
-	return SNState::TransitionCode::NoTransition;
+	return SNTransitionCodeNo;
+}
+
+// 描画処理
+Void SNLayerManager::Draw(SNSurface* surface)
+{
+	Int32 loop_cnt;
+
+	// レイヤ登録の逆順に描画することで
+	// 最初のレイヤが一番上、最後のレイヤが一番下になるようにする
+	for (loop_cnt = LayerNum - 1; loop_cnt >= 0; loop_cnt--)
+	{
+		LayerList[loop_cnt]->Draw(surface);
+	}
+
+	return;
 }
 
 // レイヤ情報設定

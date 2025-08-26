@@ -51,6 +51,9 @@ public:
 	// 画面描画処理
 	Void DrawScreen(Handle hdc, Int32 width, Int32 height);
 
+	// 画面座標系→サーフェス座標に変換
+	// 引数：画面座標を入力/ 処理後、サーフェス座標に更新する
+	Void ScreenToSurface(SNPoint* point);
 
 private:
 	// コンストラクタ
@@ -58,7 +61,10 @@ private:
 	SNGraphics();
 
 	// 画面バッファ用クリティカルセクション
-	SNCriticalSection CriticalSectionForScreen;
+	SNCriticalSection* CriticalSectionForScreen;
+
+	// 描画矩形データ用クリティカルセクション
+	SNCriticalSection* CriticalSectionForDrawRect;
 
 	// 画面サーフェス
 	SNSurface* ScreenSurface[2];

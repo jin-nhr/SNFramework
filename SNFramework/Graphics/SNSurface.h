@@ -55,6 +55,9 @@ public:
 	// ‚‚³æ“¾
 	Int32 GetHeight() override;
 
+	// DDBæ“¾
+	SNDDB* GetDDB();
+
 private:
 	SNDDB DDB;	// DDB
 };
@@ -81,6 +84,9 @@ public:
 
 	// ‚‚³æ“¾
 	Int32 GetHeight() override;
+
+	// DIBSectionæ“¾
+	SNDIBSection* GetDIBSection();
 
 private:
 	SNDIBSection DIBSection;	// DIBSection

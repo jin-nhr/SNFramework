@@ -69,17 +69,17 @@ Void SNStateManager::Exit()
 // リターン：遷移先コード
 //           -1:遷移なし
 //           0~:状態クラス毎に規程する遷移先コード
-SNState::TransitionCode SNStateManager::Step()
+SNTransitionCode SNStateManager::Step(SNEvent* event)
 {
-	SNState::TransitionCode transition_code;
+	SNTransitionCode transition_code;
 	UInt8 next_state;
 
 	// 現在状態のStepを実行
-	transition_code = StateList[NowState]->Step();
+	transition_code = StateList[NowState]->Step(event);
 
 	// 遷移コードが有効範囲かチェック
-	if (SNState::TransitionCode::Code1 <= transition_code &&
-		transition_code <= SNState::TransitionCode::Code4)
+	if (SNTransitionCode1 <= transition_code &&
+		transition_code <= SNTransitionCode4)
 	{
 		// 遷移コードより遷移先状態を取得
 		next_state = TransitionInfo[NowState].DestinationState[transition_code];
@@ -113,10 +113,19 @@ SNState::TransitionCode SNStateManager::Step()
 	return TransitionInfo[NowState].ReturnCode;
 }
 
-// 遷移情報設定
-Void SNStateManager::SetTranstionInfo(UInt8 state_num, SNState** state_list, SNStateTransitionInfo* transition_info)
+// 描画処理
+Void SNStateManager::Draw(SNSurface* surface)
 {
-	// パラメータをメンバ変数に保持する
+	// 現在状態の描画処理を実行
+	StateList[NowState]->Draw(surface);
+
+	return;
+}
+
+// 遷移情報設定 (遷移先情報を設定する)
+Void SNStateManager::SetTransitionInfo(UInt8 state_num, SNState** state_list, SNStateTransitionInfo* transition_info)
+{
+	// 遷移情報を設定
 	StateNum = state_num;
 	StateList = state_list;
 	TransitionInfo = transition_info;

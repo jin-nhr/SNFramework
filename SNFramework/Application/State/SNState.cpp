@@ -43,7 +43,13 @@ Void SNState::Exit()
 // リターン：遷移先コード
 //           -1:遷移なし
 //           0~:状態クラス毎に規程する遷移先コード
-SNState::TransitionCode SNState::Step()
+SNTransitionCode SNState::Step(SNEvent* event)
 {
-	return TransitionCode::NoTransition;
+	return SNTransitionCodeNo;
+}
+
+// 描画処理
+Void SNState::Draw(SNSurface* surface)
+{
+	return;
 }

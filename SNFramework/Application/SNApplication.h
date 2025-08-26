@@ -3,6 +3,12 @@
 #include "../Library/SNThread.h"
 #include "SNFPSTimer.h"
 #include "SNFPSCounter.h"
+#include "SNStopWatch.h"
+#include "Layer/SNLayerManager.h"
+#include "Layer/SNSystemLayer.h"
+#include "Layer/SNDebugLayer.h"
+#include "Layer/SNApplicationLayer.h"
+#include "Layer/SNBackGroundLayer.h"
 
 
 // アプリケーションクラス
@@ -42,9 +48,33 @@ public:
 	// 終了
 	Void Terminate();
 
-	// 終了要求
-	// パラメータ：終了要求 true:終了要求 false:キャンセル
-	Void RequestExitApplication(Boolean request_exit);
+	// イベント情報取得
+	SNApplicationEventInfo* GetEventInfo();
+
+	/////////////////////////////////////
+	// イベント通知
+	// アクティブ通知
+	Void NotifyActive();
+
+	// 非アクティブ通知
+	Void NotifyNonActive();
+
+	// 終了通知
+	Void NotifyExitApplication();
+
+	// ホイールUp通知
+	Void NotifyWheelUp();
+
+	// ホイールDown通知
+	Void NotifyWheelDown();
+
+	/////////////////////////////////////
+	// 情報取得
+	// FPS取得
+	UInt32 GetFPS();
+
+	// 平均時間取得
+	UInt32 GetProcTime();
 
 private:
 	// コンストラクタ
@@ -54,9 +84,27 @@ private:
 	// スレッドクラスのユーザー実行関数
 	Void UserMain();
 
+	// イベントスナップショット
+	Void SnapshotEvent();
 
-	SNFPSTimer FPSTimer;		// FPSタイマ
-	SNFPSCounter FPSCounter;	// FPSカウンター
-	Boolean RequestExitFlag;	// 終了要求フラグ
+
+	SNFPSTimer* FPSTimer;		// FPSタイマ
+	SNFPSCounter* FPSCounter;	// FPSカウンター
+	SNStopWatch* ApplicationTimeWatcher;	// アプリケーション処理時間測定
+
+	SNLayerManager* ApplicationLayerManager;	// アプリケーションレイヤ管理
+
+	// レイヤ
+	SNDebugLayer*		DebugLayer;			// デバッグレイヤ
+	SNSystemLayer*		SystemLayer;		// システムレイヤ
+	SNApplicationLayer*	ApplicationLayer;	// アプリケーションレイヤ
+	SNBackGroundLayer*	BackGroundLayer;	// バックグラウンドレイヤ
+
+	SNEvent* Event;							// イベントクラス
+
+	static const UInt8	ApplicationLayerNum = 4;		// アプリケーションレイヤ数
+
+	SNState* ApplicationLayerList[ApplicationLayerNum];	// アプリケーションレイヤリスト
+	SNApplicationEventInfo NotifyEvent;					// イベント情報
+	SNApplicationEventInfo EventSnapshot;				// イベント情報スナップショット
 };
-

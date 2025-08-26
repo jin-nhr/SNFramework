@@ -1,23 +1,12 @@
 #pragma once
-#include "../Include/SNFramework.h"
+#include "../../Include/SNFramework.h"
+#include "../../Graphics/SNSurface.h"
+#include "../SNEvent.h"
 
 // 状態クラス
 class SNState
 {
 public:
-	// 遷移先コード
-	// -1:遷移なし
-	// 0~:状態クラス毎に規程する
-	enum TransitionCode
-	{
-		NoTransition = -1,
-		Code1 = 0,
-		Code2 = 1,
-		Code3 = 2,
-		Code4 = 3,
-		MaxNum = 4,
-	};
-
 	// コンストラクタ
 	SNState();
 
@@ -38,9 +27,11 @@ public:
 
 	// 1フレーム実行
 	// リターン：遷移先コード
-	virtual TransitionCode Step();
+	virtual SNTransitionCode Step(SNEvent* event);
 
-private:
+	// 描画処理
+	virtual Void Draw(SNSurface* surface);
+
+protected:
 
 };
-

@@ -1,20 +1,20 @@
 #include "SNFPSCounter.h"
 #include "../System/SNWindowsAPI.h"
 #include "../Library/SNArithmetic.h"
+#include "../Configuration/SNConfiguration.h"
 
 // FPSカウンタークラス
-
-#define SNFPSCOUNTER_MILLISECOND	1000	// 1秒→マイクロ秒変換値
-#define SNFPSCOUNTER_MEASURE_TIME	10		// 測定時間(秒)
 
 // コンストラクタ
 SNFPSCounter::SNFPSCounter()
 {
+	UInt32 measure_time = SNConfiguration::GetInstance()->ConfigurationData.System.FPSMeasureTime;
+
 	// 変数初期化
 	NextTimeMilliSecond = 0;
 	StartTimeMilliSecond = timeGetTime();
 	
-	HistoryCount.Allocate(sizeof(UInt32) * SNFPSCOUNTER_MEASURE_TIME);
+	HistoryCount.Allocate(sizeof(UInt32) * measure_time);
 	HistoryCount.Clear();
 
 	HistoryIndex = 0;
@@ -41,7 +41,7 @@ Void SNFPSCounter::Start()
 	StartTimeMilliSecond = timeGetTime();
 
 	// タイムアウト時間を設定
-	NextTimeMilliSecond = SNFPSCOUNTER_MILLISECOND;
+	NextTimeMilliSecond = SNFPSCounterMilliSecond;
 
 	// カウンタクリア
 	CurrentCount = 0;
@@ -54,6 +54,8 @@ Void SNFPSCounter::Start()
 // カウント
 Void SNFPSCounter::Count()
 {
+	UInt32 measure_time = SNConfiguration::GetInstance()->ConfigurationData.System.FPSMeasureTime;
+
 	// 現在時間取得
 	UInt32 now_time = timeGetTime();
 
@@ -74,11 +76,11 @@ Void SNFPSCounter::Count()
 		// 現在のカウント値を履歴に保存する
 		history_array[HistoryIndex] = CurrentCount;
 		CurrentCount = 0;
-		HistoryIndex = (Int32)SNArithmetic::CyclicIncrement(HistoryIndex, 0, SNFPSCOUNTER_MEASURE_TIME - 1);
+		HistoryIndex = (Int32)SNArithmetic::CyclicIncrement(HistoryIndex, 0, measure_time - 1);
 
 		// 次のタイムアウト時間をセットする
 		StartTimeMilliSecond = now_time;
-		NextTimeMilliSecond = SNFPSCOUNTER_MILLISECOND - (elapsed_time % SNFPSCOUNTER_MILLISECOND);
+		NextTimeMilliSecond = SNFPSCounterMilliSecond - (elapsed_time - SNFPSCounterMilliSecond);
 	}
 
 	// カウンタインクリメント
@@ -90,7 +92,8 @@ Void SNFPSCounter::Count()
 // FPS取得
 UInt32 SNFPSCounter::GetFPS()
 {
-	// 秒間のFPSを計算して返す
-	return ((TotalCount + SNFPSCOUNTER_MEASURE_TIME / 2) / SNFPSCOUNTER_MEASURE_TIME);
-}
+	UInt32 measure_time = SNConfiguration::GetInstance()->ConfigurationData.System.FPSMeasureTime;
 
+	// 秒間のFPSを計算して返す
+	return ((TotalCount + measure_time / 2) / measure_time);
+}

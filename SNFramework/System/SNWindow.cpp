@@ -8,6 +8,8 @@
 
 // ウインドウクラス
 
+Boolean SNWindow::EnableUpdate = false;
+
 // ウインドウプロシージャ
 Void* __stdcall SNWindow::WindowProc(
     Void* window_handle,
@@ -15,42 +17,17 @@ Void* __stdcall SNWindow::WindowProc(
     Void* w_param,
     Void* l_param)
 {
-    HDC hdc;
     RECT rect;
-    void* ret = 0;
+    Void* ret = 0;
+    Int32 wheel_updown;
+    PAINTSTRUCT ps;
 
     switch (message)
     {
     // 終了通知
     case WM_SNFRAMEWORK_NOTICE_EXIT:
-
-        // 終了許可の場合
-        if (static_cast<Boolean>(reinterpret_cast<intptr_t>(w_param)))
-        {
-            // ウインドウ破棄命令
-            DestroyWindow((HWND)window_handle);
-        }
-
-        // 終了不可の場合
-        else
-        {
-            // 要求をキャンセルする
-            SNApplication::GetInstance()->RequestExitApplication(false);
-        }
-        break;
-
-    // 画面更新通知
-    case WM_SNFRAMEWORK_NOTICE_REFRESHSCREEN:
-
-        // DC取得
-        hdc = GetDC((HWND)window_handle);
-
-        // クライアント領域サイズを取得
-        GetClientRect((HWND)window_handle, &rect);
-
-        // 画面描画処理
-        SNGraphics::GetInstance()->DrawScreen((Handle)hdc, rect.right, rect.bottom);
-
+        // ウインドウ破棄命令
+        DestroyWindow((HWND)window_handle);
         break;
 
     // キーのアップダウンイベント
@@ -62,14 +39,32 @@ Void* __stdcall SNWindow::WindowProc(
 
     // ウインドウクローズイベント
     case WM_CLOSE:
-
-        // アプリケーションスレッドに対して終了要求
-        SNApplication::GetInstance()->RequestExitApplication(true);
+        // アプリケーションスレッドに対して終了通知
+        SNApplication::GetInstance()->NotifyExitApplication();
         break;
+
+    // セッション終了確認
+    case WM_QUERYENDSESSION:
+        // アプリケーションスレッドに対して終了通知
+        SNApplication::GetInstance()->NotifyExitApplication();
+
+        // Windowsに対しては終了を拒否し、アプリケーション独自に終了処理を実行する
+        // 拒否した場合でもWindowsからプロセスをキルされる可能性はある
+        return (Void*)FALSE;
 
     // 描画イベント
     case WM_PAINT:
-        // 画面更新はユーザーイベントで行うためWM_PAINTでは処理しない
+        BeginPaint((HWND)window_handle, &ps);
+        if (EnableUpdate)
+        {
+            // クライアント領域サイズを取得
+            GetClientRect((HWND)window_handle, &rect);
+
+            // 画面描画処理
+            SNGraphics::GetInstance()->DrawScreen((Handle)ps.hdc, rect.right, rect.bottom);
+        }
+        EndPaint((HWND)window_handle, &ps);
+
         break;
 
     // バックグラウンド消去
@@ -80,13 +75,46 @@ Void* __stdcall SNWindow::WindowProc(
 
         // SNFrameworkでは毎周期再描画を行うのでバックグラウンド消去処理はせずに
         // 0以外の値を返すことで余計な消去処理を動作させないようにする
-        return (void*)1;
+        return (Void*)1;
 
         // ウインドウアクティベイト
-    //    case WM_ACTIVATE:
-    //        Window::m_Active = (((DWORD)wParam & 0x0000FFFF) != WA_INACTIVE);
-    //        (void*)DefWindowProc((HWND)hWnd, message, (WPARAM)wParam, (LPARAM)lParam);
-    //        break;
+    case WM_ACTIVATE:
+        // アクティブならtrue, 非アクティブならfalse
+        if (static_cast<DWORD>(reinterpret_cast<intptr_t>(w_param) & 0x0000FFFF) != WA_INACTIVE)
+        {
+            // アクティブ通知
+            SNApplication::GetInstance()->NotifyActive();
+        }
+        else
+        {
+            // 非アクティブ通知
+            SNApplication::GetInstance()->NotifyNonActive();
+        }
+
+        // ウインドウデフォルト処理
+        (void*)DefWindowProc((HWND)window_handle, message, (WPARAM)w_param, (LPARAM)l_param);
+        break;
+
+    // マウスホイール
+    case WM_MOUSEWHEEL:
+        // 回転量を取得
+        wheel_updown = GET_WHEEL_DELTA_WPARAM(w_param);
+
+        // 正ならUp
+        if (wheel_updown > 0)
+        {
+            SNApplication::GetInstance()->NotifyWheelUp();
+        }
+        // 負ならDown
+        else if (wheel_updown < 0)
+        {
+            SNApplication::GetInstance()->NotifyWheelDown();
+        }
+        else
+        {
+            // 0のときは通知なし
+        }
+        break;
 
     // ウインドウ破棄
     case WM_DESTROY:
@@ -97,12 +125,11 @@ Void* __stdcall SNWindow::WindowProc(
     // その他イベント
     default:
         // デフォルトのプロシージャ実行
-        return (void*)DefWindowProc((HWND)window_handle, message, (WPARAM)w_param, (LPARAM)l_param);
+        return (Void*)DefWindowProc((HWND)window_handle, message, (WPARAM)w_param, (LPARAM)l_param);
     }
 
     return 0;
 }
-
 
 
 // コンストラクタ

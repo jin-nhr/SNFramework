@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
@@ -11,9 +11,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\SNFramework\Application\GUI\SNGUIBase.cpp" />
+    <ClCompile Include="..\SNFramework\Application\GUI\SNGUIContainer.cpp" />
+    <ClCompile Include="..\SNFramework\Application\GUI\SNGUIMonoRect.cpp" />
+    <ClCompile Include="..\SNFramework\Application\GUI\SNGUITextLabel.cpp" />
+    <ClCompile Include="..\SNFramework\Application\GUI\SNGUITextLabelEx.cpp" />
+    <ClCompile Include="..\SNFramework\Application\Layer\SNApplicationLayer.cpp" />
+    <ClCompile Include="..\SNFramework\Application\Layer\SNBackGroundLayer.cpp" />
+    <ClCompile Include="..\SNFramework\Application\Layer\SNDebugLayer.cpp" />
+    <ClCompile Include="..\SNFramework\Application\Layer\SNLayerManager.cpp" />
+    <ClCompile Include="..\SNFramework\Application\Layer\SNSystemLayer.cpp" />
     <ClCompile Include="..\SNFramework\Application\SNApplication.cpp" />
+    <ClCompile Include="..\SNFramework\Application\SNEvent.cpp" />
     <ClCompile Include="..\SNFramework\Application\SNFPSCounter.cpp" />
     <ClCompile Include="..\SNFramework\Application\SNFPSTimer.cpp" />
+    <ClCompile Include="..\SNFramework\Application\SNStopWatch.cpp" />
+    <ClCompile Include="..\SNFramework\Application\SNSoftTimer.cpp" />
+    <ClCompile Include="..\SNFramework\Application\SNUserApplication.cpp" />
+    <ClCompile Include="..\SNFramework\Application\State\SNState.cpp" />
+    <ClCompile Include="..\SNFramework\Application\State\SNStateManager.cpp" />
     <ClCompile Include="..\SNFramework\AudioVideo\SNAudioVideo.cpp" />
     <ClCompile Include="..\SNFramework\Configuration\SNConfiguration.cpp" />
     <ClCompile Include="..\SNFramework\Graphics\SNDDB.cpp" />
@@ -22,23 +38,41 @@
     <ClCompile Include="..\SNFramework\Graphics\SNGraphics.cpp" />
     <ClCompile Include="..\SNFramework\Graphics\SNSurface.cpp" />
     <ClCompile Include="..\SNFramework\InputDevice\SNInputDevice.cpp" />
+    <ClCompile Include="..\SNFramework\InputDevice\SNGamePad.cpp" />
+    <ClCompile Include="..\SNFramework\InputDevice\SNKeyboard.cpp" />
+    <ClCompile Include="..\SNFramework\InputDevice\SNMouse.cpp" />
     <ClCompile Include="..\SNFramework\Library\SNArithmetic.cpp" />
     <ClCompile Include="..\SNFramework\Library\SNCriticalSection.cpp" />
-    <ClCompile Include="..\SNFramework\Library\SNLayerManager.cpp" />
     <ClCompile Include="..\SNFramework\Library\SNMemory.cpp" />
     <ClCompile Include="..\SNFramework\Library\SNMutex.cpp" />
-    <ClCompile Include="..\SNFramework\Library\SNState.cpp" />
-    <ClCompile Include="..\SNFramework\Library\SNStateManager.cpp" />
     <ClCompile Include="..\SNFramework\Library\SNThread.cpp" />
     <ClCompile Include="..\SNFramework\Storage\SNStorage.cpp" />
     <ClCompile Include="..\SNFramework\System\SNEntryPoint.cpp" />
     <ClCompile Include="..\SNFramework\System\SNSystem.cpp" />
     <ClCompile Include="..\SNFramework\System\SNWindow.cpp" />
+    <ClCompile Include="..\UserApplication\TestApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\SNFramework\Application\GUI\SNGUIBase.h" />
+    <ClInclude Include="..\SNFramework\Application\GUI\SNGUIContainer.h" />
+    <ClInclude Include="..\SNFramework\Application\GUI\SNGUIMonoRect.h" />
+    <ClInclude Include="..\SNFramework\Application\GUI\SNGUITextLabel.h" />
+    <ClInclude Include="..\SNFramework\Application\GUI\SNGUITextLabelEx.h" />
+    <ClInclude Include="..\SNFramework\Application\Layer\SNApplicationLayer.h" />
+    <ClInclude Include="..\SNFramework\Application\Layer\SNBackGroundLayer.h" />
+    <ClInclude Include="..\SNFramework\Application\Layer\SNDebugLayer.h" />
+    <ClInclude Include="..\SNFramework\Application\Layer\SNLayer.h" />
+    <ClInclude Include="..\SNFramework\Application\Layer\SNLayerManager.h" />
+    <ClInclude Include="..\SNFramework\Application\Layer\SNSystemLayer.h" />
     <ClInclude Include="..\SNFramework\Application\SNApplication.h" />
+    <ClInclude Include="..\SNFramework\Application\SNEvent.h" />
     <ClInclude Include="..\SNFramework\Application\SNFPSCounter.h" />
     <ClInclude Include="..\SNFramework\Application\SNFPSTimer.h" />
+    <ClInclude Include="..\SNFramework\Application\SNStopWatch.h" />
+    <ClInclude Include="..\SNFramework\Application\SNSoftTimer.h" />
+    <ClInclude Include="..\SNFramework\Application\SNUserApplication.h" />
+    <ClInclude Include="..\SNFramework\Application\State\SNState.h" />
+    <ClInclude Include="..\SNFramework\Application\State\SNStateManager.h" />
     <ClInclude Include="..\SNFramework\AudioVideo\SNAudioVideo.h" />
     <ClInclude Include="..\SNFramework\Configuration\SNConfiguration.h" />
     <ClInclude Include="..\SNFramework\Graphics\SNDDB.h" />
@@ -46,16 +80,20 @@
     <ClInclude Include="..\SNFramework\Graphics\SNDIBSection.h" />
     <ClInclude Include="..\SNFramework\Graphics\SNGraphics.h" />
     <ClInclude Include="..\SNFramework\Graphics\SNSurface.h" />
+    <ClInclude Include="..\SNFramework\Include\SNConst.h" />
+    <ClInclude Include="..\SNFramework\Include\SNEnum.h" />
     <ClInclude Include="..\SNFramework\Include\SNFramework.h" />
+    <ClInclude Include="..\SNFramework\Include\SNFrameworkImport.h" />
+    <ClInclude Include="..\SNFramework\Include\SNStruct.h" />
     <ClInclude Include="..\SNFramework\Include\SNTypes.h" />
     <ClInclude Include="..\SNFramework\InputDevice\SNInputDevice.h" />
+    <ClInclude Include="..\SNFramework\InputDevice\SNGamePad.h" />
+    <ClInclude Include="..\SNFramework\InputDevice\SNKeyboard.h" />
+    <ClInclude Include="..\SNFramework\InputDevice\SNMouse.h" />
     <ClInclude Include="..\SNFramework\Library\SNArithmetic.h" />
     <ClInclude Include="..\SNFramework\Library\SNCriticalSection.h" />
-    <ClInclude Include="..\SNFramework\Library\SNLayerManager.h" />
     <ClInclude Include="..\SNFramework\Library\SNMemory.h" />
     <ClInclude Include="..\SNFramework\Library\SNMutex.h" />
-    <ClInclude Include="..\SNFramework\Library\SNState.h" />
-    <ClInclude Include="..\SNFramework\Library\SNStateManager.h" />
     <ClInclude Include="..\SNFramework\Library\SNThread.h" />
     <ClInclude Include="..\SNFramework\Resource\Resource.h" />
     <ClInclude Include="..\SNFramework\Storage\SNStorage.h" />
@@ -63,6 +101,7 @@
     <ClInclude Include="..\SNFramework\System\SNTargetVersion.h" />
     <ClInclude Include="..\SNFramework\System\SNWindow.h" />
     <ClInclude Include="..\SNFramework\System\SNWindowsAPI.h" />
+    <ClInclude Include="..\UserApplication\TestApplication.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\SNFramework\Resource\Resource.rc" />
