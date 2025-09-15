@@ -9,61 +9,33 @@
 
 // アプリケーションクラス
 
+SNThread* SNApplication::ApplicationThread;	// アプリケーションスレッド
+SNFPSTimer SNApplication::FPSTimer;		// FPSタイマ
+SNFPSCounter SNApplication::FPSCounter;	// FPSカウンター
+SNStopWatch SNApplication::ApplicationTimeWatcher;	// アプリケーション処理時間測定
+SNLayerController SNApplication::LayerController;		// レイヤ制御
+SNDebugLayer		SNApplication::DebugLayer;			// デバッグレイヤ
+SNSystemLayer		SNApplication::SystemLayer;			// システムレイヤ
+SNApplicationLayer	SNApplication::ApplicationLayer;	// アプリケーションレイヤ
+SNBackGroundLayer	SNApplication::BackGroundLayer;		// バックグラウンドレイヤ
 
-// 共通メソッド/データ
+SNEvent SNApplication::Event;							// イベントクラス
 
-// インスタンス生成/取得
-SNApplication* SNApplication::GetInstance()
-{
-	if (Me == nullptr)
-	{
-		Me = new SNApplication;
-	}
-
-	return Me;
-}
-
-// インスタンス破棄
-Void SNApplication::Destroy()
-{
-	if (Me != nullptr)
-	{
-		delete Me;
-	}
-
-	Me = nullptr;
-
-	return;
-}
-
-
-// 自身のインスタンス
-SNApplication* SNApplication::Me = nullptr;
-
-
-
-// インスタンスメソッド/データ
-
-// デストラクタ
-SNApplication::~SNApplication()
-{
-	return;
-}
+SNApplicationEventInfo SNApplication::NotifyEvent;		// イベント情報
+SNApplicationEventInfo SNApplication::EventSnapshot;	// イベント情報スナップショット
 
 
 // 初期化処理
 Void SNApplication::Initialize()
 {
-	// 各クラスインスタンス生成
-	FPSTimer = new SNFPSTimer;
-	FPSCounter = new SNFPSCounter;
-	ApplicationTimeWatcher = new SNStopWatch;
-	ApplicationLayerManager = new SNLayerManager;
-	DebugLayer = new SNDebugLayer;
-	SystemLayer = new SNSystemLayer;
-	ApplicationLayer = new SNApplicationLayer;
-	BackGroundLayer = new SNBackGroundLayer;
-	Event = new SNEvent;
+	Int32 cnt = 0;
+
+	// 変数初期化
+	NotifyEvent = { 0 };
+	EventSnapshot = { 0 };
+
+	// アプリケーションスレッド生成
+	ApplicationThread = new SNApplicationThread;
 
 	return;
 }
@@ -71,40 +43,27 @@ Void SNApplication::Initialize()
 // 起動準備
 Void SNApplication::Startup()
 {
-	// コンフィギュレーション取得
-	SNConfigurationData* configuration = &SNConfiguration::GetInstance()->ConfigurationData;
-
 	// FPS設定
-	FPSTimer->SetPFS(configuration->System.FPS);
+	FPSTimer.SetPFS(SNConfiguration::SystemConfiguration.FPS);
 
 	// ソフトタイマの初期化
-	SNSoftTimer::Initialize(configuration->System.FPS);
+	SNSoftTimer::Initialize(SNConfiguration::SystemConfiguration.FPS);
 
-	// レイヤリスト構成
-	ApplicationLayerList[0] = DebugLayer;
-	ApplicationLayerList[1] = SystemLayer;
+	// レイヤ数設定
+	LayerController.SetSceneNum(4);
 
-	// ユーザーアプリケーション未登録
-	if (SNUserApplication::UserApplication == nullptr)
-	{
-		ApplicationLayerList[2] = ApplicationLayer;
-	}
-	// ユーザーアプリケーション登録済み
-	else
-	{
-		ApplicationLayerList[2] = SNUserApplication::UserApplication;
-	}
-	ApplicationLayerList[3] = BackGroundLayer;
-
-	// レイヤリストをセット
-	ApplicationLayerManager->SetLayerInfo(ApplicationLayerNum, ApplicationLayerList);
+	// レイヤ設定
+	LayerController.SetScene(&DebugLayer);
+	LayerController.SetScene(&SystemLayer);
+	LayerController.SetScene(&ApplicationLayer);
+	LayerController.SetScene(&BackGroundLayer);
 
 	// アプリケーションレイヤ管理を初期化
 	// リスト登録後の実行なら、登録したレイヤの初期化も実行される
-	ApplicationLayerManager->Initialize();
+	LayerController.Initialize();
 
 	// イベント初期化
-	Event->Initialize();
+	Event.Initialize();
 
 	return;
 }
@@ -114,7 +73,7 @@ Void SNApplication::Startup()
 Int32 SNApplication::Run()
 {
 	// スレッドクラスのRunを実行しスレッド生成/起動
-	SNThread::Run();
+	ApplicationThread->Run();
 
 	return 0;
 }
@@ -126,10 +85,10 @@ Void SNApplication::BeforeTerminate()
 	SNSoftTimer::Terminate();
 
 	// イベント終了
-	Event->Terminate();
+	Event.Terminate();
 
 	// アプリケーションレイヤ管理終了
-	ApplicationLayerManager->Terminate();
+	LayerController.Terminate();
 
 	return;
 }
@@ -137,17 +96,8 @@ Void SNApplication::BeforeTerminate()
 // 終了
 Void SNApplication::Terminate()
 {
-	// インスタンス破棄
-	delete ApplicationLayerManager;	// 子レイヤ破棄前にManager破棄
-
-	delete FPSTimer;
-	delete FPSCounter;
-	delete ApplicationTimeWatcher;
-	delete DebugLayer;
-	delete SystemLayer;
-	delete ApplicationLayer;
-	delete BackGroundLayer;
-	delete Event;
+	// スレッドクラス破棄
+	delete ApplicationThread;
 
 	return;
 }
@@ -201,125 +151,92 @@ Void SNApplication::NotifyWheelDown()
 // FPS取得
 UInt32 SNApplication::GetFPS()
 {
-	return FPSCounter->GetFPS();
+	return FPSCounter.GetFPS();
 }
 
 // 平均時間取得
 UInt32 SNApplication::GetProcTime()
 {
-	return ApplicationTimeWatcher->GetAverage();
+	return ApplicationTimeWatcher.GetAverage();
 }
-
-
-
-// コンストラクタ
-// 外部からのインスタンス生成は禁止
-SNApplication::SNApplication() : SNThread()
-{
-	Int32 cnt = 0;
-
-	// 変数初期化
-	NotifyEvent = {0};
-	EventSnapshot = {0};
-
-	for (cnt = 0; cnt < ApplicationLayerNum; cnt++)
-	{
-		ApplicationLayerList[cnt] = nullptr;
-	}
-
-	FPSTimer = nullptr;
-	FPSCounter = nullptr;
-	ApplicationTimeWatcher = nullptr;
-	ApplicationLayerManager = nullptr;
-	DebugLayer = nullptr;
-	SystemLayer = nullptr;
-	ApplicationLayer = nullptr;
-	BackGroundLayer = nullptr;
-	Event = nullptr;
-
-	return;
-}
-
 
 // スレッドクラスのユーザー実行関数
 Void SNApplication::UserMain()
 {
-	SNGraphics* graphics = SNGraphics::GetInstance();
-
 	// FPSタイマを起動
-	FPSTimer->Start();
+	FPSTimer.Start();
 
 	// FPSカウンター起動
-	FPSCounter->Start();
+	FPSCounter.Start();
 
-	// アプリケーションレイヤ管理Entry
-	ApplicationLayerManager->Entry();
+	// レイヤ制御Entry
+	LayerController.Entry();
 
 	// メインループ
 	while (true)
 	{
 		// フレーム処理タイミングか確認
-		if (FPSTimer->CheckTimeout())
+		if (FPSTimer.CheckTimeout())
 		{
 			// 処理時間計測開始
-			ApplicationTimeWatcher->Start(false);
+			ApplicationTimeWatcher.Start(false);
 
 			// FPSタイマリスタート
-			FPSTimer->Restart();
+			FPSTimer.Restart();
 
 			// ソフトタイマカウント
 			SNSoftTimer::Count();
 
+			// イベントスナップショット
+			SnapshotEvent();
+
+			// 入力デバイスチェック
+			SNInputDevice::Update();
+
+			// イベント更新
+			Event.Update();
+
+			// アプリケーション実行
+			LayerController.Step(&Event);
+
 			// FPSの状態によってスキップ判定
-			if (!FPSTimer->GetSkipFlag())
+			if (!FPSTimer.GetSkipFlag())
 			{
-				// イベントスナップショット
-				SnapshotEvent();
-
-				// 入力デバイスチェック
-				SNInputDevice::GetInstance()->Update();
-
-				// イベント更新
-				Event->Update();
-
-				// アプリケーション実行
-				ApplicationLayerManager->Step(Event);
-
 				// 描画処理
-				ApplicationLayerManager->Draw(graphics->GetSurface());
+				LayerController.Draw(SNGraphics::GetSurface());
 
 				// サーフェスフリップ
-				graphics->FlipSurface();
+				SNGraphics::FlipSurface();
 
 				// 画面更新通知
-				SNSystem::GetInstance()->NoticeRefreshScreen();
+				SNSystem::NoticeRefreshScreen();
 
 				// FPSカウンター更新
-				FPSCounter->Count();
+				FPSCounter.Count();
 			}
 
 			// リザルト = アプリ終了
-			if (Event->Result.ExitApplication)
+			if (Event.Result.ExitApplication)
 			{
 				break;
 			}
 
 			//　処理時間計測停止
-			ApplicationTimeWatcher->Stop();
+			ApplicationTimeWatcher.Stop();
 		}
 
 		else
 		{
 			// Sleepする
-			FPSTimer->Sleep();
+			FPSTimer.Sleep();
 		}
 	}
 
-	// アプリケーションレイヤ管理EExit
-	ApplicationLayerManager->Exit();
+	// レイヤ制御Entry
+	LayerController.Exit();
 
 	// 終了通知を送る
-	SNSystem::GetInstance()->NoticeExitApplication();
+	SNSystem::NoticeExitApplication();
 
 	return;
 }
@@ -372,5 +289,12 @@ Void SNApplication::SnapshotEvent()
 		NotifyEvent.WheelDown = false;
 	}
 
+	return;
+}
+
+// アプリケーションスレッドメイン
+Void SNApplicationThread::UserMain()
+{
+	SNApplication::UserMain();
 	return;
 }

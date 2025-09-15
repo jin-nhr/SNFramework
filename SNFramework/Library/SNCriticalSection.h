@@ -21,6 +21,6 @@ public:
 	Void Unlock();
 
 private:
-	Handle CriticalSection;
+	Handle CriticalSection;		// クリティカルセクション
 };
 

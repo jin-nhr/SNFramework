@@ -19,17 +19,16 @@ SNGUITextLabel::SNGUITextLabel()
 // デストラクタ
 SNGUITextLabel::~SNGUITextLabel()
 {
-	Text.Free();
 	return;
 }
 
 // 初期化
-Void SNGUITextLabel::Initialize()
+Void SNGUITextLabel::OnInitialize()
 {
-	UInt32 text_length = SNConfiguration::GetInstance()->ConfigurationData.System.GUITextLabelLength;
+	// 固定長でメモリ確保しておく
+	Text.PreAllocate(SNConfiguration::SystemConfiguration.GUITextLabelLength);
 
-	Text.Allocate(sizeof(Char) * (text_length + 1));
-	Text.Clear();
+	// 各種初期設定
 	TextColor = RGB(255, 255, 255);
 	ShadowEnable = true;
 	ShadowColor = RGB(0, 0, 0);
@@ -39,57 +38,48 @@ Void SNGUITextLabel::Initialize()
 }
 
 // 終了処理
-Void SNGUITextLabel::Terminate()
+Void SNGUITextLabel::OnTerminate()
 {
-	Text.Free();
+	Text.Clear();
 	return;
 }
 
-// 1フレーム実行
-// リターン：遷移先コード
-//           -1:遷移なし
-//           0~:状態クラス毎に規程する遷移先コード
-SNTransitionCode SNGUITextLabel::Step(SNEvent* event)
-{
-	return SNTransitionCodeNo;
-}
-
 // 描画処理
-Void SNGUITextLabel::Draw(SNSurface* surface)
+Void SNGUITextLabel::OnDraw(SNSurface* surface)
 {
 	SNRect rect;
 
-	rect = GetGlobalRect();
+	rect = CalcGlobalRect();
 
 	// 影描画あり
 	if (ShadowEnable)
 	{
 		// テキストカラー設定
 		::SetTextColor(
-			(HDC)surface->GetDC()->GetDeviceContext(),
+			(HDC)surface->GetDC(),
 			ShadowColor);
 
 		// テキスト描画
 		TextOut(
-			(HDC)surface->GetDC()->GetDeviceContext(),
+			(HDC)surface->GetDC(),
 			rect.PointX + ShadowOffset,
 			rect.PointY + ShadowOffset,
-			(LPCWSTR)Text.GetAddress(),
-			lstrlen((LPCWSTR)Text.GetAddress()));
+			(LPCWSTR)Text.GetString(),
+			Text.GetLength());
 	}
 
 	// テキストカラー設定
 	::SetTextColor(
-		(HDC)surface->GetDC()->GetDeviceContext(),
+		(HDC)surface->GetDC(),
 		TextColor);
 
 	// テキスト描画
 	TextOut(
-		(HDC)surface->GetDC()->GetDeviceContext(),
+		(HDC)surface->GetDC(),
 		rect.PointX,
 		rect.PointY,
-		(LPCWSTR)Text.GetAddress(),
-		lstrlen((LPCWSTR)Text.GetAddress()));
+		(LPCWSTR)Text.GetString(),
+		Text.GetLength());
 
 	return;
 }
@@ -98,10 +88,8 @@ Void SNGUITextLabel::Draw(SNSurface* surface)
 // テキスト設定
 Void SNGUITextLabel::SetText(String text)
 {
-	UInt32 text_length = SNConfiguration::GetInstance()->ConfigurationData.System.GUITextLabelLength;
-
-	// 文字列コピー
-	wcscpy_s((String)Text.GetAddress(), text_length + 1, text);
+	// Stringに文字列設定
+	Text.SetString(text);
 
 	return;
 }

@@ -4,68 +4,29 @@
 
 // 入力装置クラス
 
+// アクティブ状態
+Boolean SNInputDevice::Active = false;
 
-// 共通メソッド/データ
+// 入力イベント
+SNInputDeviceEvent SNInputDevice::InputDeviceEvent = { 0 };
 
-// インスタンス生成/取得
-SNInputDevice* SNInputDevice::GetInstance()
-{
-	if (Me == nullptr)
-	{
-		Me = new SNInputDevice;
-	}
+// 物理入力イベント
+SNPhysicalInputEvent SNInputDevice::PhysicalInputEvent = { 0 };
 
-	return Me;
-}
+// ボタン状態
+SNInputButtonState SNInputDevice::ButtonState[SNInputDeviceNum][SNInputButtonNum] = { 0 };
 
-// インスタンス破棄
-Void SNInputDevice::Destroy()
-{
-	if (Me != nullptr)
-	{
-		delete Me;
-	}
-
-	Me = nullptr;
-
-	return;
-}
-
-// 自身のインスタンス
-SNInputDevice* SNInputDevice::Me = nullptr;
-
-
-
-// インスタンスメソッド/データ
-
-// デストラクタ
-SNInputDevice::~SNInputDevice()
-{
-
-	return;
-}
+// ポインティングイベント判定状態
+SNInputPointingState SNInputDevice::PointingState = { 0 };
 
 
 // 初期化処理
 Void SNInputDevice::Initialize()
 {
-	UInt32 loop_cnt;
-
-	// 子クラスインスタンス生成
-	Keyboard = new SNKeyboard;
-	Mouse = new SNMouse;
-	for (loop_cnt = 0; loop_cnt < SNGamePadIDNum; loop_cnt++)
-	{
-		GamePad[loop_cnt] = new SNGamePad;
-	}
-
 	// 配下デバイスの初期化
-	Keyboard->Initialize();
-	Mouse->Initialize();
-	for (loop_cnt = 0; loop_cnt < SNGamePadIDNum; loop_cnt++)
-	{
-		GamePad[loop_cnt]->Initialize((UInt8)loop_cnt);
-	}
+	SNKeyboard::Initialize();
+	SNMouse::Initialize();
+	SNGamePad::Initialize();
 
 	return;
 }
@@ -92,22 +53,10 @@ Void SNInputDevice::BeforeTerminate()
 // 終了
 Void SNInputDevice::Terminate()
 {
-	UInt32 loop_cnt;
-
 	// 配下デバイスの終了処理
-	Keyboard->Terminate();
-	Mouse->Terminate();
-	for (loop_cnt = 0; loop_cnt < SNGamePadIDNum; loop_cnt++)
-	{
-		GamePad[loop_cnt]->Terminate();
-	}
-
-	delete Keyboard;
-	delete Mouse;
-	for (loop_cnt = 0; loop_cnt < SNGamePadIDNum; loop_cnt++)
-	{
-		delete GamePad[loop_cnt];
-	}
+	SNKeyboard::Terminate();
+	SNMouse::Terminate();
+	SNGamePad::Terminate();
 
 	return;
 }
@@ -145,73 +94,17 @@ const SNPhysicalInputEvent* SNInputDevice::GetPhysicalInputEvent()
 	return &PhysicalInputEvent;
 }
 
-// コンストラクタ
-// 外部からのインスタンス生成は禁止
-SNInputDevice::SNInputDevice()
-{
-	Int32 loop_cnt_dev;
-	Int32 loop_cnt_btn;
-
-	// 変数初期化
-	Active = false;
-	InputDeviceEvent = {0};
-	PhysicalInputEvent = {0};
-	PointingState = {0};
-
-	Keyboard = nullptr;
-	Mouse = nullptr;
-	for (loop_cnt_dev = 0; loop_cnt_dev < SNInputDeviceNum; loop_cnt_dev++)
-	{
-		GamePad[loop_cnt_dev] = nullptr;
-	}
-
-	// 入力デバイス数ループ
-	for (loop_cnt_dev = 0; loop_cnt_dev < SNInputDeviceNum; loop_cnt_dev++)
-	{
-		// ボタン数ループ
-		for (loop_cnt_btn = 0; loop_cnt_btn < SNInputButtonNum; loop_cnt_btn++)
-		{
-			ButtonState[loop_cnt_dev][loop_cnt_btn].State = false;
-			ButtonState[loop_cnt_dev][loop_cnt_btn].PreviousState = false;
-		}
-	}
-
-	// 非アクティブキー状態
-	for (loop_cnt_btn = 0; loop_cnt_btn < SNKeyCodeNum; loop_cnt_btn++)
-	{
-		NonActiveKeyState[loop_cnt_btn] = false;
-	}
-
-	// 非アクティブマウス状態
-	for (loop_cnt_btn = 0; loop_cnt_btn < SNMouseButtonNum; loop_cnt_btn++)
-	{
-		NonActiveMouseButtonState[loop_cnt_btn] = false;
-	}
-
-	// 非アクティブ座標
-	NonActivePointingPosition.X = 0;
-	NonActivePointingPosition.Y = 0;
-
-	// 非アクティブボタン状態
-	for (loop_cnt_btn = 0; loop_cnt_btn < SNGamePadButtonNum; loop_cnt_btn++)
-	{
-		NonActiveGamePadButtonState[loop_cnt_btn] = false;
-	}
-
-	return;
-}
-
 // 状態更新
 Void SNInputDevice::UpdateState()
 {
 	// アクティブ通知あり
-	if (SNApplication::GetInstance()->GetEventInfo()->Active)
+	if (SNApplication::GetEventInfo()->Active)
 	{
 		Active = true;
 	}
 
 	// 非アクティブ通知あり
-	else if (SNApplication::GetInstance()->GetEventInfo()->NonActive)
+	else if (SNApplication::GetEventInfo()->NonActive)
 	{
 		Active = false;
 	}
@@ -228,19 +121,14 @@ Void SNInputDevice::UpdateState()
 // デバイス入力情報更新
 Void SNInputDevice::UpdateDevice()
 {
-	UInt32 loop_cnt;
-
 	// キーボード入力状態更新
-	Keyboard->Update();
+	SNKeyboard::Update();
 
 	// マウス入力状態更新
-	Mouse->Update();
+	SNMouse::Update();
 
 	// ゲームパッド入力状態更新
-	for (loop_cnt = 0; loop_cnt < SNGamePadIDNum; loop_cnt++)
-	{
-		GamePad[loop_cnt]->Update();
-	}
+	SNGamePad::Update();
 
 	return;
 }
@@ -248,22 +136,30 @@ Void SNInputDevice::UpdateDevice()
 // 物理デバイス入力情報更新
 Void SNInputDevice::UpdatePhysicalInput()
 {
-	UInt32 loop_cnt;
+	UInt32 cnt;
 
 	// アクティブの場合は各デバイスの情報を取得
 	if (Active)
 	{
 		// キーボード物理入力イベントセット
-		PhysicalInputEvent.Keyboard = Keyboard->GetState();
+		for (cnt = 0; cnt < SNKeyboard::CheckKeyNum; cnt++)
+		{
+			PhysicalInputEvent.Keyboard[cnt] = SNKeyboard::KeyState[SNKeyboard::CheckKeyList[cnt]];
+		}
 
 		// マウス物理入力イベントセット
-		PhysicalInputEvent.MouseButton = Mouse->GetState()->ButtonState;
-		PhysicalInputEvent.MousePosition = &Mouse->GetState()->Position;
-
-		// ゲームパッド物理入力イベントセット
-		for (loop_cnt = 0; loop_cnt < SNGamePadIDNum; loop_cnt++)
+		for (cnt = 0; cnt < SNMouseButtonNum; cnt++)
 		{
-			PhysicalInputEvent.GamePad[loop_cnt] = GamePad[loop_cnt]->GetState();
+			PhysicalInputEvent.MouseButton[cnt] = SNMouse::MouseState.ButtonState[cnt];
+		}
+		PhysicalInputEvent.MousePosition = SNMouse::MouseState.Position;
+		PhysicalInputEvent.MouseClipping = SNMouse::MouseState.PosClipping;
+
+		// ゲームパッド
+		for (cnt = 0; cnt < SNGamePadButtonNum; cnt++)
+		{
+			PhysicalInputEvent.GamePad[SNGamePadID1][cnt] = SNGamePad::ButtonState[SNGamePadID1][cnt];
+			PhysicalInputEvent.GamePad[SNGamePadID2][cnt] = SNGamePad::ButtonState[SNGamePadID2][cnt];
 		}
 	}
 
@@ -271,16 +167,24 @@ Void SNInputDevice::UpdatePhysicalInput()
 	else
 	{
 		// キーボード物理入力イベントセット
-		PhysicalInputEvent.Keyboard = NonActiveKeyState;
+		for (cnt = 0; cnt < SNKeyboard::CheckKeyNum; cnt++)
+		{
+			PhysicalInputEvent.Keyboard[cnt] = false;
+		}
 
 		// マウス物理入力イベントセット
-		PhysicalInputEvent.MouseButton = NonActiveMouseButtonState;
-		PhysicalInputEvent.MousePosition = &NonActivePointingPosition;
-
-		// ゲームパッド物理入力イベントセット
-		for (loop_cnt = 0; loop_cnt < SNGamePadIDNum; loop_cnt++)
+		for (cnt = 0; cnt < SNMouseButtonNum; cnt++)
 		{
-			PhysicalInputEvent.GamePad[loop_cnt] = NonActiveGamePadButtonState;
+			PhysicalInputEvent.MouseButton[cnt] = false;
+		}
+		//PhysicalInputEvent.MousePosition = 前状態を継続
+		PhysicalInputEvent.MouseClipping = false;
+
+		// ゲームパッド
+		for (cnt = 0; cnt < SNGamePadButtonNum; cnt++)
+		{
+			PhysicalInputEvent.GamePad[SNGamePadID1][cnt] = false;
+			PhysicalInputEvent.GamePad[SNGamePadID2][cnt] = false;
 		}
 	}
 
@@ -293,9 +197,9 @@ Void SNInputDevice::GenerateButtonEvent()
 	Int32 loop_cnt_dev;
 	Int32 loop_cnt_pad;
 	Int32 loop_cnt_btn;
-	SNInputMapping* mapping = SNConfiguration::GetInstance()->ConfigurationData.User.InputMapping;
-	UInt32 longpress_time = SNConfiguration::GetInstance()->ConfigurationData.User.KeyLongPressTime;
-	UInt32 repeart_time = SNConfiguration::GetInstance()->ConfigurationData.User.KeyRepeatTime;
+	SNInputMapping* mapping = SNConfiguration::UserConfiguration.InputMapping;
+	UInt32 longpress_time = SNConfiguration::SystemConfiguration.KeyLongPressTime;
+	UInt32 repeart_time = SNConfiguration::SystemConfiguration.KeyRepeatTime;
 
 	// 入力デバイス数ループ
 	for (loop_cnt_dev = 0; loop_cnt_dev < SNInputDeviceNum; loop_cnt_dev++)
@@ -402,15 +306,16 @@ Void SNInputDevice::GenerateButtonEvent()
 // ポインティングイベント生成
 Void SNInputDevice::GeneratePointingEvent()
 {
-	SNPoint point = *PhysicalInputEvent.MousePosition;
+	SNPoint point = PhysicalInputEvent.MousePosition;
 	Boolean decide = PhysicalInputEvent.MouseButton[SNMouseButtonDecide];
 	Boolean cancel = PhysicalInputEvent.MouseButton[SNMouseButtonCancel];
 	Boolean wup = PhysicalInputEvent.MouseButton[SNMouseButtonWheelUp];
 	Boolean wdown = PhysicalInputEvent.MouseButton[SNMouseButtonWheelDown];
 	Boolean previous_drag = InputDeviceEvent.PointingEvent.Drag;
 	Boolean previous_frick = InputDeviceEvent.PointingEvent.Frick;
-	UInt8 trace_gain = (UInt8)SNConfiguration::GetInstance()->ConfigurationData.System.FrickTraceGain;
-	UInt8 fade_gain = (UInt8)SNConfiguration::GetInstance()->ConfigurationData.System.FrickFadeGain;
+	Boolean clipping = PhysicalInputEvent.MouseClipping;
+	UInt8 trace_gain = (UInt8)SNConfiguration::SystemConfiguration.FrickTraceGain;
+	UInt8 fade_gain = (UInt8)SNConfiguration::SystemConfiguration.FrickFadeGain;
 
 	// イベント初期化
 	InputDeviceEvent.PointingEvent = { 0 };
@@ -432,9 +337,10 @@ Void SNInputDevice::GeneratePointingEvent()
 	/////////////////////////////////////////////////
 	// 決定判定
 	// 前状態OFF→ON
-	if (!PointingState.PreviousDecide && PointingState.Decide)
+	if ((!PointingState.PreviousDecide && PointingState.Decide) && !clipping)
 	{
 		InputDeviceEvent.PointingEvent.Decide = true;
+		PointingState.ClickEnable = true;
 
 		// ドラッグ、フリック開始点を保存
 		InputDeviceEvent.PointingInfo.DragStartPosition = point;
@@ -444,10 +350,16 @@ Void SNInputDevice::GeneratePointingEvent()
 		InputDeviceEvent.PointingInfo.FrickVelocity.Y = 0;
 	}
 
+	// 決定OFF判定
+	if (!PointingState.Decide)
+	{
+		PointingState.ClickEnable = false;
+	}
+
 	/////////////////////////////////////////////////
 	// キャンセル判定
 	// 前状態OFF→ON
-	if (!PointingState.PreviousCancel && PointingState.Cancel)
+	if ((!PointingState.PreviousCancel && PointingState.Cancel) && !clipping)
 	{
 		InputDeviceEvent.PointingEvent.Cancel = true;
 	}
@@ -468,8 +380,10 @@ Void SNInputDevice::GeneratePointingEvent()
 
 	/////////////////////////////////////////////////
 	// ドラッグ判定
-	// ON継続で移動検知 or ドラッグ中
-	if (PointingState.Decide &&
+	// ON継続中の移動検知またはドラッグ
+	// Click有効時のみ
+	if (PointingState.ClickEnable &&
+		PointingState.Decide &&
 		PointingState.PreviousDecide &&
 		(InputDeviceEvent.PointingEvent.Move || previous_drag))
 	{

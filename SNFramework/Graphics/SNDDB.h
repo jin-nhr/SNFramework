@@ -23,10 +23,10 @@ public:
 	Handle GetDDB();
 
 	// •æ“¾
-	Int32 GetWidth();
+	virtual Int32 GetWidth();
 
 	// ‚‚³æ“¾
-	Int32 GetHeight();
+	virtual Int32 GetHeight();
 
 private:
 	Handle DDBHandle;	// DDBƒnƒ“ƒhƒ‹

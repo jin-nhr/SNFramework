@@ -1,4 +1,5 @@
 #pragma once
+#include "SNFramework.h"
 
 // 構造体定義
 
@@ -96,10 +97,11 @@ struct SNInputDeviceEvent
 // 物理入力イベント
 struct SNPhysicalInputEvent
 {
-    const Boolean* Keyboard;                  // キーボード
-    const Boolean* MouseButton;               // マウスボタン
-    const SNPoint* MousePosition;             // マウス座標
-    const Boolean* GamePad[SNGamePadIDNum];   // ゲームパッド
+    Boolean Keyboard[SNKeyCodeNum];                       // キーボード
+    Boolean MouseButton[SNMouseButtonNum];                // マウスボタン
+    Boolean MouseClipping;                                // マウスクリッピング
+    SNPoint MousePosition;                                // マウス座標
+    Boolean GamePad[SNGamePadIDNum][SNGamePadButtonNum];  // ゲームパッド
 };
 
 // 入力デバイスマッピング

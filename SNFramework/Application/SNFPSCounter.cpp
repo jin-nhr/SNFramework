@@ -1,14 +1,16 @@
 #include "SNFPSCounter.h"
 #include "../System/SNWindowsAPI.h"
-#include "../Library/SNArithmetic.h"
+#include "../Library/SNMath.h"
 #include "../Configuration/SNConfiguration.h"
 
 // FPSカウンタークラス
 
+const Int32 SNFPSCounter::SNFPSCounterMilliSecond = 1000;	// 1秒→マイクロ秒変換値
+
 // コンストラクタ
 SNFPSCounter::SNFPSCounter()
 {
-	UInt32 measure_time = SNConfiguration::GetInstance()->ConfigurationData.System.FPSMeasureTime;
+	UInt32 measure_time = SNConfiguration::SystemConfiguration.FPSMeasureTime;
 
 	// 変数初期化
 	NextTimeMilliSecond = 0;
@@ -54,7 +56,7 @@ Void SNFPSCounter::Start()
 // カウント
 Void SNFPSCounter::Count()
 {
-	UInt32 measure_time = SNConfiguration::GetInstance()->ConfigurationData.System.FPSMeasureTime;
+	UInt32 measure_time = SNConfiguration::SystemConfiguration.FPSMeasureTime;
 
 	// 現在時間取得
 	UInt32 now_time = timeGetTime();
@@ -76,7 +78,7 @@ Void SNFPSCounter::Count()
 		// 現在のカウント値を履歴に保存する
 		history_array[HistoryIndex] = CurrentCount;
 		CurrentCount = 0;
-		HistoryIndex = (Int32)SNArithmetic::CyclicIncrement(HistoryIndex, 0, measure_time - 1);
+		HistoryIndex = (Int32)SNMath::Increment(HistoryIndex, 0, measure_time - 1);
 
 		// 次のタイムアウト時間をセットする
 		StartTimeMilliSecond = now_time;
@@ -92,7 +94,7 @@ Void SNFPSCounter::Count()
 // FPS取得
 UInt32 SNFPSCounter::GetFPS()
 {
-	UInt32 measure_time = SNConfiguration::GetInstance()->ConfigurationData.System.FPSMeasureTime;
+	UInt32 measure_time = SNConfiguration::SystemConfiguration.FPSMeasureTime;
 
 	// 秒間のFPSを計算して返す
 	return ((TotalCount + measure_time / 2) / measure_time);

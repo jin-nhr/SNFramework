@@ -4,24 +4,33 @@
 // コンフィギュレーションクラス
 
 
-// システムコンフィギュレーション設定値
-static const SNSystemConfiguration SystemConfigurationInitialValue = {
-	L"9c8e9666-fd5f-841a-932e-b2635956048e",	// アプリケーションID
-	L"TestApplication",	// アプリケーション名
-	false,			// 二重起動許可 true:許可 false:禁止
-	60,				// FPS
-	3,				// 最大フレームスキップ
-	SNSurfaceTypeDDB,	// サーフェスタイプ
-	4,				// 描画単位
-	0, 0, 0,		// リザーブ
-	960,			// 画面幅
-	540,			// 画面高さ
-	128,			// GUIテキストラベル長さ
-	2000,			// スリープ時間閾値
-	10,				// FPS測定時間(秒)
-	60,				// ストップウォッチ履歴数(フレーム数)
-	218,			// フリック移動量係数 (1/256)
-	234,			// フリック滑り量係数 (1/256)
+
+// コンフィギュレーション
+const SNSystemConfiguration SNConfiguration::SystemConfiguration =
+{
+	(String)L"9c8e9666-fd5f-841a-932e-b2635956048e",
+	(String)L"TestApplication",
+	(String)L"UserConfiguration.cfg",
+
+	true,							// 二重起動防止
+	60,								// FPS
+	3,								// 最大フレームスキップ
+	4,								// 描画境界
+
+	SNBltModeNearest,				// BLTモード
+	0, 0, 0,
+	255,							// ストレージ要求最大数
+	960,							// 画面幅
+	540,							// 画面高さ
+	128,							// GUIテキストラベル長さ
+	2000,							// Sleep時間閾値
+	10,								// FPS測定時間(秒)
+	60,								// ストップウォッチ履歴(フレーム数)
+	300,							// 長押し判定時間(ms)
+	100,							// キーリピート時間(ms)
+	218,							// フリック移動量係数 (1/256)
+	234,							// フリック滑り量係数 (1/256)
+
 	// キーサポート有無
 	{
 		false,  // 0x00:null
@@ -281,11 +290,16 @@ static const SNSystemConfiguration SystemConfigurationInitialValue = {
 		true,  // 0xFE:クリア キー
 		false  // 0xFF:-
 	},
-
 };
 
 // ユーザーコンフィギュレーション初期値
-static const SNUserConfiguration UserConfigurationInititalValue = {
+const SNUserConfiguration SNConfiguration::UserConfigurationInititalValue =
+{
+	// 識別子
+	{
+		L'S', L'N', L'C', L'F'		// 識別子=SNCF
+	},
+
 	// 入力マッピング
 	{
 		// 入力デバイス1
@@ -404,72 +418,92 @@ static const SNUserConfiguration UserConfigurationInititalValue = {
 		SNGamePadButtonNull,// リストダウン(縮小)
 
 		// ゲームパッド2
-		SNGamePadButtonNull,// 方向キー上
-		SNGamePadButtonNull,// 方向キー下
-		SNGamePadButtonNull,// 方向キー左
-		SNGamePadButtonNull,// 方向キー右
-		SNGamePadButtonNull,// 決定(Aボタン)
-		SNGamePadButtonNull,// キャンセル(Bボタン)
-		SNGamePadButtonNull,// メニュー(Xボタン)
-		SNGamePadButtonNull,// アクション(Yボタン)
-		SNGamePadButtonNull,// スタート
-		SNGamePadButtonNull,// セレクト
-		SNGamePadButtonNull,// ページ戻し(Lボタン)
-		SNGamePadButtonNull,// ページ送り(Rボタン)
-		SNGamePadButtonNull,// リストアップ(拡大)
-		SNGamePadButtonNull,// リストダウン(縮小)
+		SNGamePadPOVUp,// 方向キー上
+		SNGamePadPOVDown,// 方向キー下
+		SNGamePadPOVLeft,// 方向キー左
+		SNGamePadPOVRight,// 方向キー右
+		SNGamePadButton2,// 決定(Aボタン)
+		SNGamePadButton1,// キャンセル(Bボタン)
+		SNGamePadButton4,// メニュー(Xボタン)
+		SNGamePadButton3,// アクション(Yボタン)
+		SNGamePadButton8,// スタート
+		SNGamePadButton7,// セレクト
+		SNGamePadButton5,// ページ戻し(Lボタン)
+		SNGamePadButton6,// ページ送り(Rボタン)
+		SNGamePadAxis2Up,// リストアップ(拡大)
+		SNGamePadAxis2Down,// リストダウン(縮小)
 	},
-
-	300,		// 長押し判定300ms
-	100,		// キーリピート100ms
 	0,			// リザーブ
 	0,			// チェックサム
 };
 
+SNUserConfiguration SNConfiguration::UserConfiguration;	// ユーザーコンフィギュレーション
 
-// インスタンス生成/取得
-// リターン：インスタンス
-SNConfiguration* SNConfiguration::GetInstance()
-{
-	if (Me == nullptr)
-	{
-		Me = new SNConfiguration;
-	}
-
-	return Me;
-}
-
-// インスタンス破棄
-Void SNConfiguration::Destroy()
-{
-	if (Me != nullptr)
-	{
-		delete Me;
-	}
-
-	Me = nullptr;
-
-	return;
-}
-
-// 自身のインスタンス
-SNConfiguration* SNConfiguration::Me = nullptr;
-
-// デストラクタ
-SNConfiguration::~SNConfiguration()
-{
-	return;
-}
+SNFile SNConfiguration::ConfigFile;	// コンフィグファイル
 
 // 初期化
 Void SNConfiguration::Initialize()
 {
+	// コンフィグ初期値をセット
+	UserConfiguration = UserConfigurationInititalValue;
+
 	return;
 }
 
 // 起動準備
 Void SNConfiguration::Startup()
 {
+	SNUserConfiguration* read_config;
+
+	// コンフィグのパス、ファイル名設定
+	ConfigFile.SetFolderPath((String)L"");
+	ConfigFile.SetFolderFileName(SystemConfiguration.ConfigurationFileName);
+
+	// 同期モード
+	ConfigFile.SetAsyncMode(false);
+
+	// コンフィグRead
+	if (ConfigFile.Read())
+	{
+		// Read成功時
+		read_config = (SNUserConfiguration*)ConfigFile.GetDataAddress();
+
+		// 読み込みサイズNG
+		if (ConfigFile.GetSize() != sizeof(SNUserConfiguration))
+		{
+			// 初期値を採用のため何もしない
+		}
+		// 識別子NG
+		else if ((read_config->Identifier[0] != UserConfiguration.Identifier[0]) ||
+				 (read_config->Identifier[1] != UserConfiguration.Identifier[1]) ||
+			 	 (read_config->Identifier[2] != UserConfiguration.Identifier[2]) ||
+				 (read_config->Identifier[3] != UserConfiguration.Identifier[3]))
+		{
+			// 初期値を採用のため何もしない
+		}
+		// チェックサム確認
+		else if (CalcCheckSum((Void*)read_config, ConfigFile.GetSize() - 4) != read_config->CheckSum)
+		{
+			// 初期値を採用のため何もしない
+		}
+
+		// 異常チェックをすべてパス
+		else
+		{
+			// 読み込んだコンフィグを上書き
+			UserConfiguration = *read_config;
+		}
+	}
+	
+	// Read失敗
+	else
+	{
+		// 初期値を採用のため何もしない
+	}
+
+	// いったんメモリを解放
+	ConfigFile.ReleaseMemory();
+
 	return;
 }
 
@@ -482,6 +516,26 @@ Void SNConfiguration::Run()
 // 終了前処理
 Void SNConfiguration::BeforeTerminate()
 {
+	UInt32 data_size = sizeof(UserConfiguration);
+
+	// ユーザーコンフィグのチェックサム計算
+	UserConfiguration.CheckSum = CalcCheckSum((Void*)&UserConfiguration, data_size - 4);
+
+	// ファイル書き込み準備
+	ConfigFile.GetMemoryObject()->Allocate(data_size);
+
+	// データコピー
+	ConfigFile.GetMemoryObject()->Copy((Void*)&UserConfiguration, data_size);
+
+	// 書き込み処理
+	ConfigFile.Write();
+
+	// メモリを解放
+	ConfigFile.ReleaseMemory();
+
+	// 書き込み結果は見ない
+	// 仮にNGなら次回起動～終了時に初期化される
+
 	return;
 }
 
@@ -491,13 +545,20 @@ Void SNConfiguration::Terminate()
 	return;
 }
 
-// コンストラクタ
-SNConfiguration::SNConfiguration()
+// チェックサム計算 (sizeは4バイト単位で指定)
+UInt32 SNConfiguration::CalcCheckSum(Void* start, UInt32 size)
 {
-	// コンフィギュレーション初期値設定
-	ConfigurationData.System = SystemConfigurationInitialValue;
-	ConfigurationData.User = UserConfigurationInititalValue;
+	UInt32* cur_address = (UInt32*)start;
+	UInt32 ret = 0;
+	UInt32 uint32_num = size / 4;
+	UInt32 cnt;
 
-	return;
+	// startからsize分の値を足し込む
+	for (cnt = 0; cnt < uint32_num; cnt++)
+	{
+		ret = (UInt32)(ret + *cur_address);
+		cur_address++;
+	}
+
+	return ret;
 }
-

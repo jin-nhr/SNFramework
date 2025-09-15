@@ -1,7 +1,6 @@
 #include "SNFPSTimer.h"
 #include "../System/SNWindowsAPI.h"
 #include "../Configuration/SNConfiguration.h"
-#include "../Configuration/SNConfiguration.h"
 
 // FPSタイマクラス
 
@@ -61,7 +60,7 @@ Void SNFPSTimer::Restart()
 
 	// 次回タイムアウト時間を既に経過している場合は
 	// スキップフラグをセットし、カウンタをインクリメントする
-	if ((NextTimeMicroSecond <= 0) && (SkipCounter <= SNConfiguration::GetInstance()->ConfigurationData.System.FrameSkip))
+	if ((NextTimeMicroSecond <= 0) && (SkipCounter <= SNConfiguration::SystemConfiguration.FrameSkip))
 	{
 		SkipFlag = true;
 		SkipCounter++;
@@ -88,7 +87,7 @@ Boolean SNFPSTimer::CheckTimeout()
 // Sleepする
 Void SNFPSTimer::Sleep()
 {
-	UInt32 sleep_threshold = SNConfiguration::GetInstance()->ConfigurationData.System.SleepTimeThreshold;
+	UInt32 sleep_threshold = SNConfiguration::SystemConfiguration.SleepTimeThreshold;
 
 	// タイムアウトまでの残り時間計算
 	Int64 remaining_time = NextTimeMicroSecond - ((timeGetTime() - StartTimeMilliSecond) * 1000);

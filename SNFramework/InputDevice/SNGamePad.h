@@ -39,33 +39,33 @@ class SNGamePad
 {
 // インスタンスメンバ
 public:
-	// コンストラクタ
-	SNGamePad();
-
-	// デストラクタ
-	~SNGamePad();
-
 	// 初期化処理
-	// パラメータ：ゲームパッドID
-	Void Initialize(UInt8 id);
+	static Void Initialize();
 
 	// 終了処理
-	Void Terminate();
+	static Void Terminate();
 
 	// 更新処理
-	Void Update();
-
-	// 状態取得
-	const Boolean* GetState();
-
-private:
-	// デバイス情報更新
-	// パラメータ：ゲームパッドID
-	Void GamePadInfoUpdate(UInt8 id);
+	static Void Update();
 
 	// ゲームパッド情報
-	SNGamePadInfo GamePadInfo;
+	static SNGamePadInfo GamePadInfo[SNGamePadIDNum];
 
 	// ボタン状態
-	Boolean ButtonState[SNGamePadButtonNum];
+	static Boolean ButtonState[SNGamePadIDNum][SNGamePadButtonNum];
+
+private:
+	// 初期化処理
+	// パラメータ：ゲームパッドID
+	static Void OnInitialize(UInt8 id);
+
+	// 終了処理
+	static Void OnTerminate(UInt8 id);
+
+	// 更新処理
+	static Void OnUpdate(UInt8 id);
+
+	// デバイス情報更新
+	// パラメータ：ゲームパッドID
+	static Void GamePadInfoUpdate(UInt8 id);
 };

@@ -6,29 +6,13 @@ class SNWindow
 {
 // 共有メソッド
 public:
-	static Boolean EnableUpdate;
+	// ウインドウ生成
+	static Void Create(Handle application_incetance, Int32 show_cmd);
 
-private:
 	// ウインドウプロシージャ
 	static Void* __stdcall WindowProc(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 
-public:
-	// コンストラクタ
-	SNWindow();
-
-	// デストラクタ
-	~SNWindow();
-
-	// ウインドウ生成
-	Void Create(Handle application_incetance, Int32 show_cmd);
-
-	// ウインドウハンドル取得
-	Handle GetWindowHandle();
-
-	// クライアント領域DC取得
-	Handle GetClientDC();
-
-private:
-	 Handle WindowHandle;	// ウインドウハンドル
-	 Handle ClientDC;		// クライアント領域DC
+	static Boolean EnableUpdate; // 画面更新フラグ
+	static Handle WindowHandle;	// ウインドウハンドル
+	static Handle WindowDC; // ウインドウDC
 };

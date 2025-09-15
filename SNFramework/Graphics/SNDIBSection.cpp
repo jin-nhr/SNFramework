@@ -62,7 +62,7 @@ Void SNDIBSection::CreateDIBSection(Int32 width, Int32 height)
 
 	// DIBSection‚ð¶¬
 	DIBSection = (Handle)::CreateDIBSection(
-		(HDC)SNSystem::GetInstance()->GetWindowDC(),
+		(HDC)SNWindow::WindowDC,
 		(BITMAPINFO*)&BitmapInfo,
 		DIB_RGB_COLORS,
 		(void**)&PixelData,

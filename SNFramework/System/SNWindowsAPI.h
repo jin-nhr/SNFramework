@@ -21,10 +21,14 @@
 
 // 追加インクルード
 #include <mmsystem.h>
+#include <shlwapi.h>
+#include <gdiplus.h>
 
 // ウインドウズ、Cランタイムのライブラリ
 #pragma comment(lib, "Winmm.lib")
 #pragma comment(lib, "Msimg32.lib")
+#pragma comment(lib, "Shlwapi.lib")
+#pragma comment(lib, "gdiplus.lib")
 
 
 // フレームワーク固有のメッセージ

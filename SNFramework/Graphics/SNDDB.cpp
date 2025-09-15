@@ -41,7 +41,7 @@ Void SNDDB::CreateDDB(Int32 width, Int32 height)
 
 	// DDB¶¬
 	DDBHandle = (Handle)CreateCompatibleBitmap(
-		(HDC)SNSystem::GetInstance()->GetWindowDC(),
+		(HDC)SNWindow::WindowDC,
 		width,
 		height);
 

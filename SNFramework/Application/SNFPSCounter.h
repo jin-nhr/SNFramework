@@ -7,6 +7,9 @@
 class SNFPSCounter
 {
 public:
+	static const Int32 SNFPSCounterMilliSecond;
+
+public:
 	// コンストラクタ
 	SNFPSCounter();
 

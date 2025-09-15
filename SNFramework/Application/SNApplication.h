@@ -4,107 +4,87 @@
 #include "SNFPSTimer.h"
 #include "SNFPSCounter.h"
 #include "SNStopWatch.h"
-#include "Layer/SNLayerManager.h"
-#include "Layer/SNSystemLayer.h"
-#include "Layer/SNDebugLayer.h"
-#include "Layer/SNApplicationLayer.h"
-#include "Layer/SNBackGroundLayer.h"
+#include "Controller/SNLayerController.h"
+#include "SystemLayer/SNSystemLayer.h"
+#include "DebugLayer/SNDebugLayer.h"
+#include "ApplicationLayer/SNApplicationLayer.h"
+#include "BackGroundLayer/SNBackGroundLayer.h"
 
 
 // アプリケーションクラス
-class SNApplication : private SNThread
+class SNApplication
 {
-// 共通メソッド/データ
 public:
-	// インスタンス生成/取得
-	static SNApplication* GetInstance();
-
-	// インスタンス破棄
-	static Void Destroy();
-
-private:
-	// 自身のインスタンス
-	static SNApplication* Me;
-
-
-// インスタンスメソッド/データ
-public:
-	// デストラクタ
-	~SNApplication();
-	
 	// 初期化処理
-	Void Initialize();
+	static Void Initialize();
 	
 	// 起動準備
-	Void Startup();
+	static Void Startup();
 	
 	// 実行
 	// リターン：終了コード
-	Int32 Run();
+	static Int32 Run();
 
 	// 終了前処理
-	Void BeforeTerminate();
+	static Void BeforeTerminate();
 	
 	// 終了
-	Void Terminate();
+	static Void Terminate();
 
 	// イベント情報取得
-	SNApplicationEventInfo* GetEventInfo();
+	static SNApplicationEventInfo* GetEventInfo();
 
 	/////////////////////////////////////
 	// イベント通知
 	// アクティブ通知
-	Void NotifyActive();
+	static Void NotifyActive();
 
 	// 非アクティブ通知
-	Void NotifyNonActive();
+	static Void NotifyNonActive();
 
 	// 終了通知
-	Void NotifyExitApplication();
+	static Void NotifyExitApplication();
 
 	// ホイールUp通知
-	Void NotifyWheelUp();
+	static Void NotifyWheelUp();
 
 	// ホイールDown通知
-	Void NotifyWheelDown();
+	static Void NotifyWheelDown();
 
 	/////////////////////////////////////
 	// 情報取得
 	// FPS取得
-	UInt32 GetFPS();
+	static UInt32 GetFPS();
 
 	// 平均時間取得
-	UInt32 GetProcTime();
+	static UInt32 GetProcTime();
+
+	// メイン関数
+	static Void UserMain();
 
 private:
-	// コンストラクタ
-	// 外部からのインスタンス生成は禁止
-	SNApplication();
+	// イベントスナップショット
+	static Void SnapshotEvent();
 
+
+	static SNThread* ApplicationThread;			// アプリケーションスレッド
+	static SNFPSTimer FPSTimer;					// FPSタイマ
+	static SNFPSCounter FPSCounter;				// FPSカウンター
+	static SNStopWatch ApplicationTimeWatcher;	// アプリケーション処理時間測定
+	static SNLayerController LayerController;	//レイヤ制御
+	static SNDebugLayer			DebugLayer;			// デバッグレイヤ
+	static SNSystemLayer		SystemLayer;		// システムレイヤ
+	static SNApplicationLayer	ApplicationLayer;	// アプリケーションレイヤ
+	static SNBackGroundLayer	BackGroundLayer;	// バックグラウンドレイヤ
+	static SNEvent Event;							// イベントクラス
+	static SNApplicationEventInfo NotifyEvent;		// イベント情報
+	static SNApplicationEventInfo EventSnapshot;	// イベント情報スナップショット
+};
+
+// アプリケーションスレッド
+class SNApplicationThread : public SNThread
+{
+private:
 	// スレッドクラスのユーザー実行関数
 	Void UserMain();
-
-	// イベントスナップショット
-	Void SnapshotEvent();
-
-
-	SNFPSTimer* FPSTimer;		// FPSタイマ
-	SNFPSCounter* FPSCounter;	// FPSカウンター
-	SNStopWatch* ApplicationTimeWatcher;	// アプリケーション処理時間測定
-
-	SNLayerManager* ApplicationLayerManager;	// アプリケーションレイヤ管理
-
-	// レイヤ
-	SNDebugLayer*		DebugLayer;			// デバッグレイヤ
-	SNSystemLayer*		SystemLayer;		// システムレイヤ
-	SNApplicationLayer*	ApplicationLayer;	// アプリケーションレイヤ
-	SNBackGroundLayer*	BackGroundLayer;	// バックグラウンドレイヤ
-
-	SNEvent* Event;							// イベントクラス
-
-	static const UInt8	ApplicationLayerNum = 4;		// アプリケーションレイヤ数
-
-	SNState* ApplicationLayerList[ApplicationLayerNum];	// アプリケーションレイヤリスト
-	SNApplicationEventInfo NotifyEvent;					// イベント情報
-	SNApplicationEventInfo EventSnapshot;				// イベント情報スナップショット
 };

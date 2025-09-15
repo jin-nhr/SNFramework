@@ -20,7 +20,7 @@ public:
 	Void DeleteDeviceContext();
 
 	// DC取得
-	Handle GetDeviceContext();
+	Handle GetDC();
 
 	// ビットマップ選択
 	Void SetBitmap(Handle bitmap);

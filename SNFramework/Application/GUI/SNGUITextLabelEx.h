@@ -12,19 +12,6 @@ public:
 	// デストラクタ
 	virtual ~SNGUITextLabelEx();
 
-	// 初期化
-	virtual Void Initialize();
-
-	// 終了処理
-	virtual Void Terminate();
-
-	// 1フレーム実行
-	// リターン：遷移先コード
-	virtual SNTransitionCode Step(SNEvent* event);
-
-	// 描画処理
-	virtual Void Draw(SNSurface* surface);
-
 	// テキスト設定
 	virtual Void SetText(String text);
 
@@ -32,7 +19,16 @@ public:
 	virtual Void SetValue(Int64 value);
 
 protected:
-	SNMemory Format;	// フォーマット文字列
+	// 初期化
+	virtual Void OnInitialize();
+
+	// 終了処理
+	virtual Void OnTerminate();
+
+	// 描画処理
+	virtual Void OnDraw(SNSurface* surface);
+
+	SNString Format;	// フォーマット文字列
 	Int64    Value;		// 設定値
 	Boolean  Update;	// 更新フラグ
 };

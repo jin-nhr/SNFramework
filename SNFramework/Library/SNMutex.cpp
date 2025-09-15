@@ -18,7 +18,6 @@ SNMutex::~SNMutex()
 	if (MutexHandle != nullptr)
 	{
 		CloseHandle((HANDLE)MutexHandle);
-		MutexName.Free();
 		FirstMutexFlag = false;
 	}
 
@@ -29,37 +28,14 @@ SNMutex::~SNMutex()
 // パラメータ：最大256文字の文字列を設定
 Void SNMutex::Create(String mutex_name)
 {
-	Int cnt;
-	Int len;
-	UInt32 alloc_size;
-	String save_mutex_name;
-	
-	// パラメータ文字列の長さを取得
-	len = lstrlen(mutex_name);
-	if (len > MAX_PATH)
-	{
-		// MAX_PATHまでに切る
-		len = MAX_PATH;
-	}
-
 	// 名前保持領域の準備
-	alloc_size = sizeof(Char) * (len + 1);
-	MutexName.Allocate(alloc_size);
-	MutexName.Clear();
-	MutexName.Copy((Void*)mutex_name, alloc_size);
-	save_mutex_name = (String)MutexName.GetAddress();
+	MutexName.SetString(mutex_name);
 
 	// '\'は使用不可のため'/'に置き換える
-	for (cnt = 0; cnt < len; cnt++)
-	{
-		if (save_mutex_name[cnt] == L'\\')
-		{
-			save_mutex_name[cnt] = L'/';
-		}
-	}
+	MutexName.ReplaceCharacter(L'\\', L'/');
 
-	// ミューテックス生成
-	MutexHandle = (void*)CreateMutex(NULL, TRUE, save_mutex_name);
+	// Mutex生成
+	MutexHandle = (void*)CreateMutex(NULL, TRUE, MutexName.GetString());
 
 	// 生成成功し、システム上存在していなければ最初のミューテックスと判定する
 	if (MutexHandle != nullptr)
@@ -71,7 +47,6 @@ Void SNMutex::Create(String mutex_name)
 	}
 
 	return;
-
 }
 
 // ミューテックス破棄
@@ -81,7 +56,6 @@ Void SNMutex::Delete()
 	if (MutexHandle != nullptr)
 	{
 		CloseHandle((HANDLE)MutexHandle);
-		MutexName.Free();
 		FirstMutexFlag = false;
 	}
 

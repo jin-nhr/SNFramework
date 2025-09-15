@@ -32,5 +32,11 @@ public:
 
 private:
 
+	SNSurfaceDIB DIB;
+	SNSurfaceDDB DDB;
+
+	Int32 Width;
+	Int32 Height;
+
 };
 

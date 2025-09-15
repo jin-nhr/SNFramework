@@ -46,7 +46,7 @@ Void SNDeviceContext::CreateDeviceContext()
 	DeleteDeviceContext();
 
 	// ウインドウDC互換のメモリDCを生成
-	DeviceContext = CreateCompatibleDC((HDC)SNSystem::GetInstance()->GetWindowDC());
+	DeviceContext = CreateCompatibleDC((HDC)SNWindow::WindowDC);
 	Width = 1;
 	Height = 1;
 
@@ -54,7 +54,7 @@ Void SNDeviceContext::CreateDeviceContext()
 	SetBkMode((HDC)DeviceContext, TRANSPARENT);
 
 	// Stretchモード
-	SetStretchBltMode((HDC)DeviceContext, STRETCH_HALFTONE);
+	SetStretchBltMode((HDC)DeviceContext, SNConfiguration::SystemConfiguration.BltMode);
 
 	// ブラシ座標初期化
 	SetBrushOrgEx((HDC)DeviceContext, 0, 0, NULL);
@@ -80,7 +80,7 @@ Void SNDeviceContext::DeleteDeviceContext()
 }
 
 // DC取得
-Handle SNDeviceContext::GetDeviceContext()
+Handle SNDeviceContext::GetDC()
 {
 	// DCを返す
 	return DeviceContext;

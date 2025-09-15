@@ -4,8 +4,8 @@
 // メモリクラス
 class SNMemory
 {
-private:
-	static Int32 AlignSize;	// メモリ境界サイズ
+public:
+	static const Int32 SNMemoryAlignSize;	// メモリ境界サイズ
 
 public:
 	// コンストラクタ
@@ -24,6 +24,12 @@ public:
 	// アドレス取得
 	Void* GetAddress();
 
+	// データサイズ取得
+	UInt32 GetSize();
+
+	// 確保サイズ取得
+	UInt32 GetAllocSize();
+
 	// メモリクリア
 	Void Clear();
 
@@ -31,6 +37,7 @@ public:
 	Void Copy(Void* source, UInt32 size);
 
 private:
-	UInt32 Size;	// 確保サイズ
-	UInt8* Address;	// メモリアドレス
+	UInt32 Size;		// データサイズ
+	UInt32 AllocSize;	// 確保サイズ
+	UInt8* Address;		// メモリアドレス
 };

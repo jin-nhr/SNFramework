@@ -9,26 +9,20 @@ int APIENTRY wWinMain(
     _In_     LPWSTR    lpCmdLine,
     _In_     int       nCmdShow)
 {
-    // システムクラスのインスタンス取得
-    SNSystem* sn_system = SNSystem::GetInstance();
-
     // システム初期化
-    sn_system->Initialize((Handle)hInstance, (Handle)hPrevInstance, (String)lpCmdLine, (Int32)nCmdShow);
+    SNSystem::Initialize((Handle)hInstance, (Handle)hPrevInstance, (String)lpCmdLine, (Int32)nCmdShow);
 
     // システム起動準備
-    sn_system->Startup();
+    SNSystem::Startup();
 
     // システム実行
-    sn_system->Run();
+    SNSystem::Run();
 
     // システム終了前処理
-    sn_system->BeforeTerminate();
+    SNSystem::BeforeTerminate();
 
     // システム終了
-    sn_system->Terminate();
-
-    // インスタンス破棄
-    SNSystem::Destroy();
+    SNSystem::Terminate();
 
     return 0;
 }

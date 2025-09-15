@@ -1,12 +1,12 @@
 #include "SNStopWatch.h"
 #include "../System/SNWindowsAPI.h"
-#include "../Library/SNArithmetic.h"
+#include "../Library/SNMath.h"
 #include "../Configuration/SNConfiguration.h"
 
 // コンストラクタ
 SNStopWatch::SNStopWatch()
 {
-	UInt32 history = SNConfiguration::GetInstance()->ConfigurationData.System.StopWatchHistory;
+	UInt32 history = SNConfiguration::SystemConfiguration.StopWatchHistory;
 
 	// 変数初期化
 	StartCount = 0;
@@ -55,7 +55,7 @@ Void SNStopWatch::Start(Boolean clear)
 // 停止
 Void SNStopWatch::Stop()
 {
-	UInt32 history = SNConfiguration::GetInstance()->ConfigurationData.System.StopWatchHistory;
+	UInt32 history = SNConfiguration::SystemConfiguration.StopWatchHistory;
 
 	// 動作中のみ処理を実行
 	if (RunState)
@@ -70,11 +70,11 @@ Void SNStopWatch::Stop()
 
 		// 現在のカウント値を履歴に保存する
 		history_array[HistoryIndex] = time;
-		HistoryIndex = (Int32)SNArithmetic::CyclicIncrement(HistoryIndex, 0, history - 1);
+		HistoryIndex = (Int32)SNMath::Increment(HistoryIndex, 0, history - 1);
 
 		// 最大、最小を更新
-		MaxTime = (UInt32)SNArithmetic::SelectMaximum(MaxTime, time);
-		MinTime = (UInt32)SNArithmetic::SelectMinimum(MinTime, time);
+		MaxTime = (UInt32)SNMath::SelectMax(MaxTime, time);
+		MinTime = (UInt32)SNMath::SelectMin(MinTime, time);
 
 		// 停止状態
 		RunState = false;
@@ -86,7 +86,7 @@ Void SNStopWatch::Stop()
 // 平均値取得(ミリ秒単位)
 UInt32 SNStopWatch::GetAverage()
 {
-	UInt32 history = SNConfiguration::GetInstance()->ConfigurationData.System.StopWatchHistory;
+	UInt32 history = SNConfiguration::SystemConfiguration.StopWatchHistory;
 
 	// 合計時間を履歴数でわる
 	return (UInt32)(TotalTime / history);

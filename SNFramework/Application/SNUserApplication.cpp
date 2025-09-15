@@ -3,7 +3,7 @@
 // ユーザーアプリケーションベースクラス
 
 // ユーザーアプリケーション
-SNState* SNUserApplication::UserApplication = nullptr;
+SNScene* SNUserApplication::UserApplication = nullptr;
 
 // コンストラクタ
 SNUserApplication::SNUserApplication()

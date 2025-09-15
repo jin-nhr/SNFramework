@@ -19,7 +19,7 @@ SNGUIMonoRect::~SNGUIMonoRect()
 }
 
 // 初期化
-Void SNGUIMonoRect::Initialize()
+Void SNGUIMonoRect::OnInitialize()
 {
 	Whiteness = false;
 
@@ -27,25 +27,16 @@ Void SNGUIMonoRect::Initialize()
 }
 
 // 終了処理
-Void SNGUIMonoRect::Terminate()
+Void SNGUIMonoRect::OnTerminate()
 {
 	return;
 }
 
-// 1フレーム実行
-// リターン：遷移先コード
-//           -1:遷移なし
-//           0~:状態クラス毎に規程する遷移先コード
-SNTransitionCode SNGUIMonoRect::Step(SNEvent* event)
-{
-	return SNTransitionCodeNo;
-}
-
 // 描画処理
-Void SNGUIMonoRect::Draw(SNSurface* surface)
+Void SNGUIMonoRect::OnDraw(SNSurface* surface)
 {
 	DWORD rop;
-	SNRect rect = GetGlobalRect();
+	SNRect rect = CalcGlobalRect();
 
 	// 色設定に応じて塗りつぶし色設定
 	if (Whiteness)
@@ -58,12 +49,12 @@ Void SNGUIMonoRect::Draw(SNSurface* surface)
 	}
 	// BitBltで塗りつぶし
 	::BitBlt(
-		(HDC)surface->GetDC()->GetDeviceContext(),
+		(HDC)surface->GetDC(),
 		rect.PointX,
 		rect.PointY,
 		rect.Width,
 		rect.Height,
-		(HDC)surface->GetDC()->GetDeviceContext(),
+		(HDC)surface->GetDC(),
 		0,
 		0,
 		rop);

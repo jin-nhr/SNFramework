@@ -1,6 +1,6 @@
 #pragma once
 #include "../Include/SNFramework.h"
-#include "SNMemory.h"
+#include "SNString.h"
 
 // ミューテックスクラス
 class SNMutex
@@ -24,7 +24,7 @@ public:
 	Boolean IsFirst();
 
 private:
-	SNMemory MutexName;			// ミューテックス名
+	SNString MutexName;			// ミューテックス名
 	Handle   MutexHandle;		// ミューテックスハンドル
 	Boolean  FirstMutexFlag;	// 最初のミューテックスかを示すフラグ
 };

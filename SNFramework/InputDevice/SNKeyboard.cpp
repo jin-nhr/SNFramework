@@ -5,36 +5,37 @@
 
 // キーボードクラス
 
-// コンストラクタ
-SNKeyboard::SNKeyboard()
-{
-	Int loop_cnt;
+// キー状態
+Boolean SNKeyboard::KeyState[SNKeyCodeNum] = {0};
 
-	// 変数初期化
-	for (loop_cnt = 0; loop_cnt < SNKeyCodeNum; loop_cnt++)
-	{
-		KeyState[loop_cnt] = false;
-	}
+// チェック対象キーリスト
+UInt8 SNKeyboard::CheckKeyList[SNKeyCodeNum] = {0};
 
-	return;
-}
+// チェック対象キー数
+UInt8 SNKeyboard::CheckKeyNum = 0;
 
-// デストラクタ
-SNKeyboard::~SNKeyboard()
-{
-	return;
-}
+
 
 // 初期化
 Void SNKeyboard::Initialize()
 {
-	Int loop_cnt;
+	Int32 loop_cnt;
+	Int32 list_cnt = 0;
 
 	// 変数初期化
 	for (loop_cnt = 0; loop_cnt < SNKeyCodeNum; loop_cnt++)
 	{
-		KeyState[loop_cnt] = false;
+		// コンフィグ設定でサポートされるキーの場合
+		if (SNConfiguration::SystemConfiguration.KeySupportFlag[loop_cnt])
+		{
+			// チェック対象リストに登録
+			CheckKeyList[list_cnt] = (UInt8)loop_cnt;
+			list_cnt++;
+		}
 	}
+
+	// チェック対象キー数を設定
+	CheckKeyNum = (UInt8)list_cnt;
 
 	return;
 }
@@ -48,28 +49,15 @@ Void SNKeyboard::Terminate()
 // 更新処理
 Void SNKeyboard::Update()
 {
-	Int loop_cnt;
-	Boolean* support_flag_array;
+	Int32 loop_cnt;
 
-	// コンフィグからキー設定を取得
-	support_flag_array = SNConfiguration::GetInstance()->ConfigurationData.System.KeySupportFlag;
-
-	for (loop_cnt = 0; loop_cnt < SNKeyCodeNum; loop_cnt++)
+	for (loop_cnt = 0; loop_cnt < CheckKeyNum; loop_cnt++)
 	{
-		// キー監視対象か確認
-		if (support_flag_array[loop_cnt])
-		{
-			// 対象キーが押されてるか確認
-			KeyState[loop_cnt] = (Boolean)((GetAsyncKeyState(loop_cnt) & 0x8000) != 0);
-		}
+		// 対象キーが押されてるか確認
+		KeyState[CheckKeyList[loop_cnt]] = (Boolean)((GetAsyncKeyState(CheckKeyList[loop_cnt]) & 0x8000) != 0);
 	}
 
 	return;
 }
 
-// 状態取得
-const Boolean* SNKeyboard::GetState()
-{
-	// キー状態を還す
-	return KeyState;
-}
+

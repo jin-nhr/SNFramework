@@ -37,14 +37,23 @@
     <Filter Include="UserApplication">
       <UniqueIdentifier>{5ae1839f-1ae0-4223-bf9d-b18fab0c8132}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SNFramework\Application\ApplicationLayer">
+      <UniqueIdentifier>{eefb490c-2f87-47ae-841e-2e3697c5ea77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SNFramework\Application\DebugLayer">
+      <UniqueIdentifier>{6361d1dc-a742-412b-9680-2359f172388c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SNFramework\Application\SystemLayer">
+      <UniqueIdentifier>{b957077b-040c-4e53-8e26-c68eb1ff05b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SNFramework\Application\BackGroundLayer">
+      <UniqueIdentifier>{6146f56e-8714-4aec-995a-a7028060ff37}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SNFramework\Application\GUI">
-      <UniqueIdentifier>{66a152d0-4be4-4d1e-b888-1a9224509845}</UniqueIdentifier>
+      <UniqueIdentifier>{f3a034d2-1b09-4486-a000-b978a7a334cf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="SNFramework\Application\State">
-      <UniqueIdentifier>{50063c5a-34a5-4489-b619-6f83ba57338b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="SNFramework\Application\Layer">
-      <UniqueIdentifier>{fd1a2f24-7c65-4bc1-ac87-7b280c4f3ff8}</UniqueIdentifier>
+    <Filter Include="SNFramework\Application\Controller">
+      <UniqueIdentifier>{faaf76f5-6858-4138-b085-872fffb48e47}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -87,7 +96,7 @@
     <ClCompile Include="..\SNFramework\Application\SNFPSCounter.cpp">
       <Filter>SNFramework\Application</Filter>
     </ClCompile>
-    <ClCompile Include="..\SNFramework\Library\SNArithmetic.cpp">
+    <ClCompile Include="..\SNFramework\Library\SNMath.cpp">
       <Filter>SNFramework\Library</Filter>
     </ClCompile>
     <ClCompile Include="..\SNFramework\Library\SNCriticalSection.cpp">
@@ -120,53 +129,83 @@
     <ClCompile Include="..\SNFramework\Application\SNEvent.cpp">
       <Filter>SNFramework\Application</Filter>
     </ClCompile>
+    <ClCompile Include="..\SNFramework\Library\SNMemory.cpp">
+      <Filter>SNFramework\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Application\SNStopWatch.cpp">
+      <Filter>SNFramework\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Application\SNUserApplication.cpp">
+      <Filter>SNFramework\Application</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UserApplication\TestApplication.cpp">
+      <Filter>UserApplication</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Library\SNString.cpp">
+      <Filter>SNFramework\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Library\SNList.cpp">
+      <Filter>SNFramework\Library</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Storage\SNFile.cpp">
+      <Filter>SNFramework\Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Storage\SNStorageAccessor.cpp">
+      <Filter>SNFramework\Storage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Application\ApplicationLayer\SNApplicationLayer.cpp">
+      <Filter>SNFramework\Application\ApplicationLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Application\DebugLayer\SNDebugLayer.cpp">
+      <Filter>SNFramework\Application\DebugLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Application\SystemLayer\SNSystemLayer.cpp">
+      <Filter>SNFramework\Application\SystemLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Application\BackGroundLayer\SNBackGroundLayer.cpp">
+      <Filter>SNFramework\Application\BackGroundLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Application\ApplicationLayer\SNApplicationLoading.cpp">
+      <Filter>SNFramework\Application\ApplicationLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Application\ApplicationLayer\SNApplicationNoUserApp.cpp">
+      <Filter>SNFramework\Application\ApplicationLayer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SNFramework\Library\SNBMString.cpp">
+      <Filter>SNFramework\Library</Filter>
+    </ClCompile>
     <ClCompile Include="..\SNFramework\Application\GUI\SNGUIMonoRect.cpp">
       <Filter>SNFramework\Application\GUI</Filter>
     </ClCompile>
     <ClCompile Include="..\SNFramework\Application\GUI\SNGUITextLabel.cpp">
       <Filter>SNFramework\Application\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\SNFramework\Library\SNMemory.cpp">
-      <Filter>SNFramework\Library</Filter>
-    </ClCompile>
     <ClCompile Include="..\SNFramework\Application\GUI\SNGUITextLabelEx.cpp">
       <Filter>SNFramework\Application\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\SNFramework\Application\SNStopWatch.cpp">
-      <Filter>SNFramework\Application</Filter>
+    <ClCompile Include="..\SNFramework\Application\Controller\SNLayerController.cpp">
+      <Filter>SNFramework\Application\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="..\SNFramework\Application\GUI\SNGUIBase.cpp">
-      <Filter>SNFramework\Application\GUI</Filter>
+    <ClCompile Include="..\SNFramework\Application\Controller\SNScene.cpp">
+      <Filter>SNFramework\Application\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="..\SNFramework\Application\Layer\SNApplicationLayer.cpp">
-      <Filter>SNFramework\Application\Layer</Filter>
+    <ClCompile Include="..\SNFramework\Application\Controller\SNSceneController.cpp">
+      <Filter>SNFramework\Application\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="..\SNFramework\Application\Layer\SNBackGroundLayer.cpp">
-      <Filter>SNFramework\Application\Layer</Filter>
+    <ClCompile Include="..\SNFramework\Application\Controller\SNStateController.cpp">
+      <Filter>SNFramework\Application\Controller</Filter>
     </ClCompile>
-    <ClCompile Include="..\SNFramework\Application\Layer\SNDebugLayer.cpp">
-      <Filter>SNFramework\Application\Layer</Filter>
+    <ClCompile Include="..\SNFramework\Storage\SNFolder.cpp">
+      <Filter>SNFramework\Storage</Filter>
     </ClCompile>
-    <ClCompile Include="..\SNFramework\Application\Layer\SNLayerManager.cpp">
-      <Filter>SNFramework\Application\Layer</Filter>
+    <ClCompile Include="..\SNFramework\Storage\SNImageFile.cpp">
+      <Filter>SNFramework\Storage</Filter>
     </ClCompile>
-    <ClCompile Include="..\SNFramework\Application\Layer\SNSystemLayer.cpp">
-      <Filter>SNFramework\Application\Layer</Filter>
+    <ClCompile Include="..\SNFramework\Graphics\SNSurfaceDDB.cpp">
+      <Filter>SNFramework\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="..\SNFramework\Application\State\SNState.cpp">
-      <Filter>SNFramework\Application\State</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SNFramework\Application\State\SNStateManager.cpp">
-      <Filter>SNFramework\Application\State</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SNFramework\Application\SNUserApplication.cpp">
-      <Filter>SNFramework\Application</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SNFramework\Application\GUI\SNGUIContainer.cpp">
-      <Filter>SNFramework\Application\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\UserApplication\TestApplication.cpp">
-      <Filter>UserApplication</Filter>
+    <ClCompile Include="..\SNFramework\Graphics\SNSurfaceDIB.cpp">
+      <Filter>SNFramework\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -221,7 +260,7 @@
     <ClInclude Include="..\SNFramework\Application\SNFPSCounter.h">
       <Filter>SNFramework\Application</Filter>
     </ClInclude>
-    <ClInclude Include="..\SNFramework\Library\SNArithmetic.h">
+    <ClInclude Include="..\SNFramework\Library\SNMath.h">
       <Filter>SNFramework\Library</Filter>
     </ClInclude>
     <ClInclude Include="..\SNFramework\Library\SNCriticalSection.h">
@@ -266,6 +305,51 @@
     <ClInclude Include="..\SNFramework\Include\SNFrameworkImport.h">
       <Filter>SNFramework\Include</Filter>
     </ClInclude>
+    <ClInclude Include="..\SNFramework\Application\SNStopWatch.h">
+      <Filter>SNFramework\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Library\SNMemory.h">
+      <Filter>SNFramework\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Application\SNUserApplication.h">
+      <Filter>SNFramework\Application</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UserApplication\TestApplication.h">
+      <Filter>UserApplication</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Library\SNString.h">
+      <Filter>SNFramework\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Library\SNList.h">
+      <Filter>SNFramework\Library</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Storage\SNFile.h">
+      <Filter>SNFramework\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Storage\SNStorageAccessor.h">
+      <Filter>SNFramework\Storage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Application\ApplicationLayer\SNApplicationLayer.h">
+      <Filter>SNFramework\Application\ApplicationLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Application\DebugLayer\SNDebugLayer.h">
+      <Filter>SNFramework\Application\DebugLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Application\SystemLayer\SNSystemLayer.h">
+      <Filter>SNFramework\Application\SystemLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Application\BackGroundLayer\SNBackGroundLayer.h">
+      <Filter>SNFramework\Application\BackGroundLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Application\ApplicationLayer\SNApplicationLoading.h">
+      <Filter>SNFramework\Application\ApplicationLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Application\ApplicationLayer\SNApplicationNoUserApp.h">
+      <Filter>SNFramework\Application\ApplicationLayer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\SNFramework\Library\SNBMString.h">
+      <Filter>SNFramework\Library</Filter>
+    </ClInclude>
     <ClInclude Include="..\SNFramework\Application\GUI\SNGUIMonoRect.h">
       <Filter>SNFramework\Application\GUI</Filter>
     </ClInclude>
@@ -275,47 +359,29 @@
     <ClInclude Include="..\SNFramework\Application\GUI\SNGUITextLabelEx.h">
       <Filter>SNFramework\Application\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\SNFramework\Application\SNStopWatch.h">
-      <Filter>SNFramework\Application</Filter>
+    <ClInclude Include="..\SNFramework\Application\Controller\SNLayerController.h">
+      <Filter>SNFramework\Application\Controller</Filter>
     </ClInclude>
-    <ClInclude Include="..\SNFramework\Library\SNMemory.h">
-      <Filter>SNFramework\Library</Filter>
+    <ClInclude Include="..\SNFramework\Application\Controller\SNScene.h">
+      <Filter>SNFramework\Application\Controller</Filter>
     </ClInclude>
-    <ClInclude Include="..\SNFramework\Application\GUI\SNGUIBase.h">
-      <Filter>SNFramework\Application\GUI</Filter>
+    <ClInclude Include="..\SNFramework\Application\Controller\SNSceneController.h">
+      <Filter>SNFramework\Application\Controller</Filter>
     </ClInclude>
-    <ClInclude Include="..\SNFramework\Application\Layer\SNApplicationLayer.h">
-      <Filter>SNFramework\Application\Layer</Filter>
+    <ClInclude Include="..\SNFramework\Application\Controller\SNStateController.h">
+      <Filter>SNFramework\Application\Controller</Filter>
     </ClInclude>
-    <ClInclude Include="..\SNFramework\Application\Layer\SNBackGroundLayer.h">
-      <Filter>SNFramework\Application\Layer</Filter>
+    <ClInclude Include="..\SNFramework\Storage\SNFolder.h">
+      <Filter>SNFramework\Storage</Filter>
     </ClInclude>
-    <ClInclude Include="..\SNFramework\Application\Layer\SNDebugLayer.h">
-      <Filter>SNFramework\Application\Layer</Filter>
+    <ClInclude Include="..\SNFramework\Storage\SNImageFile.h">
+      <Filter>SNFramework\Storage</Filter>
     </ClInclude>
-    <ClInclude Include="..\SNFramework\Application\Layer\SNLayerManager.h">
-      <Filter>SNFramework\Application\Layer</Filter>
+    <ClInclude Include="..\SNFramework\Graphics\SNSurfaceDDB.h">
+      <Filter>SNFramework\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="..\SNFramework\Application\Layer\SNSystemLayer.h">
-      <Filter>SNFramework\Application\Layer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SNFramework\Application\State\SNState.h">
-      <Filter>SNFramework\Application\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SNFramework\Application\State\SNStateManager.h">
-      <Filter>SNFramework\Application\State</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SNFramework\Application\Layer\SNLayer.h">
-      <Filter>SNFramework\Application\Layer</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SNFramework\Application\SNUserApplication.h">
-      <Filter>SNFramework\Application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SNFramework\Application\GUI\SNGUIContainer.h">
-      <Filter>SNFramework\Application\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\UserApplication\TestApplication.h">
-      <Filter>UserApplication</Filter>
+    <ClInclude Include="..\SNFramework\Graphics\SNSurfaceDIB.h">
+      <Filter>SNFramework\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

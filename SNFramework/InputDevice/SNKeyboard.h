@@ -4,32 +4,22 @@
 // キーボードクラス
 class SNKeyboard
 {
-	// 静的メンバ
 public:
-
-	// インスタンスメンバ
-public:
-	// コンストラクタ
-	SNKeyboard();
-
-	// デストラクタ
-	~SNKeyboard();
-
 	// 初期化
-	Void Initialize();
+	static Void Initialize();
 
 	// 終了
-	Void Terminate();
+	static Void Terminate();
 
 	// 状態更新
-	Void Update();
+	static Void Update();
 
-	// 状態取得
-	const Boolean* GetState();
-
-	// 
-
-private:
 	// キー状態
-	Boolean KeyState[SNKeyCodeNum];
+	static Boolean KeyState[SNKeyCodeNum];
+
+	// チェック対象キーリスト
+	static UInt8 CheckKeyList[SNKeyCodeNum];
+
+	// チェック対象キー数
+	static UInt8 CheckKeyNum;
 };

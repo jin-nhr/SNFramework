@@ -2,48 +2,6 @@
 
 // オーディオビデオクラス
 
-
-// 共通メソッド/データ
-
-// インスタンス生成/取得
-SNAudioVideo* SNAudioVideo::GetInstance()
-{
-	if (Me == nullptr)
-	{
-		Me = new SNAudioVideo;
-	}
-
-	return Me;
-}
-
-// インスタンス破棄
-Void SNAudioVideo::Destroy()
-{
-	if (Me != nullptr)
-	{
-		delete Me;
-	}
-
-	Me = nullptr;
-
-	return;
-}
-
-// 自身のインスタンス
-SNAudioVideo* SNAudioVideo::Me = nullptr;
-
-
-
-// インスタンスメソッド/データ
-
-// デストラクタ
-SNAudioVideo::~SNAudioVideo()
-{
-
-	return;
-}
-
-
 // 初期化処理
 Void SNAudioVideo::Initialize()
 {
@@ -80,15 +38,6 @@ Void SNAudioVideo::BeforeTerminate()
 Void SNAudioVideo::Terminate()
 {
 
-
-	return;
-}
-
-
-// コンストラクタ
-// 外部からのインスタンス生成は禁止
-SNAudioVideo::SNAudioVideo()
-{
 
 	return;
 }

@@ -2,22 +2,21 @@
 #include "Windows.h"
 
 
-TestApplication UserApp;
+//TestApplication UserApp;
 
-SNSurfaceDIB* dib;
-SNSurfaceDDB* ddb;
+SNSurfaceDIB GUIWindow;
 
 TestApplication::TestApplication()
 {
-	dib = nullptr;
-	ddb = nullptr;
+	Width = 0;
+	Height = 0;
+	return;
 }
 
 
 TestApplication::~TestApplication()
 {
-	delete dib;
-	delete ddb;
+	return;
 }
 
 
@@ -26,29 +25,86 @@ Void TestApplication::Initialize()
 	Int32 cnt_y;
 	Int32 cnt_x;
 
+	Width = SNConfiguration::SystemConfiguration.ScreenWidth;
+	Height = SNConfiguration::SystemConfiguration.ScreenHeight;
+
 	SNColor* line_buf;
 
-	ddb = new SNSurfaceDDB;
-	dib = new SNSurfaceDIB;
+	DIB.CreateSurface(Width, Height);
+	DDB.CreateSurface(Width, Height);
 
-#
-	dib->CreateSurface(960, 540);
-	ddb->CreateSurface(960, 540);
-
-	for (cnt_y = 0; cnt_y < 540; cnt_y++)
+#if 0
+	for (cnt_y = 0; cnt_y < Height; cnt_y++)
 	{
-		line_buf = &dib->GetDIBSection()->GetPixelData()[cnt_y * 960];
+		line_buf = &DIB.GetPixelData()[cnt_y * Width];
 
 		for (cnt_x = 0; cnt_x < 960; cnt_x++)
 		{
-			line_buf[cnt_x].Blue = (UInt8)(255 - ((cnt_y * 255) / 540));
+			line_buf[cnt_x].Blue = (UInt8)(255 - ((cnt_y * 255) / Height));
 			line_buf[cnt_x].Green = 0;
 			line_buf[cnt_x].Red = 0;
-			line_buf[cnt_x].Alpha = 0;
 		}
 	}
+#endif
 
-	ddb->GetDC()->BitBlt(0, 0, dib->GetDC()->GetDeviceContext(), 0, 0, 960, 540);
+	DDB.BitBlt(0, 0, DIB.GetDC(), 0, 0, Width, Height);
+
+	int w = 300;
+	int h = 300;
+	SNColor white;
+	SNColor gray;
+
+	white.Blue = 255;
+	white.Green = 255;
+	white.Red = 255;
+	gray.Blue = 100;
+	gray.Green = 100;
+	gray.Red = 100;
+
+	// GUIウインドウ
+	GUIWindow.CreateSurface(w, h);
+	
+	for (cnt_y = 0; cnt_y < h; cnt_y++)
+	{
+		line_buf = &GUIWindow.GetPixelData()[cnt_y * w];
+		for (cnt_x = 0; cnt_x < w; cnt_x++)
+		{
+#if 0
+			if (cnt_y == 299 || cnt_x == 299)
+			{
+				line_buf[cnt_x] = gray;
+			}
+			else if (cnt_y == 0 || cnt_x == 0)
+			{
+				line_buf[cnt_x] = white;
+			}
+			else if (cnt_y == 298 || cnt_x == 298)
+			{
+				line_buf[cnt_x] = white;
+			}
+
+			else if (cnt_y == 1 || cnt_x == 1)
+			{
+				line_buf[cnt_x] = gray;
+			}
+#else
+			if (cnt_y == 299 || cnt_x == 299)
+			{
+				line_buf[cnt_x] = white;
+			}
+			else if (cnt_y == 0 || cnt_x == 0)
+			{
+				line_buf[cnt_x] = white;
+			}
+#endif
+			else
+			{
+				line_buf[cnt_x].Blue = 0;
+				line_buf[cnt_x].Green = (UInt8)(128 - ((cnt_y * 128) / h));
+				line_buf[cnt_x].Red = 0;
+			}
+		}
+	}
 
 	return;
 }
@@ -75,17 +131,16 @@ Void TestApplication::Exit()
 
 SNTransitionCode TestApplication::Step(SNEvent* event)
 {
-
-	return SNTransitionCodeNo;
+	return SNTransitionCodeStay;
 }
 
 
 
 Void TestApplication::Draw(SNSurface* surface)
 {
-	//surface->GetDC()->StretchBlt(0, 0, surface->GetWidth(), surface->GetHeight(), ddb->GetDC()->GetDeviceContext(), 0, 0, 256, 256);
-	surface->GetDC()->BitBlt(0, 0, ddb->GetDC()->GetDeviceContext(), 0, 0, 960, 540);
-	//surface->GetDC()->Clear();
+	surface->BitBlt(0, 0, DDB.GetDC(), 0, 0, Width, Height);
+
+	surface->BitBlt(200, 200, GUIWindow.GetDC(), 0, 0, 300, 300);
 
 	return;
 }

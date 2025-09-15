@@ -1,9 +1,9 @@
 #pragma once
 #include "../../Include/SNFramework.h"
-#include "SNGUIBase.h"
+#include "../Controller/SNScene.h"
 
 // 白黒矩形
-class SNGUIMonoRect : public virtual SNGUIBase
+class SNGUIMonoRect : public virtual SNScene
 {
 public:
 	// コンストラクタ
@@ -13,22 +13,18 @@ public:
 	virtual ~SNGUIMonoRect();
 
 	// 初期化
-	virtual Void Initialize();
+	virtual Void OnInitialize();
 
 	// 終了処理
-	virtual Void Terminate();
-
-	// 1フレーム実行
-	// リターン：遷移先コード
-	virtual SNTransitionCode Step(SNEvent* event);
-
-	// 描画処理
-	virtual Void Draw(SNSurface* surface);
+	virtual Void OnTerminate();
 
 	// 色設定 true:白 false:黒
 	Void SetColor(Boolean whiteness);
 
 protected:
+	// 描画処理
+	virtual Void OnDraw(SNSurface* surface);
+
 	Boolean Whiteness;	// 白
 };
 

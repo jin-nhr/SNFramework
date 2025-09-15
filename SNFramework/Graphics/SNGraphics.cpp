@@ -6,56 +6,34 @@
 
 // グラフィクスクラス
 
+// 画面バッファ用クリティカルセクション
+SNCriticalSection SNGraphics::CriticalSectionForScreen;
 
-// 共通メソッド/データ
+// 描画矩形データ用クリティカルセクション
+SNCriticalSection SNGraphics::CriticalSectionForDrawRect;
 
-// インスタンス生成/取得
-SNGraphics* SNGraphics::GetInstance()
-{
-	if (Me == nullptr)
-	{
-		Me = new SNGraphics;
-	}
+// 画面サーフェス
+SNSurfaceDDB SNGraphics::ScreenSurface[2];
 
-	return Me;
-}
+// プライマリサーフェスインデックス
+Int32 SNGraphics::PrimaryIndex = 0;
 
-// インスタンス破棄
-Void SNGraphics::Destroy()
-{
-	if (Me != nullptr)
-	{
-		delete Me;
-		Me = nullptr;
-	}
+// セカンダリサーフェスインデックス
+Int32 SNGraphics::SecondaryIndex = 1;
 
-	return;
-}
+// 描画対象画面サイズ
+SNRect SNGraphics::ScreenRect = { 0 };;
 
-// 自身のインスタンス
-SNGraphics* SNGraphics::Me = nullptr;
-
-
-
-// インスタンスメソッド/データ
-
-// デストラクタ
-SNGraphics::~SNGraphics()
-{
-	return;
-}
+// 描画矩形データ
+SNRect SNGraphics::DrawRect = { 0 };
 
 
 // 初期化処理
 Void SNGraphics::Initialize()
 {
-	// 子クラスのインスタンス生成
-	CriticalSectionForScreen = new SNCriticalSection;
-	CriticalSectionForDrawRect = new SNCriticalSection;
-
 	// クリティカルセクション初期化
-	CriticalSectionForScreen->Initialize();
-	CriticalSectionForDrawRect->Initialize();
+	CriticalSectionForScreen.Initialize();
+	CriticalSectionForDrawRect.Initialize();
 
 	return;
 }
@@ -63,23 +41,12 @@ Void SNGraphics::Initialize()
 // 起動準備
 Void SNGraphics::Startup()
 {
-	UInt8 surface_type = SNConfiguration::GetInstance()->ConfigurationData.System.SurfaceType;
-	Int32 width = SNConfiguration::GetInstance()->ConfigurationData.System.ScreenWidth;
-	Int32 height = SNConfiguration::GetInstance()->ConfigurationData.System.ScreenHeight;
+	Int32 width = SNConfiguration::SystemConfiguration.ScreenWidth;
+	Int32 height = SNConfiguration::SystemConfiguration.ScreenHeight;
 
 	// サーフェス生成
-	if (surface_type == SNSurfaceTypeDDB)
-	{
-		ScreenSurface[0] = new SNSurfaceDDB();
-		ScreenSurface[1] = new SNSurfaceDDB();
-	}
-	else
-	{
-		ScreenSurface[0] = new SNSurfaceDIB();
-		ScreenSurface[1] = new SNSurfaceDIB();
-	}
-	ScreenSurface[0]->CreateSurface(width, height);
-	ScreenSurface[1]->CreateSurface(width, height);
+	ScreenSurface[0].CreateSurface(width, height);
+	ScreenSurface[1].CreateSurface(width, height);
 
 	// 描画領域を初期設定
 	DrawRect.PointX = 0;
@@ -106,20 +73,6 @@ Void SNGraphics::BeforeTerminate()
 // 終了
 Void SNGraphics::Terminate()
 {
-	// サーフェス生成済みなら破棄
-	if (ScreenSurface[0] != nullptr)
-	{
-		delete ScreenSurface[0];
-		delete ScreenSurface[1];
-
-		ScreenSurface[0] = nullptr;
-		ScreenSurface[1] = nullptr;
-	}
-
-	// 子クラスの破棄
-	delete CriticalSectionForScreen;
-	delete CriticalSectionForDrawRect;
-
 	return;
 }
 
@@ -127,7 +80,7 @@ Void SNGraphics::Terminate()
 SNSurface* SNGraphics::GetSurface()
 {
 	// セカンダリサーフェスを返す
-	return ScreenSurface[SecondaryIndex];
+	return &ScreenSurface[SecondaryIndex];
 }
 
 // サーフェスフリップ
@@ -137,7 +90,7 @@ Void SNGraphics::FlipSurface()
 	// サーフェスフリップはアプリケーションスレッドで実行するため
 	// サーフェスへのアクセス競合が発生する懸念があるため排他制御を行う
 	// クリティカルセクションロック
-	CriticalSectionForScreen->Lock();
+	CriticalSectionForScreen.Lock();
 	{
 		// サーフェスを入れ替え
 		Int32 swap_index = PrimaryIndex;
@@ -145,7 +98,7 @@ Void SNGraphics::FlipSurface()
 		SecondaryIndex = swap_index;
 	}
 	// クリティカルセクションアンロック
-	CriticalSectionForScreen->Unlock();
+	CriticalSectionForScreen.Unlock();
 
 	return;
 }
@@ -153,9 +106,9 @@ Void SNGraphics::FlipSurface()
 // 画面描画処理
 Void SNGraphics::DrawScreen(Handle hdc, Int32 width, Int32 height)
 {
-	UInt8 draw_align = SNConfiguration::GetInstance()->ConfigurationData.System.DrawAlign;
-	Int32 config_width = SNConfiguration::GetInstance()->ConfigurationData.System.ScreenWidth;
-	Int32 config_height = SNConfiguration::GetInstance()->ConfigurationData.System.ScreenHeight;
+	UInt8 draw_align = SNConfiguration::SystemConfiguration.DrawAlign;
+	Int32 config_width = SNConfiguration::SystemConfiguration.ScreenWidth;
+	Int32 config_height = SNConfiguration::SystemConfiguration.ScreenHeight;
 
 	// 画面サイズの変化を検知した場合は再計算
 	if ((ScreenRect.Width != width) || (ScreenRect.Height != height))
@@ -184,7 +137,7 @@ Void SNGraphics::DrawScreen(Handle hdc, Int32 width, Int32 height)
 		// 参照はアプリケーションスレッドから実行されるので
 		// DrawRectのアクセス競合の懸念があるため排他制御する
 		// ロック
-		CriticalSectionForDrawRect->Lock();
+		CriticalSectionForDrawRect.Lock();
 		{
 			// 描画範囲を更新
 			DrawRect.PointX = offset_x;
@@ -193,7 +146,7 @@ Void SNGraphics::DrawScreen(Handle hdc, Int32 width, Int32 height)
 			DrawRect.Height = new_height;
 		}
 		// アンロック
-		CriticalSectionForDrawRect->Unlock();
+		CriticalSectionForDrawRect.Unlock();
 
 		// 画面全体を黒塗りする
 		::PatBlt((HDC)hdc, 0, 0, ScreenRect.Width, ScreenRect.Height, BLACKNESS);
@@ -203,7 +156,7 @@ Void SNGraphics::DrawScreen(Handle hdc, Int32 width, Int32 height)
 	// サーフェスフリップはアプリケーションスレッドで実行するため
 	// サーフェスへのアクセス競合が発生する懸念があるため排他制御を行う
 	// クリティカルセクションのロック
-	CriticalSectionForScreen->Lock();
+	CriticalSectionForScreen.Lock();
 	{
 		// 画面描画
 		StretchBlt(
@@ -212,90 +165,69 @@ Void SNGraphics::DrawScreen(Handle hdc, Int32 width, Int32 height)
 			DrawRect.PointY,
 			DrawRect.Width,
 			DrawRect.Height,
-			(HDC)ScreenSurface[PrimaryIndex]->GetDC()->GetDeviceContext(),
+			(HDC)ScreenSurface[PrimaryIndex].GetDC(),
 			0,
 			0,
-			ScreenSurface[PrimaryIndex]->GetWidth(),
-			ScreenSurface[PrimaryIndex]->GetHeight(),
+			ScreenSurface[PrimaryIndex].GetWidth(),
+			ScreenSurface[PrimaryIndex].GetHeight(),
 			SRCCOPY);
 	}
 	// クリティカルセクションのアンロック
-	CriticalSectionForScreen->Unlock();
+	CriticalSectionForScreen.Unlock();
 
 	return;
 }
 
 // 画面座標系→サーフェス座標に変換
-Void SNGraphics::ScreenToSurface(SNPoint* point)
+Boolean SNGraphics::ClientToSurface(SNPoint* point)
 {
-	POINT win_api_point;
 	SNRect draw_rect;
-
+	Boolean clipping = false;
 
 	// DrawRectの更新はプライマリスレッドで行われ
 	// 参照はアプリケーションスレッドから実行されるので
 	// DrawRectのアクセス競合の懸念があるため排他制御する
 	// ロック
-	CriticalSectionForDrawRect->Lock();
+	CriticalSectionForDrawRect.Lock();
 	{
 		// 描画範囲を参照用にコピー
 		draw_rect = DrawRect;
 	}
 	// アンロック
-	CriticalSectionForDrawRect->Unlock();
-
-	// パラメータをWinAPI用の座標構造体にセット
-	win_api_point.x = point->X;
-	win_api_point.y = point->Y;
-
-	// クライアント上の座標に変換
-	ScreenToClient((HWND)SNSystem::GetInstance()->GetWindowDC(), &win_api_point);
+	CriticalSectionForDrawRect.Unlock();
 
 	// X座標が描画左端より左なら左端でクリップ
-	if (win_api_point.x < DrawRect.PointX)   win_api_point.x = DrawRect.PointX;
+	if (point->X < draw_rect.PointX)
+	{
+		point->X = draw_rect.PointX;
+		clipping = true;
+	}
 	// X座標が描画右端より右なら右端でクリップ
-	if (DrawRect.PointX + DrawRect.Width <= win_api_point.x)  win_api_point.x = DrawRect.PointX + DrawRect.Width - 1;
+	if (draw_rect.PointX + draw_rect.Width <= point->X)
+	{
+		point->X = draw_rect.PointX + draw_rect.Width - 1;
+		clipping = true;
+	}
 	// Y座標が描画上端より上なら上でクリップ
-	if (win_api_point.y < DrawRect.PointY)   win_api_point.y = DrawRect.PointY;
+	if (point->Y < draw_rect.PointY)
+	{
+		point->Y = draw_rect.PointY;
+		clipping = true;
+	}
 	// Y座標が描画下端より下なら下でクリップ
-	if (DrawRect.PointY + DrawRect.Height <= win_api_point.y)  win_api_point.y = DrawRect.PointY + DrawRect.Height - 1;
+	if (draw_rect.PointY + draw_rect.Height <= point->Y)
+	{
+		point->Y = draw_rect.PointY + draw_rect.Height - 1;
+		clipping = true;
+	}
 
 	// 0割回避
-	if (DrawRect.Width == 0) DrawRect.Width = 1;
-	if (DrawRect.Height == 0) DrawRect.Height = 1;
+	if (draw_rect.Width == 0) draw_rect.Width = 1;
+	if (draw_rect.Height == 0) draw_rect.Height = 1;
 
 	// 描画範囲でクリップした座標をサーフェス座標系にマッピング
-	win_api_point.x = ((win_api_point.x - DrawRect.PointX) * SNConfiguration::GetInstance()->ConfigurationData.System.ScreenWidth) / DrawRect.Width;
-	win_api_point.y = ((win_api_point.y - DrawRect.PointY) * SNConfiguration::GetInstance()->ConfigurationData.System.ScreenHeight) / DrawRect.Height;
+	point->X = ((point->X - draw_rect.PointX) * SNConfiguration::SystemConfiguration.ScreenWidth) / draw_rect.Width;
+	point->Y = ((point->Y - draw_rect.PointY) * SNConfiguration::SystemConfiguration.ScreenHeight) / draw_rect.Height;
 
-	// パラメータの座標をサーフェス座標に更新
-	point->X = win_api_point.x;
-	point->Y = win_api_point.y;
-
-	return;
-}
-
-
-// コンストラクタ
-// 外部からのインスタンス生成は禁止
-SNGraphics::SNGraphics()
-{
-	// 変数初期化
-	DrawRect.PointX = 0;
-	DrawRect.PointY = 0;
-	DrawRect.Width = 0;
-	DrawRect.Height = 0;
-
-	ScreenRect.PointX = 0;
-	ScreenRect.PointY = 0;
-	ScreenRect.Width = 0;
-	ScreenRect.Height = 0;
-
-	PrimaryIndex = 0;
-	SecondaryIndex = 1;
-
-	ScreenSurface[0] = nullptr;
-	ScreenSurface[1] = nullptr;
-
-	return;
+	return clipping;
 }

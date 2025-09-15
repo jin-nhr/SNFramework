@@ -9,6 +9,8 @@
 // ウインドウクラス
 
 Boolean SNWindow::EnableUpdate = false;
+Handle SNWindow::WindowHandle = nullptr;
+Handle SNWindow::WindowDC = nullptr;
 
 // ウインドウプロシージャ
 Void* __stdcall SNWindow::WindowProc(
@@ -30,23 +32,16 @@ Void* __stdcall SNWindow::WindowProc(
         DestroyWindow((HWND)window_handle);
         break;
 
-    // キーのアップダウンイベント
-    case WM_KEYDOWN:
-    case WM_KEYUP:
-        // 何もしない
-        // 余計な処理はしてほしくないのでイベントはひっかける
-        break;
-
     // ウインドウクローズイベント
     case WM_CLOSE:
         // アプリケーションスレッドに対して終了通知
-        SNApplication::GetInstance()->NotifyExitApplication();
+        SNApplication::NotifyExitApplication();
         break;
 
     // セッション終了確認
     case WM_QUERYENDSESSION:
         // アプリケーションスレッドに対して終了通知
-        SNApplication::GetInstance()->NotifyExitApplication();
+        SNApplication::NotifyExitApplication();
 
         // Windowsに対しては終了を拒否し、アプリケーション独自に終了処理を実行する
         // 拒否した場合でもWindowsからプロセスをキルされる可能性はある
@@ -61,7 +56,7 @@ Void* __stdcall SNWindow::WindowProc(
             GetClientRect((HWND)window_handle, &rect);
 
             // 画面描画処理
-            SNGraphics::GetInstance()->DrawScreen((Handle)ps.hdc, rect.right, rect.bottom);
+            SNGraphics::DrawScreen((Handle)ps.hdc, rect.right, rect.bottom);
         }
         EndPaint((HWND)window_handle, &ps);
 
@@ -77,18 +72,18 @@ Void* __stdcall SNWindow::WindowProc(
         // 0以外の値を返すことで余計な消去処理を動作させないようにする
         return (Void*)1;
 
-        // ウインドウアクティベイト
+    // ウインドウアクティベイト
     case WM_ACTIVATE:
         // アクティブならtrue, 非アクティブならfalse
         if (static_cast<DWORD>(reinterpret_cast<intptr_t>(w_param) & 0x0000FFFF) != WA_INACTIVE)
         {
             // アクティブ通知
-            SNApplication::GetInstance()->NotifyActive();
+            SNApplication::NotifyActive();
         }
         else
         {
             // 非アクティブ通知
-            SNApplication::GetInstance()->NotifyNonActive();
+            SNApplication::NotifyNonActive();
         }
 
         // ウインドウデフォルト処理
@@ -103,12 +98,12 @@ Void* __stdcall SNWindow::WindowProc(
         // 正ならUp
         if (wheel_updown > 0)
         {
-            SNApplication::GetInstance()->NotifyWheelUp();
+            SNApplication::NotifyWheelUp();
         }
         // 負ならDown
         else if (wheel_updown < 0)
         {
-            SNApplication::GetInstance()->NotifyWheelDown();
+            SNApplication::NotifyWheelDown();
         }
         else
         {
@@ -131,33 +126,15 @@ Void* __stdcall SNWindow::WindowProc(
     return 0;
 }
 
-
-// コンストラクタ
-SNWindow::SNWindow()
-{
-    // 変数初期化
-    WindowHandle = nullptr;
-    ClientDC = nullptr;
-
-    return;
-}
-
-// デストラクタ
-SNWindow::~SNWindow()
-{
-    return;
-}
-
 // ウインドウ生成
 // リターン：処理結果を返す true:正常
 Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
 {
+    HDC dc;
+
     // ウインドウ未生成のときだけ処理
     if (WindowHandle == nullptr)
     {
-        // コンフィギュレーションデータ取得
-        SNConfigurationData* configuration_data = &SNConfiguration::GetInstance()->ConfigurationData;
-
         // Windowクラス登録
         {
             WNDCLASSEXW wcex;
@@ -173,7 +150,7 @@ Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
             wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
             wcex.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
             wcex.lpszMenuName = NULL;
-            wcex.lpszClassName = configuration_data->System.ApplicationName;
+            wcex.lpszClassName = SNConfiguration::SystemConfiguration.ApplicationName;
             wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL_ICON));
 
             RegisterClassExW(&wcex);
@@ -186,9 +163,9 @@ Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
 
             // 画面幅、高さからクライアント領域の座標を計算
             win_rect.left = 0;
-            win_rect.right = configuration_data->System.ScreenWidth - 1;
+            win_rect.right = SNConfiguration::SystemConfiguration.ScreenWidth - 1;
             win_rect.top = 0;
-            win_rect.bottom = configuration_data->System.ScreenHeight - 1;
+            win_rect.bottom = SNConfiguration::SystemConfiguration.ScreenHeight - 1;
 
             // クライアント領域の座標からウインドウ座標を取得
             AdjustWindowRect(&win_rect, WS_OVERLAPPEDWINDOW, FALSE);
@@ -196,8 +173,8 @@ Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
 
             // Window生成
             WindowHandle = (void*)CreateWindowW(
-                configuration_data->System.ApplicationName,
-                configuration_data->System.ApplicationName,
+                SNConfiguration::SystemConfiguration.ApplicationName,
+                SNConfiguration::SystemConfiguration.ApplicationName,
                 WS_OVERLAPPEDWINDOW,
                 CW_USEDEFAULT,
                 0,
@@ -213,28 +190,16 @@ Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
             UpdateWindow((HWND)WindowHandle);
         }
 
-        // クライアント領域DCを取得
-        ClientDC = (Handle)GetDC((HWND)WindowHandle);
+        dc = ::GetDC((HWND)WindowHandle);
 
         // DCへの初期設定を行う
-        SetBkMode((HDC)ClientDC, TRANSPARENT);
-        SetStretchBltMode((HDC)ClientDC, STRETCH_HALFTONE);
-        SetBrushOrgEx((HDC)ClientDC, 0, 0, NULL);
+        SetBkMode(dc, TRANSPARENT);
+        SetStretchBltMode(dc, SNConfiguration::SystemConfiguration.BltMode);
+        SetBrushOrgEx(dc, 0, 0, NULL);
+
+        WindowDC = (Handle)dc;
     }
 
     return;
 }
 
-// ウインドウハンドル取得
-Handle SNWindow::GetWindowHandle()
-{
-    // ウインドウハンドルを返す
-    return WindowHandle;
-}
-
-// クライアント領域DC取得
-Handle SNWindow::GetClientDC()
-{
-    // クライアント領域DCを返す
-    return ClientDC;
-}

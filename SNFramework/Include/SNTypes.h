@@ -1,4 +1,5 @@
 #pragma once
+#include "SNFramework.h"
 
 // 基本データ型の定義
 
@@ -25,6 +26,8 @@ typedef unsigned char		Boolean;
 typedef wchar_t				Char;
 typedef wchar_t*			String;
 
-typedef void*				Handle;
+typedef UInt16              BMChar;
+typedef BMChar*             BMString;
 
+typedef void*				Handle;
 

@@ -8,72 +8,46 @@
 // SNFrameworkの全コンポーネントの管理を行う
 class SNSystem
 {
-// 共通メソッド/データ
 public:
-	// インスタンス生成/取得
-	static SNSystem* GetInstance();
-
-	// インスタンス破棄
-	static Void Destroy();
-
-private:
-	// 自身のインスタンス
-	static SNSystem* Me;
-
-
-// インスタンスメソッド/データ
-public:
-	// デストラクタ
-	~SNSystem();
-	
 	// 初期化処理
 	// パラメータ：WinMainのパラメータを渡す
-	Void Initialize(
+	static Void Initialize(
 		Handle application_handle,
 		Handle application_prev_handle,
 		String command_line,
 		Int32 show_command);
 	
 	// 起動準備
-	Void Startup();
+	static Void Startup();
 	
 	// 実行
 	// リターン：終了コード
-	Int32 Run();
+	static Int32 Run();
 
 	// 終了前処理
-	Void BeforeTerminate();
+	static Void BeforeTerminate();
 	
 	// 終了
-	Void Terminate();
+	static Void Terminate();
 
 	// 終了通知
 	// パラメータ：終了許可(true)/不可(false)
-	Void NoticeExitApplication();
+	static Void NoticeExitApplication();
 
 	// 画面更新通知
-	Void NoticeRefreshScreen();
+	static Void NoticeRefreshScreen();
 
 	// アプリケーションハンドル取得
-	Handle	GetApplicationHandle();
-
-	// ウインドウDC取得
-	Handle GetWindowDC();
+	static Handle GetApplicationHandle();
 
 	// 画面座標→クライアント座標変換
 	// パラメータに変換結果を返す
-	Void ScreenToClient(SNPoint* point);
+	static Void ScreenToClient(SNPoint* point);
 
-private:
-	// コンストラクタ
-	// 外部からのインスタンス生成は禁止
-	SNSystem();
-
-	Handle	ApplicationHandle;		// アプリケーションハンドル
-	Handle  ApplicationPrevHandle;	// 既存アプリケーションハンドル
-	String	CommandLine;			// コマンドライン
-	Int32	ShowCommand;			// 表示コマンド
-	SNMutex	DualBootChecker;		// 二重起動チェッカー
-	SNWindow Window;				// ウインドウ
+	static Handle	ApplicationHandle;		// アプリケーションハンドル
+	static Handle	ApplicationPrevHandle;	// 既存アプリケーションハンドル
+	static String	CommandLine;			// コマンドライン
+	static Int32	ShowCommand;			// 表示コマンド
+	static SNMutex	DualBootChecker;		// 二重起動チェッカー
 };
 

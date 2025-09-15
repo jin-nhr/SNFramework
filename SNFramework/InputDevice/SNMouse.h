@@ -6,6 +6,7 @@
 struct SNMouseState
 {
 	SNPoint	Position;						// サーフェス上の論理座標
+	Boolean PosClipping;					// 座標クリップ
 	Boolean	ButtonState[SNMouseButtonNum];	// マウスボタン状態
 };
 
@@ -13,28 +14,23 @@ struct SNMouseState
 class SNMouse
 {
 public:
-	// コンストラクタ
-	SNMouse();
-
-	// デストラクタ
-	~SNMouse();
-
 	// 初期化
-	Void Initialize();
+	static Void Initialize();
 
 	// 終了
-	Void Terminate();
+	static Void Terminate();
 
 	// 更新処理
-	Void Update();
+	static Void Update();
 
-	// 状態取得
-	const SNMouseState* GetState();
+	// 画面座標系→サーフェス座標変換
+	// リターン：座標クリッピング有無
+	static Boolean ScreenToSurface(SNPoint* point);
+
+	// マウス状態
+	static SNMouseState MouseState;
 
 private:
-	// マウス状態
-	SNMouseState MouseState;
-
 	// ボタンコード配列
-	Int32 ButtonCode[SNMouseButtonNum];
+	static Int32 ButtonCode[SNMouseButtonNum];
 };

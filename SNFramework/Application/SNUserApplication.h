@@ -1,15 +1,15 @@
 #pragma once
 #include "../Include/SNFramework.h"
-#include "State/SNState.h"
+#include "Controller/SNScene.h"
 
 // ユーザーアプリケーションベース
 // 本クラスを継承してユーザーアプリケーションを実装する
-class SNUserApplication : public virtual SNState
+class SNUserApplication : public virtual SNScene
 {
 // スタティックメソッド
 public:
 	// ユーザーアプリケーション
-	static SNState* UserApplication;
+	static SNScene* UserApplication;
 
 
 // インスタンスメソッド

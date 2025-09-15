@@ -20,14 +20,20 @@ public:
 	// 更新処理
 	Void Update();
 
+	// 入力イベント無効化
+	Void InputEventDisable();
+
 	// アプリケーションイベント
-	const SNApplicationEventInfo* ApplicationEvent;
+	SNApplicationEventInfo ApplicationEvent;
 
 	// 物理入力イベント
-	const SNPhysicalInputEvent* PhysicalInputEvent;
+	SNPhysicalInputEvent PhysicalInputEvent;
+
+	// 入力イベント有効フラグ
+	Boolean InputEventEnable;
 
 	// 入力イベント
-	const SNInputDeviceEvent* InputEvent;
+	SNInputDeviceEvent InputEvent;
 
 	// ループバックイベント
 	SNLoopbackEvent LoopbackEvent;

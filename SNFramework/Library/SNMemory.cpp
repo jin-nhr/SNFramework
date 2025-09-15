@@ -3,16 +3,17 @@
 
 // メモリクラス
 
-
-Int32 SNMemory::AlignSize = 4;
-
+const Int32 SNMemory::SNMemoryAlignSize = 4;	// メモリ境界サイズ
 
 // コンストラクタ
 SNMemory::SNMemory()
 {
 	// 変数を初期化
 	Size = 0;
+	AllocSize = 0;
 	Address = nullptr;
+
+	return;
 }
 
 // デストラクタ
@@ -44,14 +45,24 @@ Void SNMemory::Allocate(UInt32 size)
 		alloc_size = size;
 	}
 
-	// 事前にFreeを実行しておく
-	Free();
-
 	// サイズを4の倍数にする
-	Size = ((alloc_size + AlignSize - 1) / AlignSize) * AlignSize;
+	alloc_size = ((alloc_size + SNMemoryAlignSize - 1) / SNMemoryAlignSize) * SNMemoryAlignSize;
 
-	// サイズ分だけメモリ確保
-	Address = new UInt8[Size];
+	// 確保サイズで足りないときは再確保する
+	if (AllocSize < alloc_size)
+	{
+		// 事前にFreeを実行しておく
+		Free();
+
+		// サイズ分だけメモリ確保
+		Address = new UInt8[alloc_size];
+
+		// 確保サイズを更新
+		AllocSize = alloc_size;
+	}
+
+	// データサイズには要求サイズを設定する
+	Size = size;
 
 	return;
 }
@@ -65,6 +76,7 @@ Void SNMemory::Free()
 		delete[] Address;
 		Address = nullptr;
 		Size = 0;
+		AllocSize = 0;
 	}
 
 	return;
@@ -74,6 +86,18 @@ Void SNMemory::Free()
 Void* SNMemory::GetAddress()
 {
 	return Address;
+}
+
+// サイズ取得
+UInt32 SNMemory::GetSize()
+{
+	return Size;
+}
+
+// 確保サイズ取得
+UInt32 SNMemory::GetAllocSize()
+{
+	return AllocSize;
 }
 
 // メモリクリア

@@ -1,10 +1,10 @@
 #pragma once
 #include "../../Include/SNFramework.h"
-#include "SNGUIBase.h"
-#include "../../Library/SNMemory.h"
+#include "../Controller/SNScene.h"
+#include "../../Library/SNString.h"
 
 // テキストラベル
-class SNGUITextLabel : public virtual SNGUIBase
+class SNGUITextLabel : public virtual SNScene
 {
 public:
 	// コンストラクタ
@@ -12,19 +12,6 @@ public:
 
 	// デストラクタ
 	virtual ~SNGUITextLabel();
-
-	// 初期化
-	virtual Void Initialize();
-
-	// 終了処理
-	virtual Void Terminate();
-
-	// 1フレーム実行
-	// リターン：遷移先コード
-	virtual SNTransitionCode Step(SNEvent* event);
-
-	// 描画処理
-	virtual Void Draw(SNSurface* surface);
 
 	// テキスト設定
 	virtual Void SetText(String text);
@@ -42,7 +29,16 @@ public:
 	virtual Void SetShadowOffset(Int32 offset);
 
 protected:
-	SNMemory Text;			// テキスト (自前で領域確保)
+	// 初期化
+	virtual Void OnInitialize();
+
+	// 終了処理
+	virtual Void OnTerminate();
+
+	// 描画処理
+	virtual Void OnDraw(SNSurface* surface);
+
+	SNString Text;			// テキスト (自前で領域確保)
 	UInt32 TextColor;		// テキストカラー
 	Boolean ShadowEnable;	// 影有効
 	UInt32 ShadowColor;		// 影カラー

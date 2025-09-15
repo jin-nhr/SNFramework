@@ -8,9 +8,10 @@
 SNEvent::SNEvent()
 {
 	// 初期化
-	ApplicationEvent = nullptr;
-	PhysicalInputEvent = nullptr;
-	InputEvent = nullptr;
+	ApplicationEvent = { 0 };
+	PhysicalInputEvent = { 0 };
+	InputEventEnable = false;
+	InputEvent = { 0 };
 	LoopbackEvent = {0};
 	Result = {0};
 	return;
@@ -38,19 +39,30 @@ Void SNEvent::Terminate()
 Void SNEvent::Update()
 {
 	// アプリケーションイベント取得
-	ApplicationEvent = SNApplication::GetInstance()->GetEventInfo();
+	ApplicationEvent = *SNApplication::GetEventInfo();
 
 	// 物理入力イベント取得
-	PhysicalInputEvent = SNInputDevice::GetInstance()->GetPhysicalInputEvent();
+	PhysicalInputEvent = *SNInputDevice::GetPhysicalInputEvent();
 
-	// 入ry項イベント取得
-	InputEvent = SNInputDevice::GetInstance()->GetInputDeviceEvent();
+	// 入力イベント取得
+	InputEvent = *SNInputDevice::GetInputDeviceEvent();
+
+	// 入力イベント有効化
+	InputEventEnable = true;
 
 	// 前回のリザルトを参照し、ループバックイベント設定
 	LoopbackEvent = {0};
 
 	// リザルト初期化
 	Result = {0};
+
+	return;
+}
+
+// 入力イベント無効化
+Void SNEvent::InputEventDisable()
+{
+	InputEventEnable = false;
 
 	return;
 }

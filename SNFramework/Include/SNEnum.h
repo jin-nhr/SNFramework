@@ -1,16 +1,19 @@
 #pragma once
+#include "SNFramework.h"
 
 // 列挙型定義
 
-// 定数定義 設定値
-enum SNSurfaceType
+// BLTモード
+enum SNBltMode
 {
-    SNSurfaceTypeDDB,       // サーフェスタイプDDB
-    SNSurfaceTypeDIB        // サーフェスタイプDIB
+    SNBltModeAnd = 1,
+    SNBltModeOr = 2,
+    SNBltModeNearest = 3,
+    SNBltModeHalfTone = 4
 };
 
 
-// 定数定義 キーコード
+// キーコード
 enum SNKeyCode
 {
     SNKeyCodeNull = 0x00,
@@ -262,15 +265,14 @@ enum SNKeyCode
 // マウスボタン
 enum SNMouseButton
 {
-    SNMouseButtonNull,
     SNMouseButtonDecide,
     SNMouseButtonCancel,
     SNMouseButtonMiddle,
-    SNMouseButtonX1,
-    SNMouseButtonX2,
-    SNMouseButtonWheelUp,
+    SNMouseClickNum,
+    SNMouseButtonWheelUp = SNMouseClickNum,
     SNMouseButtonWheelDown,
     SNMouseButtonNum,
+    SNMouseButtonNull = 0xFF,
 };
 
 // ゲームパッドID
@@ -358,8 +360,8 @@ enum SNInputButton
     SNInputButtonAction,    // アクション(Yボタン)
     SNInputButtonStart,     // スタート
     SNInputButtonSelect,    // セレクト
-    SNInputButtonPageUp,    // ページ戻し(Lボタン)
-    SNInputButtonPageDown,  // ページ送り(Rボタン)
+    SNInputButtonPagePrev,  // ページ戻し(Lボタン)
+    SNInputButtonPageNext,  // ページ送り(Rボタン)
     SNInputButtonListUp,    // リストアップ(拡大)
     SNInputButtonListDown,  // リストダウン(縮小)
     SNInputButtonNum,
@@ -379,10 +381,35 @@ enum SNInputDeviceID
 // 0~:状態クラス毎に規程する
 enum SNTransitionCode
 {
-    SNTransitionCodeNo = -1,
+    SNTransitionCodeStay = -1,
     SNTransitionCode1 = 0,
     SNTransitionCode2 = 1,
     SNTransitionCode3 = 2,
     SNTransitionCode4 = 3,
     SNTransitionCodeNum = 4,
+};
+
+// ファイル処理結果
+enum SNStorageResult
+{
+    SNStorageResultIdle,
+    SNStorageResultProcessing,
+    SNStorageResultNormal,
+    SNStorageResultError,
+    SNStorageResultExists,
+    SNStorageResultNoExists,
+};
+
+// ファイル命令
+enum SNStorageOperation
+{
+    SNStorageOperationNo,
+    SNStorageOperationCheckExists,
+    SNStorageOperationCreateFolder,
+    SNStorageOperationRemoveFolder,
+    SNStorageOperationFolderFileList,
+    SNStorageOperationGetSize,
+    SNStorageOperationWriteFile,
+    SNStorageOperationReadFile,
+    SNStorageOperationRemoveFile,
 };

@@ -9,46 +9,11 @@
 
 // システムクラス
 
-
-// 共通メソッド/データ
-
-// インスタンス生成/取得
-SNSystem* SNSystem::GetInstance()
-{
-	if (Me == nullptr)
-	{
-		Me = new SNSystem;
-	}
-
-	return Me;
-}
-
-// インスタンス破棄
-Void SNSystem::Destroy()
-{
-	if (Me != nullptr)
-	{
-		delete Me;
-	}
-
-	Me = nullptr;
-
-	return;
-}
-
-// 自身のインスタンス
-SNSystem* SNSystem::Me = nullptr;
-
-
-
-// インスタンスメソッド/データ
-
-// デストラクタ
-SNSystem::~SNSystem()
-{
-
-	return;
-}
+Handle	SNSystem::ApplicationHandle = nullptr;		// アプリケーションハンドル
+Handle	SNSystem::ApplicationPrevHandle = nullptr;	// 既存アプリケーションハンドル
+String	SNSystem::CommandLine = nullptr;			// コマンドライン
+Int32	SNSystem::ShowCommand = 0;					// 表示コマンド
+SNMutex	SNSystem::DualBootChecker;					// 二重起動チェッカー
 
 
 // 初期化処理
@@ -72,12 +37,12 @@ Void SNSystem::Initialize(
 	// 各コンポーネントのInitializeを実施
 	// Initailizeではコンポーネント内の初期化を実施し
 	// 他コンポーネントから呼び出されたときに動作できるようにしておく
-	SNConfiguration::GetInstance()->Initialize();
-	SNStorage::GetInstance()->Initialize();
-	SNGraphics::GetInstance()->Initialize();
-	SNAudioVideo::GetInstance()->Initialize();
-	SNInputDevice::GetInstance()->Initialize();
-	SNApplication::GetInstance()->Initialize();
+	SNConfiguration::Initialize();
+	SNStorage::Initialize();
+	SNGraphics::Initialize();
+	SNAudioVideo::Initialize();
+	SNInputDevice::Initialize();
+	SNApplication::Initialize();
 
 	return;
 }
@@ -86,20 +51,20 @@ Void SNSystem::Initialize(
 Void SNSystem::Startup()
 {
 	// 二重起動チェッカー生成
-	DualBootChecker.Create(SNConfiguration::GetInstance()->ConfigurationData.System.ApplicationID);
+	DualBootChecker.Create(SNConfiguration::SystemConfiguration.ApplicationID);
 
 	// ウインドウ生成
-	Window.Create(ApplicationHandle, ShowCommand);
+	SNWindow::Create(ApplicationHandle, ShowCommand);
 
 	////////////////////////////////////////////
 	// 各コンポーネントのStartupを実施
 	// Startupでは他コンポーネントとの連携などを行い実行準備をする
-	SNConfiguration::GetInstance()->Startup();
-	SNStorage::GetInstance()->Startup();
-	SNGraphics::GetInstance()->Startup();
-	SNAudioVideo::GetInstance()->Startup();
-	SNInputDevice::GetInstance()->Startup();
-	SNApplication::GetInstance()->Startup();
+	SNConfiguration::Startup();
+	SNStorage::Startup();
+	SNGraphics::Startup();
+	SNAudioVideo::Startup();
+	SNInputDevice::Startup();
+	SNApplication::Startup();
 
 	return;
 }
@@ -110,12 +75,12 @@ Int32 SNSystem::Run()
 {
 	////////////////////////////////////////////
 	// 各コンポーネントのRunを実施
-	SNConfiguration::GetInstance()->Run();
-	SNStorage::GetInstance()->Run();
-	SNGraphics::GetInstance()->Run();
-	SNAudioVideo::GetInstance()->Run();
-	SNInputDevice::GetInstance()->Run();
-	SNApplication::GetInstance()->Run();
+	SNConfiguration::Run();
+	SNStorage::Run();
+	SNGraphics::Run();
+	SNAudioVideo::Run();
+	SNInputDevice::Run();
+	SNApplication::Run();
 
 
 	// システム定常動作を開始
@@ -139,12 +104,12 @@ Void SNSystem::BeforeTerminate()
 	////////////////////////////////////////////
 	// 各コンポーネントのBeforeTerminateを実施
 	// 起動時とは逆順に実行する
-	SNApplication::GetInstance()->BeforeTerminate();
-	SNStorage::GetInstance()->BeforeTerminate();
-	SNGraphics::GetInstance()->BeforeTerminate();
-	SNAudioVideo::GetInstance()->BeforeTerminate();
-	SNInputDevice::GetInstance()->BeforeTerminate();
-	SNConfiguration::GetInstance()->BeforeTerminate();
+	SNApplication::BeforeTerminate();
+	SNStorage::BeforeTerminate();
+	SNGraphics::BeforeTerminate();
+	SNAudioVideo::BeforeTerminate();
+	SNInputDevice::BeforeTerminate();
+	SNConfiguration::BeforeTerminate();
 
 	return;
 }
@@ -158,12 +123,12 @@ Void SNSystem::Terminate()
 	////////////////////////////////////////////
 	// 各コンポーネントのTerminateを実施
 	// 起動時とは逆順に実行する
-	SNApplication::GetInstance()->Terminate();
-	SNStorage::GetInstance()->Terminate();
-	SNGraphics::GetInstance()->Terminate();
-	SNAudioVideo::GetInstance()->Terminate();
-	SNInputDevice::GetInstance()->Terminate();
-	SNConfiguration::GetInstance()->Terminate();
+	SNApplication::Terminate();
+	SNStorage::Terminate();
+	SNGraphics::Terminate();
+	SNAudioVideo::Terminate();
+	SNInputDevice::Terminate();
+	SNConfiguration::Terminate();
 
 	return;
 }
@@ -173,7 +138,7 @@ Void SNSystem::Terminate()
 Void SNSystem::NoticeExitApplication()
 {
 	// Windowに終了通知を送る
-	PostMessage((HWND)Window.GetWindowHandle(), WM_SNFRAMEWORK_NOTICE_EXIT, 0, 0);
+	PostMessage((HWND)SNWindow::WindowHandle, WM_SNFRAMEWORK_NOTICE_EXIT, 0, 0);
 
 	return;
 }
@@ -183,7 +148,7 @@ Void SNSystem::NoticeRefreshScreen()
 {
 	// 画面更新通知
 	SNWindow::EnableUpdate = true;
-	InvalidateRect((HWND)Window.GetWindowHandle(), nullptr, FALSE);
+	InvalidateRect((HWND)SNWindow::WindowHandle, nullptr, FALSE);
 
 	return;
 }
@@ -194,38 +159,12 @@ Handle SNSystem::GetApplicationHandle()
 	return ApplicationHandle;
 }
 
-// ウインドウDC取得
-Handle SNSystem::GetWindowDC()
-{
-	// ウインドウDCを返す
-	return Window.GetClientDC();
-}
-
+// クライアント領域座標系に変換
 Void SNSystem::ScreenToClient(SNPoint* point)
 {
-	POINT win_point;
-
-	win_point.x = point->X;
-	win_point.y = point->Y;
-
-	::ScreenToClient((HWND)Window.GetWindowHandle(), &win_point);
-
-	point->X = win_point.x;
-	point->Y = win_point.y;
+	// クライアント座標変換
+	// SNPointとPOINTは互換ありのためそのまま渡す
+	::ScreenToClient((HWND)SNWindow::WindowHandle, (POINT*)point);
 
 	return;
 }
-
-// コンストラクタ
-// 外部からのインスタンス生成は禁止
-SNSystem::SNSystem()
-{
-	// インスタンス所有の変数初期化
-	ApplicationHandle = nullptr;
-	ApplicationPrevHandle = nullptr;
-	CommandLine = nullptr;
-	ShowCommand = 0;
-
-	return;
-}
-
