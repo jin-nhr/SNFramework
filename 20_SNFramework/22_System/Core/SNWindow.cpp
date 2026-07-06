@@ -6,10 +6,10 @@
 #include "SNGraphics.h"
 #include "SNConfig.h"
 #include "SNGDI.h"
+#include "SND3D.h"
 
 // ウインドウクラス
 
-Boolean SNWindow::EnableUpdate = false;
 Handle SNWindow::WindowHandle = nullptr;
 Handle SNWindow::WindowDC = nullptr;
 
@@ -37,11 +37,6 @@ Void* __stdcall SNWindow::WindowProc(
     // セッション終了確認
     case WM_QUERYENDSESSION:
         ret = OnQueryEndSession(window_handle, message, w_param, l_param);
-        break;
-
-    // 描画イベント
-    case WM_PAINT:
-        ret = OnPaint(window_handle, message, w_param, l_param);
         break;
 
     // バックグラウンド消去
@@ -120,9 +115,9 @@ Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
 
             // 画面幅、高さからクライアント領域の座標を計算
             win_rect.left = 0;
-            win_rect.right = SNSystemConfig::ScreenWidth - 1;
+            win_rect.right = SNSystemConfig::ScreenWidth;
             win_rect.top = 0;
-            win_rect.bottom = SNSystemConfig::ScreenHeight - 1;
+            win_rect.bottom = SNSystemConfig::ScreenHeight;
 
             // クライアント領域の座標からウインドウ座標を取得
             AdjustWindowRect(&win_rect, WS_OVERLAPPEDWINDOW, FALSE);
@@ -135,8 +130,8 @@ Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
                 WS_OVERLAPPEDWINDOW,
                 CW_USEDEFAULT,
                 0,
-                win_rect.right - win_rect.left + 1,
-                win_rect.bottom - win_rect.top + 1,
+                win_rect.right - win_rect.left,
+                win_rect.bottom - win_rect.top,
                 nullptr,
                 nullptr,
                 (HINSTANCE)application_incetance,
@@ -154,27 +149,11 @@ Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
             SNGDI gdi;
 
             gdi.InitDC(dc);
+
+            gdi.PatBlt(dc, 0, 0, SNSystemConfig::ScreenWidth, SNSystemConfig::ScreenHeight, BLACKNESS);
         }
 
         WindowDC = (Handle)dc;
-    }
-
-    return;
-}
-
-// 表示設定
-Void SNWindow::SetWindowDisp(Boolean fullscreen)
-{
-    // フルスクリーン設定
-    if (fullscreen)
-    {
-        ShowWindow((HWND)WindowHandle, SW_MAXIMIZE);
-    }
-
-    // 通常設定
-    else
-    {
-        ShowWindow((HWND)WindowHandle, SW_RESTORE);
     }
 
     return;
@@ -207,36 +186,6 @@ Void* SNWindow::OnQueryEndSession(Void* window_handle, UInt message, Void* w_par
     // Windowsに対しては終了を拒否し、アプリケーション独自に終了処理を実行する
     // 拒否した場合でもWindowsからプロセスをキルされる可能性はある
     return (Void*)FALSE;
-}
-
-// 描画更新
-Void* SNWindow::OnPaint(Void* window_handle, UInt message, Void* w_param, Void* l_param)
-{
-    RECT rect;
-    PAINTSTRUCT ps;
-
-    BeginPaint((HWND)window_handle, &ps);
-    {
-        // クライアント領域サイズを取得
-        GetClientRect((HWND)window_handle, &rect);
-
-        if (EnableUpdate)
-        {
-            // 画面描画処理
-            SNGraphics::DrawScreen((Handle)ps.hdc, rect.right, rect.bottom);
-        }
-
-        // ウインドウ生成直後にちらつくのを防止
-        else
-        {
-            SNGDI gdi;
-            // 黒で塗りつぶし
-            gdi.PatBlt(ps.hdc, 0, 0, rect.right, rect.bottom, BLACKNESS);
-        }
-    }
-    EndPaint((HWND)window_handle, &ps);
-
-    return 0;
 }
 
 // 背景消去
@@ -309,83 +258,24 @@ Void* SNWindow::OnDestroy(Void* window_handle, UInt message, Void* w_param, Void
 // サイズ変更
 Void* SNWindow::OnSize(Void* window_handle, UInt message, Void* w_param, Void* l_param)
 {
-    RECT rect;
-    LONG style;
-    LONG exstyle;
-
-    // ウインドウスタイル取得
-    style = GetWindowLong((HWND)window_handle, GWL_STYLE);
-    exstyle = GetWindowLong((HWND)window_handle, GWL_EXSTYLE);
-
-    // 最大化時 (最前面＋フレームなし)
-    if ((WPARAM)w_param == SIZE_MAXIMIZED)
-    {
-        // タイトルバーとフレームなし設定
-        style &= ~(WS_CAPTION | WS_THICKFRAME);
-        SetWindowLong((HWND)window_handle, GWL_STYLE, style);
-
-        // フレームなし設定
-        exstyle &= ~(WS_EX_DLGMODALFRAME | WS_EX_CLIENTEDGE | WS_EX_STATICEDGE);
-        SetWindowLong((HWND)window_handle, GWL_EXSTYLE, exstyle);
-
-        // 画面サイズ取得
-        SystemParametersInfo(SPI_GETWORKAREA, 0, &rect, 0);
-
-        // ウインドウサイズを画面サイズに合わせて調整
-        // Windowsの謎の動きによりサイズ調整をしないと見切れが発生してしまう
-        SetWindowPos((HWND)window_handle, HWND_TOPMOST, rect.left, rect.top, rect.right - rect.left, rect.bottom - rect.top, SWP_FRAMECHANGED);
-
-        // アプリケーションに状態を通知
-        SNApplication::NotifyEvent(SNApplicationEvent::SNEventMaximizeDisp);
-    }
-
-    // 最大化解除時 (最前面解除＋フレームあり)
-    else if ((WPARAM)w_param == SIZE_RESTORED)
-    {
-        // フレーム設定
-        style |= (WS_CAPTION | WS_THICKFRAME);
-        SetWindowLong((HWND)window_handle, GWL_STYLE, style);
-
-        // TOPMOST解除とフレーム設定
-        exstyle = GetWindowLong((HWND)window_handle, GWL_EXSTYLE);
-        exstyle &= ~WS_EX_TOPMOST;
-        exstyle |= (WS_EX_CLIENTEDGE | WS_EX_STATICEDGE);
-        SetWindowLong((HWND)window_handle, GWL_EXSTYLE, exstyle);
-
-        // ウインドウの外観を更新し、TOPMOST解除
-        SetWindowPos((HWND)window_handle, HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
-
-        // アプリケーションに状態を通知
-        SNApplication::NotifyEvent(SNApplicationEvent::SNEventNormalDisp);
-    }
-    else
-    {
-        // 上記以外は処理なし
-    }
-
+    SNApplication::NotifyEvent(SNApplicationEvent::SNEventWindowSize);
+ 
     return 0;
 }
 
 // システムキー押下
 Void* SNWindow::OnSysKeyDown(Void* window_handle, UInt message, Void* w_param, Void* l_param)
 {
-    WINDOWPLACEMENT wp;
-
     // ALT+ENTER が押された
     if (((WPARAM)w_param == VK_RETURN) && (GetKeyState(VK_MENU) & 0x8000))
     {
-        wp = { sizeof(WINDOWPLACEMENT) };
-        GetWindowPlacement((HWND)window_handle, &wp);
-
-        // 最大化表示中→解除
-        if (wp.showCmd == SW_SHOWMAXIMIZED)
+        if (!SNUserConfig::Data.FullScreen)
         {
-            ShowWindow((HWND)window_handle, SW_RESTORE);
+            SNApplication::NotifyEvent(SNApplicationEvent::SNEventMaximizeDisp);
         }
-        // 通常表示中→最大化
-        else if (wp.showCmd == SW_SHOWNORMAL)
+        else
         {
-            ShowWindow((HWND)window_handle, SW_MAXIMIZE);
+            SNApplication::NotifyEvent(SNApplicationEvent::SNEventNormalDisp);
         }
     }
 

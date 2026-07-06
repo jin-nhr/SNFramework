@@ -11,10 +11,6 @@
 
 // 入力装置クラス
 
-// アクティブ状態
-Boolean SNInput::Active = false;
-
-
 // 初期化処理
 Void SNInput::Initialize()
 {
@@ -85,24 +81,6 @@ Void SNInput::Update()
 // 状態更新
 Void SNInput::UpdateState()
 {
-	// アクティブ通知あり
-	if (SNApplication::GetEventInfo(SNEventActive))
-	{
-		Active = true;
-	}
-
-	// 非アクティブ通知あり
-	else if (SNApplication::GetEventInfo(SNEventNonActive))
-	{
-		Active = false;
-	}
-
-	// 通知なし
-	else
-	{
-		// 現状態継続
-	}
-
 	return;
 }
 

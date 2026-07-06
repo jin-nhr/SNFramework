@@ -12,13 +12,9 @@ public:
 	// ウインドウ生成
 	static Void Create(Handle application_incetance, Int32 show_cmd);
 
-	// 表示設定
-	static Void SetWindowDisp(Boolean fullscreen);
-
 	// ウインドウプロシージャ
 	static Void* __stdcall WindowProc(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 
-	static Boolean EnableUpdate; // 画面更新フラグ
 	static Handle WindowHandle;	// ウインドウハンドル
 	static Handle WindowDC; // ウインドウDC
 
@@ -31,9 +27,6 @@ private:
 
 	// セッション終了確認
 	static Void* OnQueryEndSession(Void* window_handle, UInt message, Void* w_param, Void* l_param);
-
-	// 描画更新
-	static Void* OnPaint(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 
 	// 背景消去
 	static Void* OnEraseBackground(Void* window_handle, UInt message, Void* w_param, Void* l_param);

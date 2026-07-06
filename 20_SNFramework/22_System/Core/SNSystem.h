@@ -41,10 +41,6 @@ public:
 	// 何らかのアプリ終了要因を検知したときにウインドウに終了を通知する
 	static Void NoticeExitApplication();
 
-	// 画面更新通知
-	// ウインドウに対して画面更新を通知する
-	static Void NoticeRefreshScreen();
-
 	// アプリケーションハンドル取得
 	static Handle GetApplicationHandle();
 

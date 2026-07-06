@@ -9,40 +9,28 @@
 #include "SNSystemPen.h"
 #include "SNSystemBrush.h"
 #include "SNSystemSurface.h"
-
+#include "SND3D.h"
+#include "SND2D.h"
+#include "SNApplication.h"
 
 // グラフィクスクラス
 // SNFrameworkにおける描画の制御を行う
 
-// 画面バッファ用クリティカルセクション
-SNCriticalSection SNGraphics::CriticalSectionForScreen;
+// 前フレームフルスクリーン状態
+Boolean SNGraphics::PreFullScreenSts = false;
 
-// 描画矩形データ用クリティカルセクション
-SNCriticalSection SNGraphics::CriticalSectionForDrawRect;
-
-// 画面サーフェス
-SNSurfaceDDB SNGraphics::ScreenSurface[2];
-
-// プライマリサーフェスインデックス
-Int32 SNGraphics::PrimaryIndex = 0;
-
-// セカンダリサーフェスインデックス
-Int32 SNGraphics::SecondaryIndex = 1;
-
-// 描画対象画面サイズ
-SNRect SNGraphics::ScreenRect = { 0 };
+// 前フレームウインドウサイズ
+SNSize SNGraphics::PreWindowSize = {0};
 
 // 描画矩形データ
 SNRect SNGraphics::DrawRect = { 0 };
 
+// サーフェス
+SNSurfaceD3D SNGraphics::Surface;
 
 // 初期化処理
 Void SNGraphics::Initialize()
 {
-	// クリティカルセクション初期化
-	CriticalSectionForScreen.Initialize();
-	CriticalSectionForDrawRect.Initialize();
-
 	// GDI初期化
 	SNGDI::Initialize();
 
@@ -52,35 +40,25 @@ Void SNGraphics::Initialize()
 // 起動準備
 Void SNGraphics::Startup()
 {
-	Int32 width = SNSystemConfig::ScreenWidth;
-	Int32 height = SNSystemConfig::ScreenHeight;
-
-	// サーフェス生成
-	ScreenSurface[0].CreateSurface(width, height);
-	ScreenSurface[1].CreateSurface(width, height);
-
 	// 描画領域を初期設定
 	DrawRect.PointX = 0;
 	DrawRect.PointY = 0;
-	DrawRect.Width = width;
-	DrawRect.Height = height;
+	DrawRect.Width = SNSystemConfig::ScreenWidth;
+	DrawRect.Height = SNSystemConfig::ScreenHeight;;
+
+	// D2D, D3D初期化
+	SND3D::CreateDevice();
+	SND3D::CreateSwapChain();
+	SND3D::CreateRTV();
+	SND3D::CreateSurface();
+//	SND2D::Initialize();
+	SND3D::CreateSRV();
+	SND3D::CreateFullscreenQuad();
+	SND3D::CreateShaders();
+	SND3D::CreateSampler();
 
 	SNSystemColorTable::Initialize();
 
-	return;
-}
-
-// システムリソースのロード
-// ワーカースレッドからの呼び出しとなるため
-// GDIロックが必要
-Void SNGraphics::LoadSystemResource()
-{
-	SNSystemPen::Initialize();
-	SNSystemBrush::Initialize();
-	SNSystemSurface::Initialize();
-
-	// ビットマップフォント初期化
-	SNBitmapFont::Initialize();
 	return;
 }
 
@@ -101,9 +79,16 @@ Void SNGraphics::BeforeTerminate()
 	SNSystemBrush::Terminate();
 	SNSystemColorTable::Terminate();
 
-	// サーフェス解放
-	ScreenSurface[0].DeleteSurface();
-	ScreenSurface[1].DeleteSurface();
+	// D2D, D3D関連
+	SND2D::Terminate();
+	SND3D::ReleaseSampler();
+	SND3D::ReleaseShaders();
+	SND3D::ReleaseFullscreenQuad();
+//	SND3D::ReleaseSRV();
+	SND3D::ReleaseSurface();
+	SND3D::ReleaseRTV();
+	SND3D::ReleaseSwapChain();
+	SND3D::ReleaseDevice();
 
 	return;
 }
@@ -117,110 +102,126 @@ Void SNGraphics::Terminate()
 	return;
 }
 
-// サーフェス取得
-SNSurface* SNGraphics::GetSurface()
+// システムリソースのロード
+// ワーカースレッドからの呼び出しとなるため
+// GDIロックが必要
+Void SNGraphics::LoadSystemResource()
 {
-	// セカンダリサーフェスを返す
-	return &ScreenSurface[SecondaryIndex];
+	SNSystemPen::Initialize();
+	SNSystemBrush::Initialize();
+	SNSystemSurface::Initialize();
+
+	// ビットマップフォント初期化
+	SNBitmapFont::Initialize();
+	return;
+}
+
+// 更新
+Void SNGraphics::Update()
+{
+	Boolean is_full;
+	RECT rect;
+	SNRect snrect = {0};
+	SNSize win_size;
+
+	// 最新フレームの情報取得
+	is_full = IsFullScreen();
+
+	// フルスクリーン状態の更新
+	if (is_full != PreFullScreenSts)
+	{
+		SND3D::SetFullScreen(is_full);
+	}
+
+	if (is_full)
+	{
+		SND3D::GetScreenRect(&snrect);
+	}
+	else
+	{
+		::GetClientRect((HWND)SNWindow::WindowHandle, &rect);
+		snrect.Width = rect.right;
+		snrect.Height = rect.bottom;
+	}
+
+	win_size.Width = snrect.Width;;
+	win_size.Height = snrect.Height;
+
+	// DrawRect更新
+	UpdateDrawRect(&snrect);
+
+	// フルスクリーン状態の更新またはウインドウサイズの変更あり
+	if ((is_full != PreFullScreenSts) ||
+		(win_size.Width != PreWindowSize.Width) ||
+		(win_size.Height != PreWindowSize.Height))
+	{
+		// RTVの破棄
+		SND3D::ReleaseRTV();
+		// D2Dの破棄
+		
+		// バックバッファ再構築
+		SND3D::ResizeBuffer(&win_size);
+
+		// RTVの再生成
+		SND3D::CreateRTV();
+
+		// D2Dの再構築
+	}
+
+	// 前フレーム状態更新
+	PreFullScreenSts = is_full;
+	PreWindowSize = win_size;
+
+	return;
 }
 
 // サーフェスフリップ
 Void SNGraphics::FlipSurface()
 {
-	// 描画処理はプライマリスレッドで実行され、
-	// サーフェスフリップはアプリケーションスレッドで実行するため
-	// サーフェスへのアクセス競合が発生する懸念があるため排他制御を行う
-	// クリティカルセクションロック
-	{
-		SNAutoResource cs(&CriticalSectionForScreen);
-
-		// サーフェスを入れ替え
-		Int32 swap_index = PrimaryIndex;
-		PrimaryIndex = SecondaryIndex;
-		SecondaryIndex = swap_index;
-	}
+//	SND2D::Draw();
+	SND3D::Flip(&DrawRect);
 
 	return;
 }
 
-// 画面描画処理
-Void SNGraphics::DrawScreen(Handle hdc, Int32 width, Int32 height)
+SNSurfaceD3D* SNGraphics::GetSurface()
 {
+	return &Surface;
+}
+
+// 画面描画処理
+Void SNGraphics::UpdateDrawRect(SNRect* rect)
+{
+	Int32 width;
+	Int32 height;
 	UInt8 draw_align = SNSystemConfig::DrawAlign;
 	Int32 config_width = SNSystemConfig::ScreenWidth;
 	Int32 config_height = SNSystemConfig::ScreenHeight;
 
-	// 画面サイズの変化を検知した場合は再計算
-	if ((ScreenRect.Width != width) || (ScreenRect.Height != height))
-	{
-		// 画面サイズを記憶
-		ScreenRect.Width = width;
-		ScreenRect.Height = height;
+	width = rect->Width;
+	height = rect->Height;
 
-		// アスペクト比を維持したスケール計算
-		Float32 scale_x = (Float32)width / config_width;
-		Float32 scale_y = (Float32)height / config_height;
-		Float32 scale = min(scale_x, scale_y);  // アスペクト比を維持
+	// アスペクト比を維持したスケール計算
+	Float32 scale_x = (Float32)width / config_width;
+	Float32 scale_y = (Float32)height / config_height;
+	Float32 scale = min(scale_x, scale_y);  // アスペクト比を維持
 
-		Int32 new_width = (Int32)(config_width * scale);
-		Int32 new_height = (Int32)(config_height * scale);
+	Int32 new_width = (Int32)(config_width * scale);
+	Int32 new_height = (Int32)(config_height * scale);
 
-		// 4の倍数に補正
-		new_width = (new_width / draw_align) * draw_align;
-		new_height = (new_height / draw_align) * draw_align;
+	// 4の倍数に補正
+	new_width = (new_width / draw_align) * draw_align;
+	new_height = (new_height / draw_align) * draw_align;
 
-		// 描画領域のオフセット計算（中央配置）
-		Int32 offset_x = (width - new_width) / 2;
-		Int32 offset_y = (height - new_height) / 2;
+	// 描画領域のオフセット計算（中央配置）
+	Int32 offset_x = (width - new_width) / 2;
+	Int32 offset_y = (height - new_height) / 2;
 
-		// DrawRectの更新はプライマリスレッドで行われ
-		// 参照はアプリケーションスレッドから実行されるので
-		// DrawRectのアクセス競合の懸念があるため排他制御する
-		{
-			SNAutoResource cs(&CriticalSectionForDrawRect);
-
-			// 描画範囲を更新
-			DrawRect.PointX = offset_x;
-			DrawRect.PointY = offset_y;
-			DrawRect.Width = new_width;
-			DrawRect.Height = new_height;
-		}
-
-		{
-			SNGDI gdi;
-			// 画面全体を黒塗りする
-			gdi.PatBlt(hdc, 0, 0, ScreenRect.Width, ScreenRect.Height, BLACKNESS);
-		}
-	}
-
-	// 描画処理はプライマリスレッドで実行され、
-	// サーフェスフリップはアプリケーションスレッドで実行するため
-	// サーフェスへのアクセス競合が発生する懸念があるため排他制御を行う
-	// クリティカルセクションのロック
-	{
-		SNAutoResource cs(&CriticalSectionForScreen);
-
-		// 画面フリップ用のクリティカルセクション内で
-		// 追加でGDIロックを行う
-		// 他スレッドでは両方同時のロックを行わないこと
-		{
-			SNGDI gdi;
-
-			// 画面描画
-			gdi.StretchBlt(
-				hdc,
-				DrawRect.PointX,
-				DrawRect.PointY,
-				DrawRect.Width,
-				DrawRect.Height,
-				ScreenSurface[PrimaryIndex].GetDC(),
-				0,
-				0,
-				ScreenSurface[PrimaryIndex].GetWidth(),
-				ScreenSurface[PrimaryIndex].GetHeight(),
-				SRCCOPY);
-		}
-	}
+	// 描画範囲を更新
+	DrawRect.PointX = offset_x;
+	DrawRect.PointY = offset_y;
+	DrawRect.Width = new_width;
+	DrawRect.Height = new_height;
 
 	return;
 }
@@ -231,15 +232,8 @@ Boolean SNGraphics::ClientToSurface(SNPoint* point)
 	SNRect draw_rect;
 	Boolean clipping = false;
 
-	// DrawRectの更新はプライマリスレッドで行われ
-	// 参照はアプリケーションスレッドから実行されるので
-	// DrawRectのアクセス競合の懸念があるため排他制御する
-	// ロック
-	{
-		SNAutoResource cs(&CriticalSectionForDrawRect);
-		// 描画範囲を参照用にコピー
-		draw_rect = DrawRect;
-	}
+	// 描画範囲を参照用にコピー
+	draw_rect = DrawRect;
 
 	// X座標が描画左端より左なら左端でクリップ
 	if (point->X < draw_rect.PointX)
@@ -275,4 +269,10 @@ Boolean SNGraphics::ClientToSurface(SNPoint* point)
 	point->Y = ((point->Y - draw_rect.PointY) * SNSystemConfig::ScreenHeight) / draw_rect.Height;
 
 	return clipping;
+}
+
+// フルスクリーン判定
+Boolean SNGraphics::IsFullScreen()
+{
+	return ((SNUserConfig::Data.FullScreen) & (SNApplication::Active));
 }

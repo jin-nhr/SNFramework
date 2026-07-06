@@ -94,6 +94,9 @@
     <Filter Include="20_SNFramework\28_Application\FrameworkApp">
       <UniqueIdentifier>{1616018b-cc5f-4678-a7d3-97f8c8af8d4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="20_SNFramework\27_AudioVideo\Component">
+      <UniqueIdentifier>{c0522be8-0835-41f6-96c6-d78de2e9bdb4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\80_UserApplication\TestApplication.h">
@@ -363,9 +366,6 @@
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNBitmapFont.h">
       <Filter>20_SNFramework\26_Graphics\Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNGDI.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSystemSurface.h">
       <Filter>20_SNFramework\26_Graphics\Component</Filter>
     </ClInclude>
@@ -377,6 +377,24 @@
     </ClInclude>
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSystemPen.h">
       <Filter>20_SNFramework\26_Graphics\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SND3D.h">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSurfaceD3D.h">
+      <Filter>20_SNFramework\26_Graphics\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNGDI.h">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SND3DShaderPS.h">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SND3DShaderVS.h">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SND2D.h">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -620,9 +638,6 @@
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNBitmapFont.cpp">
       <Filter>20_SNFramework\26_Graphics\Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNGDI.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClCompile>
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSystemSurface.cpp">
       <Filter>20_SNFramework\26_Graphics\Component</Filter>
     </ClCompile>
@@ -634,6 +649,18 @@
     </ClCompile>
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSystemPen.cpp">
       <Filter>20_SNFramework\26_Graphics\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SND3D.cpp">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSurfaceD3D.cpp">
+      <Filter>20_SNFramework\26_Graphics\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNGDI.cpp">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SND2D.cpp">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -656,5 +683,13 @@
     <Image Include="..\20_SNFramework\22_System\Resource\SNFrameworkSmallIcon.ico">
       <Filter>20_SNFramework\22_System\Resource</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\20_SNFramework\26_Graphics\Core\SND3DShaderPS.hlsl">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </FxCompile>
+    <FxCompile Include="..\20_SNFramework\26_Graphics\Core\SND3DShaderVS.hlsl">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -68,9 +68,6 @@ Void SNSystem::Startup()
 	SNApplication::Startup();
 	SNGUI::Startup();
 
-	// ウインドウの表示状態を切替
-	SNWindow::SetWindowDisp(SNUserConfig::Data.FullScreen);
-
 	return;
 }
 
@@ -143,16 +140,6 @@ Void SNSystem::NoticeExitApplication()
 {
 	// Windowに終了通知を送る
 	PostMessage((HWND)SNWindow::WindowHandle, WM_SNFRAMEWORK_NOTICE_EXIT, 0, 0);
-
-	return;
-}
-
-// 画面更新通知
-Void SNSystem::NoticeRefreshScreen()
-{
-	// 画面更新通知
-	SNWindow::EnableUpdate = true;
-	InvalidateRect((HWND)SNWindow::WindowHandle, nullptr, FALSE);
 
 	return;
 }

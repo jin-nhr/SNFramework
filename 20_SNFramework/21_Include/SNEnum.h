@@ -23,6 +23,7 @@ enum SNApplicationEvent
     SNEventWheelDown,		// ホイールDown通知
     SNEventNormalDisp,      // 通常表示通知
     SNEventMaximizeDisp,    // 最大化通知
+    SNEventWindowSize,      // ウインドウサイズ変更通知
     SNEventNum              // イベント数
 };
 

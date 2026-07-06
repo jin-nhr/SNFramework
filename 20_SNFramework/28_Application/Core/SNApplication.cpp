@@ -4,11 +4,14 @@
 #include "SNWindowsAPI.h"
 #include "SNSystem.h"
 #include "SNGraphics.h"
+#include "SNSurfaceD3D.h"
 #include "SNInput.h"
 #include "SNSoftTimer.h"
 #include "SNAutoResource.h"
 
 // アプリケーションクラス
+
+Boolean SNApplication::Active = true;
 
 SNThread* SNApplication::ApplicationThread;	// アプリケーションスレッド
 SNFPSTimer SNApplication::FPSTimer;		// FPSタイマ
@@ -212,8 +215,11 @@ Void SNApplication::UserMain()
 			// ソフトタイマカウント
 			SNSoftTimer::Count();
 
-			// イベントスナップショット
-			SnapshotEvent();
+			// 状態更新
+			Update();
+
+			// グラフィックの状態更新
+			SNGraphics::Update();
 
 			// 入力デバイスチェック
 			SNInput::Update();
@@ -227,14 +233,18 @@ Void SNApplication::UserMain()
 			// FPSの状態によってスキップ判定
 			if (!FPSTimer.GetSkipFlag())
 			{
-				// 描画処理
-				FrameworkAppLayer.Draw(SNGraphics::GetSurface());
+				{
+					SNSurfaceD3D* surface = SNGraphics::GetSurface();
+					
+					surface->CreateDeviceContext();
+					// 描画処理
+					FrameworkAppLayer.Draw(surface);
+
+					surface->DeleteDeviceContext();
+				}
 
 				// サーフェスフリップ
 				SNGraphics::FlipSurface();
-
-				// 画面更新通知
-				SNSystem::NoticeRefreshScreen();
 
 				// FPSカウンター更新
 				FPSCounter.Count();
@@ -267,8 +277,8 @@ Void SNApplication::UserMain()
 }
 
 
-// イベントスナップショット
-Void SNApplication::SnapshotEvent()
+// 更新
+Void SNApplication::Update()
 {
 	Int32 cnt = 0;
 
@@ -292,6 +302,22 @@ Void SNApplication::SnapshotEvent()
 		{
 			EventSnapshot[cnt] = false;
 		}
+	}
+
+	// アクティブ状態を更新する
+	if (NotifyEventInfo[SNEventActive])
+	{
+		Active = true;
+	}
+
+	else if (NotifyEventInfo[SNEventNonActive])
+	{
+		Active = false;
+	}
+
+	else
+	{
+
 	}
 	
 	return;

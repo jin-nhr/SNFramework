@@ -65,9 +65,12 @@ public:
 	// メイン関数
 	static Void UserMain();
 
+	// アクティブ状態
+	static Boolean Active;
+
 private:
 	// イベントスナップショット
-	static Void SnapshotEvent();
+	static Void Update();
 
 	// リザルト処理
 	// リターン： true:継続、false:終了

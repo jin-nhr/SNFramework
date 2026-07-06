@@ -55,7 +55,4 @@ private:
 	// 仮想デバイス更新
 	// 実デバイスの入力をもとに仮想デバイスの情報を更新する
 	static Void UpdateVirtualDevice();
-
-	// アクティブ状態
-	static Boolean Active;
 };

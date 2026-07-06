@@ -58,15 +58,20 @@
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNDDB.h" />
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNDeviceContext.h" />
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNDIBSection.h" />
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNGDI.h" />
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNPen.h" />
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSurface.h" />
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSurfaceD3D.h" />
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSurfaceDDB.h" />
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSurfaceDIB.h" />
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSystemSurface.h" />
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSystemBrush.h" />
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSystemColorTable.h" />
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSystemPen.h" />
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SND2D.h" />
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SND3D.h" />
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SND3DShaderPS.h" />
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SND3DShaderVS.h" />
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNGDI.h" />
     <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNGraphics.h" />
     <ClInclude Include="..\20_SNFramework\27_AudioVideo\Core\SNAudioVideo.h" />
     <ClInclude Include="..\20_SNFramework\28_Application\Component\SNLayerController.h" />
@@ -145,15 +150,18 @@
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNDDB.cpp" />
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNDeviceContext.cpp" />
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNDIBSection.cpp" />
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNGDI.cpp" />
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNPen.cpp" />
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSurface.cpp" />
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSurfaceD3D.cpp" />
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSurfaceDDB.cpp" />
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSurfaceDIB.cpp" />
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSystemSurface.cpp" />
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSystemBrush.cpp" />
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSystemColorTable.cpp" />
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSystemPen.cpp" />
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SND2D.cpp" />
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SND3D.cpp" />
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNGDI.cpp" />
     <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNGraphics.cpp" />
     <ClCompile Include="..\20_SNFramework\27_AudioVideo\Core\SNAudioVideo.cpp" />
     <ClCompile Include="..\20_SNFramework\28_Application\Component\SNLayerController.cpp" />
@@ -204,6 +212,40 @@
     <Image Include="..\20_SNFramework\22_System\Resource\SNFrameworkIcon.ico" />
     <Image Include="..\20_SNFramework\22_System\Resource\SNFrameworkSmallIcon.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\20_SNFramework\26_Graphics\Core\SND3DShaderPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\20_SNFramework\26_Graphics\Core\%(Filename).h</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\20_SNFramework\26_Graphics\Core\%(Filename).h</HeaderFileOutput>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+      <EnableUnboundedDescriptorTables Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</EnableUnboundedDescriptorTables>
+      <EnableUnboundedDescriptorTables Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</EnableUnboundedDescriptorTables>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_PS_FullscreenQuad</VariableName>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_PS_FullscreenQuad</VariableName>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="..\20_SNFramework\26_Graphics\Core\SND3DShaderVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\20_SNFramework\26_Graphics\Core\%(Filename).h</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\20_SNFramework\26_Graphics\Core\%(Filename).h</HeaderFileOutput>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_VS_FullscreenQuad</VariableName>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </ObjectFileOutput>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_VS_FullscreenQuad</VariableName>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </ObjectFileOutput>
+      <EnableUnboundedDescriptorTables Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</EnableUnboundedDescriptorTables>
+      <EnableUnboundedDescriptorTables Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</EnableUnboundedDescriptorTables>
+    </FxCompile>
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -238,15 +280,15 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)\90_Build\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\90_Build\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)90_Build\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)90_Build\$(Configuration)\</IntDir>
     <IncludePath>..\20_SNFramework\21_Include;..\20_SNFramework\22_System\Component;..\20_SNFramework\22_System\Core;..\20_SNFramework\22_System\Resource;..\20_SNFramework\23_Config\Component;..\20_SNFramework\23_Config\Core;..\20_SNFramework\24_Storage\Component;..\20_SNFramework\24_Storage\Core;..\20_SNFramework\25_Input\Component;..\20_SNFramework\25_Input\Core;..\20_SNFramework\26_Graphics\Component;..\20_SNFramework\26_Graphics\Core;..\20_SNFramework\27_AudioVideo\Core;..\20_SNFramework\28_Application\Component;..\20_SNFramework\28_Application\Core;..\20_SNFramework\28_Application\FrameworkApp;..\20_SNFramework\29_GUI\Component;..\20_SNFramework\29_GUI\Core;$(IncludePath)</IncludePath>
     <SourcePath>$(VC_SourcePath)</SourcePath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir)\90_Build\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)\90_Build\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)90_Build\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)90_Build\$(Configuration)\</IntDir>
     <IncludePath>..\20_SNFramework\21_Include;..\20_SNFramework\22_System\Component;..\20_SNFramework\22_System\Core;..\20_SNFramework\22_System\Resource;..\20_SNFramework\23_Config\Component;..\20_SNFramework\23_Config\Core;..\20_SNFramework\24_Storage\Component;..\20_SNFramework\24_Storage\Core;..\20_SNFramework\25_Input\Component;..\20_SNFramework\25_Input\Core;..\20_SNFramework\26_Graphics\Component;..\20_SNFramework\26_Graphics\Core;..\20_SNFramework\27_AudioVideo\Core;..\20_SNFramework\28_Application\Component;..\20_SNFramework\28_Application\Core;..\20_SNFramework\28_Application\FrameworkApp;..\20_SNFramework\29_GUI\Component;..\20_SNFramework\29_GUI\Core;$(IncludePath)</IncludePath>
     <SourcePath>$(VC_SourcePath)</SourcePath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
@@ -262,6 +304,13 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -278,6 +327,13 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <FxCompile>
+      <ShaderModel>5.0</ShaderModel>
+    </FxCompile>
+    <PreBuildEvent>
+      <Command>
+      </Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,6 +4,7 @@
 #include "SNSurfaceDDB.h"
 #include "SNPen.h"
 #include "SNBrush.h"
+#include "SNSurfaceD3D.h"
 
 class SNSurface;
 
@@ -31,40 +32,37 @@ public:
 	// システムリソースロード
 	static Void LoadSystemResource();
 
-	// サーフェス取得
-	static SNSurface* GetSurface();
+	// 更新
+	static Void Update();
 
 	// サーフェスフリップ
 	static Void FlipSurface();
 
-	// 画面描画処理
-	static Void DrawScreen(Handle hdc, Int32 width, Int32 height);
+	// サーフェス取得
+	static SNSurfaceD3D* GetSurface();
+
+	// 描画範囲更新
+	static Void UpdateDrawRect(SNRect* rect);
 
 	// クライアント座標系→サーフェス座標に変換
 	// 引数：画面座標を入力/ 処理後、サーフェス座標に更新する
 	// リターン：座標のクリッピング有無
 	static Boolean ClientToSurface(SNPoint* point);
 
+	// フルスクリーン判定
+	static Boolean IsFullScreen();
+
 private:
-	// 画面バッファ用クリティカルセクション
-	static SNCriticalSection CriticalSectionForScreen;
+	// 前フレームフルスクリーン状態
+	static Boolean PreFullScreenSts;
 
-	// 描画矩形データ用クリティカルセクション
-	static SNCriticalSection CriticalSectionForDrawRect;
-
-	// 画面サーフェス
-	static SNSurfaceDDB ScreenSurface[2];
-
-	// プライマリサーフェスインデックス
-	static Int32 PrimaryIndex;
-
-	// セカンダリサーフェスインデックス
-	static Int32 SecondaryIndex;
-
-	// 描画対象画面サイズ
-	static SNRect ScreenRect;
+	// 前フレームウインドウサイズ
+	static SNSize PreWindowSize;
 
 	// 描画矩形データ
 	static SNRect DrawRect;
+
+	// D3Dサーフェス
+	static SNSurfaceD3D Surface;
 };
 
