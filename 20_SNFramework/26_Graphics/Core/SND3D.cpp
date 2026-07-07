@@ -15,7 +15,6 @@ Handle SND3D::DeviceContext = nullptr;
 Handle SND3D::SwapChain = nullptr;
 Handle SND3D::RenderTargetView = nullptr;
 Handle SND3D::Surface = nullptr;
-Handle SND3D::GDISurface = nullptr;
 Handle SND3D::ShaderResourceView = nullptr;
 
 Handle SND3D::VertexBuffer = nullptr;
@@ -111,17 +110,13 @@ Void SND3D::CreateSurface()
     td.SampleDesc.Count = 1;
     td.Usage = D3D11_USAGE_DEFAULT;
     td.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_RENDER_TARGET;
-    td.MiscFlags = D3D11_RESOURCE_MISC_GDI_COMPATIBLE;
+    td.MiscFlags = 0;
 
     hr = ((ID3D11Device*)Device)->CreateTexture2D(&td, nullptr, (ID3D11Texture2D**)&Surface);
 
     if (!FAILED(hr))
     {
-        hr = ((ID3D11Texture2D*)Surface)->QueryInterface(__uuidof(IDXGISurface1), (void**)&GDISurface);
-        if (!FAILED(hr))
-        {
-            hr = ((ID3D11Device*)Device)->CreateShaderResourceView((ID3D11Texture2D*)Surface, nullptr, (ID3D11ShaderResourceView**)&ShaderResourceView);
-        }
+        hr = ((ID3D11Device*)Device)->CreateShaderResourceView((ID3D11Texture2D*)Surface, nullptr, (ID3D11ShaderResourceView**)&ShaderResourceView);
     }
 
     return;
@@ -279,12 +274,6 @@ Void SND3D::ReleaseRTV()
 
 Void SND3D::ReleaseSurface()
 {
-    if (GDISurface)
-    {
-        ((IDXGISurface1*)GDISurface)->Release();
-        GDISurface = nullptr;
-    }
-
     if (Surface)
     {
         ((ID3D11Texture2D*)Surface)->Release();
@@ -342,36 +331,6 @@ Void SND3D::ReleaseSampler()
         ((ID3D11SamplerState*)SamplerState)->Release();
         SamplerState = nullptr;
     }
-    return;
-}
-
-// DCŽæ“¾
-Handle SND3D::GetDC()
-{
-    Handle ret = nullptr;
-    HRESULT hr;
-    HDC dc;
-
-    if (GDISurface != nullptr)
-    {
-        hr = ((IDXGISurface1*)GDISurface)->GetDC(FALSE, &dc);
-        if (SUCCEEDED(hr))
-        {
-            SNGDI gdi;
-
-            gdi.InitDC((Handle)dc);
-            ret = dc;
-        }
-    }
-
-    return ret;
-}
-
-// DC‰ð•ú
-Void SND3D::ReleaseDC()
-{
-    ((IDXGISurface1*)GDISurface)->ReleaseDC(nullptr);
-
     return;
 }
 

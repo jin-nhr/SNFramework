@@ -17,14 +17,15 @@ Void SND2D::Initialize()
     // 1. D2D Factory
     ID2D1Factory* factory = nullptr;
     hr = D2D1CreateFactory(
-        D2D1_FACTORY_TYPE_SINGLE_THREADED,
+        D2D1_FACTORY_TYPE_MULTI_THREADED,
         &factory
     );
     if (FAILED(hr)) return;
     D2DFactory = factory;
 
     // 2. DXGI SurfaceiSND3D ‚ªì‚Á‚½‚à‚Ìj
-    IDXGISurface1* dxgiSurface = (IDXGISurface1*)SND3D::GDISurface;
+    IDXGISurface1* dxgiSurface = nullptr;
+    ((ID3D11Texture2D*)SND3D::Surface)->QueryInterface(&dxgiSurface);
     if (dxgiSurface == nullptr) return;
 
     // 3. D2D RenderTarget ì¬
@@ -33,10 +34,10 @@ Void SND2D::Initialize()
             D2D1_RENDER_TARGET_TYPE_DEFAULT,
             D2D1::PixelFormat(
                 DXGI_FORMAT_B8G8R8A8_UNORM,
-                D2D1_ALPHA_MODE_IGNORE
+                D2D1_ALPHA_MODE_PREMULTIPLIED
             ),
-            0.0f,
-            0.0f
+            96.0f,
+            96.0f
         );
 
     ID2D1RenderTarget* rt = nullptr;
@@ -45,6 +46,8 @@ Void SND2D::Initialize()
         &props,
         &rt
     );
+    dxgiSurface->Release();
+
     if (FAILED(hr)) return;
     D2DRenderTarget = rt;
 
@@ -145,7 +148,7 @@ Void SND2D::Draw()
     rt->BeginDraw();
 
     // ”wŒiƒNƒŠƒA
-    rt->Clear(D2D1::ColorF(D2D1::ColorF::Black));
+ //   rt->Clear(D2D1::ColorF(D2D1::ColorF::Black));
 
     // Ô‚¢ŽlŠp
     brush->SetColor(D2D1::ColorF(D2D1::ColorF::Red));

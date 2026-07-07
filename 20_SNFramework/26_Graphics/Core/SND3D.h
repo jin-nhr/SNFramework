@@ -61,12 +61,6 @@ public:
 
 	////////////////////////////////////////////
 	// その他
-	// DC取得
-	// 使用後必ずReleaseDCすること
-	static Handle GetDC();
-
-	// DC解放
-	static Void ReleaseDC();
 
 	// フリップ処理
 	static Void Flip(SNRect* rect);
@@ -87,7 +81,6 @@ public:
 	static Handle SwapChain;
 	static Handle RenderTargetView;
 	static Handle Surface;
-	static Handle GDISurface;
 	static Handle ShaderResourceView;
 
 	static Handle VertexBuffer;

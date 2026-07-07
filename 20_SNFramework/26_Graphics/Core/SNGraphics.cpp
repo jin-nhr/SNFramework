@@ -51,7 +51,7 @@ Void SNGraphics::Startup()
 	SND3D::CreateSwapChain();
 	SND3D::CreateRTV();
 	SND3D::CreateSurface();
-//	SND2D::Initialize();
+	SND2D::Initialize();
 	SND3D::CreateSRV();
 	SND3D::CreateFullscreenQuad();
 	SND3D::CreateShaders();
@@ -84,7 +84,7 @@ Void SNGraphics::BeforeTerminate()
 	SND3D::ReleaseSampler();
 	SND3D::ReleaseShaders();
 	SND3D::ReleaseFullscreenQuad();
-//	SND3D::ReleaseSRV();
+	SND3D::ReleaseSRV();
 	SND3D::ReleaseSurface();
 	SND3D::ReleaseRTV();
 	SND3D::ReleaseSwapChain();
@@ -178,7 +178,7 @@ Void SNGraphics::Update()
 // サーフェスフリップ
 Void SNGraphics::FlipSurface()
 {
-//	SND2D::Draw();
+	SND2D::Draw();
 	SND3D::Flip(&DrawRect);
 
 	return;
