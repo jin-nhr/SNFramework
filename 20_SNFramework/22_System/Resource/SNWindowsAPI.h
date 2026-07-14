@@ -23,14 +23,24 @@
 #include <shlwapi.h>
 #include <gdiplus.h>
 #include <wincodec.h>
+#include <assert.h>
 
 // DirectX関連
 #include <d3d11.h>
 #include <dxgi.h>
 #include <dxgi1_2.h>
+
 #include <d2d1.h>
+#include <d2d1_1.h>
 #include <d2d1helper.h>
+#include <d2d1_1helper.h>
+#include <d2d1effects.h>
+#include <d2d1effectauthor.h>
 #include <dwrite.h>
+#include <dwrite_1.h>
+
+
+
 
 /////////////////////////////////////////////////////////////////
 // ライブラリリンクの追加
@@ -40,13 +50,13 @@
 #pragma comment(lib, "Msimg32.lib")
 #pragma comment(lib, "Shlwapi.lib")
 #pragma comment(lib, "gdiplus.lib")
+#pragma comment(lib, "windowscodecs.lib")
 
 // DirectX関連
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d2d1.lib")
 #pragma comment(lib, "dwrite.lib")
-#pragma comment(lib, "windowscodecs.lib")
 
 /////////////////////////////////////////////////////////////////
 // Windowsメッセージの追加

@@ -1,12 +1,11 @@
 #pragma once
 #include "SNFrameworkInternal.h"
-#include "SNStorageAccessor.h"
-#include "SNSurface.h"
-#include "SNDeviceContext.h"
+#include "SNFile.h"
+#include "SNDIB.h"
 
-// イメージファイルクラス
-// GDIを使ってファイルのロードを行うのでフレーム処理に影響が出る可能性があり注意が必要
-class SNImageFile : public SNStorageAccessor, public SNSurface
+
+// 画像ファイルクラス
+class SNImageFile : public SNFile, public SNDIB
 {
 public:
 	// コンストラクタ
@@ -15,40 +14,14 @@ public:
 	// デストラクタ
 	virtual ~SNImageFile();
 
-	// イメージロード
-	Boolean Load();
+	// デコード(非同期実行)
+	// デコード対象データを渡す。呼び出し元で処理完了まで保持すること
+	virtual Void Decode();
 
-	// イメージ保存
-	Boolean Save();
+	// エンコード(非同期実行)
+	// エンコード結果を受け取るメモリオブジェクトを指定する
+	virtual Void Encode();
 
-	// サーフェス生成
-	Void CreateSurface(Int32 width, Int32 height);
-
-	// サーフェス破棄
-	Void DeleteSurface();
-
-	// 幅取得
-	Int32 GetWidth();
-
-	// 高さ取得
-	Int32 GetHeight();
-
-	// ハンドル取得
-	Handle GetHandle();
-
-	// サイズ取得
-	SNSize GetSize();
-
-	// コールバック
-	virtual Void Callback();
-
-private:
-	// イメージメモリ確保
-	Void AllocImage(Int32 w, Int32 h);
-
-	// メモリ解放
-	Void Free();
-
-	Handle Image;		// イメージハンドル
-	SNSize Size;		// イメージサイズ
+	// 処理完了待ち
+	virtual Void WaitForOperationComplete();
 };

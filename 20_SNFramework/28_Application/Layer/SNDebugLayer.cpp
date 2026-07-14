@@ -122,9 +122,9 @@ SNTransitionCode SNDebugLayer::OnStep(SNEvent* event)
 }
 
 // •`‰æˆ—
-Void SNDebugLayer::OnDraw(SNSurface* surface)
+Void SNDebugLayer::OnDraw(SNSurface* grc)
 {
-	ContainerSystemInfo.Draw(surface);
+	ContainerSystemInfo.Draw(grc);
 
 	return;
 }

@@ -4,7 +4,6 @@
 #include "SNWindowsAPI.h"
 #include "SNSystem.h"
 #include "SNGraphics.h"
-#include "SNSurfaceD3D.h"
 #include "SNInput.h"
 #include "SNSoftTimer.h"
 #include "SNAutoResource.h"
@@ -16,6 +15,7 @@ Boolean SNApplication::Active = true;
 SNThread* SNApplication::ApplicationThread;	// アプリケーションスレッド
 SNFPSTimer SNApplication::FPSTimer;		// FPSタイマ
 SNFPSCounter SNApplication::FPSCounter;	// FPSカウンター
+SNFPSCounter SNApplication::FrameSkipCounter; /// フレームスキップカウンター
 SNStopWatch SNApplication::ApplicationTimeWatcher;	// アプリケーション処理時間測定
 
 ///////////////////////////////////////////////////////////
@@ -182,6 +182,11 @@ UInt32 SNApplication::GetFPS()
 	return FPSCounter.GetFPS();
 }
 
+UInt32 SNApplication::GetSkipFrame()
+{
+	return FrameSkipCounter.GetFPS();
+}
+
 // 平均時間取得
 UInt32 SNApplication::GetProcTime()
 {
@@ -191,11 +196,16 @@ UInt32 SNApplication::GetProcTime()
 // スレッドクラスのユーザー実行関数
 Void SNApplication::UserMain()
 {
+	SNGraphicsContext* grc;
+
 	// FPSタイマを起動
 	FPSTimer.Start();
 
 	// FPSカウンター起動
 	FPSCounter.Start();
+
+	// フレームスキップカウンター
+	FrameSkipCounter.Start();
 
 	// レイヤ制御Entry
 	FrameworkAppLayer.Entry();
@@ -234,13 +244,12 @@ Void SNApplication::UserMain()
 			if (!FPSTimer.GetSkipFlag())
 			{
 				{
-					SNSurfaceD3D* surface = SNGraphics::GetSurface();
-					
-					surface->CreateDeviceContext();
-					// 描画処理
-					FrameworkAppLayer.Draw(surface);
+					grc = SNGraphics::GetContext();
 
-					surface->DeleteDeviceContext();
+					// 描画処理
+					FrameworkAppLayer.Draw(grc);
+
+					SNGraphics::ReleaseContext();
 				}
 
 				// サーフェスフリップ
@@ -248,6 +257,10 @@ Void SNApplication::UserMain()
 
 				// FPSカウンター更新
 				FPSCounter.Count();
+			}
+			else
+			{
+				FrameSkipCounter.Count();
 			}
 
 			// リザルト処理 (falseなら終了)
@@ -305,12 +318,12 @@ Void SNApplication::Update()
 	}
 
 	// アクティブ状態を更新する
-	if (NotifyEventInfo[SNEventActive])
+	if (EventSnapshot[SNEventActive])
 	{
 		Active = true;
 	}
 
-	else if (NotifyEventInfo[SNEventNonActive])
+	else if (EventSnapshot[SNEventNonActive])
 	{
 		Active = false;
 	}

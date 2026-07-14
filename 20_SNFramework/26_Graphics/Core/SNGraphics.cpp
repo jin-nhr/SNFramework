@@ -3,15 +3,10 @@
 #include "SNSystem.h"
 #include "SNConfig.h"
 #include "SNBitmapFont.h"
-#include "SNAutoResource.h"
-#include "SNGDI.h"
-#include "SNSystemColorTable.h"
-#include "SNSystemPen.h"
-#include "SNSystemBrush.h"
-#include "SNSystemSurface.h"
-#include "SND3D.h"
-#include "SND2D.h"
+#include "SNGraphicsDevice.h"
 #include "SNApplication.h"
+
+#include "SNImageCodec.h"
 
 // グラフィクスクラス
 // SNFrameworkにおける描画の制御を行う
@@ -25,14 +20,11 @@ SNSize SNGraphics::PreWindowSize = {0};
 // 描画矩形データ
 SNRect SNGraphics::DrawRect = { 0 };
 
-// サーフェス
-SNSurfaceD3D SNGraphics::Surface;
 
 // 初期化処理
 Void SNGraphics::Initialize()
 {
 	// GDI初期化
-	SNGDI::Initialize();
 
 	return;
 }
@@ -46,18 +38,11 @@ Void SNGraphics::Startup()
 	DrawRect.Width = SNSystemConfig::ScreenWidth;
 	DrawRect.Height = SNSystemConfig::ScreenHeight;;
 
-	// D2D, D3D初期化
-	SND3D::CreateDevice();
-	SND3D::CreateSwapChain();
-	SND3D::CreateRTV();
-	SND3D::CreateSurface();
-	SND2D::Initialize();
-	SND3D::CreateSRV();
-	SND3D::CreateFullscreenQuad();
-	SND3D::CreateShaders();
-	SND3D::CreateSampler();
+	SNGraphicsDevice::Initialize();
+	SNImageCodec::Initialize();
 
-	SNSystemColorTable::Initialize();
+	// ビットマップフォント初期化
+	SNBitmapFont::Initialize();
 
 	return;
 }
@@ -74,21 +59,8 @@ Void SNGraphics::BeforeTerminate()
 	// ビットマップフォント終了
 	SNBitmapFont::Terminate();
 
-	SNSystemSurface::Terminate();
-	SNSystemPen::Terminate();
-	SNSystemBrush::Terminate();
-	SNSystemColorTable::Terminate();
-
-	// D2D, D3D関連
-	SND2D::Terminate();
-	SND3D::ReleaseSampler();
-	SND3D::ReleaseShaders();
-	SND3D::ReleaseFullscreenQuad();
-	SND3D::ReleaseSRV();
-	SND3D::ReleaseSurface();
-	SND3D::ReleaseRTV();
-	SND3D::ReleaseSwapChain();
-	SND3D::ReleaseDevice();
+	SNImageCodec::Terminate();
+	SNGraphicsDevice::Terminate();
 
 	return;
 }
@@ -96,9 +68,6 @@ Void SNGraphics::BeforeTerminate()
 // 終了
 Void SNGraphics::Terminate()
 {
-	// GDI終了
-	SNGDI::Terminate();
-
 	return;
 }
 
@@ -107,12 +76,7 @@ Void SNGraphics::Terminate()
 // GDIロックが必要
 Void SNGraphics::LoadSystemResource()
 {
-	SNSystemPen::Initialize();
-	SNSystemBrush::Initialize();
-	SNSystemSurface::Initialize();
 
-	// ビットマップフォント初期化
-	SNBitmapFont::Initialize();
 	return;
 }
 
@@ -120,34 +84,21 @@ Void SNGraphics::LoadSystemResource()
 Void SNGraphics::Update()
 {
 	Boolean is_full;
-	RECT rect;
 	SNRect snrect = {0};
 	SNSize win_size;
 
 	// 最新フレームの情報取得
 	is_full = IsFullScreen();
 
-	// フルスクリーン状態の更新
-	if (is_full != PreFullScreenSts)
-	{
-		SND3D::SetFullScreen(is_full);
-	}
+	SNGraphicsDevice::SetFullScreen(is_full);
 
-	if (is_full)
-	{
-		SND3D::GetScreenRect(&snrect);
-	}
-	else
-	{
-		::GetClientRect((HWND)SNWindow::WindowHandle, &rect);
-		snrect.Width = rect.right;
-		snrect.Height = rect.bottom;
-	}
-
-	win_size.Width = snrect.Width;;
-	win_size.Height = snrect.Height;
+	SNGraphicsDevice::GetWindowSize(&win_size);
 
 	// DrawRect更新
+	snrect.PointX = 0;
+	snrect.PointY = 0;
+	snrect.Width = win_size.Width;
+	snrect.Height = win_size.Height;
 	UpdateDrawRect(&snrect);
 
 	// フルスクリーン状態の更新またはウインドウサイズの変更あり
@@ -155,17 +106,7 @@ Void SNGraphics::Update()
 		(win_size.Width != PreWindowSize.Width) ||
 		(win_size.Height != PreWindowSize.Height))
 	{
-		// RTVの破棄
-		SND3D::ReleaseRTV();
-		// D2Dの破棄
-		
-		// バックバッファ再構築
-		SND3D::ResizeBuffer(&win_size);
-
-		// RTVの再生成
-		SND3D::CreateRTV();
-
-		// D2Dの再構築
+		SNGraphicsDevice::Restore(&win_size);
 	}
 
 	// 前フレーム状態更新
@@ -178,18 +119,12 @@ Void SNGraphics::Update()
 // サーフェスフリップ
 Void SNGraphics::FlipSurface()
 {
-	SND2D::Draw();
-	SND3D::Flip(&DrawRect);
+	SNGraphicsDevice::Flip(&DrawRect);
 
 	return;
 }
 
-SNSurfaceD3D* SNGraphics::GetSurface()
-{
-	return &Surface;
-}
-
-// 画面描画処理
+// 描画領域更新
 Void SNGraphics::UpdateDrawRect(SNRect* rect)
 {
 	Int32 width;
@@ -275,4 +210,27 @@ Boolean SNGraphics::ClientToSurface(SNPoint* point)
 Boolean SNGraphics::IsFullScreen()
 {
 	return ((SNUserConfig::Data.FullScreen) & (SNApplication::Active));
+}
+
+// コンテキスト取得
+SNGraphicsContext* SNGraphics::GetContext()
+{
+	SNGraphicsContext* dc = &SNGraphicsDevice::D2DGraphicsContext;
+	SNBitmap* tgbmp = &SNGraphicsDevice::D2DTargetBitmap;
+	SNColor color = { 0, 0, 0, 255 };
+
+	// 描画開始
+	dc->Begin(tgbmp);
+	dc->Clear(&color);
+
+	return dc;
+}
+
+// コンテキスト解放
+Void SNGraphics::ReleaseContext()
+{
+	SNGraphicsContext* dc = &SNGraphicsDevice::D2DGraphicsContext;
+
+	dc->End();
+	return;
 }

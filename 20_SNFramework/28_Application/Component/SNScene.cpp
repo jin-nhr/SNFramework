@@ -131,7 +131,7 @@ Boolean SNScene::EventProc(SNEventType evt)
 }
 
 // •`‰æˆ—
-Void SNScene::Draw(SNSurface* surface)
+Void SNScene::Draw(SNGraphicsContext* grc)
 {
 	// —LŒø‚Ì‚İˆ—
 	if (Enable)
@@ -139,7 +139,7 @@ Void SNScene::Draw(SNSurface* surface)
 		// •\¦ó‘Ô‚Ì‚İDrawÀs
 		if (Visible)
 		{
-			OnDraw(surface);
+			OnDraw(grc);
 		}
 	}
 	
@@ -324,7 +324,7 @@ Void SNScene::OnCycle()
 }
 
 // •`‰æˆ—
-Void SNScene::OnDraw(SNSurface* surface)
+Void SNScene::OnDraw(SNGraphicsContext* grc)
 {
 	return;
 }

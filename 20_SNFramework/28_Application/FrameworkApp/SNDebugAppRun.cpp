@@ -21,9 +21,10 @@ SNDebugAppRun::~SNDebugAppRun()
 Void SNDebugAppRun::OnInitialize()
 {
 	// システム情報のコンテナ設定
-	CntSysInfo.SetSceneNum(3);
+	CntSysInfo.SetSceneNum(4);
 	CntSysInfo.SetScene(&LblSysInfoTitle);
 	CntSysInfo.SetScene(&LblFPS);
+	CntSysInfo.SetScene(&LblSkip);
 	CntSysInfo.SetScene(&LblProcTime);
 	
 	CntSysInfo.Initialize();
@@ -31,12 +32,14 @@ Void SNDebugAppRun::OnInitialize()
 	// システム情報のテキスト設定
 	LblSysInfoTitle.SetText((String)L"-- System Info --");
 	LblFPS.SetText((String)L"FPS = %d");
+	LblSkip.SetText((String)L"Skip = %d");
 	LblProcTime.SetText((String)L"ProcTime = %d[ms]");
 
 	// システム情報の座標設定
 	LblSysInfoTitle.Move(0, 0);
 	LblFPS.Move(0, SNBitmapFont::BMCharHeight);
-	LblProcTime.Move(0, SNBitmapFont::BMCharHeight * 2);
+	LblSkip.Move(0, SNBitmapFont::BMCharHeight * 2);
+	LblProcTime.Move(0, SNBitmapFont::BMCharHeight * 3);
 
 	return;
 }
@@ -70,6 +73,7 @@ Void SNDebugAppRun::OnCycle()
 	static Boolean esc_sts = false;
 
 	LblFPS.SetValue(SNApplication::GetFPS());
+	LblSkip.SetValue(SNApplication::GetSkipFrame());
 	LblProcTime.SetValue(SNApplication::GetProcTime());
 
 	// ESCが押されたらデバッグ表示の反転
@@ -97,9 +101,9 @@ Void SNDebugAppRun::OnCycle()
 }
 
 // 描画処理
-Void SNDebugAppRun::OnDraw(SNSurface* surface)
+Void SNDebugAppRun::OnDraw(SNGraphicsContext* grc)
 {
-	CntSysInfo.Draw(surface);
+	CntSysInfo.Draw(grc);
 
 	return;
 }

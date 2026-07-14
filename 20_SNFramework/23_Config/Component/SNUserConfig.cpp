@@ -37,19 +37,18 @@ Void SNUserConfig::LoadUserConfig()
 	// コンフィグのパス、ファイル名設定
 	ConfigFile.SetFolderFileName(SNSystemConfig::ConfigFileName);
 
-	// 同期モード
-	// 本クラスではStorageのスレッド起動前、終了後のファイルアクセスが必要となるため
-	// 同期モードで動作させる
-	ConfigFile.SetAsyncMode(false);
+	// 読み込み命令
+	ConfigFile.Read();
+	ConfigFile.WaitForOperationComplete();
 
 	// コンフィグRead
-	if (ConfigFile.Read())
+	if (ConfigFile.GetResult() == SNStorageResultNormal)
 	{
 		// Read成功時
 		read_config = (SNUserConfigData*)ConfigFile.GetDataAddress();
 
 		// 読み込みサイズNG
-		if (ConfigFile.GetSize() != sizeof(SNUserConfigData))
+		if (ConfigFile.FileSize != sizeof(SNUserConfigData))
 		{
 			// 初期値を採用のため何もしない
 		}
@@ -69,7 +68,7 @@ Void SNUserConfig::LoadUserConfig()
 		}
 
 		// チェックサム確認
-		else if (CalcCheckSum((Void*)read_config, ConfigFile.GetSize() - 4) != read_config->CheckSum)
+		else if (CalcCheckSum((Void*)read_config, ConfigFile.FileSize - 4) != read_config->CheckSum)
 		{
 			// 初期値を採用のため何もしない
 		}
@@ -110,6 +109,7 @@ Void SNUserConfig::SaveUserConfig()
 
 	// 書き込み処理
 	ConfigFile.Write();
+	ConfigFile.WaitForOperationComplete();
 
 	// メモリを解放
 	ConfigFile.ReleaseMemory();

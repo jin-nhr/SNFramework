@@ -21,114 +21,43 @@ SNFile::~SNFile()
 }
 
 // ファイル有無確認
-Boolean SNFile::CheckFileExists()
+Void SNFile::CheckFileExists()
 {
-	Boolean ret = true;
-
-	// 非同期
-	if (AsyncMode)
-	{
-		// 有無確認
-		RequestOperation(SNStorageOperationCheckExists);
-	}
-
-	// 同期
-	else
-	{
-		// ファイル有無確認
-		ret = SNStorage::CheckFileExists(FullFolderFileName.GetString());
-	}
-
-	return ret;
+	// 有無確認
+	RequestOperation(SNStorageOperationCheckExists);
+	return;
 }
 
 // ファイルサイズ取得
-UInt32 SNFile::GetSize()
+Void SNFile::GetDataSize()
 {
-	UInt32 ret = 0;
-
-	// 非同期
-	if (AsyncMode)
-	{
-		// サイズ取得命令
-		RequestOperation(SNStorageOperationGetSize);
-	}
-
-	// 同期
-	else
-	{
-		// ファイルサイズ取得
-		FileSize = SNStorage::GetFileSize(FullFolderFileName.GetString());
-		ret = FileSize;
-	}
-
-	return ret;
+	// サイズ取得命令
+	RequestOperation(SNStorageOperationGetSize);
+	return;
 }
 
 // ファイル書き込み
-Boolean SNFile::Write()
+Void SNFile::Write()
 {
-	Boolean ret = true;
-
-	// 非同期
-	if (AsyncMode)
-	{
-		// 書き込み命令
-		RequestOperation(SNStorageOperationWriteFile);
-	}
-
-	// 同期
-	else
-	{
-		// ファイル書き込み
-		ret = SNStorage::WriteFile(FullFolderFileName.GetString(), &FileData);
-	}
-
-	return ret;
+	// 書き込み命令
+	RequestOperation(SNStorageOperationWriteFile);
+	return;
 }
 
 // ファイル読み込み
-Boolean SNFile::Read()
+Void SNFile::Read()
 {
-	Boolean ret = true;
-
-	// 非同期
-	if (AsyncMode)
-	{
-		// 読み込み命令
-		RequestOperation(SNStorageOperationReadFile);
-	}
-
-	// 同期
-	else
-	{
-		// ファイル読み込み
-		ret = SNStorage::ReadFile(FullFolderFileName.GetString(), &FileData);
-	}
-
-	return ret;
+	// 読み込み命令
+	RequestOperation(SNStorageOperationReadFile);
+	return;
 }
 
 // ファイル削除
-Boolean SNFile::Delete()
+Void SNFile::Delete()
 {
-	Boolean ret = true;
-
-	// 非同期
-	if (AsyncMode)
-	{
-		// 削除命令
-		RequestOperation(SNStorageOperationRemoveFile);
-	}
-	// 同期
-	else
-	{
-		// ファイル削除
-		ret = SNStorage::RemoveFile(FullFolderFileName.GetString());
-	}
-
-	return ret;
-
+	// 削除命令
+	RequestOperation(SNStorageOperationRemoveFile);
+	return;
 }
 
 // データアドレス取得
@@ -150,90 +79,88 @@ Void SNFile::ReleaseMemory()
 	return;
 }
 
-// コールバック
-Void SNFile::Callback()
+SNStorageResult SNFile::OnOperationCheckExists()
 {
 	SNStorageResult ret = SNStorageResultIdle;
 
-	// 処理中の場合
-	if (Result == SNStorageResultProcessing)
+	// ファイル有無確認
+	if (SNStorage::CheckFileExists(FullFolderFileName.GetString()))
 	{
-		switch (Operation)
-		{
-
-		// ファイル有無確認
-		case SNStorageOperationCheckExists:
-			// ファイル有無確認
-			if (SNStorage::CheckFileExists(FullFolderFileName.GetString()))
-			{
-				ret = SNStorageResultExists;
-			}
-			else
-			{
-				ret = SNStorageResultNoExists;
-			}
-			break;
-
-		// ファイルサイズ取得
-		case SNStorageOperationGetSize:
-			// ファイルサイズ取得
-			FileSize = SNStorage::GetFileSize(FullFolderFileName.GetString());
-			ret = SNStorageResultNormal;
-			break;
-
-		// ファイル書き込み
-		case SNStorageOperationWriteFile:
-			// サイズ取得
-			FileSize = FileData.GetSize();
-
-			// 書き込み
-			if (SNStorage::WriteFile(FullFolderFileName.GetString(), &FileData))
-			{
-				ret = SNStorageResultNormal;
-			}
-			else
-			{
-				ret = SNStorageResultError;
-			}
-			break;
-
-		// ファイル読み込み
-		case SNStorageOperationReadFile:
-			// 読み込み
-			if (SNStorage::ReadFile(FullFolderFileName.GetString(), &FileData))
-			{
-				// サイズ取得
-				FileSize = FileData.GetSize();
-
-				ret = SNStorageResultNormal;
-			}
-			else
-			{
-				ret = SNStorageResultError;
-			}
-			break;
-
-		// ファイル削除
-		case SNStorageOperationRemoveFile:
-			// ファイル削除
-			if (SNStorage::RemoveFile(FullFolderFileName.GetString()))
-			{
-				FileSize = 0;
-				ret = SNStorageResultNormal;
-			}
-			else
-			{
-				ret = SNStorageResultError;
-			}
-			break;
-
-		default:
-			break;
-		}
+		ret = SNStorageResultExists;
+	}
+	else
+	{
+		ret = SNStorageResultNoExists;
 	}
 
-	// 処理結果をセット
-	Result = ret;
+	return ret;
+}
 
-	return;
+SNStorageResult SNFile::OnOperationGetSize()
+{
+	SNStorageResult ret = SNStorageResultIdle;
+
+	// ファイルサイズ取得
+	FileSize = SNStorage::GetFileSize(FullFolderFileName.GetString());
+	ret = SNStorageResultNormal;
+
+	return ret;
+}
+
+SNStorageResult SNFile::OnOperationWriteFile()
+{
+	SNStorageResult ret = SNStorageResultIdle;
+
+	// サイズ取得
+	FileSize = FileData.GetSize();
+
+	// 書き込み
+	if (SNStorage::WriteFile(FullFolderFileName.GetString(), &FileData))
+	{
+		ret = SNStorageResultNormal;
+	}
+	else
+	{
+		ret = SNStorageResultError;
+	}
+
+	return ret;
+}
+
+SNStorageResult SNFile::OnOperationReadFile()
+{
+	SNStorageResult ret = SNStorageResultIdle;
+
+	// 読み込み
+	if (SNStorage::ReadFile(FullFolderFileName.GetString(), &FileData))
+	{
+		// サイズ取得
+		FileSize = FileData.GetSize();
+
+		ret = SNStorageResultNormal;
+	}
+	else
+	{
+		ret = SNStorageResultError;
+	}
+
+	return ret;
+}
+
+SNStorageResult SNFile::OnOperationRemoveFile()
+{
+	SNStorageResult ret = SNStorageResultIdle;
+
+	// ファイル削除
+	if (SNStorage::RemoveFile(FullFolderFileName.GetString()))
+	{
+		FileSize = 0;
+		ret = SNStorageResultNormal;
+	}
+	else
+	{
+		ret = SNStorageResultError;
+	}
+
+	return ret;
 }

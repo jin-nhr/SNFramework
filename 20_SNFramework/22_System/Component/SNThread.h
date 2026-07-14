@@ -28,6 +28,10 @@ public:
 	// スレッドメイン処理
 	Void ThreadMain();
 
+	// スレッド終了待ち
+	// 同期処理のため注意
+	Void WaitForThreadEnd();
+
 private:
 	// ユーザー実行関数(派生先で実装する)
 	virtual Void UserMain();

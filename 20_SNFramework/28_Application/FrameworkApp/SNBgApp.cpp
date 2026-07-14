@@ -1,7 +1,6 @@
 #include "SNBgApp.h"
 #include "SNApplication.h"
 #include "SNEvent.h"
-#include "SND3D.h"
 #include "SNUserConfig.h"
 
 // バックグラウンドレイヤクラス

@@ -43,8 +43,8 @@ Void SNSystem::Initialize(
 	// 各コンポーネントのInitializeを実施
 	// Initailizeではコンポーネント内の初期化を実施し
 	// 他コンポーネントから呼び出されたときに動作できるようにしておく
-	SNConfig::Initialize();
 	SNStorage::Initialize();
+	SNConfig::Initialize();
 	SNInput::Initialize();
 	SNGraphics::Initialize();
 	SNAudioVideo::Initialize();
@@ -60,8 +60,8 @@ Void SNSystem::Startup()
 	////////////////////////////////////////////
 	// 各コンポーネントのStartupを実施
 	// Startupでは他コンポーネントとの連携などを行い実行準備をする
-	SNConfig::Startup();
 	SNStorage::Startup();
+	SNConfig::Startup();
 	SNInput::Startup();
 	SNGraphics::Startup();
 	SNAudioVideo::Startup();
@@ -76,8 +76,8 @@ Void SNSystem::Run()
 {
 	////////////////////////////////////////////
 	// 各コンポーネントのRunを実施
-	SNConfig::Run();
 	SNStorage::Run();
+	SNConfig::Run();
 	SNInput::Run();
 	SNGraphics::Run();
 	SNAudioVideo::Run();
@@ -109,8 +109,8 @@ Void SNSystem::BeforeTerminate()
 	SNAudioVideo::BeforeTerminate();
 	SNGraphics::BeforeTerminate();
 	SNInput::BeforeTerminate();
-	SNStorage::BeforeTerminate();
 	SNConfig::BeforeTerminate();
+	SNStorage::BeforeTerminate();
 
 	return;
 }
@@ -126,8 +126,8 @@ Void SNSystem::Terminate()
 	SNAudioVideo::Terminate();
 	SNGraphics::Terminate();
 	SNInput::Terminate();
-	SNStorage::Terminate();
 	SNConfig::Terminate();
+	SNStorage::Terminate();
 
 	// システムタイマの解像度を戻す
 	timeEndPeriod(1);
@@ -164,11 +164,11 @@ Void SNSystem::ScreenToClient(SNPoint* point)
 Boolean SNSystem::CheckDuplicateInstance()
 {
 	Boolean conf = SNSystemConfig::SingleApp;		// 単一起動のみ許可ならtrue
-	Boolean duplicate = DualBootChecker.IsFirst();	// 単一起動ならtrue
+	Boolean first_boot = DualBootChecker.IsFirst();	// 単一起動ならtrue
 	Boolean ret = false;
 
 	// 単一起動のみ許可で、最初のインスタンスではない
-	if (conf && !duplicate)
+	if (conf && !first_boot)
 	{
 		ret = true;
 	}

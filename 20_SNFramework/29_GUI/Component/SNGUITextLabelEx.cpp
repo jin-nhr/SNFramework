@@ -73,20 +73,28 @@ Void SNGUITextLabelEx::OnTerminate()
 }
 
 // 描画処理
-Void SNGUITextLabelEx::OnDraw(SNSurface* surface)
+Void SNGUITextLabelEx::OnDraw(SNGraphicsContext* grc)
 {
+	SNSize size;
+
 	// 更新あり
 	if (Update)
 	{
 		// 出力文字列をセット
 		Text.Print((String)Format.GetString(), Value);
 
+		// 文字列サイズ取得
+		size = Text.GetStringImageSize();
+
+		// 自身のサイズを変更
+		Resize(size.Width, size.Height);
+
 		// 更新フラグクリア
 		Update = false;
 	}
 
 	// ベースのDraw実行
-	SNGUITextLabel::OnDraw(surface);
+	SNGUITextLabel::OnDraw(grc);
 
 	return;
 }

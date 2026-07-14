@@ -2,6 +2,7 @@
 #include "SNConfig.h"
 #include "SNWindowsAPI.h"
 #include "SNInput.h"
+#include "SNMath.h"
 
 // ゲームパッドクラス
 
@@ -64,8 +65,9 @@ void SNGamePad::OnUpdate(UInt8 id)
 {
 	JOYINFOEX joyinfo;
 	Boolean enable;
-	UInt32 loop_cnt;
+	Int32 loop_cnt;
 	UInt32 axis_value[SNGamePadAxisNum];
+	Int32 button_max = SNGamePadButton32;
 
 	// ゲームパッド状態取得
 	joyinfo.dwSize = sizeof(joyinfo);
@@ -94,7 +96,10 @@ void SNGamePad::OnUpdate(UInt8 id)
 		////////////////////////////////////////////////////////////////////////////////
 		// ボタン入力状態の更新
 		// ボタンの押下状態はビット割り当てなので下位から順に1ビットずつチェック
-		for (loop_cnt = 0; loop_cnt < GamePadInfo[id].ButtonNum; loop_cnt++)
+
+		button_max = (Int32)SNMath::SelectMin((Int64)button_max, (Int64)GamePadInfo[id].ButtonNum);
+
+		for (loop_cnt = 0; loop_cnt < button_max; loop_cnt++)
 		{
 			if ((joyinfo.dwButtons & (0x00000001 << loop_cnt)) != 0)
 			{

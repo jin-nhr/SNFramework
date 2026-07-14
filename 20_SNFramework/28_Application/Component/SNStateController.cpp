@@ -159,7 +159,7 @@ Void SNStateController::Step()
 }
 
 // •`‰æˆ—
-Void SNStateController::Draw(SNSurface* surface)
+Void SNStateController::Draw(SNGraphicsContext* grc)
 {
 	// —LŒøŽž
 	if (Enable)
@@ -168,10 +168,10 @@ Void SNStateController::Draw(SNSurface* surface)
 		if (Visible)
 		{
 			// Ž©g‚ÌScene‚Ì•`‰æˆ—
-			SNScene::Draw(surface);
+			SNScene::Draw(grc);
 
 			// Œ»Ýó‘Ô‚Ì•`‰æˆ—‚ðŽÀs
-			((SNScene*)SceneList.DirectAccess(NowState)->UserData)->Draw(surface);
+			((SNScene*)SceneList.DirectAccess(NowState)->UserData)->Draw(grc);
 		}
 	}
 	return;

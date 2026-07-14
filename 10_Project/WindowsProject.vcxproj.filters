@@ -159,9 +159,6 @@
     <ClInclude Include="..\20_SNFramework\24_Storage\Component\SNFolder.h">
       <Filter>20_SNFramework\24_Storage\Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_SNFramework\24_Storage\Component\SNImageFile.h">
-      <Filter>20_SNFramework\24_Storage\Component</Filter>
-    </ClInclude>
     <ClInclude Include="..\20_SNFramework\25_Input\Component\SNGamePad.h">
       <Filter>20_SNFramework\25_Input\Component</Filter>
     </ClInclude>
@@ -170,30 +167,6 @@
     </ClInclude>
     <ClInclude Include="..\20_SNFramework\25_Input\Component\SNMouse.h">
       <Filter>20_SNFramework\25_Input\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNBrush.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNDDB.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNDeviceContext.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNDIBSection.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNPen.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSurface.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSurfaceDDB.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSurfaceDIB.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
     </ClInclude>
     <ClInclude Include="..\20_SNFramework\28_Application\Component\SNLayerController.h">
       <Filter>20_SNFramework\28_Application\Component</Filter>
@@ -206,33 +179,6 @@
     </ClInclude>
     <ClInclude Include="..\20_SNFramework\28_Application\Component\SNStateController.h">
       <Filter>20_SNFramework\28_Application\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUIBMTextLabel.h">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUIBMTextLabelEx.h">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUICircle.h">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUIFader.h">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUIImage.h">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUILine.h">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUIRect.h">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUITextLabel.h">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUITextLabelEx.h">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
     </ClInclude>
     <ClInclude Include="..\20_SNFramework\22_System\Core\SNSystem.h">
       <Filter>20_SNFramework\22_System\Core</Filter>
@@ -363,28 +309,7 @@
     <ClInclude Include="..\20_SNFramework\28_Application\Component\SNThreadSequencer.h">
       <Filter>20_SNFramework\28_Application\Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNBitmapFont.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSystemSurface.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSystemBrush.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSystemColorTable.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSystemPen.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SND3D.h">
-      <Filter>20_SNFramework\26_Graphics\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNSurfaceD3D.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNGDI.h">
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNGraphicsDevice.h">
       <Filter>20_SNFramework\26_Graphics\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SND3DShaderPS.h">
@@ -393,8 +318,41 @@
     <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SND3DShaderVS.h">
       <Filter>20_SNFramework\26_Graphics\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SND2D.h">
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNBitmap.h">
+      <Filter>20_SNFramework\26_Graphics\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNBitmapFont.h">
       <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUITextLabel.h">
+      <Filter>20_SNFramework\29_GUI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUITextLabelEx.h">
+      <Filter>20_SNFramework\29_GUI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNImageCodec.h">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNImageCodecThread.h">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNImageCodecAccessor.h">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\22_System\Component\SNSystemTimer.h">
+      <Filter>20_SNFramework\22_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNDIB.h">
+      <Filter>20_SNFramework\26_Graphics\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNDIBPixel.h">
+      <Filter>20_SNFramework\26_Graphics\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\24_Storage\Component\SNImageFile.h">
+      <Filter>20_SNFramework\24_Storage\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNGraphicsContext.h">
+      <Filter>20_SNFramework\26_Graphics\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -431,9 +389,6 @@
     <ClCompile Include="..\20_SNFramework\24_Storage\Component\SNFolder.cpp">
       <Filter>20_SNFramework\24_Storage\Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_SNFramework\24_Storage\Component\SNImageFile.cpp">
-      <Filter>20_SNFramework\24_Storage\Component</Filter>
-    </ClCompile>
     <ClCompile Include="..\20_SNFramework\25_Input\Component\SNGamePad.cpp">
       <Filter>20_SNFramework\25_Input\Component</Filter>
     </ClCompile>
@@ -442,30 +397,6 @@
     </ClCompile>
     <ClCompile Include="..\20_SNFramework\25_Input\Component\SNMouse.cpp">
       <Filter>20_SNFramework\25_Input\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNBrush.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNDDB.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNDeviceContext.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNDIBSection.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNPen.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSurface.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSurfaceDDB.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSurfaceDIB.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
     </ClCompile>
     <ClCompile Include="..\20_SNFramework\28_Application\Component\SNLayerController.cpp">
       <Filter>20_SNFramework\28_Application\Component</Filter>
@@ -478,33 +409,6 @@
     </ClCompile>
     <ClCompile Include="..\20_SNFramework\28_Application\Component\SNStateController.cpp">
       <Filter>20_SNFramework\28_Application\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUIBMTextLabel.cpp">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUIBMTextLabelEx.cpp">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUICircle.cpp">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUIFader.cpp">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUIImage.cpp">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUILine.cpp">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUIRect.cpp">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUITextLabel.cpp">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUITextLabelEx.cpp">
-      <Filter>20_SNFramework\29_GUI\Component</Filter>
     </ClCompile>
     <ClCompile Include="..\20_SNFramework\22_System\Core\SNEntryPoint.cpp">
       <Filter>20_SNFramework\22_System\Core</Filter>
@@ -635,32 +539,44 @@
     <ClCompile Include="..\20_SNFramework\28_Application\Component\SNPhase.cpp">
       <Filter>20_SNFramework\28_Application\Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNBitmapFont.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSystemSurface.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSystemBrush.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSystemColorTable.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSystemPen.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SND3D.cpp">
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNGraphicsDevice.cpp">
       <Filter>20_SNFramework\26_Graphics\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNSurfaceD3D.cpp">
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNBitmap.cpp">
       <Filter>20_SNFramework\26_Graphics\Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNGDI.cpp">
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNBitmapFont.cpp">
       <Filter>20_SNFramework\26_Graphics\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SND2D.cpp">
+    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUITextLabel.cpp">
+      <Filter>20_SNFramework\29_GUI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUITextLabelEx.cpp">
+      <Filter>20_SNFramework\29_GUI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNImageCodec.cpp">
       <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNImageCodecThread.cpp">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNImageCodecAccessor.cpp">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\22_System\Component\SNSystemTimer.cpp">
+      <Filter>20_SNFramework\22_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNDIB.cpp">
+      <Filter>20_SNFramework\26_Graphics\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNDIBPixel.cpp">
+      <Filter>20_SNFramework\26_Graphics\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\24_Storage\Component\SNImageFile.cpp">
+      <Filter>20_SNFramework\24_Storage\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNGraphicsContext.cpp">
+      <Filter>20_SNFramework\26_Graphics\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

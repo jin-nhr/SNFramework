@@ -35,7 +35,7 @@ protected:
 	virtual SNTransitionCode OnStep(SNEvent* event);
 
 	// •`‰æˆ—
-	virtual Void OnDraw(SNSurface* surface);
+	virtual Void OnDraw(SNSurface* grc);
 
 private:
 	static constexpr UInt32 InitialTime = 1000;

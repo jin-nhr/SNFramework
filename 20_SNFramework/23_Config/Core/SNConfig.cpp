@@ -29,8 +29,6 @@ Void SNConfig::Run()
 // 終了前処理
 Void SNConfig::BeforeTerminate()
 {
-	// ユーザーコンフィグはファイルアクセスが必要なため
-	// BeforeTerminateで終了する
 	SNUserConfig::Terminate();
 
 	return;

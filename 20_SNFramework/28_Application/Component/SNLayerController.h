@@ -2,7 +2,6 @@
 #include "SNFrameworkInternal.h"
 #include "SNSceneController.h"
 
-
 // ƒŒƒCƒ„§ŒäƒNƒ‰ƒX
 class SNLayerController : public virtual SNSceneController
 {
@@ -29,7 +28,7 @@ public:
 	virtual Void Step();
 
 	// •`‰æˆ—
-	virtual Void Draw(SNSurface* surface);
+	virtual Void Draw(SNGraphicsContext* grc);
 
 protected:
 

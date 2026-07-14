@@ -43,7 +43,7 @@ protected:
 	virtual Void OnCycle();
 
 	// 描画処理
-	virtual Void OnDraw(SNSurface* surface);
+	virtual Void OnDraw(SNGraphicsContext* grc);
 
 	// シーケンサ用コールバック
 	virtual SNPhaseResult PhaseStepFunc(Int32 ch, Int32 phase_idx, Int32 call_count);

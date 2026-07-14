@@ -33,7 +33,7 @@ protected:
 	virtual SNTransitionCode OnStep(SNEvent* event);
 
 	// 描画処理
-	virtual Void OnDraw(SNSurface* surface);
+	virtual Void OnDraw(SNSurface* grc);
 
 private:
 	SNApplicationLoading LoadingApp;	// ローディング

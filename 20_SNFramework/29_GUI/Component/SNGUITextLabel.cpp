@@ -1,9 +1,7 @@
 #include "SNGUITextLabel.h"
 #include "SNWindowsAPI.h"
 #include "SNConfig.h"
-#include "SNGraphics.h"
-#include "SNSystemColorTable.h"
-#include "SNGDI.h"
+#include "SNBitmapFont.h"
 
 // 状態クラス
 
@@ -33,7 +31,7 @@ Void SNGUITextLabel::OnInitialize()
 
 	// 各種初期設定
 	TextColor = SNColorWhite;
-	ShadowEnable = true;
+	ShadowEnable = false;
 	ShadowColor = SNColorBlack;
 	ShadowOffset = 2;
 
@@ -48,7 +46,7 @@ Void SNGUITextLabel::OnTerminate()
 }
 
 // 描画処理
-Void SNGUITextLabel::OnDraw(SNSurface* surface)
+Void SNGUITextLabel::OnDraw(SNGraphicsContext* grc)
 {
 	SNRect rect;
 
@@ -57,29 +55,24 @@ Void SNGUITextLabel::OnDraw(SNSurface* surface)
 	// 影描画あり
 	if (ShadowEnable)
 	{
-		SNGDI gdi;
-
-		gdi.DrawString(
-			surface->GetDC(),
+		// 影描画
+		SNBitmapFont::Draw(
+			grc,
 			rect.PointX + ShadowOffset,
 			rect.PointY + ShadowOffset,
 			Text.GetString(),
 			Text.GetLength(),
-			(SNColor*)&SNSystemColorTable::ColorTable[ShadowColor]);
+			ShadowColor);
 	}
 
-	// 文字列本体
-	{
-		SNGDI gdi;
-
-		gdi.DrawString(
-			surface->GetDC(),
-			rect.PointX,
-			rect.PointY,
-			Text.GetString(),
-			Text.GetLength(),
-			(SNColor*)&SNSystemColorTable::ColorTable[TextColor]);
-	}
+	// 文字描画
+	SNBitmapFont::Draw(
+		grc,
+		rect.PointX,
+		rect.PointY,
+		Text.GetString(),
+		Text.GetLength(),
+		TextColor);
 
 	return;
 }
@@ -88,8 +81,33 @@ Void SNGUITextLabel::OnDraw(SNSurface* surface)
 // テキスト設定
 Void SNGUITextLabel::SetText(String text)
 {
+	SNSize size;
+
 	// Stringに文字列設定
 	Text.SetString(text);
+
+	// 文字列サイズ取得
+	size = Text.GetStringImageSize();
+
+	// 自身のサイズを変更
+	Resize(size.Width, size.Height);
+
+	return;
+}
+
+// テキスト設定
+Void SNGUITextLabel::SetText(SNBMString* text)
+{
+	SNSize size;
+
+	// Stringに文字列設定
+	Text.SetString(text->GetString(), text->GetLength());
+
+	// 文字列サイズ取得
+	size = Text.GetStringImageSize();
+
+	// 自身のサイズを変更
+	Resize(size.Width, size.Height);
 
 	return;
 }

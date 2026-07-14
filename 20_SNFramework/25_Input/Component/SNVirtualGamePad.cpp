@@ -81,6 +81,8 @@ Void SNVirtualGamePad::UpdatePrevState()
 	// 仮想ゲームパッド数ループ
 	for (loop_cnt_vp = SNVirtualGamePadIDTop; loop_cnt_vp < SNVirtualGamePadIDNum; loop_cnt_vp++)
 	{
+		EventExist[loop_cnt_vp] = false;
+
 		// ボタン数ループ
 		for (loop_cnt_btn = SNVirtualGamePadTop; loop_cnt_btn < SNVirtualGamePadButtonNum; loop_cnt_btn++)
 		{
@@ -95,8 +97,6 @@ Void SNVirtualGamePad::UpdatePrevState()
 			{
 				Event[loop_cnt_vp][loop_cnt_btn][loop_cnt_evt] = false;
 			}
-
-			EventExist[loop_cnt_vp] = false;
 		}
 	}
 

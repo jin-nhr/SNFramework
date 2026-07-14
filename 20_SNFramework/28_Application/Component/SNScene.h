@@ -1,9 +1,8 @@
 #pragma once
 #include "SNFrameworkInternal.h"
-#include "SNSurface.h"
 #include "SNEvent.h"
 #include "SNPhase.h"
-
+#include "SNGraphicsContext.h"
 
 // シーンクラス
 class SNScene : public SNPhase
@@ -31,7 +30,7 @@ public:
 	virtual Void Step();
 
 	// 描画処理(インターフェース)
-	virtual Void Draw(SNSurface* surface);
+	virtual Void Draw(SNGraphicsContext* grc);
 
 	// ローカル座標/サイズ設定
 	virtual Void SetRect(Int32 x, Int32 y, Int32 w, Int32 h);
@@ -115,5 +114,5 @@ protected:
 	virtual Void OnCycle();
 
 	// 描画処理(実装用)
-	virtual Void OnDraw(SNSurface* surface);
+	virtual Void OnDraw(SNGraphicsContext* grc);
 };

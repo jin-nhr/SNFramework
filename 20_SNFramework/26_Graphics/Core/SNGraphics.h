@@ -1,12 +1,6 @@
 #pragma once
 #include "SNFrameworkInternal.h"
-#include "SNCriticalSection.h"
-#include "SNSurfaceDDB.h"
-#include "SNPen.h"
-#include "SNBrush.h"
-#include "SNSurfaceD3D.h"
-
-class SNSurface;
+#include "SNGraphicsContext.h"
 
 // グラフィクスクラス
 class SNGraphics
@@ -38,9 +32,6 @@ public:
 	// サーフェスフリップ
 	static Void FlipSurface();
 
-	// サーフェス取得
-	static SNSurfaceD3D* GetSurface();
-
 	// 描画範囲更新
 	static Void UpdateDrawRect(SNRect* rect);
 
@@ -52,6 +43,12 @@ public:
 	// フルスクリーン判定
 	static Boolean IsFullScreen();
 
+	// コンテキスト取得
+	static SNGraphicsContext* GetContext();
+
+	// コンテキスト解放
+	static Void ReleaseContext();
+
 private:
 	// 前フレームフルスクリーン状態
 	static Boolean PreFullScreenSts;
@@ -61,8 +58,5 @@ private:
 
 	// 描画矩形データ
 	static SNRect DrawRect;
-
-	// D3Dサーフェス
-	static SNSurfaceD3D Surface;
 };
 

@@ -71,7 +71,7 @@ SNTransitionCode SNApplicationNoUserApp::OnStep(SNEvent* event)
 }
 
 // ï`âÊèàóù
-Void SNApplicationNoUserApp::OnDraw(SNSurface* surface)
+Void SNApplicationNoUserApp::OnDraw(SNSurface* grc)
 {
 	return;
 }

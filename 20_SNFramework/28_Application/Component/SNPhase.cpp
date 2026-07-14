@@ -7,7 +7,7 @@ SNPhaseResult SNPhase::SequenceCallback(SNPhase* phase, Int32 ch, Int32 phase_id
 	SNPhaseResult ret = SNPhaseResultStay;
 	if (phase != nullptr)
 	{
-		ret = ((SNPhase*)phase)->PhaseStepFunc(ch, phase_idx, call_count);
+		ret = phase->PhaseStepFunc(ch, phase_idx, call_count);
 	}
 
 	return ret;

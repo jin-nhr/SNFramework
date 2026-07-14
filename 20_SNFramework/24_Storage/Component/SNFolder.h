@@ -15,13 +15,13 @@ public:
 	virtual ~SNFolder();
 
 	// フォルダ有無チェック
-	Boolean CheckFolderExists();
+	Void CheckFolderExists();
 
 	// フォルダ作成
-	Boolean CreateFolder();
+	Void CreateFolder();
 
 	// フォルダ削除
-	Boolean RemoveFolder();
+	Void RemoveFolder();
 
 	// フォルダ/ファイルリスト生成
 	Void CreateFolderAndFileList();
@@ -47,8 +47,11 @@ public:
 	// リスト解放
 	Void FreeList();
 
-	// コールバック
-	virtual Void Callback();
+protected:
+	virtual SNStorageResult OnOperationCheckExists();
+	virtual SNStorageResult OnOperationCreateFolder();
+	virtual SNStorageResult OnOperationRemoveFolder();
+	virtual SNStorageResult OnOperationFolderFileList();
 
 private:
 	UInt32 FolderNum;		// フォルダ数

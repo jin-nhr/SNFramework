@@ -107,12 +107,8 @@ Void SNSysAppPreStart::OnCycle()
 }
 
 // 描画処理
-Void SNSysAppPreStart::OnDraw(SNSurface* surface)
+Void SNSysAppPreStart::OnDraw(SNGraphicsContext* grc)
 {
-	// この状態ではシステムリソースの準備ができていないため
-	// 直接サーフェスをクリアする
-	surface->Clear();
-
 	return;
 }
 

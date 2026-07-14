@@ -1,9 +1,9 @@
 #pragma once
 #include "SNFrameworkInternal.h"
 #include "SNScene.h"
-#include "SNString.h"
+#include "SNBMString.h"
 
-// テキストラベル
+// ビットマップテキストラベル
 class SNGUITextLabel : public virtual SNScene
 {
 public:
@@ -15,6 +15,9 @@ public:
 
 	// テキスト設定
 	virtual Void SetText(String text);
+
+	// テキスト設定
+	virtual Void SetText(SNBMString* text);
 
 	// テキスト色設定
 	virtual Void SetTextColor(SNColorCode color);
@@ -36,11 +39,12 @@ protected:
 	virtual Void OnTerminate();
 
 	// 描画処理
-	virtual Void OnDraw(SNSurface* surface);
+	virtual Void OnDraw(SNGraphicsContext* grc);
 
-	SNString Text;				// テキスト (自前で領域確保)
+	SNBMString Text;			// テキスト (自前で領域確保)
 	SNColorCode TextColor;		// テキストカラー
 	Boolean ShadowEnable;		// 影有効
 	SNColorCode ShadowColor;	// 影カラー
-	UInt32 ShadowOffset;		// 影オフセット
+	Int32 ShadowOffset;		// 影オフセット
 };
+

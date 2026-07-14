@@ -26,91 +26,32 @@ SNFolder::~SNFolder()
 }
 
 // フォルダ有無チェック
-Boolean SNFolder::CheckFolderExists()
+Void SNFolder::CheckFolderExists()
 {
-	Boolean ret = true;
-
-	// 非同期
-	if (AsyncMode)
-	{
-		// 有無確認
-		RequestOperation(SNStorageOperationCheckExists);
-	}
-
-	// 同期
-	else
-	{
-		// フォルダ有無確認
-		ret = SNStorage::CheckFolderExists(FullFolderFileName.GetString());
-	}
-
-	return ret;
+	// 有無確認
+	RequestOperation(SNStorageOperationCheckExists);
+	return;
 }
 
 // フォルダ作成
-Boolean SNFolder::CreateFolder()
+Void SNFolder::CreateFolder()
 {
-	Boolean ret = true;
-
-	// 非同期
-	if (AsyncMode)
-	{
-		RequestOperation(SNStorageOperationCreateFolder);
-	}
-	else
-	{
-		ret = SNStorage::CreateFolder(FullFolderFileName.GetString());
-	}
-
-	return ret;
+	RequestOperation(SNStorageOperationCreateFolder);
+	return;
 }
 
 // フォルダ削除
-Boolean SNFolder::RemoveFolder()
+Void SNFolder::RemoveFolder()
 {
-	Boolean ret = true;
-
-	// 非同期
-	if (AsyncMode)
-	{
-		RequestOperation(SNStorageOperationRemoveFolder);
-	}
-	else
-	{
-		ret = SNStorage::RemoveFolder(FullFolderFileName.GetString());
-	}
-
-	return ret;
+	RequestOperation(SNStorageOperationRemoveFolder);
+	return;
 }
 
 // フォルダ/ファイルリスト生成
 Void SNFolder::CreateFolderAndFileList()
 {
-	// 非同期
-	if (AsyncMode)
-	{
-		// フォルダ/ファイルリスト生成
-		RequestOperation(SNStorageOperationFolderFileList);
-	}
-	// 同期
-	else
-	{
-		// フォルダ数取得
-		FolderNum = SNStorage::GetFolderNum(FullFolderFileName.GetString());
-
-		// ファイル数取得
-		FileNum = SNStorage::GetFileNum(FullFolderFileName.GetString(), Filter.GetString());
-
-		// リスト用配列確保
-		AllocateList(FolderNum, FileNum);
-
-		// フォルダリスト生成
-		SNStorage::CreateFolderList(FullFolderFileName.GetString(), FolderList, FolderNum);
-
-		// ファイルリスト生成
-		SNStorage::CreateFileList(FullFolderFileName.GetString(), Filter.GetString(), FileList, FileNum);
-	}
-
+	// フォルダ/ファイルリスト生成
+	RequestOperation(SNStorageOperationFolderFileList);
 	return;
 }
 
@@ -173,80 +114,79 @@ Void SNFolder::FreeList()
 	return;
 }
 
-// コールバック
-Void SNFolder::Callback()
+
+SNStorageResult SNFolder::OnOperationCheckExists()
 {
 	SNStorageResult ret = SNStorageResultIdle;
 
-	// 処理中の場合
-	if (Result == SNStorageResultProcessing)
+	// フォルダ有無確認
+	if (SNStorage::CheckFolderExists(FullFolderFileName.GetString()))
 	{
-		switch (Operation)
-		{
-		case SNStorageOperationCheckExists:
-			// フォルダ有無確認
-			if (SNStorage::CheckFolderExists(FullFolderFileName.GetString()))
-			{
-				ret = SNStorageResultExists;
-			}
-			else
-			{
-				ret = SNStorageResultNoExists;
-			}
-			break;
-
-		case SNStorageOperationCreateFolder:
-			// フォルダ生成
-			if (SNStorage::CreateFolder(FullFolderFileName.GetString()))
-			{
-				ret = SNStorageResultNormal;
-			}
-			else
-			{
-				ret = SNStorageResultError;
-			}
-			break;
-
-		case SNStorageOperationRemoveFolder:
-			// フォルダ削除
-			if (SNStorage::RemoveFolder(FullFolderFileName.GetString()))
-			{
-				ret = SNStorageResultNormal;
-			}
-			else
-			{
-				ret = SNStorageResultError;
-			}
-			break;
-
-		case SNStorageOperationFolderFileList:
-			// フォルダ/ファイルリスト生成
-			// フォルダ数取得
-			FolderNum = SNStorage::GetFolderNum(FullFolderFileName.GetString());
-
-			// ファイル数取得
-			FileNum = SNStorage::GetFileNum(FullFolderFileName.GetString(), Filter.GetString());
-
-			// リスト用配列確保
-			AllocateList(FolderNum, FileNum);
-
-			// フォルダリスト生成
-			SNStorage::CreateFolderList(FullFolderFileName.GetString(), FolderList, FolderNum);
-
-			// ファイルリスト生成
-			SNStorage::CreateFileList(FullFolderFileName.GetString(), Filter.GetString(), FileList, FileNum);
-
-			ret = SNStorageResultNormal;
-
-			break;
-
-		default:
-			break;
-		}
+		ret = SNStorageResultExists;
+	}
+	else
+	{
+		ret = SNStorageResultNoExists;
 	}
 
-	// 処理結果をセット
-	Result = ret;
+	return ret;
+}
 
-	return;
+SNStorageResult SNFolder::OnOperationCreateFolder()
+{
+	SNStorageResult ret = SNStorageResultIdle;
+
+	// フォルダ生成
+	if (SNStorage::CreateFolder(FullFolderFileName.GetString()))
+	{
+		ret = SNStorageResultNormal;
+	}
+	else
+	{
+		ret = SNStorageResultError;
+	}
+
+	return ret;
+}
+
+SNStorageResult SNFolder::OnOperationRemoveFolder()
+{
+	SNStorageResult ret = SNStorageResultIdle;
+
+	// フォルダ削除
+	if (SNStorage::RemoveFolder(FullFolderFileName.GetString()))
+	{
+		ret = SNStorageResultNormal;
+	}
+	else
+	{
+		ret = SNStorageResultError;
+	}
+
+	return ret;
+}
+
+SNStorageResult SNFolder::OnOperationFolderFileList()
+{
+	SNStorageResult ret = SNStorageResultIdle;
+
+	// フォルダ/ファイルリスト生成
+	// フォルダ数取得
+	FolderNum = SNStorage::GetFolderNum(FullFolderFileName.GetString());
+
+	// ファイル数取得
+	FileNum = SNStorage::GetFileNum(FullFolderFileName.GetString(), Filter.GetString());
+
+	// リスト用配列確保
+	AllocateList(FolderNum, FileNum);
+
+	// フォルダリスト生成
+	SNStorage::CreateFolderList(FullFolderFileName.GetString(), FolderList, FolderNum);
+
+	// ファイルリスト生成
+	SNStorage::CreateFileList(FullFolderFileName.GetString(), Filter.GetString(), FileList, FileNum);
+
+	ret = SNStorageResultNormal;
+
+	return ret;
 }

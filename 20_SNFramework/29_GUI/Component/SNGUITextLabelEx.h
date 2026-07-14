@@ -1,6 +1,7 @@
 #pragma once
 #include "SNFrameworkInternal.h"
 #include "SNGUITextLabel.h"
+#include "SNString.h"
 
 // テキストラベル
 class SNGUITextLabelEx : public virtual SNGUITextLabel
@@ -26,7 +27,7 @@ protected:
 	virtual Void OnTerminate();
 
 	// 描画処理
-	virtual Void OnDraw(SNSurface* surface);
+	virtual Void OnDraw(SNGraphicsContext* grc);
 
 	SNString Format;	// フォーマット文字列
 	Int64    Value;		// 設定値

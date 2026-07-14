@@ -32,7 +32,7 @@ public:
 	virtual Void Step();
 
 	// 描画処理
-	virtual Void Draw(SNSurface* surface);
+	virtual Void Draw(SNGraphicsContext* grc);
 
 	// シーン設定
 	// sceneにはサブ状態となるシーンを設定する

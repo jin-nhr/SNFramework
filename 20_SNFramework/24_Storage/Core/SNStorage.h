@@ -76,22 +76,13 @@ public:
 	// ファイル削除
 	static Boolean RemoveFile(String file_full);
 
-	// イメージロード
-	// GDI使用のため、必要に応じてGDIのロックをすること
-	static Boolean LoadImageFile(String file_full, Handle* image, SNSize* size);
-
-	// イメージセーブ
-	// GDI使用のため、必要に応じてGDIのロックをすること
-	static Boolean SaveImageFile(String file_full, Handle image);
-
-
 	///////////////////////////////////////////////
 
-	static SNThread* StorageThread;			// ストレージスレッド
-	static Boolean ThreadEndRequest;		// スレッド終了要求
+	static SNThread* StorageThread;				// ストレージスレッド
+	static volatile Boolean ThreadEndRequest;	// スレッド終了要求
 
-	static SNString ApplicationPath;		// アプリケーションパス
+	static SNString ApplicationPath;				// アプリケーションパス
 
-	static SNList RequestList;				// リクエストリスト
-	static SNCriticalSection ListAccessCS;	// リストアクセス用クリティカルセクション
+	static SNList RequestList;					// リクエストリスト
+	static SNCriticalSection ListAccessCS;		// リストアクセス用クリティカルセクション
 };

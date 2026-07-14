@@ -2,7 +2,7 @@
 #include "SNFrameworkInternal.h"
 #include "SNScene.h"
 #include "SNLayerController.h"
-#include "SNGUIBMTextLabelEx.h"
+#include "SNGUITextLabelEx.h"
 
 // デバッグアプリ Run
 // 遷移コードなし
@@ -34,12 +34,13 @@ protected:
 	virtual Void OnCycle();
 
 	// 描画処理
-	virtual Void OnDraw(SNSurface* surface);
+	virtual Void OnDraw(SNGraphicsContext* grc);
 
 private:
 	SNLayerController CntSysInfo;		// システム情報コンテナ
-	SNGUIBMTextLabel LblSysInfoTitle;	// システム情報タイトル表示
-	SNGUIBMTextLabelEx LblFPS;			// PFS表示
-	SNGUIBMTextLabelEx LblProcTime;		// 処理時間表示
+	SNGUITextLabel LblSysInfoTitle;	// システム情報タイトル表示
+	SNGUITextLabelEx LblFPS;			// PFS表示
+	SNGUITextLabelEx LblSkip;		// フレームスキップ
+	SNGUITextLabelEx LblProcTime;		// 処理時間表示
 };
 

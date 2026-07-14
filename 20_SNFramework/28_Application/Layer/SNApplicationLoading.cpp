@@ -133,7 +133,7 @@ SNTransitionCode SNApplicationLoading::OnStep(SNEvent* event)
 }
 
 // •`‰æˆ—
-Void SNApplicationLoading::OnDraw(SNSurface* surface)
+Void SNApplicationLoading::OnDraw(SNSurface* grc)
 {
 	return;
 }

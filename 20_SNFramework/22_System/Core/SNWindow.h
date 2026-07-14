@@ -13,39 +13,39 @@ public:
 	static Void Create(Handle application_incetance, Int32 show_cmd);
 
 	// ウインドウプロシージャ
-	static Void* __stdcall WindowProc(Void* window_handle, UInt message, Void* w_param, Void* l_param);
+	static Int64 __stdcall WindowProc(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 
 	static Handle WindowHandle;	// ウインドウハンドル
 	static Handle WindowDC; // ウインドウDC
 
 private:
 	// フレームワーク終了通知
-	static Void* OnNoticeExit(Void* window_handle, UInt message, Void* w_param, Void* l_param);
+	static Int64 OnNoticeExit(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 
 	// ウインドウクローズ
-	static Void* OnClose(Void* window_handle, UInt message, Void* w_param, Void* l_param);
+	static Int64 OnClose(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 
 	// セッション終了確認
-	static Void* OnQueryEndSession(Void* window_handle, UInt message, Void* w_param, Void* l_param);
+	static Int64 OnQueryEndSession(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 
 	// 背景消去
-	static Void* OnEraseBackground(Void* window_handle, UInt message, Void* w_param, Void* l_param);
+	static Int64 OnEraseBackground(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 
 	// ウインドウアクティベイト
-	static Void* OnActivate(Void* window_handle, UInt message, Void* w_param, Void* l_param);
+	static Int64 OnActivate(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 
 	// マウスホイール
-	static Void* OnMouseWheel(Void* window_handle, UInt message, Void* w_param, Void* l_param);
+	static Int64 OnMouseWheel(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 
 	// ウインドウ破棄
-	static Void* OnDestroy(Void* window_handle, UInt message, Void* w_param, Void* l_param);
+	static Int64 OnDestroy(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 
 	// サイズ変更
-	static Void* OnSize(Void* window_handle, UInt message, Void* w_param, Void* l_param);
+	static Int64 OnSize(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 
 	// システムキー押下
-	static Void* OnSysKeyDown(Void* window_handle, UInt message, Void* w_param, Void* l_param);
+	static Int64 OnSysKeyDown(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 
 	// その他イベント処理
-	static Void* OnOtherEvent(Void* window_handle, UInt message, Void* w_param, Void* l_param);
+	static Int64 OnOtherEvent(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 };

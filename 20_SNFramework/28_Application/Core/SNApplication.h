@@ -62,6 +62,9 @@ public:
 	// 平均時間取得
 	static UInt32 GetProcTime();
 
+	// スキップ数
+	static UInt32 GetSkipFrame();
+
 	// メイン関数
 	static Void UserMain();
 
@@ -81,6 +84,7 @@ private:
 	static SNThread* ApplicationThread;			// アプリケーションスレッド
 	static SNFPSTimer FPSTimer;					// FPSタイマ
 	static SNFPSCounter FPSCounter;				// FPSカウンター
+	static SNFPSCounter FrameSkipCounter;		// フレームスキップカウンター
 	static SNStopWatch ApplicationTimeWatcher;	// アプリケーション処理時間測定
 
 	///////////////////////////////////////////////////////////

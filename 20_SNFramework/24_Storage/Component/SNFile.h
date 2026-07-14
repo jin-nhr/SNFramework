@@ -15,23 +15,19 @@ public:
 	virtual ~SNFile();
 
 	// ファイル有無確認
-	// 同期モードではリターンがtrue：ファイルあり/ false：ファイルなし
-	// 非同期モードでは非同期処理の結果を参照すること
-	Boolean CheckFileExists();
+	Void CheckFileExists();
 
 	// ファイルサイズ取得
-	// 同期モードではサイズをリターン
-	// 非同期モードでは常に0を返し非同期処理完了後にFileSizeを直接参照すること
-	UInt32 GetSize();
+	Void GetDataSize();
 
 	// ファイル書き込み
-	Boolean Write();
+	Void Write();
 
 	// ファイル読み込み
-	Boolean Read();
+	Void Read();
 
 	// ファイル削除
-	Boolean Delete();
+	Void Delete();
 
 	// データアドレス取得
 	Void* GetDataAddress();
@@ -42,13 +38,16 @@ public:
 	// メモリ解放
 	Void ReleaseMemory();
 
-	// コールバック
-	virtual Void Callback();
-
 	// サイズ
-	// 同期モードではGetSizeを使うこと
-	// 非同期モードではサイズ取得完了後に参照すること
+	// Read/Write/GetSize後に参照すること
 	UInt32 FileSize;
+
+protected:
+	virtual SNStorageResult OnOperationCheckExists();
+	virtual SNStorageResult OnOperationGetSize();
+	virtual SNStorageResult OnOperationWriteFile();
+	virtual SNStorageResult OnOperationReadFile();
+	virtual SNStorageResult OnOperationRemoveFile();
 
 private:
 	// メモリ

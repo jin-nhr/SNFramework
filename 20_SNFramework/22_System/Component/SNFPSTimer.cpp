@@ -72,7 +72,7 @@ Boolean SNFPSTimer::CheckTimeout()
 	Int64 elapsed_time = (timeGetTime() - StartTimeMilliSecond) * 1000;
 
 	// 経過時間がタイムアウト時間を超えているか判定
-	return (NextTimeMicroSecond < elapsed_time);
+	return (NextTimeMicroSecond <= elapsed_time);
 }
 
 // Sleepする

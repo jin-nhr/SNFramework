@@ -3,11 +3,11 @@
 #include "SNWindowsAPI.h"
 #include "SNConfig.h"
 #include "SNAutoResource.h"
-#include "SNGDI.h"
+
 
 // ストレージクラス
 SNThread* SNStorage::StorageThread;				// ストレージスレッド
-Boolean SNStorage::ThreadEndRequest = false;	// スレッド終了要求
+volatile Boolean SNStorage::ThreadEndRequest = false;	// スレッド終了要求
 
 SNString SNStorage::ApplicationPath;			// アプリケーションパス
 
@@ -44,12 +44,9 @@ Void SNStorage::Initialize()
 // 起動準備
 Void SNStorage::Startup()
 {
-	return;
-}
+	// 他機能でファイルアクセスを必要とするため
+	// Startupでスレッドを起動しておく
 
-// 実行
-Void SNStorage::Run()
-{
 	// 終了要求をキャンセルしておく
 	ThreadEndRequest = false;
 
@@ -59,18 +56,20 @@ Void SNStorage::Run()
 	return;
 }
 
+// 実行
+Void SNStorage::Run()
+{
+	return;
+}
+
 // 終了前処理
 Void SNStorage::BeforeTerminate()
 {
 	// 終了要求セット
 	ThreadEndRequest = true;
 
-	// 終了待ちループ
-	while (StorageThread->GetRunStatus())
-	{
-		// CPU解放
-		::Sleep(1);
-	}
+	// 終了待ち(MAX1秒)
+	StorageThread->WaitForThreadEnd();
 
 	return;
 }
@@ -509,42 +508,6 @@ Boolean SNStorage::RemoveFile(String file_full)
 	{
 		ret = true;
 	}
-
-	return ret;
-}
-
-
-// イメージロード
-Boolean SNStorage::LoadImageFile(String file_full, Handle* image, SNSize* size)
-{
-	Boolean ret = false;
-	Handle load_image;
-	SNSize load_image_size;
-	SNGDI gdi;
-
-	// イメージファイルのロード
-	load_image = gdi.LoadImageFile(file_full);
-	
-	if (load_image != nullptr)
-	{
-		*image = load_image;
-
-		gdi.GetBitmapSize(load_image, &load_image_size);
-		size->Width = load_image_size.Width;
-		size->Height = load_image_size.Height;
-		ret = true;
-	}
-	
-	return ret;
-}
-
-// イメージセーブ
-Boolean SNStorage::SaveImageFile(String file_full, Handle image)
-{
-	Boolean ret = false;
-	SNGDI gdi;
-
-	ret = gdi.SaveImageFile(file_full, image);
 
 	return ret;
 }

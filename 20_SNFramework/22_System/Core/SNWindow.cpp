@@ -5,8 +5,7 @@
 #include "SNApplication.h"
 #include "SNGraphics.h"
 #include "SNConfig.h"
-#include "SNGDI.h"
-#include "SND3D.h"
+
 
 // ウインドウクラス
 
@@ -14,13 +13,13 @@ Handle SNWindow::WindowHandle = nullptr;
 Handle SNWindow::WindowDC = nullptr;
 
 // ウインドウプロシージャ
-Void* __stdcall SNWindow::WindowProc(
+Int64 __stdcall SNWindow::WindowProc(
     Void* window_handle,
     UInt message,
     Void* w_param,
     Void* l_param)
 {
-    Void* ret = 0;
+    Int64 ret = 0;
 
     switch (message)
     {
@@ -144,15 +143,6 @@ Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
 
         dc = ::GetDC((HWND)WindowHandle);
 
-        // DCへの初期設定を行う
-        {
-            SNGDI gdi;
-
-            gdi.InitDC(dc);
-
-            gdi.PatBlt(dc, 0, 0, SNSystemConfig::ScreenWidth, SNSystemConfig::ScreenHeight, BLACKNESS);
-        }
-
         WindowDC = (Handle)dc;
     }
 
@@ -160,7 +150,7 @@ Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
 }
 
 // フレームワーク終了通知
-Void* SNWindow::OnNoticeExit(Void* window_handle, UInt message, Void* w_param, Void* l_param)
+Int64 SNWindow::OnNoticeExit(Void* window_handle, UInt message, Void* w_param, Void* l_param)
 {
     // ウインドウ破棄命令
     DestroyWindow((HWND)window_handle);
@@ -169,7 +159,7 @@ Void* SNWindow::OnNoticeExit(Void* window_handle, UInt message, Void* w_param, V
 }
 
 // ウインドウクローズ
-Void* SNWindow::OnClose(Void* window_handle, UInt message, Void* w_param, Void* l_param)
+Int64 SNWindow::OnClose(Void* window_handle, UInt message, Void* w_param, Void* l_param)
 {
     // アプリケーションスレッドに対して終了通知
     SNApplication::NotifyEvent(SNApplicationEvent::SNEventExitApplication);
@@ -178,18 +168,18 @@ Void* SNWindow::OnClose(Void* window_handle, UInt message, Void* w_param, Void* 
 }
 
 // セッション終了確認
-Void* SNWindow::OnQueryEndSession(Void* window_handle, UInt message, Void* w_param, Void* l_param)
+Int64 SNWindow::OnQueryEndSession(Void* window_handle, UInt message, Void* w_param, Void* l_param)
 {
     // アプリケーションスレッドに対して終了通知
     SNApplication::NotifyEvent(SNApplicationEvent::SNEventExitApplication);
 
     // Windowsに対しては終了を拒否し、アプリケーション独自に終了処理を実行する
     // 拒否した場合でもWindowsからプロセスをキルされる可能性はある
-    return (Void*)FALSE;
+    return FALSE;
 }
 
 // 背景消去
-Void* SNWindow::OnEraseBackground(Void* window_handle, UInt message, Void* w_param, Void* l_param)
+Int64 SNWindow::OnEraseBackground(Void* window_handle, UInt message, Void* w_param, Void* l_param)
 {
     // 0を返すとウインドウ側で消去処理を実行
     // 0以外を返すとウインドウ側での消去処理はされない
@@ -197,14 +187,14 @@ Void* SNWindow::OnEraseBackground(Void* window_handle, UInt message, Void* w_par
 
     // SNFrameworkでは毎周期再描画を行うのでバックグラウンド消去処理はせずに
     // 0以外の値を返すことで余計な消去処理を動作させないようにする
-    return (Void*)1;
+    return 1;
 }
 
 // ウインドウアクティベイト
-Void* SNWindow::OnActivate(Void* window_handle, UInt message, Void* w_param, Void* l_param)
+Int64 SNWindow::OnActivate(Void* window_handle, UInt message, Void* w_param, Void* l_param)
 {
     // アクティブならtrue, 非アクティブならfalse
-    if (static_cast<DWORD>(reinterpret_cast<intptr_t>(w_param) & 0x0000FFFF) != WA_INACTIVE)
+    if ((LOWORD((WPARAM)w_param) & 0x0000FFFF) != WA_INACTIVE)
     {
         // アクティブ通知
         SNApplication::NotifyEvent(SNApplicationEvent::SNEventActive);
@@ -216,12 +206,11 @@ Void* SNWindow::OnActivate(Void* window_handle, UInt message, Void* w_param, Voi
     }
 
     // ウインドウデフォルト処理
-    (void*)DefWindowProc((HWND)window_handle, message, (WPARAM)w_param, (LPARAM)l_param);
-    return 0;
+    return DefWindowProc((HWND)window_handle, message, (WPARAM)w_param, (LPARAM)l_param);
 }
 
 // マウスホイール
-Void* SNWindow::OnMouseWheel(Void* window_handle, UInt message, Void* w_param, Void* l_param)
+Int64 SNWindow::OnMouseWheel(Void* window_handle, UInt message, Void* w_param, Void* l_param)
 {
     Int32 wheel_updown;
 
@@ -247,7 +236,7 @@ Void* SNWindow::OnMouseWheel(Void* window_handle, UInt message, Void* w_param, V
 }
 
 // ウインドウ破棄
-Void* SNWindow::OnDestroy(Void* window_handle, UInt message, Void* w_param, Void* l_param)
+Int64 SNWindow::OnDestroy(Void* window_handle, UInt message, Void* w_param, Void* l_param)
 {
     // 終了メッセージ発行
     PostQuitMessage(0);
@@ -256,7 +245,7 @@ Void* SNWindow::OnDestroy(Void* window_handle, UInt message, Void* w_param, Void
 }
 
 // サイズ変更
-Void* SNWindow::OnSize(Void* window_handle, UInt message, Void* w_param, Void* l_param)
+Int64 SNWindow::OnSize(Void* window_handle, UInt message, Void* w_param, Void* l_param)
 {
     SNApplication::NotifyEvent(SNApplicationEvent::SNEventWindowSize);
  
@@ -264,7 +253,7 @@ Void* SNWindow::OnSize(Void* window_handle, UInt message, Void* w_param, Void* l
 }
 
 // システムキー押下
-Void* SNWindow::OnSysKeyDown(Void* window_handle, UInt message, Void* w_param, Void* l_param)
+Int64 SNWindow::OnSysKeyDown(Void* window_handle, UInt message, Void* w_param, Void* l_param)
 {
     // ALT+ENTER が押された
     if (((WPARAM)w_param == VK_RETURN) && (GetKeyState(VK_MENU) & 0x8000))
@@ -283,8 +272,8 @@ Void* SNWindow::OnSysKeyDown(Void* window_handle, UInt message, Void* w_param, V
 }
 
 // その他イベント処理
-Void* SNWindow::OnOtherEvent(Void* window_handle, UInt message, Void* w_param, Void* l_param)
+Int64 SNWindow::OnOtherEvent(Void* window_handle, UInt message, Void* w_param, Void* l_param)
 {
     // デフォルトのプロシージャ実行
-    return (Void*)DefWindowProc((HWND)window_handle, message, (WPARAM)w_param, (LPARAM)l_param);
+    return DefWindowProc((HWND)window_handle, message, (WPARAM)w_param, (LPARAM)l_param);
 }

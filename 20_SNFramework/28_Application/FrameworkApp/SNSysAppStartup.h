@@ -2,8 +2,7 @@
 #include "SNFrameworkInternal.h"
 #include "SNLayerController.h"
 #include "SNGraphics.h"
-#include "SNGUIRect.h"
-#include "SNGUIBMTextLabel.h"
+#include "SNGUITextLabel.h"
 
 // システムアプリ 起動準備
 class SNSysAppStartup : public virtual SNLayerController
@@ -21,7 +20,6 @@ protected:
 
 
 private:
-	SNGUIRect			Bg;
-	SNGUIBMTextLabel	LblCenter;
+	SNGUITextLabel	LblCenter;
 };
 

@@ -1,6 +1,7 @@
 #include "SNThread.h"
 #include "SNWindowsAPI.h"
-
+#include "SNSystemTimer.h"
+#include "SNSystemConfig.h"
 
 // スレッドクラス
 
@@ -96,3 +97,17 @@ Void SNThread::UserMain()
 	return;
 }
 
+// スレッド終了待ち
+// 同期処理のため注意
+Void SNThread::WaitForThreadEnd()
+{
+	SNSystemTimer timer(SNSystemConfig::ThreadEndTimeout);
+	timer.Start();
+
+	while (GetRunStatus() && (!timer.CheckTimeout()))
+	{
+		::Sleep(1);
+	}
+
+	return;
+}

@@ -512,6 +512,28 @@ enum SNStorageOperation
 
 
 ///////////////////////////////////////////////////////////////
+// グラフィクス関連
+
+// コーデック処理結果
+enum SNImageCodecResult
+{
+    SNImageCodecResultIdle,
+    SNImageCodecResultProcessing,
+    SNImageCodecResultNormal,
+    SNImageCodecResultError,
+};
+
+// コーデック命令
+enum SNImageCodecOperation
+{
+    SNImageCodecOperationNo,
+    SNImageCodecOperationDecode,
+    SNImageCodecOperationEncode,
+};
+
+
+
+///////////////////////////////////////////////////////////////
 // グラフィックス関連
 
 // システムカラー定義
