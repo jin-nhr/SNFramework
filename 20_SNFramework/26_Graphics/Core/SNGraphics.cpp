@@ -5,8 +5,9 @@
 #include "SNBitmapFont.h"
 #include "SNGraphicsDevice.h"
 #include "SNApplication.h"
-
 #include "SNImageCodec.h"
+#include "SNGraphicsResManager.h"
+#include "SNGraphicsResource.h"
 
 // グラフィクスクラス
 // SNFrameworkにおける描画の制御を行う
@@ -39,7 +40,9 @@ Void SNGraphics::Startup()
 	DrawRect.Height = SNSystemConfig::ScreenHeight;;
 
 	SNGraphicsDevice::Initialize();
-	SNImageCodec::Initialize();
+	SNGraphicsResManager::Initialize();
+
+	StartUpResourceLoad();
 
 	// ビットマップフォント初期化
 	SNBitmapFont::Initialize();
@@ -59,7 +62,7 @@ Void SNGraphics::BeforeTerminate()
 	// ビットマップフォント終了
 	SNBitmapFont::Terminate();
 
-	SNImageCodec::Terminate();
+	SNGraphicsResManager::Terminate();
 	SNGraphicsDevice::Terminate();
 
 	return;
@@ -84,34 +87,28 @@ Void SNGraphics::LoadSystemResource()
 Void SNGraphics::Update()
 {
 	Boolean is_full;
-	SNRect snrect = {0};
 	SNSize win_size;
+
+	// リソース管理の更新
+	SNGraphicsResManager::Update();
 
 	// 最新フレームの情報取得
 	is_full = IsFullScreen();
 
+	// フルスクリーン状態更新
 	SNGraphicsDevice::SetFullScreen(is_full);
 
+	// ウインドウサイズ取得
 	SNGraphicsDevice::GetWindowSize(&win_size);
 
 	// DrawRect更新
-	snrect.PointX = 0;
-	snrect.PointY = 0;
-	snrect.Width = win_size.Width;
-	snrect.Height = win_size.Height;
-	UpdateDrawRect(&snrect);
+	UpdateDrawRect(&win_size);
 
-	// フルスクリーン状態の更新またはウインドウサイズの変更あり
-	if ((is_full != PreFullScreenSts) ||
-		(win_size.Width != PreWindowSize.Width) ||
-		(win_size.Height != PreWindowSize.Height))
-	{
-		SNGraphicsDevice::Restore(&win_size);
-	}
+	// デバイスリストア処理
+	DeviceRestore(is_full, &win_size);
 
-	// 前フレーム状態更新
-	PreFullScreenSts = is_full;
-	PreWindowSize = win_size;
+	// 前フレーム情報更新
+	UpdatePreFrameInfo(is_full, &win_size);
 
 	return;
 }
@@ -125,7 +122,7 @@ Void SNGraphics::FlipSurface()
 }
 
 // 描画領域更新
-Void SNGraphics::UpdateDrawRect(SNRect* rect)
+Void SNGraphics::UpdateDrawRect(SNSize* size)
 {
 	Int32 width;
 	Int32 height;
@@ -133,8 +130,8 @@ Void SNGraphics::UpdateDrawRect(SNRect* rect)
 	Int32 config_width = SNSystemConfig::ScreenWidth;
 	Int32 config_height = SNSystemConfig::ScreenHeight;
 
-	width = rect->Width;
-	height = rect->Height;
+	width = size->Width;
+	height = size->Height;
 
 	// アスペクト比を維持したスケール計算
 	Float32 scale_x = (Float32)width / config_width;
@@ -157,6 +154,28 @@ Void SNGraphics::UpdateDrawRect(SNRect* rect)
 	DrawRect.PointY = offset_y;
 	DrawRect.Width = new_width;
 	DrawRect.Height = new_height;
+
+	return;
+}
+
+Void SNGraphics::DeviceRestore(Boolean is_full, SNSize* size)
+{
+	// フルスクリーン状態の更新またはウインドウサイズの変更あり
+	if ((is_full != PreFullScreenSts) ||
+		(size->Width != PreWindowSize.Width) ||
+		(size->Height != PreWindowSize.Height))
+	{
+		SNGraphicsDevice::Restore(size);
+	}
+
+	return;
+}
+
+Void SNGraphics::UpdatePreFrameInfo(Boolean is_full, SNSize* size)
+{
+	// 前フレーム状態更新
+	PreFullScreenSts = is_full;
+	PreWindowSize = *size;
 
 	return;
 }
@@ -232,5 +251,31 @@ Void SNGraphics::ReleaseContext()
 	SNGraphicsContext* dc = &SNGraphicsDevice::D2DGraphicsContext;
 
 	dc->End();
+	return;
+}
+
+// スタートアップ用のリソース読み込み
+Void SNGraphics::StartUpResourceLoad()
+{
+	Int32 cnt;
+
+	// スタートアップ処理のロードを実行
+	for (cnt = SNGraphicsResStartupTop; cnt <= SNGraphicsResStartupEnd; cnt++)
+	{
+		SNGraphicsResManager::AccessGet((SNGraphicsResID)cnt);
+	}
+
+	// スタートアップ処理のロードを実行
+	for (cnt = SNGraphicsResStartupTop; cnt <= SNGraphicsResStartupEnd; cnt++)
+	{
+		// 処理完了までループ
+		while (!SNGraphicsResManager::IsLoaded((SNGraphicsResID)cnt))
+		{
+			// 更新を繰り返し完了を待つ
+			SNGraphicsResManager::Update();
+			::Sleep(1);
+		}
+	}
+
 	return;
 }

@@ -27,8 +27,15 @@ public:
 	// 1フレーム実行
 	virtual Void Step();
 
+	// 1フレーム実行
+	virtual Void PreDraw();
+
 	// 描画処理
 	virtual Void Draw(SNGraphicsContext* grc);
+
+	// 1フレーム実行
+	virtual Void PostDraw();
+
 
 protected:
 

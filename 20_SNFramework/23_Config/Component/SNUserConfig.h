@@ -13,7 +13,9 @@ struct SNUserConfigData
 	UInt32 Version;				// バージョン
 	//--------------------------------------------
 	Boolean FullScreen;			// 最大化設定
-	UInt8 Reserve[3];			// リザーブ
+	Boolean VSync;				// VSYNC設定
+	Boolean DrawFilter;			// 描画フィルタ
+	UInt8 Reserve[1];			// リザーブ
 	//--------------------------------------------
 	SNKeyCode	KeyboardMapping[SNVirtualGamePadIDNum][SNVirtualGamePadButtonNum];	// キーボード入力マッピング
 	//--------------------------------------------
@@ -66,7 +68,9 @@ private:
 		SNSystemConfig::UserConfigVersion,	// バージョン
 		//--------------------------------------------
 		false,						// 最大化設定
-		0, 0, 0,					// リザーブ
+		true,						// VSYNC ON
+		true,						// 描画フィルタON
+		0,							// リザーブ
 		//--------------------------------------------
 
 		// キーボード入力マッピング

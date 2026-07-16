@@ -7,9 +7,6 @@
     <Filter Include="30_Asset">
       <UniqueIdentifier>{e6b914de-c113-4bc3-b46c-7d62eb4bbeff}</UniqueIdentifier>
     </Filter>
-    <Filter Include="80_UserApplication">
-      <UniqueIdentifier>{7919f782-8a86-4d99-b63c-7355e22dda6a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="90_Build">
       <UniqueIdentifier>{22233a61-627d-4253-8aaa-985fc939edd0}</UniqueIdentifier>
     </Filter>
@@ -39,9 +36,6 @@
     </Filter>
     <Filter Include="20_SNFramework\21_Include">
       <UniqueIdentifier>{df380292-a063-4879-9c69-c3690ff5c232}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="20_SNFramework\22_System\Resource">
-      <UniqueIdentifier>{59d8865e-2675-4931-9194-754901487574}</UniqueIdentifier>
     </Filter>
     <Filter Include="20_SNFramework\24_Storage\Component">
       <UniqueIdentifier>{3e3057c4-a9b6-48cc-958c-7574c47d5244}</UniqueIdentifier>
@@ -97,11 +91,44 @@
     <Filter Include="20_SNFramework\27_AudioVideo\Component">
       <UniqueIdentifier>{c0522be8-0835-41f6-96c6-d78de2e9bdb4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="20_SNFramework\28_Application\FrameworkApp\01_DebugApp">
+      <UniqueIdentifier>{d6845243-a7e0-42bb-b270-1b9f10a30162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_SNFramework\28_Application\FrameworkApp\02_SysMute">
+      <UniqueIdentifier>{8db24cdd-e649-489b-b25f-5416c61f69fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_SNFramework\28_Application\FrameworkApp\03_SysApp">
+      <UniqueIdentifier>{0e63918a-b1d1-4d30-9e6b-a5608a08534d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_SNFramework\28_Application\FrameworkApp\04_UserAppMute">
+      <UniqueIdentifier>{95fcb749-7a47-47ff-90d5-e9b206e13647}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_SNFramework\28_Application\FrameworkApp\05_UserApp">
+      <UniqueIdentifier>{4f53a7cc-d4d1-46ba-85e6-d07084088a0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_SNFramework\28_Application\FrameworkApp\06_WorldMute">
+      <UniqueIdentifier>{e6b6ae28-2322-4795-a63b-2207eea70fa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_SNFramework\28_Application\FrameworkApp\07_World">
+      <UniqueIdentifier>{3b3164c7-f998-447f-a34a-52e181eb07ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_SNFramework\28_Application\FrameworkApp\08_BgApp">
+      <UniqueIdentifier>{3c0bf6f0-cba1-4e64-a49e-6f6086560125}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_SNFramework\30_Codec">
+      <UniqueIdentifier>{9063cc4f-1628-4704-ab93-371cdb96dfce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_SNFramework\30_Codec\Component">
+      <UniqueIdentifier>{2cc83337-3fc3-4368-998b-dde354b9f7d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_SNFramework\30_Codec\Core">
+      <UniqueIdentifier>{ac0d75e4-a5fe-43f6-a143-a820d23f95ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_SNFramework\90_Resource">
+      <UniqueIdentifier>{3d56fc61-82b3-4da3-910f-de6967310905}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\80_UserApplication\TestApplication.h">
-      <Filter>80_UserApplication</Filter>
-    </ClInclude>
     <ClInclude Include="..\20_SNFramework\21_Include\SNConst.h">
       <Filter>20_SNFramework\21_Include</Filter>
     </ClInclude>
@@ -143,15 +170,6 @@
     </ClInclude>
     <ClInclude Include="..\20_SNFramework\22_System\Component\SNThread.h">
       <Filter>20_SNFramework\22_System\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\22_System\Resource\Resource.h">
-      <Filter>20_SNFramework\22_System\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\22_System\Resource\SNTargetVersion.h">
-      <Filter>20_SNFramework\22_System\Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\22_System\Resource\SNWindowsAPI.h">
-      <Filter>20_SNFramework\22_System\Resource</Filter>
     </ClInclude>
     <ClInclude Include="..\20_SNFramework\24_Storage\Component\SNFile.h">
       <Filter>20_SNFramework\24_Storage\Component</Filter>
@@ -255,47 +273,8 @@
     <ClInclude Include="..\20_SNFramework\22_System\Component\SNResourceIF.h">
       <Filter>20_SNFramework\22_System\Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\SNBgApp.h">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\SNDebugAppOff.h">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\SNDebugAppRun.h">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClInclude>
     <ClInclude Include="..\20_SNFramework\28_Application\Component\SNUserAppBase.h">
       <Filter>20_SNFramework\28_Application\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\SNUserAppOff.h">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppConfig.h">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppIdle.h">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppInputConfig.h">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppNoApp.h">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppPreEnd.h">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppPreStart.h">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppScreenGamePad.h">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppScreenKeyboard.h">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppStartup.h">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
     </ClInclude>
     <ClInclude Include="..\20_SNFramework\28_Application\Component\SNPhase.h">
       <Filter>20_SNFramework\28_Application\Component</Filter>
@@ -318,32 +297,14 @@
     <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SND3DShaderVS.h">
       <Filter>20_SNFramework\26_Graphics\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNBitmap.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNBitmapFont.h">
-      <Filter>20_SNFramework\26_Graphics\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUITextLabel.h">
+    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUISystemText.h">
       <Filter>20_SNFramework\29_GUI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUITextLabelEx.h">
+    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUISystemTextEx.h">
       <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNImageCodec.h">
-      <Filter>20_SNFramework\26_Graphics\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNImageCodecThread.h">
-      <Filter>20_SNFramework\26_Graphics\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNImageCodecAccessor.h">
-      <Filter>20_SNFramework\26_Graphics\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\20_SNFramework\22_System\Component\SNSystemTimer.h">
       <Filter>20_SNFramework\22_System\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNDIB.h">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
     </ClInclude>
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNDIBPixel.h">
       <Filter>20_SNFramework\26_Graphics\Component</Filter>
@@ -354,11 +315,59 @@
     <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNGraphicsContext.h">
       <Filter>20_SNFramework\26_Graphics\Component</Filter>
     </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNBMCharTable.h">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\01_DebugApp\SNDebugApp.h">
+      <Filter>20_SNFramework\28_Application\FrameworkApp\01_DebugApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\08_BgApp\SNBgApp.h">
+      <Filter>20_SNFramework\28_Application\FrameworkApp\08_BgApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\03_SysApp\SNSysAppStartup.h">
+      <Filter>20_SNFramework\28_Application\FrameworkApp\03_SysApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\03_SysApp\SNSysApp.h">
+      <Filter>20_SNFramework\28_Application\FrameworkApp\03_SysApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNBitmap.h">
+      <Filter>20_SNFramework\26_Graphics\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Component\SNBitmapFont.h">
+      <Filter>20_SNFramework\26_Graphics\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\30_Codec\Component\SNDIB.h">
+      <Filter>20_SNFramework\30_Codec\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\30_Codec\Core\SNCodec.h">
+      <Filter>20_SNFramework\30_Codec\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\30_Codec\Core\SNImageCodec.h">
+      <Filter>20_SNFramework\30_Codec\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\30_Codec\Core\SNImageCodecAccessor.h">
+      <Filter>20_SNFramework\30_Codec\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\30_Codec\Core\SNImageCodecThread.h">
+      <Filter>20_SNFramework\30_Codec\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_Graphics\Core\SNGraphicsResManager.h">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\22_System\Core\SNTargetVersion.h">
+      <Filter>20_SNFramework\22_System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\22_System\Core\SNWindowsAPI.h">
+      <Filter>20_SNFramework\22_System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\90_Resource\Resource.h">
+      <Filter>20_SNFramework\90_Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\90_Resource\SNGraphicsResource.h">
+      <Filter>20_SNFramework\90_Resource</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\80_UserApplication\TestApplication.cpp">
-      <Filter>80_UserApplication</Filter>
-    </ClCompile>
     <ClCompile Include="..\20_SNFramework\22_System\Component\SNBMString.cpp">
       <Filter>20_SNFramework\22_System\Component</Filter>
     </ClCompile>
@@ -485,47 +494,8 @@
     <ClCompile Include="..\20_SNFramework\22_System\Component\SNResourceIF.cpp">
       <Filter>20_SNFramework\22_System\Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\SNBgApp.cpp">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\SNDebugAppOff.cpp">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\SNDebugAppRun.cpp">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClCompile>
     <ClCompile Include="..\20_SNFramework\28_Application\Component\SNUserAppBase.cpp">
       <Filter>20_SNFramework\28_Application\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\SNUserAppOff.cpp">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppConfig.cpp">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppIdle.cpp">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppInputConfig.cpp">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppNoApp.cpp">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppPreEnd.cpp">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppPreStart.cpp">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppScreenGamePad.cpp">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppScreenKeyboard.cpp">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\SNSysAppStartup.cpp">
-      <Filter>20_SNFramework\28_Application\FrameworkApp</Filter>
     </ClCompile>
     <ClCompile Include="..\20_SNFramework\28_Application\Component\SNTimerSequencer.cpp">
       <Filter>20_SNFramework\28_Application\Component</Filter>
@@ -542,32 +512,14 @@
     <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNGraphicsDevice.cpp">
       <Filter>20_SNFramework\26_Graphics\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNBitmap.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNBitmapFont.cpp">
-      <Filter>20_SNFramework\26_Graphics\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUITextLabel.cpp">
+    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUISystemText.cpp">
       <Filter>20_SNFramework\29_GUI\Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUITextLabelEx.cpp">
+    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUISystemTextEx.cpp">
       <Filter>20_SNFramework\29_GUI\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNImageCodec.cpp">
-      <Filter>20_SNFramework\26_Graphics\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNImageCodecThread.cpp">
-      <Filter>20_SNFramework\26_Graphics\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNImageCodecAccessor.cpp">
-      <Filter>20_SNFramework\26_Graphics\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\20_SNFramework\22_System\Component\SNSystemTimer.cpp">
       <Filter>20_SNFramework\22_System\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNDIB.cpp">
-      <Filter>20_SNFramework\26_Graphics\Component</Filter>
     </ClCompile>
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNDIBPixel.cpp">
       <Filter>20_SNFramework\26_Graphics\Component</Filter>
@@ -578,27 +530,47 @@
     <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNGraphicsContext.cpp">
       <Filter>20_SNFramework\26_Graphics\Component</Filter>
     </ClCompile>
+    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp">
+      <Filter>20_SNFramework\28_Application\FrameworkApp\01_DebugApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\08_BgApp\SNBgApp.cpp">
+      <Filter>20_SNFramework\28_Application\FrameworkApp\08_BgApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp">
+      <Filter>20_SNFramework\28_Application\FrameworkApp\03_SysApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\03_SysApp\SNSysApp.cpp">
+      <Filter>20_SNFramework\28_Application\FrameworkApp\03_SysApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNBitmap.cpp">
+      <Filter>20_SNFramework\26_Graphics\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Component\SNBitmapFont.cpp">
+      <Filter>20_SNFramework\26_Graphics\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\30_Codec\Component\SNDIB.cpp">
+      <Filter>20_SNFramework\30_Codec\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\30_Codec\Core\SNCodec.cpp">
+      <Filter>20_SNFramework\30_Codec\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\30_Codec\Core\SNImageCodec.cpp">
+      <Filter>20_SNFramework\30_Codec\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\30_Codec\Core\SNImageCodecAccessor.cpp">
+      <Filter>20_SNFramework\30_Codec\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\30_Codec\Core\SNImageCodecThread.cpp">
+      <Filter>20_SNFramework\30_Codec\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNGraphicsResManager.cpp">
+      <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\20_SNFramework\21_Include\Resource.aps">
       <Filter>20_SNFramework\21_Include</Filter>
     </None>
-    <None Include="..\20_SNFramework\22_System\Resource\Resource.aps">
-      <Filter>20_SNFramework\22_System\Resource</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="..\20_SNFramework\22_System\Resource\Resource.rc">
-      <Filter>20_SNFramework\22_System\Resource</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\20_SNFramework\22_System\Resource\SNFrameworkIcon.ico">
-      <Filter>20_SNFramework\22_System\Resource</Filter>
-    </Image>
-    <Image Include="..\20_SNFramework\22_System\Resource\SNFrameworkSmallIcon.ico">
-      <Filter>20_SNFramework\22_System\Resource</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\20_SNFramework\26_Graphics\Core\SND3DShaderPS.hlsl">
@@ -607,5 +579,18 @@
     <FxCompile Include="..\20_SNFramework\26_Graphics\Core\SND3DShaderVS.hlsl">
       <Filter>20_SNFramework\26_Graphics\Core</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\20_SNFramework\90_Resource\Resource.rc">
+      <Filter>20_SNFramework\90_Resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\20_SNFramework\90_Resource\SNFrameworkIcon.ico">
+      <Filter>20_SNFramework\90_Resource</Filter>
+    </Image>
+    <Image Include="..\20_SNFramework\90_Resource\SNFrameworkSmallIcon.ico">
+      <Filter>20_SNFramework\90_Resource</Filter>
+    </Image>
   </ItemGroup>
 </Project>

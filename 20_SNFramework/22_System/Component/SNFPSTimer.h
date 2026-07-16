@@ -37,7 +37,7 @@ public:
 private:
 	Int64 IntervalMicroSecond;		// インターバル(マイクロ秒)
 	Int64 NextTimeMicroSecond;		// 次タイムアウト時間(マイクロ秒)
-	UInt32 StartTimeMilliSecond;	// 開始時間(ミリ秒)
+	UInt32 StartTimeMilliSecond;		// 開始時間(ミリ秒)
 	Boolean SkipFlag;				// スキップフラグ
 	UInt32 SkipCounter;				// 連続スキップカウンタ
 };

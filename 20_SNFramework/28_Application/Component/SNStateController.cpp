@@ -158,6 +158,26 @@ Void SNStateController::Step()
 	return;
 }
 
+// 描画前処理
+Void SNStateController::PreDraw()
+{
+	// 有効時
+	if (Enable)
+	{
+		// 表示状態のときのみ処理
+		if (Visible)
+		{
+			// 自身のSceneの描画処理
+			SNScene::PreDraw();
+
+			// 現在状態の描画処理を実行
+			((SNScene*)SceneList.DirectAccess(NowState)->UserData)->PreDraw();
+		}
+	}
+	return;
+}
+
+
 // 描画処理
 Void SNStateController::Draw(SNGraphicsContext* grc)
 {
@@ -176,6 +196,27 @@ Void SNStateController::Draw(SNGraphicsContext* grc)
 	}
 	return;
 }
+
+
+// 描画後処理
+Void SNStateController::PostDraw()
+{
+	// 有効時
+	if (Enable)
+	{
+		// 表示状態のときのみ処理
+		if (Visible)
+		{
+			// 自身のSceneの描画処理
+			SNScene::PostDraw();
+
+			// 現在状態の描画処理を実行
+			((SNScene*)SceneList.DirectAccess(NowState)->UserData)->PostDraw();
+		}
+	}
+	return;
+}
+
 
 // シーン設定
 // sceneにはサブ状態となるシーンを設定する

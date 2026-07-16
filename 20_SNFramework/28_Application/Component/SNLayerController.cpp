@@ -124,6 +124,37 @@ Void SNLayerController::Step()
 	return;
 }
 
+
+// •`‰æ‘Oˆ—
+Void SNLayerController::PreDraw()
+{
+	SNListContainer* list_it;
+
+	if (Enable)
+	{
+		// •\¦ó‘Ô‚Ì‚Æ‚«‚Ì‚İˆ—
+		if (Visible)
+		{
+			// ©g‚Ì•`‰æˆ—
+			SNScene::PreDraw();
+
+			// ÅIæ“¾
+			list_it = SceneList.GetLast();
+
+			// ÅI‚©‚çæ“ª‚Ü‚Åˆ—
+			while (list_it != nullptr)
+			{
+				((SNScene*)list_it->UserData)->PreDraw();
+				list_it = list_it->Prev;
+			}
+		}
+	}
+
+	return;
+}
+
+
+
 // •`‰æˆ—
 Void SNLayerController::Draw(SNGraphicsContext* grc)
 {
@@ -152,3 +183,31 @@ Void SNLayerController::Draw(SNGraphicsContext* grc)
 	return;
 }
 
+
+// •`‰æ‘Oˆ—
+Void SNLayerController::PostDraw()
+{
+	SNListContainer* list_it;
+
+	if (Enable)
+	{
+		// •\¦ó‘Ô‚Ì‚Æ‚«‚Ì‚İˆ—
+		if (Visible)
+		{
+			// ©g‚Ì•`‰æˆ—
+			SNScene::PostDraw();
+
+			// ÅIæ“¾
+			list_it = SceneList.GetLast();
+
+			// ÅI‚©‚çæ“ª‚Ü‚Åˆ—
+			while (list_it != nullptr)
+			{
+				((SNScene*)list_it->UserData)->PostDraw();
+				list_it = list_it->Prev;
+			}
+		}
+	}
+
+	return;
+}

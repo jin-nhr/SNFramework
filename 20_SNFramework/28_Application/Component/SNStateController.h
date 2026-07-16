@@ -31,8 +31,14 @@ public:
 	// 1フレーム実行
 	virtual Void Step();
 
+	// 描画前処理
+	virtual Void PreDraw();
+
 	// 描画処理
 	virtual Void Draw(SNGraphicsContext* grc);
+
+	// 描画後処理
+	virtual Void PostDraw();
 
 	// シーン設定
 	// sceneにはサブ状態となるシーンを設定する

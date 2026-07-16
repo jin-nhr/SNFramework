@@ -1,143 +1,39 @@
-#include "SNBitmapFont.h"
-#include "SNGraphicsDevice.h"
-#include "SNWindowsAPI.h"
-#include "SNMath.h"
-#include "SNConfig.h"
-#include "SNGraphics.h"
-#include "SNImageFile.h"
-#include "SNGraphicsContext.h"
+#pragma once
+#include "SNFrameworkInternal.h"
 
-// ビットマップフォントクラス
 
 // ビットマップフォントテーブル
-const Char SNBitmapFont::BMCharTable[] =
+static const Char SNBMCharTable[1][256] =
 {
-L'　',	L'！',	L'”',	L'＃',	L'＄',	L'％',	L'＆',	L'（',	L'）',	L'＝',	L'－',	L'￥',	L'＋',	L'＊',	L'？',	L'／',
-L'０',	L'１',	L'２',	L'３',	L'４',	L'５',	L'６',	L'７',	L'８',	L'９',	L'ａ',	L'ｂ',	L'ｃ',	L'ｄ',	L'ｅ',	L'ｆ',
-L'ｇ',	L'ｈ',	L'ｉ',	L'ｊ',	L'ｋ',	L'ｌ',	L'ｍ',	L'ｎ',	L'ｏ',	L'ｐ',	L'ｑ',	L'ｒ',	L'ｓ',	L'ｔ',	L'ｕ',	L'ｖ',
-L'ｗ',	L'ｘ',	L'ｙ',	L'ｚ',	L'Ａ',	L'Ｂ',	L'Ｃ',	L'Ｄ',	L'Ｅ',	L'Ｆ',	L'Ｇ',	L'Ｈ',	L'Ｉ',	L'Ｊ',	L'Ｋ',	L'Ｌ',
-L'Ｍ',	L'Ｎ',	L'Ｏ',	L'Ｐ',	L'Ｑ',	L'Ｒ',	L'Ｓ',	L'Ｔ',	L'Ｕ',	L'Ｖ',	L'Ｗ',	L'Ｘ',	L'Ｙ',	L'Ｚ',	L'［',	L'］',
-L'｛',	L'｝',	L'「',	L'」',	L'＜',	L'＞',	L'＠',	L'※',	L'ー',	L'、',	L'。',	L'，',	L'．',	L'・',	L'’',	L'ヴ',
-L'あ',	L'い',	L'う',	L'え',	L'お',	L'か',	L'き',	L'く',	L'け',	L'こ',	L'さ',	L'し',	L'す',	L'せ',	L'そ',	L'た',
-L'ち',	L'つ',	L'て',	L'と',	L'な',	L'に',	L'ぬ',	L'ね',	L'の',	L'は',	L'ひ',	L'ふ',	L'へ',	L'ほ',	L'ま',	L'み',
-L'む',	L'め',	L'も',	L'や',	L'ゆ',	L'よ',	L'ら',	L'り',	L'る',	L'れ',	L'ろ',	L'わ',	L'を',	L'ん',	L'が',	L'ぎ',
-L'ぐ',	L'げ',	L'ご',	L'ざ',	L'じ',	L'ず',	L'ぜ',	L'ぞ',	L'だ',	L'ぢ',	L'づ',	L'で',	L'ど',	L'ば',	L'び',	L'ぶ',
-L'べ',	L'ぼ',	L'ぱ',	L'ぴ',	L'ぷ',	L'ぺ',	L'ぽ',	L'ぁ',	L'ぃ',	L'ぅ',	L'ぇ',	L'ぉ',	L'っ',	L'ゃ',	L'ゅ',	L'ょ',
-L'ア',	L'イ',	L'ウ',	L'エ',	L'オ',	L'カ',	L'キ',	L'ク',	L'ケ',	L'コ',	L'サ',	L'シ',	L'ス',	L'セ',	L'ソ',	L'タ',
-L'チ',	L'ツ',	L'テ',	L'ト',	L'ナ',	L'ニ',	L'ヌ',	L'ネ',	L'ノ',	L'ハ',	L'ヒ',	L'フ',	L'ヘ',	L'ホ',	L'マ',	L'ミ',
-L'ム',	L'メ',	L'モ',	L'ヤ',	L'ユ',	L'ヨ',	L'ラ',	L'リ',	L'ル',	L'レ',	L'ロ',	L'ワ',	L'ヲ',	L'ン',	L'ガ',	L'ギ',
-L'グ',	L'ゲ',	L'ゴ',	L'ザ',	L'ジ',	L'ズ',	L'ゼ',	L'ゾ',	L'ダ',	L'ヂ',	L'ヅ',	L'デ',	L'ド',	L'バ',	L'ビ',	L'ブ',
-L'ベ',	L'ボ',	L'パ',	L'ピ',	L'プ',	L'ペ',	L'ポ',	L'ァ',	L'ィ',	L'ゥ',	L'ェ',	L'ォ',	L'ッ',	L'ャ',	L'ュ',	L'ョ',
+	{
+		// ページ0 ystem
+		L'　',	L'！',	L'”',	L'＃',	L'＄',	L'％',	L'＆',	L'（',	L'）',	L'＝',	L'－',	L'￥',	L'＋',	L'＊',	L'？',	L'／',
+		L'０',	L'１',	L'２',	L'３',	L'４',	L'５',	L'６',	L'７',	L'８',	L'９',	L'ａ',	L'ｂ',	L'ｃ',	L'ｄ',	L'ｅ',	L'ｆ',
+		L'ｇ',	L'ｈ',	L'ｉ',	L'ｊ',	L'ｋ',	L'ｌ',	L'ｍ',	L'ｎ',	L'ｏ',	L'ｐ',	L'ｑ',	L'ｒ',	L'ｓ',	L'ｔ',	L'ｕ',	L'ｖ',
+		L'ｗ',	L'ｘ',	L'ｙ',	L'ｚ',	L'Ａ',	L'Ｂ',	L'Ｃ',	L'Ｄ',	L'Ｅ',	L'Ｆ',	L'Ｇ',	L'Ｈ',	L'Ｉ',	L'Ｊ',	L'Ｋ',	L'Ｌ',
+		L'Ｍ',	L'Ｎ',	L'Ｏ',	L'Ｐ',	L'Ｑ',	L'Ｒ',	L'Ｓ',	L'Ｔ',	L'Ｕ',	L'Ｖ',	L'Ｗ',	L'Ｘ',	L'Ｙ',	L'Ｚ',	L'［',	L'］',
+		L'｛',	L'｝',	L'「',	L'」',	L'＜',	L'＞',	L'＠',	L'※',	L'ー',	L'、',	L'。',	L'，',	L'．',	L'・',	L'’',	L'ヴ',
+		L'あ',	L'い',	L'う',	L'え',	L'お',	L'か',	L'き',	L'く',	L'け',	L'こ',	L'さ',	L'し',	L'す',	L'せ',	L'そ',	L'た',
+		L'ち',	L'つ',	L'て',	L'と',	L'な',	L'に',	L'ぬ',	L'ね',	L'の',	L'は',	L'ひ',	L'ふ',	L'へ',	L'ほ',	L'ま',	L'み',
+		L'む',	L'め',	L'も',	L'や',	L'ゆ',	L'よ',	L'ら',	L'り',	L'る',	L'れ',	L'ろ',	L'わ',	L'を',	L'ん',	L'が',	L'ぎ',
+		L'ぐ',	L'げ',	L'ご',	L'ざ',	L'じ',	L'ず',	L'ぜ',	L'ぞ',	L'だ',	L'ぢ',	L'づ',	L'で',	L'ど',	L'ば',	L'び',	L'ぶ',
+		L'べ',	L'ぼ',	L'ぱ',	L'ぴ',	L'ぷ',	L'ぺ',	L'ぽ',	L'ぁ',	L'ぃ',	L'ぅ',	L'ぇ',	L'ぉ',	L'っ',	L'ゃ',	L'ゅ',	L'ょ',
+		L'ア',	L'イ',	L'ウ',	L'エ',	L'オ',	L'カ',	L'キ',	L'ク',	L'ケ',	L'コ',	L'サ',	L'シ',	L'ス',	L'セ',	L'ソ',	L'タ',
+		L'チ',	L'ツ',	L'テ',	L'ト',	L'ナ',	L'ニ',	L'ヌ',	L'ネ',	L'ノ',	L'ハ',	L'ヒ',	L'フ',	L'ヘ',	L'ホ',	L'マ',	L'ミ',
+		L'ム',	L'メ',	L'モ',	L'ヤ',	L'ユ',	L'ヨ',	L'ラ',	L'リ',	L'ル',	L'レ',	L'ロ',	L'ワ',	L'ヲ',	L'ン',	L'ガ',	L'ギ',
+		L'グ',	L'ゲ',	L'ゴ',	L'ザ',	L'ジ',	L'ズ',	L'ゼ',	L'ゾ',	L'ダ',	L'ヂ',	L'ヅ',	L'デ',	L'ド',	L'バ',	L'ビ',	L'ブ',
+		L'ベ',	L'ボ',	L'パ',	L'ピ',	L'プ',	L'ペ',	L'ポ',	L'ァ',	L'ィ',	L'ゥ',	L'ェ',	L'ォ',	L'ッ',	L'ャ',	L'ュ',	L'ョ',
+	}
 };
 
-// フォントサーフェス
-SNBitmap SNBitmapFont::FontSurface[];
-
-
-// 初期化処理
-Void SNBitmapFont::Initialize()
-{
-	SNImageFile image_file;
-	SNGraphicsContext* grc = &SNGraphicsDevice::D2DGraphicsContext;
-
-	// ビットマップファイル名設定
-	image_file.SetFolderFileName(SNSystemConfig::FontFileName);
-
-	// フォントファイル読み込み
-	image_file.Read();
-
-	// 読み込み完了待ち
-	image_file.WaitForOperationComplete();
-
-	// デコード
-	image_file.Decode();
-
-	// デコード完了待ち
-	image_file.WaitForOperationComplete();
-
-	// デコード結果からフォントサーフェス生成
-	grc->CreateBitmapFromDIB(&image_file, &FontSurface[0]);
-
-
-// テストコード
-
-	SNImageFile image_file2;
-	SNSize snsize;
-
-	image_file.GetSize(&snsize);
-
-	image_file2.SetFolderFileName((String)L"ビットマップフォント2.png");
-
-	grc->CreateDIBFromBitmap(&FontSurface[0], &image_file2);
-
-	image_file2.Encode();
-	image_file2.WaitForOperationComplete();
-
-	image_file2.Write();
-	image_file2.WaitForOperationComplete();
-	
-	return;
-}
-
-// 終了処理
-Void SNBitmapFont::Terminate()
-{
-	UInt32 cnt;
-
-	// フォントサーフェス破棄
-	for (cnt = 0; cnt < BMPageNum; cnt++)
-	{
-		FontSurface[cnt].DeleteBitmap();
-	}
-
-	return;
-}
-
-// 文字列描画
-Void SNBitmapFont::Draw(SNGraphicsContext* dst_dc, Int32 x, Int32 y, BMString str, UInt32 len, SNColorCode color)
-{
-	UInt32 cnt;
-	SNPoint pt;
-	SNRect dst_rect;
-	SNRect src_rect;
-	UInt8 page;
-
-	dst_rect.PointX = x;
-	dst_rect.PointY = y;
-	dst_rect.Width = BMCharWidth;
-	dst_rect.Height = BMCharHeight;
-	src_rect.Width = BMCharWidth;
-	src_rect.Height = BMCharHeight;
-
-	for (cnt = 0; cnt < len; cnt++)
-	{
-		// フォント座標取得
-		pt = GetBMCharPoint(str[cnt]);
-
-		src_rect.PointX = pt.X;
-		src_rect.PointY = pt.Y;
-
-		page = GetBMCharPage(str[cnt]);
-
-		// 描画
-		dst_dc->DrawImage(&dst_rect, &FontSurface[page], &src_rect, SNAlphaMax);
-
-		// 1文字分描画位置をずらす
-		dst_rect.PointX += BMCharWidth;
-	}
-
-	return;
-}
-
-
 // Char→BMChar変換
-BMChar SNBitmapFont::CharToBMChar(Char ch)
+inline BMChar SNCharToBMChar(Char ch)
 {
 	BMChar bmcode = 0x0000;
 
 	switch (ch)
 	{
-	// ページ0
+	// ページ0 System
 	// 全角変換
 	case L'　': bmcode = 0x0000; break;
 	case L'！': bmcode = 0x0001; break;
@@ -396,7 +292,7 @@ BMChar SNBitmapFont::CharToBMChar(Char ch)
 	case L'ュ': bmcode = 0x00FE; break;
 	case L'ョ': bmcode = 0x00FF; break;
 
-	// ページ0
+	// ページ0 System
 	// 半角変換
 	case L' ': bmcode = 0x0000; break;
 	case L'!': bmcode = 0x0001; break;
@@ -490,60 +386,4 @@ BMChar SNBitmapFont::CharToBMChar(Char ch)
 	}
 
 	return bmcode;
-}
-
-// String→BMString
-Void SNBitmapFont::StringToBMString(String str, Int32 len, BMString bmstr, Int32 bmlen)
-{
-	Int32 cnt;
-	Int32 cnv_len = (Int32)SNMath::SelectMin(len, bmlen);
-
-	// 変換文字数分、Char→BMChar変換
-	for (cnt = 0; cnt < cnv_len; cnt++)
-	{
-		bmstr[cnt] = CharToBMChar(str[cnt]);
-	}
-
-	return;
-}
-
-// BMChar→Char変換
-Char SNBitmapFont::BMCharToChar(BMChar bmch)
-{
-	return BMCharTable[bmch];
-}
-
-// BMString→String変換
-Void SNBitmapFont::BMStringToString(BMString bmstr, Int32 bmlen, String str, Int32 len)
-{
-	Int32 cnt;
-	Int32 cnv_len = (Int32)SNMath::SelectMin(len, bmlen);
-
-	// 変換文字数分、BMChar→Char変換
-	for (cnt = 0; cnt < cnv_len; cnt++)
-	{
-		str[cnt] = BMCharToChar(bmstr[cnt]);
-	}
-
-	return;
-}
-
-// ビットマップフォント座標取得
-SNPoint SNBitmapFont::GetBMCharPoint(BMChar bmch)
-{
-	SNPoint pnt;
-	UInt32 code = (bmch & 0x00FF);
-
-	pnt.X = (code % BMCharBlockNumX) * BMCharWidth;
-	pnt.Y = (code / BMCharBlockNumY) * BMCharHeight;
-
-	return pnt;
-}
-
-// ビットマップフォントページ取得
-UInt8 SNBitmapFont::GetBMCharPage(BMChar bmch)
-{
-	UInt8 page = (((bmch & 0xFF00) >> 8) & 0x00FF);
-
-	return page;
 }

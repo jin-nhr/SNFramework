@@ -29,8 +29,14 @@ public:
 	// 1フレーム実行(インターフェース)
 	virtual Void Step();
 
+	// 描画前処理(インターフェース)
+	virtual Void PreDraw();
+
 	// 描画処理(インターフェース)
 	virtual Void Draw(SNGraphicsContext* grc);
+
+	// 描画後処理
+	virtual Void PostDraw();
 
 	// ローカル座標/サイズ設定
 	virtual Void SetRect(Int32 x, Int32 y, Int32 w, Int32 h);
@@ -58,11 +64,13 @@ public:
 	virtual SNRect CalcGlobalRect();
 
 	Boolean Enable;			// 有効状態
-	Boolean Visible;		// 表示状態
+	Boolean Visible;			// 表示状態
+
 	SNPoint ParentPosition;	// 親座標(グローバル)
 	SNSize  ParentSize;		// 親サイズ
 	SNPoint LocalPosition;	// 自身の座標(ローカル)
 	SNSize  Size;			// 自身のサイズ
+
 	SNTransitionCode TransCode;	// 遷移先コード
 
 protected:
@@ -113,6 +121,12 @@ protected:
 	// フレーム処理
 	virtual Void OnCycle();
 
+	// 描画前処理
+	virtual Void OnPreDraw();
+
 	// 描画処理(実装用)
 	virtual Void OnDraw(SNGraphicsContext* grc);
+
+	// 描画後処理
+	virtual Void OnPostDraw();
 };

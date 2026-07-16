@@ -24,7 +24,6 @@ Handle SNGraphicsDevice::D2DFactory = nullptr;
 Handle SNGraphicsDevice::D2DDevice = nullptr;
 SNGraphicsContext SNGraphicsDevice::D2DGraphicsContext;
 SNBitmap SNGraphicsDevice::D2DTargetBitmap;
-Handle SNGraphicsDevice::WICFactory = nullptr;
 
 Void SNGraphicsDevice::Initialize()
 {
@@ -41,8 +40,6 @@ Void SNGraphicsDevice::Initialize()
     CreateFullscreenQuad();
     CreateShaders();
     CreateSampler();
-
-    CreateWIC();
 
     return;
 }
@@ -278,20 +275,6 @@ Void SNGraphicsDevice::CreateSampler()
 }
 
 
-Void SNGraphicsDevice::CreateWIC()
-{
-    IWICImagingFactory* wic = nullptr;
-    CoCreateInstance(
-        CLSID_WICImagingFactory,
-        nullptr,
-        CLSCTX_INPROC_SERVER,
-        IID_PPV_ARGS(&wic)
-    );
-    WICFactory = wic;
-
-    return;
-}
-
 
 Void SNGraphicsDevice::Terminate()
 {
@@ -308,8 +291,6 @@ Void SNGraphicsDevice::Terminate()
     ReleaseRTV();
     ReleaseSwapChain();
     ReleaseDevice();
-
-    ReleaseWIC();
 
     return;
 }
@@ -431,18 +412,6 @@ Void SNGraphicsDevice::ReleaseSampler()
     return;
 }
 
-
-Void SNGraphicsDevice::ReleaseWIC()
-{
-    if (WICFactory)
-    {
-        ((IWICImagingFactory*)WICFactory)->Release();
-        WICFactory = nullptr;
-    }
-
-    return;
-}
-
 Void SNGraphicsDevice::Restore(SNSize* size)
 {
     // RTV‚Ì”jŠü
@@ -479,6 +448,7 @@ Void SNGraphicsDevice::Flip(SNRect* rect)
     ID3D11ShaderResourceView* srv = (ID3D11ShaderResourceView*)ShaderResourceView;
     ID3D11SamplerState* ss = (ID3D11SamplerState*)SamplerState;
     D3D11_VIEWPORT vp = {};
+    Int32 wait_vsync = 0;
 
     vp.TopLeftX = (float)rect->PointX;
     vp.TopLeftY = (float)rect->PointY;
@@ -521,8 +491,13 @@ Void SNGraphicsDevice::Flip(SNRect* rect)
     // •`‰æ
     ctx->Draw(4, 0);
 
-    // 4. PresentiVSync ONj
-    ((IDXGISwapChain*)SwapChain)->Present(1, 0);
+    // 4. Present
+    if (SNUserConfig::Data.VSync)
+    {
+        wait_vsync = 1;
+    }
+
+    ((IDXGISwapChain*)SwapChain)->Present(wait_vsync, 0);
 
     return;
 }

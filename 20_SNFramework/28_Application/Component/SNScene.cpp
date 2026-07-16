@@ -130,6 +130,22 @@ Boolean SNScene::EventProc(SNEventType evt)
 	return ret;
 }
 
+// 描画前処理(インターフェース)
+Void SNScene::PreDraw()
+{
+	// 有効時のみ処理
+	if (Enable)
+	{
+		// 表示状態時のみDraw実行
+		if (Visible)
+		{
+			OnPreDraw();
+		}
+	}
+
+	return;
+}
+
 // 描画処理
 Void SNScene::Draw(SNGraphicsContext* grc)
 {
@@ -145,6 +161,23 @@ Void SNScene::Draw(SNGraphicsContext* grc)
 	
 	return;
 }
+
+// 描画後処理(インターフェース)
+Void SNScene::PostDraw()
+{
+	// 有効時のみ処理
+	if (Enable)
+	{
+		// 表示状態時のみDraw実行
+		if (Visible)
+		{
+			OnPostDraw();
+		}
+	}
+
+	return;
+}
+
 
 // 座標/サイズ設定
 Void SNScene::SetRect(Int32 x, Int32 y, Int32 w, Int32 h)
@@ -323,8 +356,21 @@ Void SNScene::OnCycle()
 	return;
 }
 
+// 描画前処理
+Void SNScene::OnPreDraw()
+{
+	return;
+}
+
 // 描画処理
 Void SNScene::OnDraw(SNGraphicsContext* grc)
 {
 	return;
 }
+
+// 描画後処理
+Void SNScene::OnPostDraw()
+{
+	return;
+}
+

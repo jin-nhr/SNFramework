@@ -6,23 +6,10 @@
 #include "SNStopWatch.h"
 #include "SNLayerController.h"
 #include "SNStateController.h"
-
-#include "SNDebugAppOff.h"
-#include "SNDebugAppRun.h"
-
-#include "SNSysAppPreStart.h"
-#include "SNSysAppStartup.h"
-#include "SNSysAppNoApp.h"
-#include "SNSysAppIdle.h"
-#include "SNSysAppScreenKeyboard.h"
-#include "SNSysAppScreenGamePad.h"
-#include "SNSysAppConfig.h"
-#include "SNSysAppInputConfig.h"
-#include "SNSysAppPreEnd.h"
-
-#include "SNUserAppOff.h"
-#include "SNUserAppBase.h"
+#include "SNDebugApp.h"
+#include "SNSysApp.h"
 #include "SNBgApp.h"
+
 
 
 // アプリケーションクラス
@@ -59,6 +46,9 @@ public:
 	// FPS取得
 	static UInt32 GetFPS();
 
+	// 処理FPS取得
+	static UInt32 GetProcFPS();
+
 	// 平均時間取得
 	static UInt32 GetProcTime();
 
@@ -84,6 +74,7 @@ private:
 	static SNThread* ApplicationThread;			// アプリケーションスレッド
 	static SNFPSTimer FPSTimer;					// FPSタイマ
 	static SNFPSCounter FPSCounter;				// FPSカウンター
+	static SNFPSCounter ProcFPSCounter;			// 処理FPSカウンター
 	static SNFPSCounter FrameSkipCounter;		// フレームスキップカウンター
 	static SNStopWatch ApplicationTimeWatcher;	// アプリケーション処理時間測定
 
@@ -92,28 +83,9 @@ private:
 	// Frameworkアプリレイヤ管理
 	static SNLayerController FrameworkAppLayer;
 
-	// デバッグアプリ
-	static SNStateController DebugAppStateCtrl;
-	static SNDebugAppOff DebugAppOff;
-	static SNDebugAppRun DebugAppRun;
-
-	// システムアプリ
-	static SNStateController SysAppStateCtrl;
-	static SNSysAppPreStart SysAppPreStart;
-	static SNSysAppStartup SysAppStartup;
-	static SNSysAppNoApp SysAppNoApp;
-	static SNSysAppIdle SysAppIdle;
-	static SNSysAppScreenKeyboard SysAppScreenKeyboard;
-	static SNSysAppScreenGamePad SysAppScreenGamePad;
-	static SNSysAppConfig SysAppConfig;
-	static SNSysAppInputConfig SysAppInputConfig;
-	static SNSysAppPreEnd SysAppPreEnd;
-
-	// ユーザーアプリ
-	static SNStateController UserAppStateCtrl;
-	static SNUserAppOff UserAppOff;
-
-	// バックグラウンドアプリ
+	// アプリ定義
+	static SNDebugApp DebugApp;
+	static SNSysApp SysApp;
 	static SNBgApp BgApp;
 
 	///////////////////////////////////////////////////////////

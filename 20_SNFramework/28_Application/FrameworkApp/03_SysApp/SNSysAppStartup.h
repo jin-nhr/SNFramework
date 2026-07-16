@@ -1,15 +1,15 @@
 #pragma once
 #include "SNFrameworkInternal.h"
 #include "SNLayerController.h"
-#include "SNGUITextLabelEx.h"
+#include "SNGUISystemTextEx.h"
 #include "SNThreadSequencer.h"
 #include "SNTimerSequencer.h"
 
 
-// システムアプリ 起動準備
+// システムアプリ スタートアップ
 // 処理完了時 - SNTransitionCode0
 // エラー時   - 直接アプリ終了通知発行
-class SNSysAppPreStart : public virtual SNLayerController
+class SNSysAppStartup : public virtual SNLayerController
 {
 public:
 	static constexpr Int32 SequencerChTimer = 1;
@@ -20,10 +20,10 @@ public:
 
 public:
 	// コンストラクタ
-	SNSysAppPreStart();
+	SNSysAppStartup();
 
 	// デストラクタ
-	virtual ~SNSysAppPreStart();
+	virtual ~SNSysAppStartup();
 
 protected:
 
@@ -55,10 +55,10 @@ protected:
 	virtual SNPhaseResult ThreadSeqPhase(Int32 phase_idx, Int32 call_count);
 
 private:
-	SNGUITextLabelEx	LblLine1;
-	SNGUITextLabelEx	LblLine2;
-	SNGUITextLabelEx	LblLine3;
+	SNGUISystemTextEx txtLine1;
+	SNGUISystemTextEx txtLine2;
+	SNGUISystemTextEx txtLine3;
 	SNThreadSequencer	ThreadSeq;		// スレッドシーケンサ
-	SNTimerSequencer	TimerSeq;		// タイマシーケンサ
+	SNTimerSequencer		TimerSeq;		// タイマシーケンサ
 };
 

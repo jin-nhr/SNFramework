@@ -2,7 +2,7 @@
 #include "SNFrameworkInternal.h"
 #include "SNScene.h"
 #include "SNLayerController.h"
-#include "SNGUITextLabelEx.h"
+#include "SNGUISystemTextEx.h"
 
 // デバッグアプリ Run
 // 遷移コードなし
@@ -38,9 +38,9 @@ protected:
 
 private:
 	SNLayerController CntSysInfo;		// システム情報コンテナ
-	SNGUITextLabel LblSysInfoTitle;	// システム情報タイトル表示
-	SNGUITextLabelEx LblFPS;			// PFS表示
-	SNGUITextLabelEx LblSkip;		// フレームスキップ
-	SNGUITextLabelEx LblProcTime;		// 処理時間表示
+	SNGUISystemText LblSysInfoTitle;	// システム情報タイトル表示
+	SNGUISystemTextEx LblFPS;			// PFS表示
+	SNGUISystemTextEx LblSkip;			// フレームスキップ
+	SNGUISystemTextEx LblProcTime;		// 処理時間表示
 };
 

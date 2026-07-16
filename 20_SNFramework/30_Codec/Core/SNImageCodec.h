@@ -14,10 +14,12 @@ class SNImageCodec
 public:
 	// 初期化
 	static Void Initialize();
+	static Void CreateWIC();
 	static Void CreateThread();
 
 	// 終了
 	static Void Terminate();
+	static Void ReleaseWIC();
 	static Void ReleaseThread();
 
 	// スレッドメイン処理

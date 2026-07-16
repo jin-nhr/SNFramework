@@ -7,6 +7,7 @@
 #include "SNInput.h"
 #include "SNApplication.h"
 #include "SNGUI.h"
+#include "SNCodec.h"
 #include "SNWindowsAPI.h"
 
 
@@ -46,6 +47,7 @@ Void SNSystem::Initialize(
 	SNStorage::Initialize();
 	SNConfig::Initialize();
 	SNInput::Initialize();
+	SNCodec::Initialize();
 	SNGraphics::Initialize();
 	SNAudioVideo::Initialize();
 	SNApplication::Initialize();
@@ -63,6 +65,7 @@ Void SNSystem::Startup()
 	SNStorage::Startup();
 	SNConfig::Startup();
 	SNInput::Startup();
+	SNCodec::Startup();
 	SNGraphics::Startup();
 	SNAudioVideo::Startup();
 	SNApplication::Startup();
@@ -79,6 +82,7 @@ Void SNSystem::Run()
 	SNStorage::Run();
 	SNConfig::Run();
 	SNInput::Run();
+	SNCodec::Run();
 	SNGraphics::Run();
 	SNAudioVideo::Run();
 	SNApplication::Run();
@@ -108,6 +112,7 @@ Void SNSystem::BeforeTerminate()
 	SNApplication::BeforeTerminate();
 	SNAudioVideo::BeforeTerminate();
 	SNGraphics::BeforeTerminate();
+	SNCodec::BeforeTerminate();
 	SNInput::BeforeTerminate();
 	SNConfig::BeforeTerminate();
 	SNStorage::BeforeTerminate();
@@ -125,6 +130,7 @@ Void SNSystem::Terminate()
 	SNApplication::Terminate();
 	SNAudioVideo::Terminate();
 	SNGraphics::Terminate();
+	SNCodec::Terminate();
 	SNInput::Terminate();
 	SNConfig::Terminate();
 	SNStorage::Terminate();

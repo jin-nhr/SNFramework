@@ -113,5 +113,4 @@ public:
 	static Handle D2DDevice;
 	static SNGraphicsContext D2DGraphicsContext;
 	static SNBitmap D2DTargetBitmap;
-	static Handle WICFactory;
 };

@@ -22,6 +22,9 @@ public:
 	// エンコード結果を受け取るメモリオブジェクトを指定する
 	virtual Void Encode();
 
+	// 処理完了？
+	virtual Boolean IsOperationComplete();
+
 	// 処理完了待ち
 	virtual Void WaitForOperationComplete();
 };

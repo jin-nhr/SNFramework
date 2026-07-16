@@ -44,6 +44,16 @@ Void SNImageFile::Encode()
     return;
 }
 
+// ˆ—Š®—¹H
+Boolean SNImageFile::IsOperationComplete()
+{
+    Boolean ret = true;
+    ret &= SNFile::IsOperationComplete();
+    ret &= SNDIB::IsOperationComplete();
+
+    return ret;
+}
+
 // ˆ—Š®—¹‘Ò‚¿
 Void SNImageFile::WaitForOperationComplete()
 {

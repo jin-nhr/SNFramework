@@ -15,11 +15,8 @@ public:
 	// 終了処理
 	static Void Terminate();
 
-	// 文字列描画
-	static Void Draw(SNGraphicsContext* dst_dc, Int32 x, Int32 y, BMString str, UInt32 len, SNColorCode color);
-
-	// Char→BMChar変換
-	static BMChar CharToBMChar(Char ch);
+	// システムテキスト描画
+	static Void DrawSystemText(SNGraphicsContext* dst_dc, Int32 x, Int32 y, BMString str, UInt32 len);
 
 	// String→BMString
 	static Void StringToBMString(String str, Int32 len, BMString bmstr, Int32 bmlen);
@@ -35,10 +32,9 @@ public:
 
 	// ビットマップフォントページ取得
 	static UInt8 GetBMCharPage(BMChar bmch);
-
-	// ビットマップフォントページ数
-	static constexpr UInt32 BMPageNum = 1;
-	static constexpr UInt32 BMPageSystemFont = 0;
+	
+	// ビットマップフォントコード取得
+	static UInt8 GetBMCharCode(BMChar bmch);
 
 	// ビットマップフォントテーブル数
 	static constexpr UInt32 BMCharTableNum = 256;
@@ -52,9 +48,4 @@ public:
 	static constexpr UInt32 BMCharBlockNumY = 16;
 
 private:
-	// ビットマップフォントテーブル
-	static const Char BMCharTable[BMCharTableNum];
-
-	// フォントサーフェス
-	static SNBitmap FontSurface[BMPageNum];
 };

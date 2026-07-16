@@ -25,7 +25,7 @@ SNDIB::~SNDIB()
 // DIBê∂ê¨
 Void SNDIB::CreateDIB(SNSize* size)
 {
-    IWICImagingFactory* factory = (IWICImagingFactory*)SNGraphicsDevice::WICFactory;
+    IWICImagingFactory* factory = (IWICImagingFactory*)SNImageCodec::WICFactory;
     IWICBitmap* bmp;
     ID2D1RenderTarget* rt = nullptr;
     D2D1_RENDER_TARGET_PROPERTIES props =

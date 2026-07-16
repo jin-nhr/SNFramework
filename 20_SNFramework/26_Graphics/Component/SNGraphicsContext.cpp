@@ -3,6 +3,7 @@
 #include "SNBitmap.h"
 #include "SNWindowsAPI.h"
 #include "SNDIB.h"
+#include "SNUserConfig.h"
 
 // コンストラクタ
 SNGraphicsContext::SNGraphicsContext()
@@ -135,6 +136,7 @@ Void SNGraphicsContext::DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_r
 {
     ID2D1DeviceContext* dc = (ID2D1DeviceContext*)GetDC();
     ID2D1Bitmap1* bmp = (ID2D1Bitmap1*)src->GetSourceBitmap();
+    D2D1_BITMAP_INTERPOLATION_MODE draw_mode = D2D1_BITMAP_INTERPOLATION_MODE_NEAREST_NEIGHBOR;
 
     D2D1_RECT_F dst_rc = D2D1::RectF(
         (FLOAT)dst_rect->PointX,
@@ -152,13 +154,17 @@ Void SNGraphicsContext::DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_r
 
     FLOAT a = alpha / 255.0f;
 
+    if (SNUserConfig::Data.DrawFilter)
+    {
+        draw_mode = D2D1_BITMAP_INTERPOLATION_MODE_LINEAR;
+    }
+
     dc->DrawBitmap(
         bmp,
         dst_rc,
         a,
-        D2D1_BITMAP_INTERPOLATION_MODE_LINEAR,
-        &src_rc
-    );
+        draw_mode,
+        &src_rc);
 
     return;
 }

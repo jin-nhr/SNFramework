@@ -1,11 +1,11 @@
-#include "SNGUITextLabelEx.h"
+#include "SNGUISystemTextEx.h"
 #include "SNWindowsAPI.h"
 #include "SNConfig.h"
 
 // 状態クラス
 
 // コンストラクタ
-SNGUITextLabelEx::SNGUITextLabelEx()
+SNGUISystemTextEx::SNGUISystemTextEx()
 {
 	// 変数初期化
 	Value = 0;
@@ -15,13 +15,13 @@ SNGUITextLabelEx::SNGUITextLabelEx()
 }
 
 // デストラクタ
-SNGUITextLabelEx::~SNGUITextLabelEx()
+SNGUISystemTextEx::~SNGUISystemTextEx()
 {
 	return;
 }
 
 // テキスト設定
-Void SNGUITextLabelEx::SetText(String text)
+Void SNGUISystemTextEx::SetText(String text)
 {
 	// 文字列設定
 	Format.SetString(text);
@@ -33,7 +33,7 @@ Void SNGUITextLabelEx::SetText(String text)
 }
 
 // 値設定
-Void SNGUITextLabelEx::SetValue(Int64 value)
+Void SNGUISystemTextEx::SetValue(Int64 value)
 {
 	// 値の変更あり
 	if (value != Value)
@@ -50,10 +50,10 @@ Void SNGUITextLabelEx::SetValue(Int64 value)
 
 
 // 初期化
-Void SNGUITextLabelEx::OnInitialize()
+Void SNGUISystemTextEx::OnInitialize()
 {
 	// ベースの初期化
-	SNGUITextLabel::OnInitialize();
+	SNGUISystemText::OnInitialize();
 
 	// 事前にメモリ確保
 	Format.PreAllocate(SNSystemConfig::GUITextLabelLength);
@@ -64,16 +64,15 @@ Void SNGUITextLabelEx::OnInitialize()
 }
 
 // 終了処理
-Void SNGUITextLabelEx::OnTerminate()
+Void SNGUISystemTextEx::OnTerminate()
 {
 	// ベースの終了
-	SNGUITextLabel::OnTerminate();
+	SNGUISystemText::OnTerminate();
 
 	return;
 }
 
-// 描画処理
-Void SNGUITextLabelEx::OnDraw(SNGraphicsContext* grc)
+Void SNGUISystemTextEx::OnPreDraw()
 {
 	SNSize size;
 
@@ -92,9 +91,6 @@ Void SNGUITextLabelEx::OnDraw(SNGraphicsContext* grc)
 		// 更新フラグクリア
 		Update = false;
 	}
-
-	// ベースのDraw実行
-	SNGUITextLabel::OnDraw(grc);
 
 	return;
 }

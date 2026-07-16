@@ -25,12 +25,15 @@ public:
 	// カウント
 	Void Count();
 
+	// 平均算出
+	Void Average();
+
 	// FPS取得
 	UInt32 GetFPS();
 
 private:
-	UInt32 NextTimeMilliSecond;		// 次タイムアウト時間(ミリ秒)
-	UInt32 StartTimeMilliSecond;	// 開始時間(ミリ秒)
+	Int32 NextTimeMilliSecond;		// 次タイムアウト時間(ミリ秒)
+	UInt32 StartTimeMilliSecond;		// 開始時間(ミリ秒)
 	SNMemory HistoryCount;			// カウント値履歴
 	Int32 HistoryIndex;				// カウント値履歴インデックス
 	UInt32 TotalCount;				// カウント値合計

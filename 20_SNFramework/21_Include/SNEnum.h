@@ -514,6 +514,23 @@ enum SNStorageOperation
 ///////////////////////////////////////////////////////////////
 // グラフィクス関連
 
+// ビットマップフォントコードページ
+enum SNBMCharPage
+{
+    BMPageSystem,   // システムフォント
+    BMPageKanjiA,   // ア行
+    BMPageKanjiK,   // カ行
+    BMPageKanjiS,   // サ行
+    BMPageKanjiT,   // タ行
+    BMPageKanjiN,   // ナ行
+    BMPageKanjiH,   // ハ行
+    BMPageKanjiM,   // マ行
+    BMPageKanjiY,   // ヤ行
+    BMPageKanjiR,   // ラ行
+    BMPageKanjiW,   // ワ行
+    BMPageNum
+};
+
 // コーデック処理結果
 enum SNImageCodecResult
 {

@@ -33,7 +33,13 @@ public:
 	static Void FlipSurface();
 
 	// 描画範囲更新
-	static Void UpdateDrawRect(SNRect* rect);
+	static Void UpdateDrawRect(SNSize* size);
+
+	// デバイスリストア処理
+	static Void DeviceRestore(Boolean is_full, SNSize* size);
+
+	// 前フレーム情報更新
+	static Void UpdatePreFrameInfo(Boolean is_full, SNSize* size);
 
 	// クライアント座標系→サーフェス座標に変換
 	// 引数：画面座標を入力/ 処理後、サーフェス座標に更新する
@@ -48,6 +54,9 @@ public:
 
 	// コンテキスト解放
 	static Void ReleaseContext();
+
+	// スタートアップリソースロード
+	static Void StartUpResourceLoad();
 
 private:
 	// 前フレームフルスクリーン状態

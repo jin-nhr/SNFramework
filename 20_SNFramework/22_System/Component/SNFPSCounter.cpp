@@ -55,13 +55,21 @@ Void SNFPSCounter::Start()
 // カウント
 Void SNFPSCounter::Count()
 {
+	// カウンタインクリメント
+	CurrentCount++;
+
+	return;
+}
+
+Void SNFPSCounter::Average()
+{
 	UInt32 measure_time = FPSMeasureTime;
 
 	// 現在時間取得
 	UInt32 now_time = timeGetTime();
 
 	// 経過時間を取得
-	UInt32 elapsed_time = (now_time - StartTimeMilliSecond);
+	Int32 elapsed_time = (now_time - StartTimeMilliSecond);
 
 	// タイムアウトしたかどうか確認
 	if (elapsed_time >= NextTimeMilliSecond)
@@ -83,9 +91,6 @@ Void SNFPSCounter::Count()
 		StartTimeMilliSecond = now_time;
 		NextTimeMilliSecond = SNFPSCounterMilliSecond - (elapsed_time - SNFPSCounterMilliSecond);
 	}
-
-	// カウンタインクリメント
-	CurrentCount++;
 
 	return;
 }

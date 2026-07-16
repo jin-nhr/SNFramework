@@ -15,6 +15,7 @@ Boolean SNApplication::Active = true;
 SNThread* SNApplication::ApplicationThread;	// アプリケーションスレッド
 SNFPSTimer SNApplication::FPSTimer;		// FPSタイマ
 SNFPSCounter SNApplication::FPSCounter;	// FPSカウンター
+SNFPSCounter SNApplication::ProcFPSCounter;	// 処理FPSカウンター
 SNFPSCounter SNApplication::FrameSkipCounter; /// フレームスキップカウンター
 SNStopWatch SNApplication::ApplicationTimeWatcher;	// アプリケーション処理時間測定
 
@@ -23,28 +24,9 @@ SNStopWatch SNApplication::ApplicationTimeWatcher;	// アプリケーション処理時間測
 // Frameworkアプリレイヤ管理
 SNLayerController SNApplication::FrameworkAppLayer;
 
-// デバッグアプリ
-SNStateController SNApplication::DebugAppStateCtrl;	// 状態管理
-SNDebugAppOff SNApplication::DebugAppOff;
-SNDebugAppRun SNApplication::DebugAppRun;
-
-// システムアプリ
-SNStateController SNApplication::SysAppStateCtrl;	// 状態管理
-SNSysAppPreStart SNApplication::SysAppPreStart;
-SNSysAppStartup SNApplication::SysAppStartup;
-SNSysAppNoApp SNApplication::SysAppNoApp;
-SNSysAppIdle SNApplication::SysAppIdle;
-SNSysAppScreenKeyboard SNApplication::SysAppScreenKeyboard;
-SNSysAppScreenGamePad SNApplication::SysAppScreenGamePad;
-SNSysAppConfig SNApplication::SysAppConfig;
-SNSysAppInputConfig SNApplication::SysAppInputConfig;
-SNSysAppPreEnd SNApplication::SysAppPreEnd;
-
-// ユーザーアプリ
-SNStateController SNApplication::UserAppStateCtrl;	// 状態管理
-SNUserAppOff SNApplication::UserAppOff;
-
-// バックグラウンドアプリ
+// アプリ定義
+SNDebugApp SNApplication::DebugApp;
+SNSysApp SNApplication::SysApp;
 SNBgApp SNApplication::BgApp;
 
 ///////////////////////////////////////////////////////////
@@ -76,47 +58,10 @@ Void SNApplication::Startup()
 	// ソフトタイマの初期化
 	SNSoftTimer::Initialize();
 
-	// デバッグアプリ設定
-	DebugAppStateCtrl.SetSceneNum(2);
-	DebugAppStateCtrl.SetScene(&DebugAppOff,  1, -1, -1, -1);
-	DebugAppStateCtrl.SetScene(&DebugAppRun, -1, -1, -1, -1);
-
-	// システムアプリ設定
-	SysAppStateCtrl.SetSceneNum(9);
-	SysAppStateCtrl.SetScene(&SysAppPreStart, 1, -1, -1, -1);		// 0
-	SysAppStateCtrl.SetScene(&SysAppStartup,  3, 2, -1, -1);		// 1
-	SysAppStateCtrl.SetScene(&SysAppNoApp, -1, -1, -1, -1);			// 2
-	SysAppStateCtrl.SetScene(&SysAppIdle, 4, 5, 6, 8);			// 3
-	SysAppStateCtrl.SetScene(&SysAppScreenKeyboard, 3, -1, -1, -1);// 4
-	SysAppStateCtrl.SetScene(&SysAppScreenGamePad, 3, -1, -1, 8); // 5
-	SysAppStateCtrl.SetScene(&SysAppConfig, 3, 7, -1, 8);		// 6
-	SysAppStateCtrl.SetScene(&SysAppInputConfig, 6, -1, -1, 8);	// 7
-	SysAppStateCtrl.SetScene(&SysAppPreEnd, 3, -1, -1, -1);		// 8
-
-	// ユーザーアプリ設定
-	UserAppStateCtrl.SetSceneNum(2);
-	UserAppStateCtrl.SetScene(&UserAppOff, 1, -1, -1, -1);
-	// ユーザーアプリあり
-	if (SNUserAppBase::UserApplication != nullptr)
-	{
-		// ユーザーアプリ登録
-		UserAppStateCtrl.SetScene(SNUserAppBase::UserApplication, -1, -1, -1, -1);
-	}
-	// ユーザーアプリなし
-	else
-	{
-		// 何か登録しておきたいのでOFFを登録しておく
-		UserAppStateCtrl.SetScene(&UserAppOff, 0, 0, 0, 0);
-	}
-
-	// バックグラウンドアプリ設定
-	// 単一シーン構成のため特に設定なし
-
 	// アプリケーションレイヤ設定
-	FrameworkAppLayer.SetSceneNum(4);
-	FrameworkAppLayer.SetScene(&DebugAppStateCtrl);
-	FrameworkAppLayer.SetScene(&SysAppStateCtrl);
-	FrameworkAppLayer.SetScene(&UserAppStateCtrl);
+	FrameworkAppLayer.SetSceneNum(3);
+	FrameworkAppLayer.SetScene(&DebugApp);
+	FrameworkAppLayer.SetScene(&SysApp);
 	FrameworkAppLayer.SetScene(&BgApp);
 
 	// アプリケーションレイヤ管理を初期化
@@ -182,6 +127,12 @@ UInt32 SNApplication::GetFPS()
 	return FPSCounter.GetFPS();
 }
 
+// 処理FPS取得
+UInt32 SNApplication::GetProcFPS()
+{
+	return ProcFPSCounter.GetFPS();
+}
+
 UInt32 SNApplication::GetSkipFrame()
 {
 	return FrameSkipCounter.GetFPS();
@@ -203,6 +154,7 @@ Void SNApplication::UserMain()
 
 	// FPSカウンター起動
 	FPSCounter.Start();
+	ProcFPSCounter.Start();
 
 	// フレームスキップカウンター
 	FrameSkipCounter.Start();
@@ -243,6 +195,9 @@ Void SNApplication::UserMain()
 			// FPSの状態によってスキップ判定
 			if (!FPSTimer.GetSkipFlag())
 			{
+				// 描画前処理
+				FrameworkAppLayer.PreDraw();
+
 				{
 					grc = SNGraphics::GetContext();
 
@@ -255,6 +210,9 @@ Void SNApplication::UserMain()
 				// サーフェスフリップ
 				SNGraphics::FlipSurface();
 
+				// 描画後処理
+				FrameworkAppLayer.PostDraw();
+
 				// FPSカウンター更新
 				FPSCounter.Count();
 			}
@@ -262,6 +220,13 @@ Void SNApplication::UserMain()
 			{
 				FrameSkipCounter.Count();
 			}
+
+			ProcFPSCounter.Count();
+
+			FPSCounter.Average();
+			ProcFPSCounter.Average();
+			FrameSkipCounter.Average();
+
 
 			// リザルト処理 (falseなら終了)
 			if (!EventResultProc())

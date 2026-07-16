@@ -82,14 +82,14 @@ Int64 __stdcall SNWindow::WindowProc(
 Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
 {
     HDC dc;
+    WNDCLASSEXW wcex;
+    RECT win_rect;
 
     // ウインドウ未生成のときだけ処理
     if (WindowHandle == nullptr)
     {
         // Windowクラス登録
         {
-            WNDCLASSEXW wcex;
-
             wcex.cbSize = sizeof(WNDCLASSEX);
 
             wcex.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
@@ -110,7 +110,6 @@ Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
         // Window生成
         {
             // サイズ計算
-            RECT win_rect;
 
             // 画面幅、高さからクライアント領域の座標を計算
             win_rect.left = 0;
@@ -142,6 +141,8 @@ Void SNWindow::Create(Handle application_incetance, Int32 show_cmd)
         }
 
         dc = ::GetDC((HWND)WindowHandle);
+
+        ::BitBlt(dc, 0, 0, win_rect.right, win_rect.bottom, dc, 0, 0, BLACKNESS);
 
         WindowDC = (Handle)dc;
     }

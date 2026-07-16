@@ -5,6 +5,7 @@
 #include "SNSystemConfig.h"
 #include "SNGraphicsDevice.h"
 
+Handle SNImageCodec::WICFactory = nullptr;
 SNThread* SNImageCodec::CodecThread;
 volatile Boolean SNImageCodec::ThreadEndRequest = false;		// スレッド終了要求
 SNList SNImageCodec::RequestList;				// リクエストリスト
@@ -17,11 +18,25 @@ Void SNImageCodec::Initialize()
 	ListAccessCS.Initialize();
 	RequestList.Allocate(SNSystemConfig::CodecRequestMax);
 
+    CreateWIC();
     CreateThread();
 
     return;
 }
 
+Void SNImageCodec::CreateWIC()
+{
+    IWICImagingFactory* wic = nullptr;
+    CoCreateInstance(
+        CLSID_WICImagingFactory,
+        nullptr,
+        CLSCTX_INPROC_SERVER,
+        IID_PPV_ARGS(&wic)
+    );
+    WICFactory = wic;
+
+    return;
+}
 
 Void SNImageCodec::CreateThread()
 {
@@ -35,6 +50,18 @@ Void SNImageCodec::CreateThread()
 Void SNImageCodec::Terminate()
 {
     ReleaseThread();
+    ReleaseWIC();
+
+    return;
+}
+
+Void SNImageCodec::ReleaseWIC()
+{
+    if (WICFactory)
+    {
+        ((IWICImagingFactory*)WICFactory)->Release();
+        WICFactory = nullptr;
+    }
 
     return;
 }
@@ -136,7 +163,7 @@ Void SNImageCodec::Decode(SNMemory* in, SNDIB* out)
     SNDIBPixel* pix;
     UINT w, h;
 
-    factory = (IWICImagingFactory*)(SNGraphicsDevice::WICFactory);
+    factory = (IWICImagingFactory*)(WICFactory);
 
     // ストリーム生成
     factory->CreateStream(&stream);
@@ -200,7 +227,7 @@ Void SNImageCodec::Encode(SNDIB* in, SNMemory* out)
     ULONG read_size;
     LARGE_INTEGER pos;
 
-    factory = (IWICImagingFactory*)(SNGraphicsDevice::WICFactory);
+    factory = (IWICImagingFactory*)(WICFactory);
 
     // SNDIB が保持している WICBitmap を取得
     wicbmp = (IWICBitmap*)in->GetBitmap();
