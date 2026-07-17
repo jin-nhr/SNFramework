@@ -51,10 +51,24 @@ Void SNFPSTimer::Restart()
 
 	// 次回タイムアウト時間を既に経過している場合は
 	// スキップフラグをセットし、カウンタをインクリメントする
-	if ((NextTimeMicroSecond <= 0) && (SkipCounter <= FrameSkip))
+	if ((NextTimeMicroSecond <= 0))
 	{
-		SkipFlag = true;
-		SkipCounter++;
+		// 連続スキップフレーム以下ならスキップ
+		if (SkipCounter <= SNSystemConfig::FrameSkip)
+		{
+			SkipFlag = true;
+			SkipCounter++;
+		}
+		// 連続スキップフレーム以上の遅れが発生している場合
+		else if (NextTimeMicroSecond + ((SNSystemConfig::FrameSkip + 1) * IntervalMicroSecond) <= 0)
+		{
+			// タイマをリセットする
+			Start();
+		}
+		else
+		{
+			// 描画実行のためスキップしない
+		}
 	}
 	else
 	{

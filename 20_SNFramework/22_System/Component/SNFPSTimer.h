@@ -9,7 +9,6 @@
 class SNFPSTimer
 {
 public:
-	static constexpr UInt32 FrameSkip = 3;				// 最大フレームスキップ
 	static constexpr UInt32 SleepTimeThreshold = 5000;	// Sleep時間閾値(ms)
 
 public:

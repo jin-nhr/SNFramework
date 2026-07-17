@@ -62,6 +62,9 @@ public:
 	// フレームレート(FPS)
 	static constexpr UInt32 FPS = 60;
 
+	// 連続フレームスキップ
+	static constexpr UInt32 FrameSkip = 3;
+
 	// 描画最小単位
 	static constexpr UInt32 DrawAlign = 4;
 
