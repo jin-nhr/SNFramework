@@ -2,6 +2,7 @@
 #include "SNFrameworkInternal.h"
 #include "SNStateController.h"
 #include "SNSysAppStartup.h"
+#include "SNSysAppLoading.h"
 
 // システムアプリ状態制御
 
@@ -14,5 +15,6 @@ public:
 
 
 	SNSysAppStartup Startup;
+	SNSysAppLoading Loading;
 };
 

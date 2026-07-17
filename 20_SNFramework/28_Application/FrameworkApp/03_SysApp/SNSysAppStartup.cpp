@@ -50,7 +50,7 @@ Void SNSysAppStartup::OnInitialize()
 
 	// 
 	TimerSeqResLoad.Initialize(this, SeqChResLoad, 2);
-	TimerSeqResLoad.SetWait(0, 1);
+	TimerSeqResLoad.SetWait(0, 0);
 	TimerSeqResLoad.SetWait(1, SeqChResLoadTime);
 
 	return;

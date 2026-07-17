@@ -366,6 +366,12 @@
     <ClInclude Include="..\20_SNFramework\90_Resource\SNGraphicsResource.h">
       <Filter>20_SNFramework\90_Resource</Filter>
     </ClInclude>
+    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\03_SysApp\SNSysAppLoading.h">
+      <Filter>20_SNFramework\28_Application\FrameworkApp\03_SysApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUIPicture.h">
+      <Filter>20_SNFramework\29_GUI\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\20_SNFramework\22_System\Component\SNBMString.cpp">
@@ -565,6 +571,12 @@
     </ClCompile>
     <ClCompile Include="..\20_SNFramework\26_Graphics\Core\SNGraphicsResManager.cpp">
       <Filter>20_SNFramework\26_Graphics\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp">
+      <Filter>20_SNFramework\28_Application\FrameworkApp\03_SysApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUIPicture.cpp">
+      <Filter>20_SNFramework\29_GUI\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

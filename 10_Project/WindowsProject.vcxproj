@@ -77,9 +77,11 @@
     <ClInclude Include="..\20_SNFramework\28_Application\Core\SNApplicationThread.h" />
     <ClInclude Include="..\20_SNFramework\28_Application\Core\SNEvent.h" />
     <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\01_DebugApp\SNDebugApp.h" />
+    <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\03_SysApp\SNSysAppLoading.h" />
     <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\03_SysApp\SNSysAppStartup.h" />
     <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\03_SysApp\SNSysApp.h" />
     <ClInclude Include="..\20_SNFramework\28_Application\FrameworkApp\08_BgApp\SNBgApp.h" />
+    <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUIPicture.h" />
     <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUISystemText.h" />
     <ClInclude Include="..\20_SNFramework\29_GUI\Component\SNGUISystemTextEx.h" />
     <ClInclude Include="..\20_SNFramework\29_GUI\Core\SNGUI.h" />
@@ -147,9 +149,11 @@
     <ClCompile Include="..\20_SNFramework\28_Application\Core\SNApplicationThread.cpp" />
     <ClCompile Include="..\20_SNFramework\28_Application\Core\SNEvent.cpp" />
     <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp" />
+    <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp" />
     <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp" />
     <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\03_SysApp\SNSysApp.cpp" />
     <ClCompile Include="..\20_SNFramework\28_Application\FrameworkApp\08_BgApp\SNBgApp.cpp" />
+    <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUIPicture.cpp" />
     <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUISystemText.cpp" />
     <ClCompile Include="..\20_SNFramework\29_GUI\Component\SNGUISystemTextEx.cpp" />
     <ClCompile Include="..\20_SNFramework\29_GUI\Core\SNGUI.cpp" />

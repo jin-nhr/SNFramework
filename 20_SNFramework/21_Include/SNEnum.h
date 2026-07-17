@@ -531,6 +531,18 @@ enum SNBMCharPage
     BMPageNum
 };
 
+// スケーリング
+enum SNScalingType
+{
+    ScalingTypeNum,
+};
+
+
+///////////////////////////////////////////////////////////////
+// コーデック関連
+
+
+
 // コーデック処理結果
 enum SNImageCodecResult
 {
