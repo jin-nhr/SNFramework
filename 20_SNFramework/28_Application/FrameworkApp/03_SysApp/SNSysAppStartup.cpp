@@ -22,6 +22,7 @@ SNSysAppStartup::~SNSysAppStartup()
 // 初期化
 Void SNSysAppStartup::OnInitialize()
 {
+	// テキストラベルの設定
 	txtLine1.Initialize();
 	txtLine2.Initialize();
 	txtLine3.Initialize();
@@ -38,16 +39,19 @@ Void SNSysAppStartup::OnInitialize()
 	SetScene(&txtLine2);
 	SetScene(&txtLine3);
 
-	TimerSeq.Initialize(this, SequencerChTimer, 5);
-	TimerSeq.SetWait(0, SeqPhaseTimeProc);
-	TimerSeq.SetWait(1, SeqPhaseTimeProc);
-	TimerSeq.SetWait(2, SeqPhaseTimeProc);
-	TimerSeq.SetWait(3, SeqPhaseTimeProc);
-	TimerSeq.SetWait(4, SeqPhaseTimeResult);
 
-	ThreadSeq.Initialize(this, SequencerChThread, 1);
-	ThreadSeq.SetWait(0, SeqPhaseTimeProc);
+	// 表示用シーケンサ設定
+	TimerSeqDisp.Initialize(this, SeqChDisp, 5);
+	TimerSeqDisp.SetWait(0, SeqChDispPhaseTime);
+	TimerSeqDisp.SetWait(1, SeqChDispPhaseTime);
+	TimerSeqDisp.SetWait(2, SeqChDispPhaseTime);
+	TimerSeqDisp.SetWait(3, SeqChDispPhaseTime);
+	TimerSeqDisp.SetWait(4, SeqChDispResultTime);
 
+	// 
+	TimerSeqResLoad.Initialize(this, SeqChResLoad, 2);
+	TimerSeqResLoad.SetWait(0, 1);
+	TimerSeqResLoad.SetWait(1, SeqChResLoadTime);
 
 	return;
 }
@@ -62,8 +66,8 @@ Void SNSysAppStartup::OnTerminate()
 Void SNSysAppStartup::OnEntry()
 {
 	// シーケンサ開始
-	ThreadSeq.Run();
-	TimerSeq.Start();
+	TimerSeqDisp.Start();
+	TimerSeqResLoad.Start();
 
 	return;
 }
@@ -76,8 +80,8 @@ Void SNSysAppStartup::OnExit()
 	txtLine2.Terminate();
 	txtLine3.Terminate();
 
-	ThreadSeq.Clear();
-	TimerSeq.Clear();
+	TimerSeqDisp.Clear();
+	TimerSeqResLoad.Clear();
 
 	return;
 }
@@ -85,32 +89,28 @@ Void SNSysAppStartup::OnExit()
 // フレーム処理
 Void SNSysAppStartup::OnCycle()
 {
-	// タイマシーケンサ実行中
-	if (TimerSeq.IsProc())
-	{
-		// 周期実行
-		TimerSeq.Step();
-	}
-	else if (TimerSeq.IsError())
-	{
-		// エラー時は終了
-		SNEvent::EventResult[SNEventResultExitApplication] = true;
-	}
-	else
-	{
-		// 完了時
-		TransCode = SNTransitionCode0;
-		SNEvent::EventResult[SNEventResultSysAppStartup] = true;
-	}
+	// 周期実行
+	TimerSeqResLoad.Step();
+	TimerSeqDisp.Step();
 
+	if (!TimerSeqDisp.IsProc())
+	{
+		if (TimerSeqDisp.IsError())
+		{
+			// エラー時は終了
+			SNEvent::EventResult[SNEventResultExitApplication] = true;
+		}
+		else
+		{
+			// 完了時
+			TransCode = SNTransitionCode0;
+			SNEvent::EventResult[SNEventResultSysAppStartup] = true;
+		}
+	}
 	return;
 }
 
-// 描画処理
-Void SNSysAppStartup::OnDraw(SNGraphicsContext* grc)
-{
-	return;
-}
+
 
 SNPhaseResult SNSysAppStartup::PhaseStepFunc(Int32 ch, Int32 phase_idx, Int32 call_count)
 {
@@ -118,24 +118,20 @@ SNPhaseResult SNSysAppStartup::PhaseStepFunc(Int32 ch, Int32 phase_idx, Int32 ca
 
 	switch (ch)
 	{
-	// TimerSeq
-	case SequencerChTimer:
-		ret = TimerSeqPhase(phase_idx, call_count);
+	case SeqChDisp:
+		ret = SeqDisp(phase_idx, call_count);
 		break;
 
-	// ThreadSeq
-	case SequencerChThread:
-		ret = ThreadSeqPhase(phase_idx, call_count);
+	case SeqChResLoad:
+		ret = SeqResLoad(phase_idx, call_count);
 		break;
 	}
 
 	return ret;
 }
 
-
-
 // タイマシーケンサ処理
-SNPhaseResult SNSysAppStartup::TimerSeqPhase(Int32 phase_idx, Int32 call_count)
+SNPhaseResult SNSysAppStartup::SeqDisp(Int32 phase_idx, Int32 call_count)
 {
 	SNPhaseResult ret = SNPhaseResultStay;
 
@@ -155,7 +151,7 @@ SNPhaseResult SNSysAppStartup::TimerSeqPhase(Int32 phase_idx, Int32 call_count)
 		case 0:
 			txtLine3.SetText((String)L"Starting...");
 			// カウント3だけで遷移チェックする
-			if (!ThreadSeq.IsProc())
+			if (!TimerSeqResLoad.IsProc())
 			{
 				ret = SNPhaseResultNext;
 			}
@@ -179,8 +175,8 @@ SNPhaseResult SNSysAppStartup::TimerSeqPhase(Int32 phase_idx, Int32 call_count)
 			txtLine3.SetText((String)L"Starting... Error! [Duplicate Launch]");
 		}
 
-		// ThreadSeqのエラーチェック
-		else if (ThreadSeq.IsError())
+		// リソースロードのエラーチェック
+		else if (TimerSeqResLoad.IsError())
 		{
 			txtLine3.SetText((String)L"Starting... Error! [Initialization Failure]");
 		}
@@ -197,8 +193,8 @@ SNPhaseResult SNSysAppStartup::TimerSeqPhase(Int32 phase_idx, Int32 call_count)
 		{
 			ret = SNPhaseResultError;
 		}
-		// ThreadSeqのエラーチェック
-		else if (ThreadSeq.IsError())
+		// リソースロードのエラーチェック
+		else if (TimerSeqResLoad.IsError())
 		{
 			ret = SNPhaseResultError;
 		}
@@ -212,9 +208,36 @@ SNPhaseResult SNSysAppStartup::TimerSeqPhase(Int32 phase_idx, Int32 call_count)
 	return ret;
 }
 
-// スレッドシーケンサ処理
-SNPhaseResult SNSysAppStartup::ThreadSeqPhase(Int32 phase_idx, Int32 call_count)
+// リソースロード用シーケンサ処理
+SNPhaseResult SNSysAppStartup::SeqResLoad(Int32 phase_idx, Int32 call_count)
 {
-	SNGraphics::LoadSystemResource();
-	return SNPhaseResultNext;
+	SNPhaseResult ret = SNPhaseResultStay;
+
+	switch (phase_idx)
+	{
+	case 0:
+		// 起動ロゴ1,2の読み込み
+		SNGraphics::LoadSystemResource();
+		ret = SNPhaseResultNext;
+		break;
+
+	case 1:
+		if (SNGraphics::IsSystemResourceLoaded())
+		{
+			ret = SNPhaseResultNext;
+		}
+		else if (call_count > SeqChResLoadRetry)
+		{
+			// エラー時はアクセス権リリース
+			SNGraphics::UnloadSystemResource();
+			ret = SNPhaseResultError;
+		}
+		else
+		{
+			// 完了待ち
+		}
+		break;
+	}
+
+	return ret;
 }

@@ -1,6 +1,8 @@
 #pragma once
 #include "SNFrameworkInternal.h"
 #include "SNGraphicsContext.h"
+#include "SNGraphicsResource.h"
+#include "SNGraphicsResManager.h"
 
 // グラフィクスクラス
 class SNGraphics
@@ -23,9 +25,6 @@ public:
 	// 終了
 	static Void Terminate();
 
-	// システムリソースロード
-	static Void LoadSystemResource();
-
 	// 更新
 	static Void Update();
 
@@ -36,10 +35,7 @@ public:
 	static Void UpdateDrawRect(SNSize* size);
 
 	// デバイスリストア処理
-	static Void DeviceRestore(Boolean is_full, SNSize* size);
-
-	// 前フレーム情報更新
-	static Void UpdatePreFrameInfo(Boolean is_full, SNSize* size);
+	static Void DeviceRestore(SNSize* size);
 
 	// クライアント座標系→サーフェス座標に変換
 	// 引数：画面座標を入力/ 処理後、サーフェス座標に更新する
@@ -55,16 +51,37 @@ public:
 	// コンテキスト解放
 	static Void ReleaseContext();
 
-	// スタートアップリソースロード
-	static Void StartUpResourceLoad();
+	// スタートアップリソースロード(やり切り)
+	static Void LoadStartupResource();
+
+	// システムリソースロード
+	static Void LoadSystemResource();
+
+	// システムリソースロード完了判定
+	static Boolean IsSystemResourceLoaded();
+
+	// システムリソースアンロード
+	static Void UnloadSystemResource();
+
+	// アプリリソースロード
+	static Void LoadAppResource();
+
+	// アプリリソースロード完了判定
+	static Boolean IsAppResourceLoaded();
+
+	// アプリリソースアンロード
+	static Void UnloadAppResource();
+
+	// リソースロード
+	static Void LoadResource(SNGraphicsResID st_id, SNGraphicsResID ed_id);
+
+	// リソースロード完了判定
+	static Boolean IsResourceLoaded(SNGraphicsResID st_id, SNGraphicsResID ed_id);
+
+	// リソースアンロード
+	static Void UnloadResource(SNGraphicsResID st_id, SNGraphicsResID ed_id);
 
 private:
-	// 前フレームフルスクリーン状態
-	static Boolean PreFullScreenSts;
-
-	// 前フレームウインドウサイズ
-	static SNSize PreWindowSize;
-
 	// 描画矩形データ
 	static SNRect DrawRect;
 };

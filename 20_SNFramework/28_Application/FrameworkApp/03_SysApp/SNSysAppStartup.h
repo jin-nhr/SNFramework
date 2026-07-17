@@ -2,9 +2,7 @@
 #include "SNFrameworkInternal.h"
 #include "SNLayerController.h"
 #include "SNGUISystemTextEx.h"
-#include "SNThreadSequencer.h"
 #include "SNTimerSequencer.h"
-
 
 // システムアプリ スタートアップ
 // 処理完了時 - SNTransitionCode0
@@ -12,11 +10,14 @@
 class SNSysAppStartup : public virtual SNLayerController
 {
 public:
-	static constexpr Int32 SequencerChTimer = 1;
-	static constexpr Int32 SequencerChThread = 2;
+	static constexpr Int32 SeqChDisp = 1;
+	static constexpr Int32 SeqChResLoad = 2;
 
-	static constexpr Int32 SeqPhaseTimeProc = 500;
-	static constexpr Int32 SeqPhaseTimeResult = 1000;
+	static constexpr Int32 SeqChDispPhaseTime = 1000;
+	static constexpr Int32 SeqChDispResultTime = 3000;
+
+	static constexpr Int32 SeqChResLoadTime = 3000;
+	static constexpr Int32 SeqChResLoadRetry = 3;
 
 public:
 	// コンストラクタ
@@ -42,23 +43,20 @@ protected:
 	// フレーム処理
 	virtual Void OnCycle();
 
-	// 描画処理
-	virtual Void OnDraw(SNGraphicsContext* grc);
-
 	// シーケンサ用コールバック
 	virtual SNPhaseResult PhaseStepFunc(Int32 ch, Int32 phase_idx, Int32 call_count);
 
-	// タイマシーケンサ処理
-	virtual SNPhaseResult TimerSeqPhase(Int32 phase_idx, Int32 call_count);
+	// 表示用タイマシーケンサ処理
+	virtual SNPhaseResult SeqDisp(Int32 phase_idx, Int32 call_count);
 
-	// スレッドシーケンサ処理
-	virtual SNPhaseResult ThreadSeqPhase(Int32 phase_idx, Int32 call_count);
+	// リソースロード用シーケンサ処理
+	virtual SNPhaseResult SeqResLoad(Int32 phase_idx, Int32 call_count);
 
 private:
 	SNGUISystemTextEx txtLine1;
 	SNGUISystemTextEx txtLine2;
 	SNGUISystemTextEx txtLine3;
-	SNThreadSequencer	ThreadSeq;		// スレッドシーケンサ
-	SNTimerSequencer		TimerSeq;		// タイマシーケンサ
+	SNTimerSequencer	  TimerSeqDisp;		// 表示用タイマシーケンサ
+	SNTimerSequencer  TimerSeqResLoad;	// リソースロード用シーケンサ
 };
 

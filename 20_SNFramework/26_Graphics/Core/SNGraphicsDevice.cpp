@@ -537,33 +537,12 @@ Void SNGraphicsDevice::ResizeBuffer(SNSize* size)
 
 Void SNGraphicsDevice::GetWindowSize(SNSize* size)
 {
-    DXGI_SWAP_CHAIN_DESC desc;
-    IDXGISwapChain* sc = (IDXGISwapChain*)SwapChain;
-    BOOL pre_sts;
     RECT rect;
 
-    if (sc != nullptr)
-    {
-        sc->GetFullscreenState(&pre_sts, nullptr);
-
-        if (pre_sts)
-        {
-            sc->GetDesc(&desc);
-            size->Width = desc.BufferDesc.Width;
-            size->Height = desc.BufferDesc.Height;
-        }
-        else
-        {
-            GetClientRect((HWND)SNWindow::WindowHandle, &rect);
-            size->Width = rect.right - rect.left;
-            size->Height = rect.bottom - rect.top;
-        }
-    }
-    else
-    {
-        size->Width = 0;
-        size->Height = 0;
-    }
+    // 状態によらずウインドウのサイズを取得する
+    GetClientRect((HWND)SNWindow::WindowHandle, &rect);
+    size->Width = rect.right - rect.left;
+    size->Height = rect.bottom - rect.top;
 
     return;
 }

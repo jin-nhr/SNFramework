@@ -6,17 +6,9 @@
 #include "SNGraphicsDevice.h"
 #include "SNApplication.h"
 #include "SNImageCodec.h"
-#include "SNGraphicsResManager.h"
-#include "SNGraphicsResource.h"
 
 // グラフィクスクラス
 // SNFrameworkにおける描画の制御を行う
-
-// 前フレームフルスクリーン状態
-Boolean SNGraphics::PreFullScreenSts = false;
-
-// 前フレームウインドウサイズ
-SNSize SNGraphics::PreWindowSize = {0};
 
 // 描画矩形データ
 SNRect SNGraphics::DrawRect = { 0 };
@@ -42,7 +34,7 @@ Void SNGraphics::Startup()
 	SNGraphicsDevice::Initialize();
 	SNGraphicsResManager::Initialize();
 
-	StartUpResourceLoad();
+	LoadStartupResource();
 
 	// ビットマップフォント初期化
 	SNBitmapFont::Initialize();
@@ -74,15 +66,6 @@ Void SNGraphics::Terminate()
 	return;
 }
 
-// システムリソースのロード
-// ワーカースレッドからの呼び出しとなるため
-// GDIロックが必要
-Void SNGraphics::LoadSystemResource()
-{
-
-	return;
-}
-
 // 更新
 Void SNGraphics::Update()
 {
@@ -105,10 +88,7 @@ Void SNGraphics::Update()
 	UpdateDrawRect(&win_size);
 
 	// デバイスリストア処理
-	DeviceRestore(is_full, &win_size);
-
-	// 前フレーム情報更新
-	UpdatePreFrameInfo(is_full, &win_size);
+	DeviceRestore(&win_size);
 
 	return;
 }
@@ -158,24 +138,14 @@ Void SNGraphics::UpdateDrawRect(SNSize* size)
 	return;
 }
 
-Void SNGraphics::DeviceRestore(Boolean is_full, SNSize* size)
+Void SNGraphics::DeviceRestore(SNSize* size)
 {
-	// フルスクリーン状態の更新またはウインドウサイズの変更あり
-	if ((is_full != PreFullScreenSts) ||
-		(size->Width != PreWindowSize.Width) ||
-		(size->Height != PreWindowSize.Height))
+	// ウインドウのサイズ変更通知をトリガにして
+	// デバイスのリストアを実行する
+	if (SNApplication::GetEventInfo(SNEventWindowSize))
 	{
 		SNGraphicsDevice::Restore(size);
 	}
-
-	return;
-}
-
-Void SNGraphics::UpdatePreFrameInfo(Boolean is_full, SNSize* size)
-{
-	// 前フレーム状態更新
-	PreFullScreenSts = is_full;
-	PreWindowSize = *size;
 
 	return;
 }
@@ -255,26 +225,91 @@ Void SNGraphics::ReleaseContext()
 }
 
 // スタートアップ用のリソース読み込み
-Void SNGraphics::StartUpResourceLoad()
+Void SNGraphics::LoadStartupResource()
 {
-	Int32 cnt;
-
 	// スタートアップ処理のロードを実行
-	for (cnt = SNGraphicsResStartupTop; cnt <= SNGraphicsResStartupEnd; cnt++)
+	LoadResource(SNGraphicsResStartupTop, SNGraphicsResStartupEnd);
+
+	// 処理完了までループ
+	while (!IsResourceLoaded(SNGraphicsResStartupTop, SNGraphicsResStartupEnd))
 	{
-		SNGraphicsResManager::AccessGet((SNGraphicsResID)cnt);
+		SNGraphicsResManager::Update();
+		Sleep(1);
 	}
 
-	// スタートアップ処理のロードを実行
-	for (cnt = SNGraphicsResStartupTop; cnt <= SNGraphicsResStartupEnd; cnt++)
+	return;
+}
+
+// システムリソースロード
+Void SNGraphics::LoadSystemResource()
+{
+	LoadResource(SNGraphicsResSystemTop, SNGraphicsResSystemEnd);
+	return;
+}
+
+// システムリソースロード完了判定
+Boolean SNGraphics::IsSystemResourceLoaded()
+{
+	return IsResourceLoaded(SNGraphicsResSystemTop, SNGraphicsResSystemEnd);
+}
+
+// システムリソースアンロード
+Void SNGraphics::UnloadSystemResource()
+{
+	UnloadResource(SNGraphicsResSystemTop, SNGraphicsResSystemEnd);
+	return;
+}
+
+// アプリリソースロード
+Void SNGraphics::LoadAppResource()
+{
+	LoadResource(SNGraphicsResAppTop, SNGraphicsResAppEnd);
+	return;
+}
+
+// アプリリソースロード完了判定
+Boolean SNGraphics::IsAppResourceLoaded()
+{
+	return IsResourceLoaded(SNGraphicsResAppTop, SNGraphicsResAppEnd);
+}
+
+// アプリリソースアンロード
+Void SNGraphics::UnloadAppResource()
+{
+	UnloadResource(SNGraphicsResAppTop, SNGraphicsResAppEnd);
+	return;
+}
+
+Void SNGraphics::LoadResource(SNGraphicsResID st_id, SNGraphicsResID ed_id)
+{
+	Int32 res_id;
+
+	for (res_id = st_id; res_id <= ed_id; res_id++)
 	{
-		// 処理完了までループ
-		while (!SNGraphicsResManager::IsLoaded((SNGraphicsResID)cnt))
-		{
-			// 更新を繰り返し完了を待つ
-			SNGraphicsResManager::Update();
-			::Sleep(1);
-		}
+		SNGraphicsResManager::AccessGet((SNGraphicsResID)res_id);
+	}
+	return;
+}
+
+Boolean SNGraphics::IsResourceLoaded(SNGraphicsResID st_id, SNGraphicsResID ed_id)
+{
+	Int32 res_id;
+	Boolean loaded = true;
+
+	for (res_id = st_id; res_id <= ed_id; res_id++)
+	{
+		loaded &= SNGraphicsResManager::IsLoaded((SNGraphicsResID)res_id);
+	}
+
+	return loaded;
+}
+Void SNGraphics::UnloadResource(SNGraphicsResID st_id, SNGraphicsResID ed_id)
+{
+	Int32 res_id;
+
+	for (res_id = st_id; res_id <= ed_id; res_id++)
+	{
+		SNGraphicsResManager::AccessRelease((SNGraphicsResID)res_id);
 	}
 
 	return;

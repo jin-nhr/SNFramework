@@ -68,6 +68,7 @@ Void SNDebugApp::OnTerminate()
 Void SNDebugApp::OnEntry()
 {
 	cntSysInfo.Entry();
+	Visible = false;
 
 	return;
 }
