@@ -2,17 +2,29 @@
 #include "SNWindowsAPI.h"
 #include "SNSystemTimer.h"
 #include "SNSystemConfig.h"
+#include "SNError.h"
 
 // スレッドクラス
 
 // スレッドのエントリポイント
-static Void EntryPoint(Void* l_parameter)
+Void SNThread::EntryPoint(Void* l_parameter)
 {
 	// パラメータからスレッドクラスのインスタンスを取得
 	SNThread* this_ptr = (SNThread*)l_parameter;
 
-	// スレッドメイン実行
-	this_ptr->ThreadMain();
+	try
+	{
+		// スレッドメイン実行
+		this_ptr->ThreadMain();
+	}
+	catch (...)
+	{
+		// 例外検知を記録
+		SNError::ErrorCode = SNErrorThreadException;
+
+		// 停止状態セット
+		this_ptr->RunStatus = false;
+	}
 
 	return;
 }
@@ -53,7 +65,7 @@ Void SNThread::Run()
 		// ハンドル無効のときだけスレッド生成
 		if (ThreadHandle == nullptr)
 		{
-			ThreadHandle = (void*)_beginthread(EntryPoint, 0, this);
+			ThreadHandle = (void*)_beginthread(SNThread::EntryPoint, 0, this);
 
 			// 生成と同時に勝手に実行される
 		}

@@ -212,7 +212,7 @@ SNListContainer* SNList::InsertAtIndex(Int32 index)
 		// 有効Index範囲内：指定Index手前への追加
 		else if (index < ListNum)
 		{
-			// Index画さすコンテナを取得
+			// Indexがさすコンテナを取得
 			// Indexが有効範囲内であることが保証されているので有効値が返る
 			idx_container = SearchAtIndex(index);
 

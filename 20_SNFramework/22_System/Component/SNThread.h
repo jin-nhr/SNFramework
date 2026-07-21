@@ -10,6 +10,9 @@
 class SNThread
 {
 public:
+	static Void EntryPoint(Void* l_parameter);
+
+public:
 	// コンストラクタ
 	SNThread();
 

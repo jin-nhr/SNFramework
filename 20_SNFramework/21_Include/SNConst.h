@@ -3,7 +3,7 @@
 
 
 // フェードステップ
-constexpr UInt8 SNFadeStepMin = 0;
+constexpr UInt8 SNFadeStepMin = 1;
 constexpr UInt8 SNFadeStepMax = 255;
 
 // アルファ値
