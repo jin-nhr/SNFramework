@@ -387,6 +387,9 @@
     <ClInclude Include="..\20_SNFramework\22_System\Component\SNStore.h">
       <Filter>20_SNFramework\22_System\Component</Filter>
     </ClInclude>
+    <ClInclude Include="..\20_SNFramework\52_GUI\Component\SNGUITextEx.h">
+      <Filter>20_SNFramework\52_GUI\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\20_SNFramework\22_System\Component\SNAutoResource.cpp">
@@ -622,6 +625,9 @@
     </ClCompile>
     <ClCompile Include="..\20_SNFramework\22_System\Component\SNStore.cpp">
       <Filter>20_SNFramework\22_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\52_GUI\Component\SNGUITextEx.cpp">
+      <Filter>20_SNFramework\52_GUI\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

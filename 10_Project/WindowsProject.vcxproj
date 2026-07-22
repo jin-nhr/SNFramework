@@ -95,6 +95,7 @@
     <ClInclude Include="..\20_SNFramework\52_GUI\Component\SNGUISystemText.h" />
     <ClInclude Include="..\20_SNFramework\52_GUI\Component\SNGUISystemTextEx.h" />
     <ClInclude Include="..\20_SNFramework\52_GUI\Component\SNGUIText.h" />
+    <ClInclude Include="..\20_SNFramework\52_GUI\Component\SNGUITextEx.h" />
     <ClInclude Include="..\20_SNFramework\52_GUI\Component\SNGUIWindow.h" />
     <ClInclude Include="..\20_SNFramework\52_GUI\Core\SNGUI.h" />
     <ClInclude Include="..\20_SNFramework\71_Resource\Resource.h" />
@@ -178,6 +179,7 @@
     <ClCompile Include="..\20_SNFramework\52_GUI\Component\SNGUISystemText.cpp" />
     <ClCompile Include="..\20_SNFramework\52_GUI\Component\SNGUISystemTextEx.cpp" />
     <ClCompile Include="..\20_SNFramework\52_GUI\Component\SNGUIText.cpp" />
+    <ClCompile Include="..\20_SNFramework\52_GUI\Component\SNGUITextEx.cpp" />
     <ClCompile Include="..\20_SNFramework\52_GUI\Component\SNGUIWindow.cpp" />
     <ClCompile Include="..\20_SNFramework\52_GUI\Core\SNGUI.cpp" />
     <ClCompile Include="..\20_SNFramework\72_Config\Component\SNUserConfig.cpp" />

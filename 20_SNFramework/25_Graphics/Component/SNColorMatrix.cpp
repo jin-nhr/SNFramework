@@ -48,7 +48,7 @@ Void SNColorMatrix::SetSource(SNBitmap* source)
 	if (effect != nullptr)
 	{
 		// 入力画像をセット
-		effect->SetInput(0, (ID2D1Bitmap*)source);
+		effect->SetInput(0, (ID2D1Bitmap*)source->GetSourceBitmap());
 	}
 
 	return;

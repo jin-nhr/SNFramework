@@ -47,7 +47,7 @@ public:
 	virtual Void Clear(SNColor* color);
 
 	// カラーマトリクス変換
-	virtual Void ColorMatrixEffect(SNRect* dst_rect, SNColorMatrix* color_matrix, SNListContainer* it);
+	virtual Void ColorMatrixEffect(SNPoint* dst_pnt, SNRect* src_rect, SNColorMatrix* color_matrix);
 
 	// BitmapからDIBを生成する
 	virtual Void CreateDIBFromBitmap(SNBitmap* src_bitmap, SNDIB* dst_dib);
@@ -56,7 +56,7 @@ public:
 	virtual Void CreateBitmapFromDIB(SNDIB* src_dib, SNBitmap* dst_bitmap);
 
 	// カラーマトリクス生成
-	virtual Void CreateColorMatrix(SNColorMatrix* color_matrix, Int32 work_num);
+	virtual Void CreateColorMatrix(SNColorMatrix* color_matrix);
 
 private:
 	Handle DeviceContext;

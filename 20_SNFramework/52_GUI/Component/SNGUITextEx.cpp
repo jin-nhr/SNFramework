@@ -1,4 +1,4 @@
-#include "SNGUIText.h"
+#include "SNGUITextEx.h"
 #include "SNWindowsAPI.h"
 #include "SNConfig.h"
 #include "SNBitmapFont.h"
@@ -6,7 +6,7 @@
 
 
 // コンストラクタ
-SNGUIText::SNGUIText()
+SNGUITextEx::SNGUITextEx()
 {
 	// 変数初期化
 	Color = SNGUI::FontColor[SNGUI::FontColorNormal];
@@ -16,19 +16,19 @@ SNGUIText::SNGUIText()
 }
 
 // デストラクタ
-SNGUIText::~SNGUIText()
+SNGUITextEx::~SNGUITextEx()
 {
 	return;
 }
 
-Void SNGUIText::OnEntry()
+Void SNGUITextEx::OnEntry()
 {
 	WorkSurface = SNBitmapFont::GetWorkSurface();
 
 	return;
 }
 
-Void SNGUIText::OnExit()
+Void SNGUITextEx::OnExit()
 {
 	SNBitmapFont::ReleaseWorkSurface(WorkSurface);
 
@@ -36,8 +36,11 @@ Void SNGUIText::OnExit()
 }
 
 // 描画前処理
-Void SNGUIText::OnPreDraw()
+Void SNGUITextEx::OnPreDraw()
 {
+	// 規定クラスのPreDrawでテキストを更新しておく
+	SNGUISystemTextEx::OnPreDraw();
+
 	if (WorkSurface != nullptr)
 	{
 		// ワークサーフェスにフォント描画
@@ -48,7 +51,7 @@ Void SNGUIText::OnPreDraw()
 }
 
 // 描画処理
-Void SNGUIText::OnDraw(SNGraphicsContext* grc)
+Void SNGUITextEx::OnDraw(SNGraphicsContext* grc)
 {
 	SNRect rect = CalcGlobalRect();
 

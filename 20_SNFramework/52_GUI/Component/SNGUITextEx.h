@@ -1,18 +1,18 @@
 #pragma once
 #include "SNFrameworkInternal.h"
 #include "SNScene.h"
-#include "SNGUISystemText.h"
+#include "SNGUISystemTextEx.h"
 #include "SNList.h"
 
 // テキスト
-class SNGUIText : public virtual SNGUISystemText
+class SNGUITextEx : public virtual SNGUISystemTextEx
 {
 public:
 	// コンストラクタ
-	SNGUIText();
+	SNGUITextEx();
 
 	// デストラクタ
-	virtual ~SNGUIText();
+	virtual ~SNGUITextEx();
 
 	// 色
 	SNColor Color;

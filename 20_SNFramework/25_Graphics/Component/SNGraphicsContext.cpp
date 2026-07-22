@@ -186,9 +186,28 @@ Void SNGraphicsContext::Clear(SNColor* color)
 }
 
 // カラーマトリクス変換
-Void SNGraphicsContext::ColorMatrixEffect(SNRect* dst_rect, SNColorMatrix* color_matrix, SNListContainer* it)
+Void SNGraphicsContext::ColorMatrixEffect(SNPoint* dst_pnt, SNRect* src_rect, SNColorMatrix* color_matrix)
 {
+    ID2D1DeviceContext* dc = (ID2D1DeviceContext*)SNGraphicsDevice::D2DGraphicsContext.DeviceContext;
+    ID2D1Effect* effect = (ID2D1Effect*)color_matrix->ColorMatrix;
 
+    D2D1_POINT_2F pnt =
+    {
+        (FLOAT)dst_pnt->X,
+        (FLOAT)dst_pnt->Y
+    };
+
+    D2D1_RECT_F rect =
+    {
+        (FLOAT)src_rect->PointX,
+        (FLOAT)src_rect->PointY,
+        (FLOAT)(src_rect->PointX + src_rect->Width),
+        (FLOAT)(src_rect->PointY + src_rect->Height),
+    };
+
+    dc->DrawImage(effect, &pnt, &rect);
+
+    return;
 }
 
 Void SNGraphicsContext::CreateDIBFromBitmap(SNBitmap* src_bitmap, SNDIB* dst_dib)
@@ -295,19 +314,17 @@ Void SNGraphicsContext::CreateBitmapFromDIB(SNDIB* src_dib, SNBitmap* dst_bitmap
 }
 
 // カラーマトリクス生成
-Void SNGraphicsContext::CreateColorMatrix(SNColorMatrix* color_matrix, Int32 work_num)
+Void SNGraphicsContext::CreateColorMatrix(SNColorMatrix* color_matrix)
 {
     ID2D1DeviceContext* dc = (ID2D1DeviceContext*)GetDC();
     ID2D1Effect* effect = nullptr;
 
     color_matrix->DeleteColorMatrix();
-    color_matrix->DeleteWorkSurface();
 
     dc->CreateEffect(CLSID_D2D1ColorMatrix, &effect);
 
     // エフェクトオブジェクトをセット
     color_matrix->SetColorMatrix(effect);
-    color_matrix->CreateWorkSurface(this, work_num);
 
     return;
 }

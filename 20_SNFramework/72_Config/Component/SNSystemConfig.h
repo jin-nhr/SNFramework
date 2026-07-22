@@ -71,6 +71,9 @@ public:
 	// 描画最小単位
 	static constexpr UInt32 DrawAlign = 4;
 
+	// ビットマップフォントのワークサーフェス数
+	static constexpr Int32 BMFontWorkNum = 128;
+
 
 	/////////////////////////////////////////////////////////////////
 	// 入力デバイス関連
