@@ -6,7 +6,7 @@
 
 // システムアプリ エラー画面
 // 時間経過で直接アプリ終了する
-class SNSysAppError : public virtual SNLayerController
+class SNSysAppError : public SNLayerController
 {
 public:
 	static constexpr Int32 SeqChDisp = 1;

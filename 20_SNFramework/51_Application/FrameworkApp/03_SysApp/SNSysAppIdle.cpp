@@ -30,6 +30,15 @@ Void SNSysAppIdle::OnEntry()
 // フレーム処理
 Void SNSysAppIdle::OnCycle()
 {
+	// 終了通知
+	if (SNApplication::GetEventInfo(SNEventExitApplication))
+	{
+		TransCode = SNTransitionCode3;
+
+		// 処理対象のイベント種別をキャンセル
+		SNEvent::EventExist[SNEventTypeNotifyEvent] = false;
+	}
+
 	return;
 }
 

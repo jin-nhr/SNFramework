@@ -8,7 +8,7 @@
 // システムアプリ ローディング
 // 処理完了時 - SNTransitionCode0
 // エラー時   - SNTransitionCode3
-class SNSysAppLoading : public virtual SNLayerController
+class SNSysAppLoading : public SNLayerController
 {
 public:
 	static constexpr Int32 SeqChDisp = 1;

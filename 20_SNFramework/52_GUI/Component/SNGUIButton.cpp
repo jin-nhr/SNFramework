@@ -2,12 +2,22 @@
 #include "SNGraphicsResManager.h"
 #include "SNGraphicsResource.h"
 #include "SNBitmap.h"
-#include "SNGUI.h"
 #include "SNMath.h"
 
 // コンストラクタ
 SNGUIButton::SNGUIButton()
 {
+    Hidden = false;
+    Disable = false;
+    Push = false;
+    Selected = false;
+
+    // 高さは基本固定
+    Size.Height = SNSystemConfig::GUIBlockSize * 2;
+
+    SetSceneNum(1);
+    SetScene(&Caption);
+
     return;
 }
 
@@ -31,6 +41,15 @@ Void SNGUIButton::OnTerminate()
     return;
 }
 
+Void SNGUIButton::OnCycle()
+{
+    SNGUI::ButtonBlockStatus button_sts = JudgeStatus();
+
+    Caption.Color = SNGUI::FontColor[SNGUI::ButtonCaptionColor[button_sts]];
+
+    return;
+}
+
 
 // 描画処理
 Void SNGUIButton::OnDraw(SNGraphicsContext* grc)
@@ -39,7 +58,8 @@ Void SNGUIButton::OnDraw(SNGraphicsContext* grc)
     SNRect dst_rect;
     SNRect src_rect;
     SNRect tiling_rect;
-    SNGUI::WindowBlockIndex index;
+    SNGUI::ButtonBlockIndex index;
+    SNGUI::ButtonBlockStatus button_sts = JudgeStatus();
     Int32 block = SNSystemConfig::GUIBlockSize;
 
     btn_img = SNGraphicsResManager::GetResource(SNGraphicsResButton);
@@ -49,7 +69,7 @@ Void SNGUIButton::OnDraw(SNGraphicsContext* grc)
     src_rect.Width = block;
     src_rect.Height = block;
 
-    dst_rect = GetRect();
+    dst_rect = CalcGlobalRect();
 
     // 設定がどんなに小さくても描画範囲はコーナー分を確保しておく
     dst_rect.Width = (Int32)SNMath::SelectMax(dst_rect.Width, block * 2);
@@ -62,33 +82,33 @@ Void SNGUIButton::OnDraw(SNGraphicsContext* grc)
     tiling_rect.Height = block;
 
     // 左上
-   index = SNGUI::WindowBlockLeftUp;
-    src_rect.PointX = SNGUI::WindowBlockDef[index].X;
-    src_rect.PointY = SNGUI::WindowBlockDef[index].Y;
+    index = SNGUI::ButtonBlockLeftUp;
+    src_rect.PointX = SNGUI::ButtonBlockDef[index].X + SNGUI::ButtonBlockOffset[button_sts].X;
+    src_rect.PointY = SNGUI::ButtonBlockDef[index].Y + SNGUI::ButtonBlockOffset[button_sts].Y;
     tiling_rect.PointX = dst_rect.PointX;
     tiling_rect.PointY = dst_rect.PointY;
     SNGUI::Tiling(grc, &tiling_rect, btn_img, &src_rect);
 
     // 右上
-//    index = SNGUI::WindowBlockIndex::RightUp;
-    src_rect.PointX = SNGUI::WindowBlockDef[index].X;
-    src_rect.PointY = SNGUI::WindowBlockDef[index].Y;
+    index = SNGUI::ButtonBlockRightUp;
+    src_rect.PointX = SNGUI::ButtonBlockDef[index].X + SNGUI::ButtonBlockOffset[button_sts].X;
+    src_rect.PointY = SNGUI::ButtonBlockDef[index].Y + SNGUI::ButtonBlockOffset[button_sts].Y;
     tiling_rect.PointX = dst_rect.PointX + dst_rect.Width - block;
     tiling_rect.PointY = dst_rect.PointY;
     SNGUI::Tiling(grc, &tiling_rect, btn_img, &src_rect);
 
     // 左下
- //   index = SNGUI::WindowBlockIndex::LeftBottom;
-    src_rect.PointX = SNGUI::WindowBlockDef[index].X;
-    src_rect.PointY = SNGUI::WindowBlockDef[index].Y;
+    index = SNGUI::ButtonBlockLeftBottom;
+    src_rect.PointX = SNGUI::ButtonBlockDef[index].X + SNGUI::ButtonBlockOffset[button_sts].X;
+    src_rect.PointY = SNGUI::ButtonBlockDef[index].Y + SNGUI::ButtonBlockOffset[button_sts].Y;
     tiling_rect.PointX = dst_rect.PointX;
     tiling_rect.PointY = dst_rect.PointY + dst_rect.Height - block;
     SNGUI::Tiling(grc, &tiling_rect, btn_img, &src_rect);
 
     // 右下
-//    index = SNGUI::WindowBlockIndex::RightBottom;
-    src_rect.PointX = SNGUI::WindowBlockDef[index].X;
-    src_rect.PointY = SNGUI::WindowBlockDef[index].Y;
+    index = SNGUI::ButtonBlockRightBottom;
+    src_rect.PointX = SNGUI::ButtonBlockDef[index].X + SNGUI::ButtonBlockOffset[button_sts].X;
+    src_rect.PointY = SNGUI::ButtonBlockDef[index].Y + SNGUI::ButtonBlockOffset[button_sts].Y;
     tiling_rect.PointX = dst_rect.PointX + dst_rect.Width - block;
     tiling_rect.PointY = dst_rect.PointY + dst_rect.Height - block;
     SNGUI::Tiling(grc, &tiling_rect, btn_img, &src_rect);
@@ -99,20 +119,49 @@ Void SNGUIButton::OnDraw(SNGraphicsContext* grc)
     tiling_rect.Height = block;
 
     // 上
-//    index = SNGUI::WindowBlockIndex::Up;
-    src_rect.PointX = SNGUI::WindowBlockDef[index].X;
-    src_rect.PointY = SNGUI::WindowBlockDef[index].Y;
+    index = SNGUI::ButtonBlockUp;
+    src_rect.PointX = SNGUI::ButtonBlockDef[index].X + SNGUI::ButtonBlockOffset[button_sts].X;
+    src_rect.PointY = SNGUI::ButtonBlockDef[index].Y + SNGUI::ButtonBlockOffset[button_sts].Y;
     tiling_rect.PointX = dst_rect.PointX + block;
     tiling_rect.PointY = dst_rect.PointY;
     SNGUI::Tiling(grc, &tiling_rect, btn_img, &src_rect);
 
     // 下
-//    index = SNGUI::WindowBlockIndex::Bottom;
-    src_rect.PointX = SNGUI::WindowBlockDef[index].X;
-    src_rect.PointY = SNGUI::WindowBlockDef[index].Y;
+    index = SNGUI::ButtonBlockBottom;
+    src_rect.PointX = SNGUI::ButtonBlockDef[index].X + SNGUI::ButtonBlockOffset[button_sts].X;
+    src_rect.PointY = SNGUI::ButtonBlockDef[index].Y + SNGUI::ButtonBlockOffset[button_sts].Y;
     tiling_rect.PointX = dst_rect.PointX + block;
     tiling_rect.PointY = dst_rect.PointY + dst_rect.Height - block;
     SNGUI::Tiling(grc, &tiling_rect, btn_img, &src_rect);
 
     return;
 }
+
+
+SNGUI::ButtonBlockStatus SNGUIButton::JudgeStatus()
+{
+    SNGUI::ButtonBlockStatus ret = SNGUI::ButtonStatusNormal;
+
+    if (Hidden)
+    {
+        ret = SNGUI::ButtonStatusHidden;
+    }
+
+    else if (Disable)
+    {
+        ret = SNGUI::ButtonStatusDisable;
+    }
+
+    else if (Push)
+    {
+        ret = SNGUI::ButtonStatusPush;
+    }
+
+    else if (Selected)
+    {
+        ret = SNGUI::ButtonStatusSelected;
+    }
+
+    return ret;
+}
+

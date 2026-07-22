@@ -49,7 +49,7 @@ Void SNGUIWindow::OnDraw(SNGraphicsContext* grc)
     src_rect.Width = block;
     src_rect.Height = block;
     
-    dst_rect = GetRect();
+    dst_rect = CalcGlobalRect();
 
     // 設定がどんなに小さくても描画範囲はコーナー分を確保しておく
     dst_rect.Width = (Int32)SNMath::SelectMax(dst_rect.Width, block * 2);

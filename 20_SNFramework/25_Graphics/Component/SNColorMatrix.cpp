@@ -78,7 +78,7 @@ Void SNColorMatrix::SetMatrix()
 
 	if (effect != nullptr)
 	{
-		effect->SetValue(D2D1_COLORMATRIX_PROP_COLOR_MATRIX, (D2D1_MATRIX_5X4_F*)Matrix5x4F.GetAddress());
+		effect->SetValue(D2D1_COLORMATRIX_PROP_COLOR_MATRIX, *(D2D1_MATRIX_5X4_F*)Matrix5x4F.GetAddress());
 	}
 
 	return;

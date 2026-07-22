@@ -244,6 +244,9 @@ Void SNGraphics::LoadStartupResource()
 Void SNGraphics::LoadSystemResource()
 {
 	LoadResource(SNGraphicsResSystemTop, SNGraphicsResSystemEnd);
+
+	SNBitmapFont::InitializeExtraFunc();
+
 	return;
 }
 

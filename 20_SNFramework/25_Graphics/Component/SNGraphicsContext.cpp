@@ -188,7 +188,7 @@ Void SNGraphicsContext::Clear(SNColor* color)
 // カラーマトリクス変換
 Void SNGraphicsContext::ColorMatrixEffect(SNPoint* dst_pnt, SNRect* src_rect, SNColorMatrix* color_matrix)
 {
-    ID2D1DeviceContext* dc = (ID2D1DeviceContext*)SNGraphicsDevice::D2DGraphicsContext.DeviceContext;
+    ID2D1DeviceContext* dc = (ID2D1DeviceContext*)GetDC();
     ID2D1Effect* effect = (ID2D1Effect*)color_matrix->ColorMatrix;
 
     D2D1_POINT_2F pnt =

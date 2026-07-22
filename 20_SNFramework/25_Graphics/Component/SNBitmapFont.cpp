@@ -178,9 +178,9 @@ Void SNBitmapFont::DrawExtraText(SNGraphicsContext* dst_dc, SNListContainer* wor
 	};
 
 	ColorMatrix.ClearMatrix();
+	ColorMatrix.SetSource((SNBitmap*)work->UserData);
 	ColorMatrix.Multiply(color);
 	ColorMatrix.SetMatrix();
-	ColorMatrix.SetSource((SNBitmap*)work->UserData);
 
 	dst_dc->ColorMatrixEffect(&pnt, &rect, &ColorMatrix);
 

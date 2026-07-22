@@ -3,8 +3,11 @@
 #include "SNScene.h"
 
 // システムアプリ アイドル
-
-class SNSysAppIdle : public virtual SNScene
+// 0
+// 1
+// 2
+// 3 - PreClose
+class SNSysAppIdle : public SNScene
 {
 public:
 

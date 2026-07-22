@@ -7,7 +7,7 @@
 // システムアプリ スタートアップ
 // 処理完了時 - SNTransitionCode0
 // エラー時   - 直接アプリ終了通知発行
-class SNSysAppStartup : public virtual SNLayerController
+class SNSysAppStartup : public SNLayerController
 {
 public:
 	static constexpr Int32 SeqChDisp = 1;

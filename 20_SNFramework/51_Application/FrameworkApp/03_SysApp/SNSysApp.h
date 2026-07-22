@@ -5,6 +5,7 @@
 #include "SNSysAppLoading.h"
 #include "SNSysAppError.h"
 #include "SNSysAppIdle.h"
+#include "SNSysAppPreClose.h"
 
 // システムアプリ状態制御
 
@@ -20,5 +21,6 @@ public:
 	SNSysAppLoading Loading;
 	SNSysAppError Error;
 	SNSysAppIdle Idle;
+	SNSysAppPreClose PreClose;
 };
 

@@ -20,8 +20,8 @@ public:
 
 	static constexpr SNColor FontColor[FontColorNum] =
 	{
-		{ 255, 255, 255, 255 },
-		{   0,   0,   0,   0,}
+		{ 224, 208, 192, 255 },
+		{  64,  32,  16, 255,}
 	};
 
 	static constexpr GUIFontColor FontColorNormal = FontColorDark;

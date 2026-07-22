@@ -63,7 +63,7 @@ Void SNGUIPicture::OnDraw(SNGraphicsContext* grc)
 		src_rect.Width = bmp_size.Width;
 		src_rect.Height = bmp_size.Height;
 
-		dst_rect = GetRect();
+		dst_rect = CalcGlobalRect();
 
 		grc->DrawImage(&dst_rect, Bitmap, &src_rect, SNAlphaMax);
 	}

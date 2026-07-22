@@ -88,6 +88,7 @@
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppError.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppIdle.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.h" />
+    <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppStartup.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\06_BgApp\SNBgApp.h" />
     <ClInclude Include="..\20_SNFramework\52_GUI\Component\SNGUIButton.h" />
@@ -172,6 +173,7 @@
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppIdle.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp" />
+    <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\06_BgApp\SNBgApp.cpp" />
     <ClCompile Include="..\20_SNFramework\52_GUI\Component\SNGUIButton.cpp" />
