@@ -4,6 +4,7 @@
 #include "SNSystemConfig.h"
 #include "SNGraphics.h"
 #include "SNSystem.h"
+#include "SNFixedString.h"
 
 // システムアプリ スタートアップ
 
@@ -138,18 +139,18 @@ SNPhaseResult SNSysAppStartup::SeqDisp(Int32 phase_idx, Int32 call_count)
 	switch (phase_idx)
 	{
 	case 0:
-		txtLine1.SetText((String)L"SNFramework System");
+		txtLine1.SetText(SNFixedString::Startup1);
 		ret = SNPhaseResultNext;
 		break;
 	case 1:
-		txtLine2.SetText((String)L"Version.%08x");
+		txtLine2.SetText(SNFixedString::Startup2);
 		ret = SNPhaseResultNext;
 		break;
 	case 2:
 		switch (call_count & 0x00000003)
 		{
 		case 0:
-			txtLine3.SetText((String)L"Starting...");
+			txtLine3.SetText(SNFixedString::Startup3_4);
 			// カウント3だけで遷移チェックする
 			if (!TimerSeqResLoad.IsProc())
 			{
@@ -157,13 +158,13 @@ SNPhaseResult SNSysAppStartup::SeqDisp(Int32 phase_idx, Int32 call_count)
 			}
 			break;
 		case 1:
-			txtLine3.SetText((String)L"Starting");
+			txtLine3.SetText(SNFixedString::Startup3_1);
 			break;
 		case 2:
-			txtLine3.SetText((String)L"Starting.");
+			txtLine3.SetText(SNFixedString::Startup3_2);
 			break;
 		case 3:
-			txtLine3.SetText((String)L"Starting..");
+			txtLine3.SetText(SNFixedString::Startup3_3);
 			break;
 		}
 		break;
@@ -172,17 +173,17 @@ SNPhaseResult SNSysAppStartup::SeqDisp(Int32 phase_idx, Int32 call_count)
 		// 多重起動チェック
 		if (SNSystem::CheckDuplicateInstance())
 		{
-			txtLine3.SetText((String)L"Starting... Error! [Duplicate Launch]");
+			txtLine3.SetText(SNFixedString::Startup4_2);
 		}
 
 		// リソースロードのエラーチェック
 		else if (TimerSeqResLoad.IsError())
 		{
-			txtLine3.SetText((String)L"Starting... Error! [Initialization Failure]");
+			txtLine3.SetText(SNFixedString::Startup4_3);
 		}
 		else
 		{
-			txtLine3.SetText((String)L"Starting... Success!");
+			txtLine3.SetText(SNFixedString::Startup4_1);
 		}
 		ret = SNPhaseResultNext;
 		break;

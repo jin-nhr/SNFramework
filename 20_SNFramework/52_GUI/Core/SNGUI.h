@@ -27,6 +27,25 @@ public:
 	static constexpr GUIFontColor FontColorNormal = FontColorDark;
 
 	////////////////////////////////////////////////////////////////////////////////
+	// フォーカス関連
+
+	// ブロック構成はボタン準拠
+
+	enum ButtonFocusStatus
+	{
+		FocusStatusNormal,
+		FocusnStatusPush,
+		FocusnStatusNum
+	};
+
+	static constexpr SNPoint FocusBlockOffset[FocusnStatusNum] =
+	{
+		{ 0,                                       0                                },
+		{ 0,                                       SNSystemConfig::GUIBlockSize * 2 }
+	};
+
+
+	////////////////////////////////////////////////////////////////////////////////
 	// ウインドウ関連
 
 	enum WindowBlockIndex

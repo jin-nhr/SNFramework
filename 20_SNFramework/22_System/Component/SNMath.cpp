@@ -18,6 +18,18 @@ Int64 SNMath::SelectMin(Int64 value1, Int64 value2)
 	return (value1 < value2) ? value1 : value2;
 }
 
+// 大きい値を選択
+Float32 SNMath::SelectMaxF(Float32 value1, Float32 value2)
+{
+	return (value1 > value2) ? value1 : value2;
+}
+
+// 小さい値を選択
+Float32 SNMath::SelectMinF(Float32 value1, Float32 value2)
+{
+	return (value1 < value2) ? value1 : value2;
+}
+
 // サイクリックインクリメント
 // 戻り値：min～max
 Int64 SNMath::Increment(Int64 value, Int64 min, Int64 max)

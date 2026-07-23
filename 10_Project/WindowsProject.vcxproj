@@ -57,6 +57,7 @@
     <ClInclude Include="..\20_SNFramework\25_Graphics\Component\SNColorMatrix.h" />
     <ClInclude Include="..\20_SNFramework\25_Graphics\Component\SNDIBPixel.h" />
     <ClInclude Include="..\20_SNFramework\25_Graphics\Component\SNGraphicsContext.h" />
+    <ClInclude Include="..\20_SNFramework\25_Graphics\Component\SNScaling.h" />
     <ClInclude Include="..\20_SNFramework\25_Graphics\Core\SNBMCharTable.h" />
     <ClInclude Include="..\20_SNFramework\25_Graphics\Core\SND3DShaderPS.h" />
     <ClInclude Include="..\20_SNFramework\25_Graphics\Core\SND3DShaderVS.h" />
@@ -83,13 +84,17 @@
     <ClInclude Include="..\20_SNFramework\51_Application\Core\SNApplicationThread.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\Core\SNEvent.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\01_DebugApp\SNDebugApp.h" />
-    <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\02_Mute\SNMute.h" />
+    <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.h" />
+    <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNMute.h" />
+    <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNOverlapApp.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysApp.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppError.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppIdle.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppStartup.h" />
+    <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\04_UserApp\SNUserApp.h" />
+    <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\05_World\SNWorld.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\06_BgApp\SNBgApp.h" />
     <ClInclude Include="..\20_SNFramework\52_GUI\Component\SNGUIButton.h" />
     <ClInclude Include="..\20_SNFramework\52_GUI\Component\SNGUIPicture.h" />
@@ -100,6 +105,7 @@
     <ClInclude Include="..\20_SNFramework\52_GUI\Component\SNGUIWindow.h" />
     <ClInclude Include="..\20_SNFramework\52_GUI\Core\SNGUI.h" />
     <ClInclude Include="..\20_SNFramework\71_Resource\Resource.h" />
+    <ClInclude Include="..\20_SNFramework\71_Resource\SNFixedString.h" />
     <ClInclude Include="..\20_SNFramework\71_Resource\SNGraphicsResource.h" />
     <ClInclude Include="..\20_SNFramework\72_Config\Component\SNSystemConfig.h" />
     <ClInclude Include="..\20_SNFramework\72_Config\Component\SNUserConfig.h" />
@@ -145,6 +151,7 @@
     <ClCompile Include="..\20_SNFramework\25_Graphics\Component\SNColorMatrix.cpp" />
     <ClCompile Include="..\20_SNFramework\25_Graphics\Component\SNDIBPixel.cpp" />
     <ClCompile Include="..\20_SNFramework\25_Graphics\Component\SNGraphicsContext.cpp" />
+    <ClCompile Include="..\20_SNFramework\25_Graphics\Component\SNScaling.cpp" />
     <ClCompile Include="..\20_SNFramework\25_Graphics\Core\SNGraphics.cpp" />
     <ClCompile Include="..\20_SNFramework\25_Graphics\Core\SNGraphicsDevice.cpp" />
     <ClCompile Include="..\20_SNFramework\25_Graphics\Core\SNGraphicsResManager.cpp" />
@@ -168,13 +175,17 @@
     <ClCompile Include="..\20_SNFramework\51_Application\Core\SNApplicationThread.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\Core\SNEvent.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp" />
-    <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\02_Mute\SNMute.cpp" />
+    <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp" />
+    <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNMute.cpp" />
+    <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNOverlapApp.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysApp.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppIdle.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp" />
+    <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\04_UserApp\SNUserApp.cpp" />
+    <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\05_World\SNWorld.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\06_BgApp\SNBgApp.cpp" />
     <ClCompile Include="..\20_SNFramework\52_GUI\Component\SNGUIButton.cpp" />
     <ClCompile Include="..\20_SNFramework\52_GUI\Component\SNGUIPicture.cpp" />
@@ -240,14 +251,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)90_Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)90_Build\$(Configuration)\</IntDir>
-    <IncludePath>..\20_SNFramework\21_Include;..\20_SNFramework\22_System\Component;..\20_SNFramework\22_System\Core;..\20_SNFramework\23_Storage\Component;..\20_SNFramework\23_Storage\Core;..\20_SNFramework\24_Input\Component;..\20_SNFramework\24_Input\Core;..\20_SNFramework\25_Graphics\Component;..\20_SNFramework\25_Graphics\Core;..\20_SNFramework\26_AudioVideo\Component;..\20_SNFramework\26_AudioVideo\Core;..\20_SNFramework\27_Codec\Component;..\20_SNFramework\27_Codec\Core;..\20_SNFramework\51_Application\Component;..\20_SNFramework\51_Application\Core;..\20_SNFramework\51_Application\FrameworkApp;..\20_SNFramework\51_Application\FrameworkApp\01_DebugApp;..\20_SNFramework\51_Application\FrameworkApp\02_Mute;..\20_SNFramework\51_Application\FrameworkApp\03_SysApp;..\20_SNFramework\51_Application\FrameworkApp\04_UserApp;..\20_SNFramework\51_Application\FrameworkApp\05_World;..\20_SNFramework\51_Application\FrameworkApp\06_BgApp;..\20_SNFramework\52_GUI\Component;..\20_SNFramework\52_GUI\Core;..\20_SNFramework\71_Resource;..\20_SNFramework\72_Config\Core;..\20_SNFramework\72_Config\Component;$(IncludePath)</IncludePath>
+    <IncludePath>..\20_SNFramework\21_Include;..\20_SNFramework\22_System\Component;..\20_SNFramework\22_System\Core;..\20_SNFramework\23_Storage\Component;..\20_SNFramework\23_Storage\Core;..\20_SNFramework\24_Input\Component;..\20_SNFramework\24_Input\Core;..\20_SNFramework\25_Graphics\Component;..\20_SNFramework\25_Graphics\Core;..\20_SNFramework\26_AudioVideo\Component;..\20_SNFramework\26_AudioVideo\Core;..\20_SNFramework\27_Codec\Component;..\20_SNFramework\27_Codec\Core;..\20_SNFramework\51_Application\Component;..\20_SNFramework\51_Application\Core;..\20_SNFramework\51_Application\FrameworkApp;..\20_SNFramework\51_Application\FrameworkApp\01_DebugApp;..\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp;..\20_SNFramework\51_Application\FrameworkApp\03_SysApp;..\20_SNFramework\51_Application\FrameworkApp\04_UserApp;..\20_SNFramework\51_Application\FrameworkApp\05_World;..\20_SNFramework\51_Application\FrameworkApp\06_BgApp;..\20_SNFramework\52_GUI\Component;..\20_SNFramework\52_GUI\Core;..\20_SNFramework\71_Resource;..\20_SNFramework\72_Config\Core;..\20_SNFramework\72_Config\Component;$(IncludePath)</IncludePath>
     <SourcePath>$(VC_SourcePath)</SourcePath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)90_Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)90_Build\$(Configuration)\</IntDir>
-    <IncludePath>..\20_SNFramework\21_Include;..\20_SNFramework\22_System\Component;..\20_SNFramework\22_System\Core;..\20_SNFramework\23_Storage\Component;..\20_SNFramework\23_Storage\Core;..\20_SNFramework\24_Input\Component;..\20_SNFramework\24_Input\Core;..\20_SNFramework\25_Graphics\Component;..\20_SNFramework\25_Graphics\Core;..\20_SNFramework\26_AudioVideo\Component;..\20_SNFramework\26_AudioVideo\Core;..\20_SNFramework\27_Codec\Component;..\20_SNFramework\27_Codec\Core;..\20_SNFramework\51_Application\Component;..\20_SNFramework\51_Application\Core;..\20_SNFramework\51_Application\FrameworkApp;..\20_SNFramework\51_Application\FrameworkApp\01_DebugApp;..\20_SNFramework\51_Application\FrameworkApp\02_Mute;..\20_SNFramework\51_Application\FrameworkApp\03_SysApp;..\20_SNFramework\51_Application\FrameworkApp\04_UserApp;..\20_SNFramework\51_Application\FrameworkApp\05_World;..\20_SNFramework\51_Application\FrameworkApp\06_BgApp;..\20_SNFramework\52_GUI\Component;..\20_SNFramework\52_GUI\Core;..\20_SNFramework\71_Resource;..\20_SNFramework\72_Config\Core;..\20_SNFramework\72_Config\Component;$(IncludePath)</IncludePath>
+    <IncludePath>..\20_SNFramework\21_Include;..\20_SNFramework\22_System\Component;..\20_SNFramework\22_System\Core;..\20_SNFramework\23_Storage\Component;..\20_SNFramework\23_Storage\Core;..\20_SNFramework\24_Input\Component;..\20_SNFramework\24_Input\Core;..\20_SNFramework\25_Graphics\Component;..\20_SNFramework\25_Graphics\Core;..\20_SNFramework\26_AudioVideo\Component;..\20_SNFramework\26_AudioVideo\Core;..\20_SNFramework\27_Codec\Component;..\20_SNFramework\27_Codec\Core;..\20_SNFramework\51_Application\Component;..\20_SNFramework\51_Application\Core;..\20_SNFramework\51_Application\FrameworkApp;..\20_SNFramework\51_Application\FrameworkApp\01_DebugApp;..\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp;..\20_SNFramework\51_Application\FrameworkApp\03_SysApp;..\20_SNFramework\51_Application\FrameworkApp\04_UserApp;..\20_SNFramework\51_Application\FrameworkApp\05_World;..\20_SNFramework\51_Application\FrameworkApp\06_BgApp;..\20_SNFramework\52_GUI\Component;..\20_SNFramework\52_GUI\Core;..\20_SNFramework\71_Resource;..\20_SNFramework\72_Config\Core;..\20_SNFramework\72_Config\Component;$(IncludePath)</IncludePath>
     <SourcePath>$(VC_SourcePath)</SourcePath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
   </PropertyGroup>

@@ -14,7 +14,7 @@ public:
 	static constexpr Int32 SeqChDisp = 1;
 	static constexpr Int32 SeqChResLoad = 2;
 
-	static constexpr Int32 SeqChDispFadeTime = SNSystemConfig::FadeTime;;
+	static constexpr Int32 SeqChDispFadeTime = SNSystemConfig::FadeTime + 100;
 	static constexpr Int32 SeqChDispPhaseTime = 3000;
 
 	static constexpr Int32 SeqChResLoadTime = 3000;

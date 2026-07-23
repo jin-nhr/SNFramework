@@ -534,6 +534,10 @@ enum SNBMCharPage
 // スケーリング
 enum SNScalingType
 {
+    ScalingLetterBox,
+    ScalingFit,
+    ScalingFitH,
+    ScalingFitV,
     ScalingTypeNum,
 };
 

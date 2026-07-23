@@ -6,6 +6,7 @@
 #include "SNGraphicsDevice.h"
 #include "SNApplication.h"
 #include "SNImageCodec.h"
+#include "SNScaling.h"
 
 // グラフィクスクラス
 // SNFrameworkにおける描画の制御を行う
@@ -104,36 +105,12 @@ Void SNGraphics::FlipSurface()
 // 描画領域更新
 Void SNGraphics::UpdateDrawRect(SNSize* size)
 {
-	Int32 width;
-	Int32 height;
-	UInt8 draw_align = SNSystemConfig::DrawAlign;
-	Int32 config_width = SNSystemConfig::ScreenWidth;
-	Int32 config_height = SNSystemConfig::ScreenHeight;
+	SNRect src_rect = { 0, 0, SNSystemConfig::ScreenWidth, SNSystemConfig::ScreenHeight };
+	SNRect dst_rect = { 0, 0, size->Width, size->Height };
 
-	width = size->Width;
-	height = size->Height;
+	SNScaling::LetterBox(&src_rect, &dst_rect);
 
-	// アスペクト比を維持したスケール計算
-	Float32 scale_x = (Float32)width / config_width;
-	Float32 scale_y = (Float32)height / config_height;
-	Float32 scale = min(scale_x, scale_y);  // アスペクト比を維持
-
-	Int32 new_width = (Int32)(config_width * scale);
-	Int32 new_height = (Int32)(config_height * scale);
-
-	// 4の倍数に補正
-	new_width = (new_width / draw_align) * draw_align;
-	new_height = (new_height / draw_align) * draw_align;
-
-	// 描画領域のオフセット計算（中央配置）
-	Int32 offset_x = (width - new_width) / 2;
-	Int32 offset_y = (height - new_height) / 2;
-
-	// 描画範囲を更新
-	DrawRect.PointX = offset_x;
-	DrawRect.PointY = offset_y;
-	DrawRect.Width = new_width;
-	DrawRect.Height = new_height;
+	DrawRect = dst_rect;
 
 	return;
 }

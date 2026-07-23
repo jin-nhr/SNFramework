@@ -88,9 +88,6 @@
     <Filter Include="20_SNFramework\26_AudioVideo\Component">
       <UniqueIdentifier>{c0522be8-0835-41f6-96c6-d78de2e9bdb4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="20_SNFramework\51_Application\FrameworkApp\02_Mute">
-      <UniqueIdentifier>{8db24cdd-e649-489b-b25f-5416c61f69fa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="20_SNFramework\51_Application\FrameworkApp\04_UserApp">
       <UniqueIdentifier>{4f53a7cc-d4d1-46ba-85e6-d07084088a0f}</UniqueIdentifier>
     </Filter>
@@ -111,6 +108,9 @@
     </Filter>
     <Filter Include="20_SNFramework\71_Resource">
       <UniqueIdentifier>{3d56fc61-82b3-4da3-910f-de6967310905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_SNFramework\51_Application\FrameworkApp\02_OverlapApp">
+      <UniqueIdentifier>{8db24cdd-e649-489b-b25f-5416c61f69fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -360,9 +360,6 @@
     <ClInclude Include="..\20_SNFramework\72_Config\Core\SNConfig.h">
       <Filter>20_SNFramework\72_Config\Core</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\02_Mute\SNMute.h">
-      <Filter>20_SNFramework\51_Application\FrameworkApp\02_Mute</Filter>
-    </ClInclude>
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppError.h">
       <Filter>20_SNFramework\51_Application\FrameworkApp\03_SysApp</Filter>
     </ClInclude>
@@ -392,6 +389,27 @@
     </ClInclude>
     <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.h">
       <Filter>20_SNFramework\51_Application\FrameworkApp\03_SysApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNMute.h">
+      <Filter>20_SNFramework\51_Application\FrameworkApp\02_OverlapApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNOverlapApp.h">
+      <Filter>20_SNFramework\51_Application\FrameworkApp\02_OverlapApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\04_UserApp\SNUserApp.h">
+      <Filter>20_SNFramework\51_Application\FrameworkApp\04_UserApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\05_World\SNWorld.h">
+      <Filter>20_SNFramework\51_Application\FrameworkApp\05_World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.h">
+      <Filter>20_SNFramework\51_Application\FrameworkApp\02_OverlapApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\71_Resource\SNFixedString.h">
+      <Filter>20_SNFramework\71_Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\25_Graphics\Component\SNScaling.h">
+      <Filter>20_SNFramework\25_Graphics\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -602,9 +620,6 @@
     <ClCompile Include="..\20_SNFramework\72_Config\Core\SNConfig.cpp">
       <Filter>20_SNFramework\72_Config\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\02_Mute\SNMute.cpp">
-      <Filter>20_SNFramework\51_Application\FrameworkApp\02_Mute</Filter>
-    </ClCompile>
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp">
       <Filter>20_SNFramework\51_Application\FrameworkApp\03_SysApp</Filter>
     </ClCompile>
@@ -634,6 +649,24 @@
     </ClCompile>
     <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.cpp">
       <Filter>20_SNFramework\51_Application\FrameworkApp\03_SysApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNMute.cpp">
+      <Filter>20_SNFramework\51_Application\FrameworkApp\02_OverlapApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNOverlapApp.cpp">
+      <Filter>20_SNFramework\51_Application\FrameworkApp\02_OverlapApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\04_UserApp\SNUserApp.cpp">
+      <Filter>20_SNFramework\51_Application\FrameworkApp\04_UserApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\05_World\SNWorld.cpp">
+      <Filter>20_SNFramework\51_Application\FrameworkApp\05_World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp">
+      <Filter>20_SNFramework\51_Application\FrameworkApp\02_OverlapApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\25_Graphics\Component\SNScaling.cpp">
+      <Filter>20_SNFramework\25_Graphics\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -26,8 +26,10 @@ SNLayerController SNApplication::FrameworkAppLayer;
 
 // アプリ定義
 SNDebugApp SNApplication::DebugApp;
-SNMute SNApplication::MuteApp;
+SNOverlapApp SNApplication::OverlapApp;
 SNSysApp SNApplication::SysApp;
+SNUserApp SNApplication::UserApp;
+SNWorld SNApplication::World;
 SNBgApp SNApplication::BgApp;
 
 ///////////////////////////////////////////////////////////
@@ -60,10 +62,12 @@ Void SNApplication::Startup()
 	SNSoftTimer::Initialize();
 
 	// アプリケーションレイヤ設定
-	FrameworkAppLayer.SetSceneNum(4);
+	FrameworkAppLayer.SetSceneNum(6);
 	FrameworkAppLayer.SetScene(&DebugApp);
-	FrameworkAppLayer.SetScene(&MuteApp);
+	FrameworkAppLayer.SetScene(&OverlapApp);
 	FrameworkAppLayer.SetScene(&SysApp);
+	FrameworkAppLayer.SetScene(&UserApp);
+	FrameworkAppLayer.SetScene(&World);
 	FrameworkAppLayer.SetScene(&BgApp);
 
 	// アプリケーションレイヤ管理を初期化

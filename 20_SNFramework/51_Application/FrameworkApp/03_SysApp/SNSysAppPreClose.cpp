@@ -4,6 +4,7 @@
 #include "SNSystemConfig.h"
 #include "SNGraphics.h"
 #include "SNSystem.h"
+#include "SNFixedString.h"
 
 // コンストラクタ
 SNSysAppPreClose::SNSysAppPreClose()
@@ -30,18 +31,18 @@ Void SNSysAppPreClose::OnEntry()
 {
 	Centering(true, true);
 
-	TxtMessage.SetText((String)L"しゅうりょうしますか");
+	TxtMessage.SetText(SNFixedString::PreClose1);
 	TxtMessage.Move(0, 24);
 	TxtMessage.Centering(false, true);
 
 	ButtonYes.Resize(80, 32);
 	ButtonYes.Move(24, 60);
-	ButtonYes.Caption.SetText((String)L"はい");
+	ButtonYes.Caption.SetText(SNFixedString::PreClose2);
 	ButtonYes.Caption.Centering(true, true);
 
 	ButtonNo.Resize(80, 32);
 	ButtonNo.Move(152, 60);
-	ButtonNo.Caption.SetText((String)L"いいえ");
+	ButtonNo.Caption.SetText(SNFixedString::PreClose3);
 	ButtonNo.Caption.Centering(true, true);
 
 	return;

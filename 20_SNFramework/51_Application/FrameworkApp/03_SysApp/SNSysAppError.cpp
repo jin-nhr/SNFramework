@@ -4,8 +4,9 @@
 #include "SNSystemConfig.h"
 #include "SNGraphics.h"
 #include "SNSystem.h"
+#include "SNFixedString.h"
 
-// システムアプリ スタートアップ
+
 
 // コンストラクタ
 SNSysAppError::SNSysAppError()
@@ -25,7 +26,7 @@ Void SNSysAppError::OnInitialize()
 	// テキストラベルの設定
 	txtLine1.Initialize();
 
-	txtLine1.SetText((String)L"Startup failed. Shutting down.");
+	txtLine1.SetText(SNFixedString::Startup5);
 
 	SetSceneNum(1);
 	SetScene(&txtLine1);

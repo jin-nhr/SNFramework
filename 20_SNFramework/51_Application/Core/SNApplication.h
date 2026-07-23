@@ -7,8 +7,10 @@
 #include "SNLayerController.h"
 #include "SNStateController.h"
 #include "SNDebugApp.h"
-#include "SNMute.h"
+#include "SNOverlapApp.h"
 #include "SNSysApp.h"
+#include "SNUserApp.h"
+#include "SNWorld.h"
 #include "SNBgApp.h"
 
 
@@ -86,8 +88,10 @@ private:
 
 	// ƒAƒvƒŠ’è‹`
 	static SNDebugApp DebugApp;
-	static SNMute MuteApp;
+	static SNOverlapApp OverlapApp;
 	static SNSysApp SysApp;
+	static SNUserApp UserApp;
+	static SNWorld World;
 	static SNBgApp BgApp;
 
 	///////////////////////////////////////////////////////////
