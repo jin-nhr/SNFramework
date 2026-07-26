@@ -25,6 +25,10 @@
 #include <wincodec.h>
 #include <assert.h>
 #include <math.h>
+#include <mmreg.h>
+
+// COM関連
+#include <objbase.h>
 
 // DirectX関連
 #include <d3d11.h>
@@ -39,6 +43,10 @@
 #include <d2d1effectauthor.h>
 #include <dwrite.h>
 #include <dwrite_1.h>
+
+// XAudio関連
+#include <xaudio2.h>
+
 
 
 /////////////////////////////////////////////////////////////////

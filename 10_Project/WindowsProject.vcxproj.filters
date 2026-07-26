@@ -414,6 +414,9 @@
     <ClInclude Include="..\20_SNFramework\51_Application\Component\SNFocusGroup.h">
       <Filter>20_SNFramework\51_Application\Component</Filter>
     </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_AudioVideo\Core\SNSoundDevice.h">
+      <Filter>20_SNFramework\26_AudioVideo\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\20_SNFramework\22_System\Component\SNAutoResource.cpp">
@@ -673,6 +676,9 @@
     </ClCompile>
     <ClCompile Include="..\20_SNFramework\51_Application\Component\SNFocusGroup.cpp">
       <Filter>20_SNFramework\51_Application\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_AudioVideo\Core\SNSoundDevice.cpp">
+      <Filter>20_SNFramework\26_AudioVideo\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

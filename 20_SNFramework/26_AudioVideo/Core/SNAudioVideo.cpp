@@ -5,7 +5,7 @@
 // ‰Šú‰»ˆ—
 Void SNAudioVideo::Initialize()
 {
-
+	SNSoundDevice::Initialize();
 	return;
 }
 
@@ -34,7 +34,6 @@ Void SNAudioVideo::BeforeTerminate()
 // I—¹
 Void SNAudioVideo::Terminate()
 {
-
-
+	SNSoundDevice::Terminate();
 	return;
 }

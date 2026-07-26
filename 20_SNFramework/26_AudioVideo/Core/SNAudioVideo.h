@@ -1,5 +1,6 @@
 #pragma once
 #include "SNFrameworkInternal.h"
+#include "SNSoundDevice.h"
 
 // オーディオビデオクラス
 class SNAudioVideo

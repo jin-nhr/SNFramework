@@ -4,6 +4,7 @@
 #include "SNGraphicsContext.h"
 #include "SNBitmap.h"
 #include "SNBitmapFont.h"
+#include "SNGraphicsResource.h"
 
 // GUIクラス
 class SNGUI
@@ -17,6 +18,28 @@ public:
 		FontColorDark,
 		FontColorNum
 	};
+
+	enum GUIBlockIndex
+	{
+		GUIBlockLeftUp,    GUIBlockUp,     GUIBlockRightUp,
+		GUIBlockLeft,      GUIBlockCenter, GUIBlockRight,
+		GUIBlockLeftBottom,GUIBlockBottom, GUIBlockRightBottom,
+		GUIBlockNum
+	};
+
+	static constexpr SNPoint GUIBlockDef[GUIBlockNum] =
+	{
+		{ 0,                                       0                                }, // 左上
+		{ SNSystemConfig::GUIBlockSize,            0                                }, // 上
+		{ SNSystemConfig::GUIBlockSize * 2,        0                                }, // 右上
+		{ 0,                                       SNSystemConfig::GUIBlockSize     }, // 左
+		{ SNSystemConfig::GUIBlockSize,            SNSystemConfig::GUIBlockSize     }, // 中央
+		{ SNSystemConfig::GUIBlockSize * 2,        SNSystemConfig::GUIBlockSize     }, // 右
+		{ 0,                                       SNSystemConfig::GUIBlockSize * 2 }, // 左下
+		{ SNSystemConfig::GUIBlockSize,			   SNSystemConfig::GUIBlockSize * 2 }, // 下
+		{ SNSystemConfig::GUIBlockSize * 2,        SNSystemConfig::GUIBlockSize * 2 }  // 右下
+	};
+
 
 	static constexpr SNColor FontColor[FontColorNum] =
 	{
@@ -42,45 +65,22 @@ public:
 	static constexpr SNPoint FocusBlockOffset[FocusnStatusNum] =
 	{
 		{ 0,                                       0                                },
-		{ 0,                                       SNSystemConfig::GUIBlockSize * 2 },
-		{ 0,                                       SNSystemConfig::GUIBlockSize * 4 }
+		{ 0,                                       SNSystemConfig::GUIBlockSize * 3 },
+		{ 0,                                       SNSystemConfig::GUIBlockSize * 6 }
 	};
 
 
 	////////////////////////////////////////////////////////////////////////////////
 	// ウインドウ関連
-
-	enum WindowBlockIndex
+	static constexpr SNPoint WindowBlockOffset[1] =
 	{
-		WindowBlockLeftUp,     WindowBlockUp,     WindowBlockRightUp,
-		WindowBlockLeft,       WindowBlockCenter, WindowBlockRight,
-		WindowBlockLeftBottom, WindowBlockBottom, WindowBlockRightBottom,
-		WindowBlockNum
-	};
-
-	static constexpr SNPoint WindowBlockDef[WindowBlockNum] =
-	{
-		{ 0,                                       0                                }, // 左上
-		{ SNSystemConfig::GUIBlockSize,            0                                }, // 上
-		{ SNSystemConfig::GUIBlockSize * 2,        0                                }, // 右上
-		{ 0,                                       SNSystemConfig::GUIBlockSize     }, // 左
-		{ SNSystemConfig::GUIBlockSize,            SNSystemConfig::GUIBlockSize     }, // 中央
-		{ SNSystemConfig::GUIBlockSize * 2,        SNSystemConfig::GUIBlockSize     }, // 右
-		{ 0,                                       SNSystemConfig::GUIBlockSize * 2 }, // 左下
-		{ SNSystemConfig::GUIBlockSize,			   SNSystemConfig::GUIBlockSize * 2 }, // 下
-		{ SNSystemConfig::GUIBlockSize * 2,        SNSystemConfig::GUIBlockSize * 2 }  // 右下
+		{ 0,                                       0                                }
 	};
 
 
 	////////////////////////////////////////////////////////////////////////////////
 	// ボタン関連
 
-	enum ButtonBlockIndex
-	{
-		ButtonBlockLeftUp,     ButtonBlockUp,     ButtonBlockRightUp,
-		ButtonBlockLeftBottom, ButtonBlockBottom, ButtonBlockRightBottom,
-		ButtonBlockNum
-	};
 
 	enum ButtonBlockStatus
 	{
@@ -92,23 +92,14 @@ public:
 		ButtonStatusNum
 	};
 
-	static constexpr SNPoint ButtonBlockDef[ButtonBlockNum] =
-	{
-		{ 0,                                       0                                }, // 左上
-		{ SNSystemConfig::GUIBlockSize,            0                                }, // 上
-		{ SNSystemConfig::GUIBlockSize * 2,        0                                }, // 右上
-		{ 0,                                       SNSystemConfig::GUIBlockSize     }, // 左下
-		{ SNSystemConfig::GUIBlockSize,            SNSystemConfig::GUIBlockSize     }, // 下
-		{ SNSystemConfig::GUIBlockSize * 2,        SNSystemConfig::GUIBlockSize     }, // 下
-	};
 
 	static constexpr SNPoint ButtonBlockOffset[ButtonStatusNum] =
 	{
 		{ 0,                                       0                                },
-		{ 0,                                       SNSystemConfig::GUIBlockSize * 2 },
-		{ 0,                                       SNSystemConfig::GUIBlockSize * 4 },
+		{ 0,                                       SNSystemConfig::GUIBlockSize * 3 },
 		{ 0,                                       SNSystemConfig::GUIBlockSize * 6 },
-		{ 0,                                       SNSystemConfig::GUIBlockSize * 8 }
+		{ 0,                                       SNSystemConfig::GUIBlockSize * 9 },
+		{ 0,                                       SNSystemConfig::GUIBlockSize * 12}
 	};
 
 	static constexpr SNPoint ButtonCaptionOffset =
@@ -134,7 +125,7 @@ public:
 
 public:
 	static Void Tiling(SNGraphicsContext* grc, SNRect* dst_rect, SNBitmap* src_bmp, SNRect* src_rect);
-
+	static Void Tiling9(SNGraphicsContext* grc, SNRect* dst_rect, SNGraphicsResID res_id, const SNPoint* blockdef, const SNPoint* offset);
 
 
 public:
