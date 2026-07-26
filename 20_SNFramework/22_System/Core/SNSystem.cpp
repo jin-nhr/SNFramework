@@ -9,6 +9,7 @@
 #include "SNGUI.h"
 #include "SNCodec.h"
 #include "SNWindowsAPI.h"
+#include "SNMath.h"
 
 
 Handle	SNSystem::ApplicationHandle = nullptr;		// アプリケーションハンドル
@@ -36,6 +37,8 @@ Void SNSystem::Initialize(
 
 	// 二重起動チェッカー生成
 	DualBootChecker.Create(SNSystemConfig::ApplicationID);
+
+	SNMath::InitTrigFunc();
 
 	// ウインドウ生成
 	SNWindow::Create(ApplicationHandle, ShowCommand);

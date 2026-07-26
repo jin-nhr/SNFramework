@@ -121,6 +121,7 @@ public:
 	// GUIテキストラベル初期サイズ
 	static constexpr UInt32 GUITextLabelLength = 128;
 
-	
+	// GUIボタン反転時間()
+	static constexpr Int32 GUIButtonPushTime = 100;
 
 };

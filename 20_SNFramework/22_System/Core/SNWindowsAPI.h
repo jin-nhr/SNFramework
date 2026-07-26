@@ -24,6 +24,7 @@
 #include <gdiplus.h>
 #include <wincodec.h>
 #include <assert.h>
+#include <math.h>
 
 // DirectX関連
 #include <d3d11.h>

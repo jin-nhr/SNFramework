@@ -2,6 +2,7 @@
 #include "SNFrameworkInternal.h"
 #include "SNGUIWindow.h"
 #include "SNGUIButton.h"
+#include "SNFocusGroup.h"
 
 class SNSysAppPreClose : public SNGUIWindow
 {
@@ -17,6 +18,9 @@ protected:
 	// Entry
 	virtual Void OnEntry();
 
+	// Exit
+	virtual Void OnExit();
+
 	// ÉtÉåÅ[ÉÄèàóù
 	virtual Void OnCycle();
 
@@ -24,5 +28,7 @@ private:
 	SNGUIText   TxtMessage;
 	SNGUIButton ButtonYes;
 	SNGUIButton ButtonNo;
+
+	SNFocusGroup FocusGp;
 
 };

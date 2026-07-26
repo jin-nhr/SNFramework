@@ -3,6 +3,8 @@
 #include "SNLayerController.h"
 #include "SNGUIText.h"
 #include "SNGUI.h"
+#include "SNGraphicsResource.h"
+
 
 // 画像
 class SNGUIButton : public SNLayerController
@@ -14,11 +16,14 @@ public:
 	// デストラクタ
 	virtual ~SNGUIButton();
 
+	virtual Boolean CheckHover(SNPoint* pnt);
 	
-	Boolean Hidden;
+	Boolean NoFrame;
 	Boolean Disable;
 	Boolean Push;
 	Boolean Selected;
+
+	Boolean Focus;
 
 	SNGUIText Caption;
 
@@ -34,6 +39,16 @@ protected:
 	// 描画処理
 	virtual Void OnDraw(SNGraphicsContext* grc);
 
+	// ボタン描画
+	virtual Void DrawButton(SNGraphicsContext* grc);
+
+	// フォーカス描画
+	virtual Void DrawFocus(SNGraphicsContext* grc);
+
+	virtual Void ButtonTiling(SNGraphicsContext* grc, SNGraphicsResID res_id, const SNPoint* offset);
+
 	// ステータス判定
 	virtual SNGUI::ButtonBlockStatus JudgeStatus();
+
+	virtual SNGUI::ButtonFocusStatus JudgeFocusStatus();
 };

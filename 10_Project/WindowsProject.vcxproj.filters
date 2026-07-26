@@ -411,6 +411,9 @@
     <ClInclude Include="..\20_SNFramework\25_Graphics\Component\SNScaling.h">
       <Filter>20_SNFramework\25_Graphics\Component</Filter>
     </ClInclude>
+    <ClInclude Include="..\20_SNFramework\51_Application\Component\SNFocusGroup.h">
+      <Filter>20_SNFramework\51_Application\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\20_SNFramework\22_System\Component\SNAutoResource.cpp">
@@ -667,6 +670,9 @@
     </ClCompile>
     <ClCompile Include="..\20_SNFramework\25_Graphics\Component\SNScaling.cpp">
       <Filter>20_SNFramework\25_Graphics\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\51_Application\Component\SNFocusGroup.cpp">
+      <Filter>20_SNFramework\51_Application\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

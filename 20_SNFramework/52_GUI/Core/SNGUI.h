@@ -33,6 +33,7 @@ public:
 
 	enum ButtonFocusStatus
 	{
+		FocusStatusNoFocus,
 		FocusStatusNormal,
 		FocusnStatusPush,
 		FocusnStatusNum
@@ -41,7 +42,8 @@ public:
 	static constexpr SNPoint FocusBlockOffset[FocusnStatusNum] =
 	{
 		{ 0,                                       0                                },
-		{ 0,                                       SNSystemConfig::GUIBlockSize * 2 }
+		{ 0,                                       SNSystemConfig::GUIBlockSize * 2 },
+		{ 0,                                       SNSystemConfig::GUIBlockSize * 4 }
 	};
 
 
@@ -82,7 +84,7 @@ public:
 
 	enum ButtonBlockStatus
 	{
-		ButtonStatusHidden,
+		ButtonStatusNoFrame,
 		ButtonStatusDisable,
 		ButtonStatusNormal,
 		ButtonStatusPush,

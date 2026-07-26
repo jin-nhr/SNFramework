@@ -20,15 +20,15 @@ SNSysAppIdle::~SNSysAppIdle()
 // Entry
 Void SNSysAppIdle::OnEntry()
 {
-	SNMute::SetMute(false, true);
-
+	if (SNMute::GetMuteSts() == SNMuteStsOn)
+	{
+		SNMute::SetMute(false, true);
+	}
 	return;
 }
 
-
-
-// フレーム処理
-Void SNSysAppIdle::OnCycle()
+// イベント通知
+Boolean SNSysAppIdle::OnNotifyEvent()
 {
 	// 終了通知
 	if (SNApplication::GetEventInfo(SNEventExitApplication))
@@ -39,6 +39,5 @@ Void SNSysAppIdle::OnCycle()
 		SNEvent::EventExist[SNEventTypeNotifyEvent] = false;
 	}
 
-	return;
+	return false;
 }
-

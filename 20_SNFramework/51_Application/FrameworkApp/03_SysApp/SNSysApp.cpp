@@ -9,7 +9,7 @@ SNSysApp::SNSysApp()
 	SetScene(&Loading,  3, -1, -1,  2);	// 1
 	SetScene(&Error,   -1, -1, -1, -1);	// 2
 	SetScene(&Idle,    -1, -1, -1,  4);	// 3
-	SetScene(&PreClose,-1, -1, -1, -1); // 4
+	SetScene(&PreClose, 3, -1, -1, -1); // 4
 
 	return;
 }

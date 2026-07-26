@@ -21,6 +21,9 @@ public:
 	// ミュート設定(on/off, fade有無, 色)
 	static Void SetMute(Boolean mute, Boolean fade);
 
+	// ミュート状態取得
+	static SNMuteSts GetMuteSts();
+
 public:
 	// コンストラクタ
 	SNMute();

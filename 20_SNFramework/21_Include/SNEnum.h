@@ -43,6 +43,14 @@ enum SNTransitionCode
 };
 
 
+enum SNFocusLayer
+{
+    SNFocusLayerSysApp,
+    SNFocusLayerUserApp,
+    SNFocusLayerNum
+};
+
+
 ///////////////////////////////////////////////////////////////
 // 実入力デバイス関連
 

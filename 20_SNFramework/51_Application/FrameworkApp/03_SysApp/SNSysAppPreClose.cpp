@@ -17,6 +17,21 @@ SNSysAppPreClose::SNSysAppPreClose()
 	SetScene(&ButtonNo);
 	SetScene(&TxtMessage);
 
+	FocusGp.StartRegister(SNFocusLayerSysApp, 2, false, false);
+	FocusGp.RegisterButton(&ButtonYes);
+	FocusGp.RegisterButton(&ButtonNo);
+	FocusGp.EndRegister();
+
+	Centering(true, true);
+
+	TxtMessage.Move(0, 24);
+
+	ButtonYes.Resize(80, 32);
+	ButtonYes.Move(24, 60);
+
+	ButtonNo.Resize(80, 32);
+	ButtonNo.Move(152, 60);
+
 	return;
 }
 
@@ -29,30 +44,51 @@ SNSysAppPreClose::~SNSysAppPreClose()
 // Entry
 Void SNSysAppPreClose::OnEntry()
 {
-	Centering(true, true);
+	FocusGp.Entry();
 
+	// テキストはInitializeでは設定できない
 	TxtMessage.SetText(SNFixedString::PreClose1);
-	TxtMessage.Move(0, 24);
 	TxtMessage.Centering(false, true);
 
-	ButtonYes.Resize(80, 32);
-	ButtonYes.Move(24, 60);
 	ButtonYes.Caption.SetText(SNFixedString::PreClose2);
 	ButtonYes.Caption.Centering(true, true);
 
-	ButtonNo.Resize(80, 32);
-	ButtonNo.Move(152, 60);
 	ButtonNo.Caption.SetText(SNFixedString::PreClose3);
 	ButtonNo.Caption.Centering(true, true);
 
 	return;
 }
 
+Void SNSysAppPreClose::OnExit()
+{
+	FocusGp.Exit();
+
+	return;
+}
 
 
 // フレーム処理
 Void SNSysAppPreClose::OnCycle()
 {
+	if (FocusGp.JudgeActDecide(&ButtonYes))
+	{
+		// アプリ終了
+		SNEvent::EventResult[SNEventResultExitApplication] = true;
+	}
+
+	else if (FocusGp.JudgeActDecide(&ButtonNo))
+	{
+		TransCode = SNTransitionCode0;
+	}
+
+	else if (FocusGp.JudgeActCancel())
+	{
+		TransCode = SNTransitionCode0;
+	}
+
+	// 最後に状態クリアしておく
+	FocusGp.ClearButtonSts();
+
 	return;
 }
 

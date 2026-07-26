@@ -24,8 +24,7 @@ protected:
 	// Entry
 	virtual Void OnEntry();
 
-	// ƒtƒŒ[ƒ€ˆ—
-	virtual Void OnCycle();
+	virtual Boolean OnNotifyEvent();
 
 private:
 

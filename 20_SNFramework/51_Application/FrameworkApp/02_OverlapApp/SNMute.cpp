@@ -23,6 +23,11 @@ Void SNMute::SetMute(Boolean mute, Boolean fade)
 	return;
 }
 
+SNMuteSts SNMute::GetMuteSts()
+{
+	return NowSts;
+}
+
 // コンストラクタ
 SNMute::SNMute()
 {

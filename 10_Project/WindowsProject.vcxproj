@@ -71,6 +71,7 @@
     <ClInclude Include="..\20_SNFramework\27_Codec\Core\SNImageCodec.h" />
     <ClInclude Include="..\20_SNFramework\27_Codec\Core\SNImageCodecAccessor.h" />
     <ClInclude Include="..\20_SNFramework\27_Codec\Core\SNImageCodecThread.h" />
+    <ClInclude Include="..\20_SNFramework\51_Application\Component\SNFocusGroup.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\Component\SNLayerController.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\Component\SNPhase.h" />
     <ClInclude Include="..\20_SNFramework\51_Application\Component\SNScene.h" />
@@ -162,6 +163,7 @@
     <ClCompile Include="..\20_SNFramework\27_Codec\Core\SNImageCodec.cpp" />
     <ClCompile Include="..\20_SNFramework\27_Codec\Core\SNImageCodecAccessor.cpp" />
     <ClCompile Include="..\20_SNFramework\27_Codec\Core\SNImageCodecThread.cpp" />
+    <ClCompile Include="..\20_SNFramework\51_Application\Component\SNFocusGroup.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\Component\SNLayerController.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\Component\SNPhase.cpp" />
     <ClCompile Include="..\20_SNFramework\51_Application\Component\SNScene.cpp" />
