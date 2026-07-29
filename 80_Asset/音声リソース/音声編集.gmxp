@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CROASTERP Version="1, 0, 0, 4" RatioX="0.453125" RatioY="0.50370711" Fps="60" Resolution="1920:1080" Relative="0">
+    <CRClipArr Count="4">
+        <CRClip Type="4" Sample="0" Path="C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\80_Asset\音声リソース\カーソル移動2.mp3" ClipLength="59"/>
+        <CRClip Type="4" Sample="0" Path="C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\80_Asset\音声リソース\キャンセル2.mp3" ClipLength="64"/>
+        <CRClip Type="4" Sample="0" Path="C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\80_Asset\音声リソース\決定ボタンを押す7.mp3" ClipLength="72"/>
+        <CRClip Type="4" Sample="0" Path="C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\80_Asset\音声リソース\決定ボタンを押す33.mp3" ClipLength="107"/>
+    </CRClipArr>
+    <CROwneUnitArr Count="0"/>
+    <CRTrackArr Snap="1" Zoom="100" Length="18000">
+        <CRVideoTrackArr Count="2">
+            <CRTrackList Name="マスター V1" State="104" Count="0"/>
+            <CRTrackList Name="V2" State="96" Count="0"/>
+        </CRVideoTrackArr>
+        <CRVideoEFTrackArr Count="2">
+            <CRTrackEFList State="0" Count="0"/>
+            <CRTrackEFList State="0" Count="0"/>
+        </CRVideoEFTrackArr>
+        <CRAudioTrackArr Count="1">
+            <CRTrackList Name="マスター A1" State="109" Count="1">
+                <CRTrackClip Type="0" ClipIndex="3" Pos="0" Length="49" ClipLength="-1" Speed="-1" Level="0" Mute="0"/>
+            </CRTrackList>
+        </CRAudioTrackArr>
+    </CRTrackArr>
+</CROASTERP>

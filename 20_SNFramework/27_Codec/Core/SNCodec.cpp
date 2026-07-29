@@ -1,9 +1,12 @@
 #include "SNCodec.h"
 #include "SNImageCodec.h"
+#include "SNSoundCodec.h"
+#include "SNWindowsAPI.h"
 
 // ‰Šú‰»ˆ—
 Void SNCodec::Initialize()
 {
+	MFStartup(MF_VERSION);
 	return;
 }
 
@@ -11,6 +14,7 @@ Void SNCodec::Initialize()
 Void SNCodec::Startup()
 {
 	SNImageCodec::Initialize();
+	SNSoundCodec::Initialize();
 
 	return;
 }
@@ -24,6 +28,7 @@ Void SNCodec::Run()
 // I—¹‘Oˆ—
 Void SNCodec::BeforeTerminate()
 {
+	SNSoundCodec::Terminate();
 	SNImageCodec::Terminate();
 
 	return;
@@ -32,7 +37,6 @@ Void SNCodec::BeforeTerminate()
 // I—¹
 Void SNCodec::Terminate()
 {
-
-
+	MFShutdown();
 	return;
 }

@@ -32,6 +32,25 @@ Void SNGUIWindow::OnTerminate()
 }
 
 
+Void SNGUIWindow::Entry()
+{
+	SNLayerController::Entry();
+
+	SEOpen.CreateEffect(SNSoundResWindowOpen);
+	SEOpen.Play();
+
+	return;
+}
+#include "SNWindowsAPI.h"
+Void SNGUIWindow::Exit()
+{
+	SEOpen.DeleteEffect();
+
+	SNLayerController::Exit();
+
+	return;
+}
+
 // ï`âÊèàóù
 Void SNGUIWindow::OnDraw(SNGraphicsContext* grc)
 {

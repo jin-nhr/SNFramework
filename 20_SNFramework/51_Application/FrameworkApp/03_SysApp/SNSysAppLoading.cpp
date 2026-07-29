@@ -5,6 +5,7 @@
 #include "SNGraphics.h"
 #include "SNSystem.h"
 #include "SNMute.h"
+#include "SNAudioVideo.h"
 
 // システムアプリ スタートアップ
 
@@ -42,9 +43,11 @@ Void SNSysAppLoading::OnInitialize()
 	TimerSeqDisp.SetWait(5, SeqChDispPhaseTime);
 	TimerSeqDisp.SetWait(6, SeqChDispFadeTime);
 	// リソースロード
-	TimerSeqResLoad.Initialize(this, SeqChResLoad, 2);
+	TimerSeqResLoad.Initialize(this, SeqChResLoad, 4);
 	TimerSeqResLoad.SetWait(0, 0);
 	TimerSeqResLoad.SetWait(1, SeqChResLoadTime);
+	TimerSeqResLoad.SetWait(2, 0);
+	TimerSeqResLoad.SetWait(3, SeqChResLoadTime);
 
 	return;
 }
@@ -194,7 +197,7 @@ SNPhaseResult SNSysAppLoading::SeqResLoad(Int32 phase_idx, Int32 call_count)
 	switch (phase_idx)
 	{
 	case 0:
-		// 起動ロゴ1,2の読み込み
+		// アプリ用グラフィックリソース
 		SNGraphics::LoadAppResource();
 		ret = SNPhaseResultNext;
 		break;
@@ -208,6 +211,29 @@ SNPhaseResult SNSysAppLoading::SeqResLoad(Int32 phase_idx, Int32 call_count)
 		{
 			// エラー時はアクセス権リリース
 			SNGraphics::UnloadAppResource();
+			ret = SNPhaseResultError;
+		}
+		else
+		{
+			// 完了待ち
+		}
+		break;
+
+	case 2:
+		// サウンドリソースロード
+		SNAudioVideo::LoadSoundResource();
+		ret = SNPhaseResultNext;
+		break;
+
+	case 3:
+		if (SNAudioVideo::IsSoundResourceLoaded())
+		{
+			ret = SNPhaseResultNext;
+		}
+		else if (call_count > SeqChResLoadRetry)
+		{
+			// エラー時はアクセス権リリース
+			SNAudioVideo::UnloadSoundResource();
 			ret = SNPhaseResultError;
 		}
 		else

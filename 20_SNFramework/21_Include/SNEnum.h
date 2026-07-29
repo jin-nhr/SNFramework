@@ -551,11 +551,23 @@ enum SNScalingType
 
 
 ///////////////////////////////////////////////////////////////
+// サウンド関連
+
+// 命令
+enum SNSoundOperation
+{
+    SNSoundOperationNo,
+    SNSoundOperationPlay,
+    SNSoundOperationStop,
+    SNSoundOperationNum
+};
+
+
+
+///////////////////////////////////////////////////////////////
 // コーデック関連
 
-
-
-// コーデック処理結果
+// 画像コーデック処理結果
 enum SNImageCodecResult
 {
     SNImageCodecResultIdle,
@@ -564,7 +576,7 @@ enum SNImageCodecResult
     SNImageCodecResultError,
 };
 
-// コーデック命令
+// 画像コーデック命令
 enum SNImageCodecOperation
 {
     SNImageCodecOperationNo,
@@ -572,51 +584,20 @@ enum SNImageCodecOperation
     SNImageCodecOperationEncode,
 };
 
-
-
-///////////////////////////////////////////////////////////////
-// グラフィックス関連
-
-// システムカラー定義
-enum SNColorCode
+// 音声コーデック処理結果
+enum SNSoundCodecResult
 {
-    SNColorBlack,
-    SNColorGray,
-    SNColorWhite,
-    SNColorDarkRed,
-    SNColorDrakGreen,
-    SNColorDarkBlue,
-    SNColorDarkYellow,
-    SNColorDarkPink,
-    SNColorDarkAqua,
-    SNColorRed,
-    SNColorGreen,
-    SNColorBlue,
-    SNColorYellow,
-    SNColorPink,
-    SNColorAqua,
-    SNColorNum
+    SNSoundCodecResultIdle,
+    SNSoundCodecResultProcessing,
+    SNSoundCodecResultNormal,
+    SNSoundCodecResultError,
 };
 
-// フェードタイプ
-enum SNGUIFadeType
+// 音声コーデック命令
+enum SNSoundCodecOperation
 {
-    SNGUIFadeTypeCloss,
-    SNGUIFadeTypeFromLeft,
-    SNGUIFadeTypeFromRight,
-    SNGUIFadeTypeFromTop,
-    SNGUIFadeTypeFromBottom,
-    SNGUIFadeTypeFromSide,
-    SNGUIFadeTypeCenterToSide,
-    SNGUIFadeTypeFromTopBottom,
-    SNGUIFadeTypeCenterToTopBottom,
+    SNSoundCodecOperationNo,
+    SNSoundCodecOperationDecode,
 };
 
-// フェード状態
-enum SNGUIFadeState
-{
-    SNGUIFadeStateIdle,
-    SNGUIFadeStateIn,
-    SNGUIFadeStateOut,
-    SNGUIFadeStateComplete
-};
+

@@ -36,6 +36,11 @@ public:
 	// スレッド終了タイムアウト(msec)
 	static constexpr Int32 ThreadEndTimeout = 3000;
 
+	/////////////////////////////////////////////////////////////////
+	// リソース
+	static constexpr String GraphicPath = (const String)L"graphics";
+	static constexpr String SoundPath = (const String)L"sound";
+
 
 	/////////////////////////////////////////////////////////////////
 	// ユーザーコンフィグ関連
@@ -49,9 +54,6 @@ public:
 
 	/////////////////////////////////////////////////////////////////
 	// グラフィクス関連
-
-	// フォントファイル名
-	static constexpr String FontFileName = (const String)L"ビットマップフォント.png";
 
 	// 画面幅
 	static constexpr UInt32 ScreenWidth = 960;
@@ -76,6 +78,20 @@ public:
 
 
 	/////////////////////////////////////////////////////////////////
+	// サウンド関連
+
+	// サウンドスレッドへのs最大同時要求数
+	static constexpr UInt32 SoundRequestMax = 32;
+
+	// サウンドエフェクトの最大チャンネル数
+	static constexpr Int32 SoundEffectMaxCh = 32;
+
+	// PCMフォーマット(変更不可 Frameworkとしてこのフォーマットしか対応していない)
+	static constexpr Int32 PCMChannel = 2;
+	static constexpr Int32 PCMSampleRate = 44100;
+	static constexpr Int32 PCMBitPerSample = 16;
+
+	/////////////////////////////////////////////////////////////////
 	// 入力デバイス関連
 
 	// 長押し判定時間(ms)
@@ -95,7 +111,7 @@ public:
 	// ストレージ関連
 
 	// ストレージへの最大同時要求数
-	static constexpr UInt32 StorageRequestMax = 255;
+	static constexpr UInt32 StorageRequestMax = 64;
 
 	// ストレージタイムアウト時間(msec)
 	static constexpr Int32 StorageTimeout = 3000;
@@ -105,10 +121,16 @@ public:
 	// コーデック関連
 
 	// コーデックへの最大同時要求数
-	static constexpr UInt32 CodecRequestMax = 255;
+	static constexpr UInt32 CodecRequestMax = 64;
 
 	// コーデックタイムアウト時間(msec)
 	static constexpr Int32 CodecTimeout = 1000;
+
+	// デコードメモリブロックサイズ
+	static constexpr Int32 DecodeBlockSize = 256 * 1024;
+
+	// デコードメモリブロック数
+	static constexpr Int32 DecodeBlockNum = 40;
 
 
 

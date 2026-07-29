@@ -414,8 +414,35 @@
     <ClInclude Include="..\20_SNFramework\51_Application\Component\SNFocusGroup.h">
       <Filter>20_SNFramework\51_Application\Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_SNFramework\26_AudioVideo\Core\SNSoundDevice.h">
+    <ClInclude Include="..\20_SNFramework\26_AudioVideo\Core\SNSound.h">
       <Filter>20_SNFramework\26_AudioVideo\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\27_Codec\Core\SNSoundCodec.h">
+      <Filter>20_SNFramework\30_Codec\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\27_Codec\Core\SNSoundCodecAccessor.h">
+      <Filter>20_SNFramework\30_Codec\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\27_Codec\Core\SNSoundCodecThread.h">
+      <Filter>20_SNFramework\30_Codec\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\23_Storage\Component\SNSoundFile.h">
+      <Filter>20_SNFramework\23_Storage\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\27_Codec\Component\SNPCM.h">
+      <Filter>20_SNFramework\30_Codec\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\71_Resource\SNSoundResource.h">
+      <Filter>20_SNFramework\71_Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.h">
+      <Filter>20_SNFramework\26_AudioVideo\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_AudioVideo\Core\SNSoundAccessor.h">
+      <Filter>20_SNFramework\26_AudioVideo\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_SNFramework\26_AudioVideo\Component\SNSoundEffect.h">
+      <Filter>20_SNFramework\26_AudioVideo\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -677,8 +704,32 @@
     <ClCompile Include="..\20_SNFramework\51_Application\Component\SNFocusGroup.cpp">
       <Filter>20_SNFramework\51_Application\Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_SNFramework\26_AudioVideo\Core\SNSoundDevice.cpp">
+    <ClCompile Include="..\20_SNFramework\26_AudioVideo\Core\SNSound.cpp">
       <Filter>20_SNFramework\26_AudioVideo\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp">
+      <Filter>20_SNFramework\30_Codec\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\27_Codec\Core\SNSoundCodecAccessor.cpp">
+      <Filter>20_SNFramework\30_Codec\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\27_Codec\Core\SNSoundCodecThread.cpp">
+      <Filter>20_SNFramework\30_Codec\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\23_Storage\Component\SNSoundFile.cpp">
+      <Filter>20_SNFramework\23_Storage\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\27_Codec\Component\SNPCM.cpp">
+      <Filter>20_SNFramework\30_Codec\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp">
+      <Filter>20_SNFramework\26_AudioVideo\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_AudioVideo\Core\SNSoundAccessor.cpp">
+      <Filter>20_SNFramework\26_AudioVideo\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_SNFramework\26_AudioVideo\Component\SNSoundEffect.cpp">
+      <Filter>20_SNFramework\26_AudioVideo\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

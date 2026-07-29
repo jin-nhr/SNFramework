@@ -7,6 +7,9 @@
 SNFocusGroup* SNFocus::SysAppGroup = nullptr;
 SNFocusGroup* SNFocus::UserAppGroup = nullptr;
 
+SNSoundEffect SNFocus::SEPush;
+SNSoundEffect SNFocus::SEFocus;
+
 
 Void SNFocus::RegisterSysApp(SNFocusGroup* sysapp)
 {
@@ -31,6 +34,31 @@ Void SNFocus::ReleaseSysApp(SNFocusGroup* sysapp)
 
 	return;
 }
+
+Void SNFocus::CallbackPushButton()
+{
+	SEPush.Play();
+
+	return;
+}
+
+
+Void SNFocus::OnEntry()
+{
+	SEPush.CreateEffect(SNSoundResButtonPush);
+	SEFocus.CreateEffect(SNSoundResFocusMove);
+
+	return;
+}
+
+Void SNFocus::OnExit()
+{
+	SEPush.DeleteEffect();
+	SEFocus.DeleteEffect();
+
+	return;
+}
+
 
 Void SNFocus::OnCycle()
 {
@@ -102,22 +130,37 @@ Boolean SNFocus::OnPointingDevice()
 	SNPoint pnt = SNVirtualPointingDevice::Info[SNVirtualPointingInfoCurrent];
 	Boolean pnt_push = SNVirtualPointingDevice::Event[SNVirtualPointingEventDecide];
 	Boolean cancel_push = SNVirtualPointingDevice::Event[SNVirtualPointingEventCancel];
+	SNGUIButton* active_btn = nullptr;
 
 	if (!TimerSeq.IsProc())
 	{
 		if (target != nullptr)
 		{
+			active_btn = target->GetActiveButton();
 			target->MovePoint(&pnt);
 
 			if (pnt_push)
 			{
 				target->PushPointingDecide(&pnt);
-				TimerSeq.Start();
+
+				if (active_btn != nullptr)
+				{
+					if (active_btn->Push)
+					{
+						SEPush.Play();
+						TimerSeq.Start();
+					}
+				}
 			}
 
 			if (cancel_push)
 			{
 				target->PushCancel();
+			}
+
+			if (active_btn != target->GetActiveButton())
+			{
+				SEFocus.Play();
 			}
 
 			ret = true;
@@ -143,16 +186,25 @@ Boolean SNFocus::OnGamePad1()
 	Boolean left_rpt = SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadLeft][SNVirtualGamePadEventRepeat];
 	Boolean right_push = SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadRight][SNVirtualGamePadEventPush];
 	Boolean right_rpt = SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadRight][SNVirtualGamePadEventRepeat];
-
+	SNGUIButton* active_btn = nullptr;
 
 	if (!TimerSeq.IsProc())
 	{
 		if (target != nullptr)
 		{
+			active_btn = target->GetActiveButton();
+
 			if (decide_push)
 			{
 				target->PushDecide();
-				TimerSeq.Start();
+				if (active_btn != nullptr)
+				{
+					if (active_btn->Push)
+					{
+						SEPush.Play();
+						TimerSeq.Start();
+					}
+				}
 			}
 
 			if (cancel_push)
@@ -178,6 +230,11 @@ Boolean SNFocus::OnGamePad1()
 			if (right_push || right_rpt)
 			{
 				target->DirRight();
+			}
+
+			if (active_btn != target->GetActiveButton())
+			{
+				SEFocus.Play();
 			}
 
 			ret = true;

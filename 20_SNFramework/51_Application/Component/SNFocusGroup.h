@@ -41,6 +41,8 @@ public:
 	virtual Void ReleaseDecide();	// ボタン反転の解除を行う ボタンの離しとは同期しない点に注意
 	virtual Void ClearButtonSts();
 
+	virtual SNGUIButton* GetActiveButton();
+
 protected:
 	SNFocusLayer FocusLayer;
 	Boolean LoopV;	// 縦方向ループ

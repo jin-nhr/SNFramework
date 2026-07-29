@@ -7,6 +7,7 @@
 #include "SNInput.h"
 #include "SNSoftTimer.h"
 #include "SNAutoResource.h"
+#include "SNAudioVideo.h"
 
 // アプリケーションクラス
 
@@ -188,6 +189,9 @@ Void SNApplication::UserMain()
 
 			// グラフィックの状態更新
 			SNGraphics::Update();
+
+			// AudioVideoの状態更新
+			SNAudioVideo::Update();
 
 			// 入力デバイスチェック
 			SNInput::Update();

@@ -1,112 +1,109 @@
-#include "SNGraphicsResManager.h"
-#include "SNGraphicsDevice.h"
+#include "SNSoundResManager.h"
+#include "SNSound.h"
 #include "SNSystemConfig.h"
 #include "SNMath.h"
 
 // リソース管理情報
-SNGraphicsResMngInfo SNGraphicsResManager::ManageInfo[SNGraphicsResNum];
+SNSoundResMngInfo SNSoundResManager::ManageInfo[SNSoundResNum];
 
 // 処理中ID
-SNGraphicsResID SNGraphicsResManager::ProcID;
+SNSoundResID SNSoundResManager::ProcID;
 
 // ローダー
-SNImageFile SNGraphicsResManager::Loader;
+SNSoundFile SNSoundResManager::Loader;
 
 // ロードが間に合っていない場合のダミー(全透過)
-SNBitmap SNGraphicsResManager::DummyBitmap;
+SNPCM SNSoundResManager::DummySound;
 
 
-Void SNGraphicsResManager::Initialize()
+Void SNSoundResManager::Initialize()
 {
-	SNGraphicsContext* grc = &SNGraphicsDevice::D2DGraphicsContext;
 	Int32 cnt = 0;
-	SNSize size = { SNSystemConfig::ScreenWidth, SNSystemConfig::ScreenHeight };
-	SNColor color = { 0, 0, 0, 0 };
 
-	for (cnt = 0; cnt < SNGraphicsResNum; cnt++)
+	for (cnt = 0; cnt < SNSoundResNum; cnt++)
 	{
 		ManageInfo[cnt].State = ResUnload;
 		ManageInfo[cnt].Phase = PhaseIdle;
 		ManageInfo[cnt].RefCount = 0;
-		ManageInfo[cnt].Res.DeleteBitmap();
+		ManageInfo[cnt].Res.DeletePCM();
 	}
 
-	ProcID = (SNGraphicsResID)0;
+	ProcID = (SNSoundResID)0;
 
-	// ダミービットマップ生成
-	grc->CreateBitmap(&DummyBitmap, &size);
-	grc->Begin(&DummyBitmap);
-	grc->Clear(&color);
-	grc->End();
+	// ダミーPCM生成
+	DummySound.CreatePCM(32);
+	DummySound.Channels = 2;
+	DummySound.SampleRate = 44100;
+	DummySound.BitPerSample = 16;
 
     return;
 }
 
 
-Void SNGraphicsResManager::Terminate()
+Void SNSoundResManager::Terminate()
 {
 	Int32 cnt = 0;
 
-	for (cnt = 0; cnt < SNGraphicsResNum; cnt++)
+	for (cnt = 0; cnt < SNSoundResNum; cnt++)
 	{
 		ManageInfo[cnt].State = ResUnload;
 		ManageInfo[cnt].Phase = PhaseIdle;
 		ManageInfo[cnt].RefCount = 0;
-		ManageInfo[cnt].Res.DeleteBitmap();
+		ManageInfo[cnt].Res.DeletePCM();
 	}
 
-	ProcID = (SNGraphicsResID)0;
+	ProcID = (SNSoundResID)0;
 
-	DummyBitmap.DeleteBitmap();
+	DummySound.DeletePCM();
 
 	// 念のため待ってから破棄
 	Loader.WaitForOperationComplete();
-	Loader.DeleteDIB();	// ローダー破棄
+	Loader.DeletePCM();	// ローダー破棄
 	
     return;
 }
 
-Void SNGraphicsResManager::Update()
+Void SNSoundResManager::Update()
 {
 	StateMachine(EvtCycle, ProcID);
 }
 
 // リソース取得(参照カウントアップ)
-Void SNGraphicsResManager::AccessGet(SNGraphicsResID id)
+Void SNSoundResManager::AccessGet(SNSoundResID id)
 {
 	StateMachine(EvtAccessGet, id);
 	return ;
 }
 
 // リソース解放(参照カウントダウン)
-Void SNGraphicsResManager::AccessRelease(SNGraphicsResID id)
+Void SNSoundResManager::AccessRelease(SNSoundResID id)
 {
 	StateMachine(EvtAccessRelease, id);
 
 	return;
 }
 
-SNBitmap* SNGraphicsResManager::GetResource(SNGraphicsResID id)
+SNPCM* SNSoundResManager::GetResource(SNSoundResID id)
 {
-	SNBitmap* bmp = &DummyBitmap;
+	SNPCM* pcm = &DummySound;
 
 	if (IsLoaded(id))
 	{
-		bmp = &ManageInfo[id].Res;
+		pcm = &ManageInfo[id].Res;
 	}
 
-	return bmp;
+	return pcm;
 }
 
 // ロード完了判定
-Boolean SNGraphicsResManager::IsLoaded(SNGraphicsResID id)
+Boolean SNSoundResManager::IsLoaded(SNSoundResID id)
 {
 	return (ManageInfo[id].State == ResLoaded);
 }
 
-SNGraphicsResMngState SNGraphicsResManager::StateMachine(SNGraphicsResMngEvent evt, SNGraphicsResID id)
+SNSoundResMngState SNSoundResManager::StateMachine(SNSoundResMngEvent evt, SNSoundResID id)
 {
-    SNGraphicsResMngInfo* info = &ManageInfo[id];
+    SNSoundResMngInfo* info = &ManageInfo[id];
 
 	switch (info->State)
 	{
@@ -133,9 +130,9 @@ SNGraphicsResMngState SNGraphicsResManager::StateMachine(SNGraphicsResMngEvent e
 }
 
 // 未ロード状態
-Void SNGraphicsResManager::StateMachineResUnload(SNGraphicsResMngEvent evt, SNGraphicsResID id)
+Void SNSoundResManager::StateMachineResUnload(SNSoundResMngEvent evt, SNSoundResID id)
 {
-	SNGraphicsResMngInfo* info = &ManageInfo[id];
+	SNSoundResMngInfo* info = &ManageInfo[id];
 
 	switch (evt)
 	{
@@ -161,7 +158,7 @@ Void SNGraphicsResManager::StateMachineResUnload(SNGraphicsResMngEvent evt, SNGr
 			// 処理対象を次のIDに進める
 
 			// 処理対象をインクリメント
-			ProcID = (SNGraphicsResID)SNMath::Increment(ProcID, 0, SNGraphicsResNum - 1);
+			ProcID = (SNSoundResID)SNMath::Increment(ProcID, 0, SNSoundResNum - 1);
 		}
 		break;
 	}
@@ -170,9 +167,9 @@ Void SNGraphicsResManager::StateMachineResUnload(SNGraphicsResMngEvent evt, SNGr
 }
 
 // ロード中
-Void SNGraphicsResManager::StateMachineResLoading(SNGraphicsResMngEvent evt, SNGraphicsResID id)
+Void SNSoundResManager::StateMachineResLoading(SNSoundResMngEvent evt, SNSoundResID id)
 {
-	SNGraphicsResMngInfo* info = &ManageInfo[id];
+	SNSoundResMngInfo* info = &ManageInfo[id];
 
 	switch (evt)
 	{
@@ -193,9 +190,9 @@ Void SNGraphicsResManager::StateMachineResLoading(SNGraphicsResMngEvent evt, SNG
 }
 
 // ロード完了
-Void SNGraphicsResManager::StateMachineResLoaded(SNGraphicsResMngEvent evt, SNGraphicsResID id)
+Void SNSoundResManager::StateMachineResLoaded(SNSoundResMngEvent evt, SNSoundResID id)
 {
-	SNGraphicsResMngInfo* info = &ManageInfo[id];
+	SNSoundResMngInfo* info = &ManageInfo[id];
 
 	switch (evt)
 	{
@@ -215,7 +212,7 @@ Void SNGraphicsResManager::StateMachineResLoaded(SNGraphicsResMngEvent evt, SNGr
 		}
 		else
 		{
-			ProcID = (SNGraphicsResID)SNMath::Increment(ProcID, 0, SNGraphicsResNum - 1);
+			ProcID = (SNSoundResID)SNMath::Increment(ProcID, 0, SNSoundResNum - 1);
 		}
 		break;
 	}
@@ -224,9 +221,9 @@ Void SNGraphicsResManager::StateMachineResLoaded(SNGraphicsResMngEvent evt, SNGr
 }
 
 // アンロード中
-Void SNGraphicsResManager::StateMachineResUnloading(SNGraphicsResMngEvent evt, SNGraphicsResID id)
+Void SNSoundResManager::StateMachineResUnloading(SNSoundResMngEvent evt, SNSoundResID id)
 {
-	SNGraphicsResMngInfo* info = &ManageInfo[id];
+	SNSoundResMngInfo* info = &ManageInfo[id];
 
 	switch (evt)
 	{
@@ -246,8 +243,8 @@ Void SNGraphicsResManager::StateMachineResUnloading(SNGraphicsResMngEvent evt, S
 		}
 		else
 		{
-			// ビットマップ解放し未ロードへ
-			info->Res.DeleteBitmap();
+			// PCM解放し未ロードへ
+			info->Res.DeletePCM();
 			info->State = ResUnload;
 		}
 		break;
@@ -257,16 +254,16 @@ Void SNGraphicsResManager::StateMachineResUnloading(SNGraphicsResMngEvent evt, S
 }
 
 // フェーズ処理
-Void SNGraphicsResManager::StateMachinePhaseProc(SNGraphicsResID id)
+Void SNSoundResManager::StateMachinePhaseProc(SNSoundResID id)
 {
-	SNGraphicsResMngInfo* info = &ManageInfo[id];
+	SNSoundResMngInfo* info = &ManageInfo[id];
 
 	switch (info->Phase)
 	{
 	case PhaseIdle:
 		// ファイル名セット
-		Loader.SetFolderPath(SNSystemConfig::GraphicPath);
-		Loader.SetFolderFileName(SNGraphicsResource::ResourceInfoTable[id]);
+		Loader.SetFolderPath(SNSystemConfig::SoundPath);
+		Loader.SetFolderFileName(SNSoundResource::ResourceInfoTable[id]);
 		info->Phase = PhaseLoad;
 		break;
 	case PhaseLoad:
@@ -290,20 +287,24 @@ Void SNGraphicsResManager::StateMachinePhaseProc(SNGraphicsResID id)
 		// デコード完了待ち
 		if (Loader.IsOperationComplete())
 		{
-			info->Phase = PhaseCopyBitmap;
+			info->Phase = PhaseCopyPCM;
 		}
 		break;
-	case PhaseCopyBitmap:
+	case PhaseCopyPCM:
 		// 処理完了時点での参照カウントにより遷移先変更
 		if (info->RefCount > 0)
 		{
-			// ビットマップへの展開しロード済みへ
-			SNGraphicsDevice::D2DGraphicsContext.CreateBitmapFromDIB(&Loader, &info->Res);
+			// ローダーからリソースPCMへコピー
+			info->Res.CreatePCM(Loader.PCMData.GetSize());
+			info->Res.PCMData.Copy(Loader.PCMData.GetAddress(), Loader.PCMData.GetSize());
+			info->Res.BitPerSample = Loader.BitPerSample;
+			info->Res.SampleRate = Loader.SampleRate;
+			info->Res.Channels = Loader.Channels;			
 			info->State = ResLoaded;
 		}
 		else
 		{
-			// 参照カウントが0ならビットマップに展開せずに未ロードへ
+			// 参照カウントが0ならPCMに展開せずに未ロードへ
 			info->State = ResUnload;
 		}
 

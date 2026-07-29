@@ -84,6 +84,7 @@ Void SNSysAppPreClose::OnCycle()
 	else if (FocusGp.JudgeActCancel())
 	{
 		TransCode = SNTransitionCode0;
+		SNFocus::CallbackPushButton();
 	}
 
 	// ÅŒã‚Éó‘ÔƒNƒŠƒA‚µ‚Ä‚¨‚­

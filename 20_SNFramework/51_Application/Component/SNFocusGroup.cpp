@@ -125,14 +125,6 @@ Void SNFocusGroup::Exit()
 
 Void SNFocusGroup::MovePoint(SNPoint* pnt)
 {
-	// アクティブ外に移動
-	if (!ActiveButton->CheckHover(pnt))
-	{
-		ActiveButton->Push = false;
-		DecideSts = false;
-		CancelSts = false;
-	}
-
 	SelectHover(pnt);
 	return;
 }
@@ -439,4 +431,9 @@ Void SNFocusGroup::ClearButtonSts()
 	CancelSts = false;
 
 	return;
+}
+
+SNGUIButton* SNFocusGroup::GetActiveButton()
+{
+	return ActiveButton;
 }

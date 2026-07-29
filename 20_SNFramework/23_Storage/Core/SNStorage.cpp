@@ -18,6 +18,8 @@ SNCriticalSection SNStorage::ListAccessCS;	// リストアクセス用クリティカルセクシ
 // 初期化処理
 Void SNStorage::Initialize()
 {
+	Char ch;
+
 	wchar_t path[MAX_PATH];
 
 	// 実行ファイル名(フルパス)を取得
@@ -28,6 +30,16 @@ Void SNStorage::Initialize()
 
 	// アプリケーションパスをセット
 	ApplicationPath.SetString(path);
+
+	// 最終文字を取得
+	ch = ApplicationPath.GetString()[ApplicationPath.GetLength() - 1];
+
+	// 最終文字が\じゃないときは\を付与
+	if (ch != L'\\')
+	{
+		ApplicationPath.SetString(ApplicationPath.GetString(), (String)L"\\");
+	}
+
 
 	// リスト確保
 	RequestList.Allocate(SNSystemConfig::StorageRequestMax);

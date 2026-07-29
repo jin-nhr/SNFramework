@@ -3,6 +3,7 @@
 #include "SNGUIWindow.h"
 #include "SNGUIButton.h"
 #include "SNFocusGroup.h"
+#include "SNSoundEffect.h"
 
 class SNSysAppPreClose : public SNGUIWindow
 {
@@ -30,5 +31,4 @@ private:
 	SNGUIButton ButtonNo;
 
 	SNFocusGroup FocusGp;
-
 };

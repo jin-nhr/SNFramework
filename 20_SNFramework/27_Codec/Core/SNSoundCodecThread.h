@@ -2,11 +2,9 @@
 #include "SNFrameworkInternal.h"
 #include "SNThread.h"
 
-// サウンドスレッド
-class SNSoundThread : public SNThread
+class SNSoundCodecThread : public SNThread
 {
-public:
+private:
 	// ユーザー実行関数
-	Void UserMain();
+	virtual Void UserMain();
 };
-

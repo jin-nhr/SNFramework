@@ -3,6 +3,7 @@
 #include "SNLayerController.h"
 #include "SNList.h"
 #include "SNTimerSequencer.h"
+#include "SNSoundEffect.h"
 
 class SNFocusGroup;
 
@@ -18,14 +19,24 @@ public:
 	static Void RegisterUserApp(SNFocusGroup* userapp);
 	static Void ReleaseUserApp(SNFocusGroup* userapp);
 
+	// ボタン操作音を鳴らすためのコールバック
+	static Void CallbackPushButton();
+
 	static SNFocusGroup* SysAppGroup;
 	static SNFocusGroup* UserAppGroup;
+
+	static SNSoundEffect SEPush;
+	static SNSoundEffect SEFocus;
 
 public:
 	SNFocus();
 	virtual ~SNFocus();
 
 	virtual SNFocusGroup* GetTarget();
+
+	virtual Void OnEntry();
+
+	virtual Void OnExit();
 
 	virtual Boolean OnPointingDevice();
 

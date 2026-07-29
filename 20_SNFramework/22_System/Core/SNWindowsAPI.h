@@ -48,6 +48,14 @@
 #include <xaudio2.h>
 
 
+// MediaFoundation関連
+#include <mfapi.h>
+#include <mfidl.h>
+#include <mfreadwrite.h>
+#include <mferror.h>
+#include <mfobjects.h>    // IMFMediaBuffer, IMFSample
+#include <mftransform.h>  // MFT（デコーダー）
+
 
 /////////////////////////////////////////////////////////////////
 // ライブラリリンクの追加
@@ -65,6 +73,14 @@
 #pragma comment(lib, "d2d1.lib")
 #pragma comment(lib, "dxguid.lib")
 #pragma comment(lib, "dwrite.lib")
+
+// MediaFoundation関連
+#pragma comment(lib, "mfplat.lib")
+#pragma comment(lib, "mfreadwrite.lib")
+#pragma comment(lib, "mfuuid.lib")
+#pragma comment(lib, "mf.lib")
+#pragma comment(lib, "mfplay.lib")
+
 
 /////////////////////////////////////////////////////////////////
 // Windowsメッセージの追加
