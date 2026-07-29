@@ -1,6 +1,6 @@
 パス名,モジュール名,種類,総ステップ数,実ステップ数,コメント[％]
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\21_Include\SNConst.h","モジュール外",h,16,6,13.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\21_Include\SNEnum.h","モジュール外",h,622,535,12.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\21_Include\SNEnum.h","モジュール外",h,603,516,12.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\21_Include\SNFramework.h","モジュール外",h,6,2,25.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\21_Include\SNFrameworkInternal.h","モジュール外",h,13,5,28.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\21_Include\SNStruct.h","モジュール外",h,59,42,40.6
@@ -213,7 +213,7 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\22_System\Core\SNWindow.cpp","Int64 SNWindow::OnSysKeyDown",cpp,19,15,8.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\22_System\Core\SNWindow.cpp","Int64 SNWindow::OnOtherEvent",cpp,6,4,20.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\22_System\Core\SNWindow.h","モジュール外",h,51,21,24.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\22_System\Core\SNWindowsAPI.h","モジュール外",h,68,43,35.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\22_System\Core\SNWindowsAPI.h","モジュール外",h,92,57,33.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Component\SNFile.cpp","モジュール外",cpp,7,3,17.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Component\SNFile.cpp","SNFile::SNFile",cpp,8,5,34.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Component\SNFile.cpp","SNFile::~SNFile",cpp,7,5,20.5
@@ -257,8 +257,15 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Component\SNImageFile.cpp","Boolean SNImageFile::IsOperationComplete",cpp,10,7,6.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Component\SNImageFile.cpp","Void SNImageFile::WaitForOperationComplete",cpp,11,6,29.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Component\SNImageFile.h","モジュール外",h,30,14,40.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Component\SNSoundFile.cpp","モジュール外",cpp,2,1,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Component\SNSoundFile.cpp","SNSoundFile::SNSoundFile",cpp,6,4,25.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Component\SNSoundFile.cpp","SNSoundFile::~SNSoundFile",cpp,6,4,22.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Component\SNSoundFile.cpp","Void SNSoundFile::Decode",cpp,18,9,46.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Component\SNSoundFile.cpp","Boolean SNSoundFile::IsOperationComplete",cpp,10,7,6.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Component\SNSoundFile.cpp","Void SNSoundFile::WaitForOperationComplete",cpp,11,6,29.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Component\SNSoundFile.h","モジュール外",h,25,13,33.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Core\SNStorage.cpp","モジュール外",cpp,17,10,27.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Core\SNStorage.cpp","Void SNStorage::Initialize",cpp,26,11,30.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Core\SNStorage.cpp","Void SNStorage::Initialize",cpp,38,17,27.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Core\SNStorage.cpp","Void SNStorage::Startup",cpp,15,6,53.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Core\SNStorage.cpp","Void SNStorage::Run",cpp,6,4,14.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\23_Storage\Core\SNStorage.cpp","Void SNStorage::BeforeTerminate",cpp,12,6,27.5
@@ -514,17 +521,74 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\25_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::StateMachineResLoading",cpp,23,17,2.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\25_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::StateMachineResLoaded",cpp,31,24,9.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\25_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::StateMachineResUnloading",cpp,33,25,14.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\25_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::StateMachinePhaseProc",cpp,56,43,21.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\25_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::StateMachinePhaseProc",cpp,57,44,20.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\25_Graphics\Core\SNGraphicsResManager.h","モジュール外",h,85,57,9.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.cpp","モジュール外",cpp,4,1,43.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.cpp","Void SNAudioVideo::Initialize",cpp,7,4,19.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Component\SNSoundEffect.cpp","モジュール外",cpp,6,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Component\SNSoundEffect.cpp","SNSoundEffect::SNSoundEffect",cpp,11,8,18.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Component\SNSoundEffect.cpp","SNSoundEffect:: ~SNSoundEffect",cpp,8,5,16.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Component\SNSoundEffect.cpp","Void SNSoundEffect::CreateEffect(SNPCM* pcm)",cpp,13,7,17.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Component\SNSoundEffect.cpp","Void SNSoundEffect::CreateEffect",cpp,15,9,14.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Component\SNSoundEffect.cpp","Void SNSoundEffect::DeleteEffect",cpp,20,13,19.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Component\SNSoundEffect.cpp","Void SNSoundEffect::Play",cpp,7,5,7.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Component\SNSoundEffect.cpp","Void SNSoundEffect::Stop",cpp,7,5,7.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Component\SNSoundEffect.cpp","Void SNSoundEffect::OnOperationPlay",cpp,21,17,7.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Component\SNSoundEffect.cpp","Void SNSoundEffect::OnOperationStop",cpp,8,8,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Component\SNSoundEffect.h","モジュール外",h,42,25,15.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.cpp","モジュール外",cpp,6,3,20.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.cpp","Void SNAudioVideo::Initialize",cpp,8,6,10.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.cpp","Void SNAudioVideo::Startup",cpp,8,4,16.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.cpp","Void SNAudioVideo::Run",cpp,6,4,13.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.cpp","Void SNAudioVideo::Update",cpp,6,5,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.cpp","Void SNAudioVideo::BeforeTerminate",cpp,8,4,17.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.cpp","Void SNAudioVideo::Terminate",cpp,7,4,11.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.h","モジュール外",h,23,11,23.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundThread.cpp","モジュール外",cpp,2,1,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundThread.h","モジュール外",h,11,7,12.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.cpp","Void SNAudioVideo::Terminate",cpp,9,6,5.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.cpp","Void SNAudioVideo::LoadSoundResource",cpp,13,9,10.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.cpp","Boolean SNAudioVideo::IsSoundResourceLoaded",cpp,14,10,11.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.cpp","Void SNAudioVideo::UnloadSoundResource",cpp,13,9,11.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNAudioVideo.h","モジュール外",h,37,16,28.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","モジュール外",cpp,18,12,17.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","Void SNSound::Initialize",cpp,22,10,22.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","Void SNSound::InitAudio",cpp,20,11,11.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","Void SNSound::InitStore",cpp,10,7,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","Void SNSound::Terminate",cpp,15,8,19.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","Void SNSound::TermAudio",cpp,25,17,10.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","Void SNSound::TermStore",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","Void SNSound::UserMain",cpp,29,18,30.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","Void SNSound::Request",cpp,19,13,15.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","SNSoundAccessor* SNSound::GetRequest",cpp,22,15,16.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","SNListContainer* SNSound::GetSourceVoice",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","Void SNSound::ReleaseSourceVoice",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","Void SNSound::Play",cpp,20,13,10.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","Void SNSound::Stop",cpp,9,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","Void* SNSound::CreateSourceVoice",cpp,18,14,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.cpp","Void SNSound::DeleteSourceVoice",cpp,10,8,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSound.h","モジュール外",h,61,35,14.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundAccessor.cpp","モジュール外",cpp,7,3,17.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundAccessor.cpp","SNSoundAccessor::SNSoundAccessor",cpp,9,5,24.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundAccessor.cpp","SNSoundAccessor::~SNSoundAccessor",cpp,6,4,20.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundAccessor.cpp","Void SNSoundAccessor::Callback",cpp,17,13,6.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundAccessor.cpp","Void SNSoundAccessor::RequestOperation",cpp,12,6,27.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundAccessor.cpp","Void SNSoundAccessor::ClearOperation",cpp,9,5,22.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundAccessor.cpp","Void SNSoundAccessor::OnOperationPlay",cpp,6,4,25.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundAccessor.cpp","Void SNSoundAccessor::OnOperationStop",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundAccessor.h","モジュール外",h,32,15,24.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp","モジュール外",cpp,18,8,22.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp","Void SNSoundResManager::Initialize",cpp,24,17,3.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp","Void SNSoundResManager::Terminate",cpp,23,16,9.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp","Void SNSoundResManager::Update",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp","Void SNSoundResManager::AccessGet",cpp,7,5,24.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp","Void SNSoundResManager::AccessRelease",cpp,8,5,23.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp","SNPCM* SNSoundResManager::GetResource",cpp,12,9,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp","Boolean SNSoundResManager::IsLoaded",cpp,6,4,13.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp","SNSoundResMngState SNSoundResManager::StateMachine",cpp,28,23,2.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp","Void SNSoundResManager::StateMachineResUnload",cpp,37,25,20.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp","Void SNSoundResManager::StateMachineResLoading",cpp,23,17,3.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp","Void SNSoundResManager::StateMachineResLoaded",cpp,31,24,9.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp","Void SNSoundResManager::StateMachineResUnloading",cpp,33,25,13.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.cpp","Void SNSoundResManager::StateMachinePhaseProc",cpp,61,48,17.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundResManager.h","モジュール外",h,85,57,10.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundThread.cpp","モジュール外",cpp,4,2,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundThread.cpp","Void SNSoundThread::UserMain",cpp,9,5,36.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\26_AudioVideo\Core\SNSoundThread.h","モジュール外",h,12,8,19.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNDIB.cpp","モジュール外",cpp,7,4,9.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNDIB.cpp","SNDIB::SNDIB",cpp,9,7,13.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNDIB.cpp","SNDIB::~SNDIB",cpp,8,5,20.8
@@ -539,12 +603,22 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNDIB.cpp","SNImageCodecResult SNDIB::OnOperationImageDecode",cpp,6,5,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNDIB.cpp","SNImageCodecResult SNDIB::OnOperationImageEncode",cpp,5,5,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNDIB.h","モジュール外",h,55,27,31.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNCodec.cpp","モジュール外",cpp,3,2,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNCodec.cpp","Void SNCodec::Initialize",cpp,6,4,21.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNCodec.cpp","Void SNCodec::Startup",cpp,8,5,12.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNPCM.cpp","モジュール外",cpp,7,4,9.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNPCM.cpp","SNPCM::SNPCM",cpp,12,8,7.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNPCM.cpp","SNPCM::~SNPCM",cpp,8,5,20.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNPCM.cpp","Void SNPCM::CreatePCM",cpp,16,10,3.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNPCM.cpp","Void SNPCM::DeletePCM",cpp,8,5,12.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNPCM.cpp","UInt8* SNPCM::GetPCM",cpp,6,4,17.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNPCM.cpp","UInt32 SNPCM::GetSize",cpp,7,4,16.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNPCM.cpp","Void SNPCM::Decode",cpp,9,6,39.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNPCM.cpp","SNSoundCodecResult SNPCM::OnOperationSoundDecode",cpp,6,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Component\SNPCM.h","モジュール外",h,44,23,22.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNCodec.cpp","モジュール外",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNCodec.cpp","Void SNCodec::Initialize",cpp,7,5,15.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNCodec.cpp","Void SNCodec::Startup",cpp,9,6,9.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNCodec.cpp","Void SNCodec::Run",cpp,6,4,14.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNCodec.cpp","Void SNCodec::BeforeTerminate",cpp,8,5,13.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNCodec.cpp","Void SNCodec::Terminate",cpp,7,4,12.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNCodec.cpp","Void SNCodec::BeforeTerminate",cpp,9,6,10.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNCodec.cpp","Void SNCodec::Terminate",cpp,6,5,10.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNCodec.h","モジュール外",h,22,11,17.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNImageCodec.cpp","モジュール外",cpp,15,11,16.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNImageCodec.cpp","Void SNImageCodec::Initialize",cpp,11,8,0.0
@@ -574,6 +648,35 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNImageCodecThread.cpp","モジュール外",cpp,3,2,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNImageCodecThread.cpp","Void SNImageCodecThread::UserMain",cpp,6,5,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNImageCodecThread.h","モジュール外",h,10,8,10.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp","モジュール外",cpp,14,10,18.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp","Void SNSoundCodec::Initialize",cpp,10,7,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp","Void SNSoundCodec::CreateThread",cpp,9,7,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp","Void SNSoundCodec::Terminate",cpp,6,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp","Void SNSoundCodec::ReleaseThread",cpp,17,11,12.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp","Void SNSoundCodec::UserMain",cpp,28,18,32.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp","Void SNSoundCodec::Request",cpp,19,13,14.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp","SNSoundCodecAccessor* SNSoundCodec::GetRequest",cpp,22,15,15.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp","Void SNSoundCodec::Decode",cpp,25,12,21.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp","Handle SNSoundCodec::CreateReaderFromMemory",cpp,35,24,13.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp","UInt32 SNSoundCodec::DecodeToBlocks",cpp,65,47,11.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp","Boolean SNSoundCodec::ReadSample",cpp,38,31,7.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp","Void SNSoundCodec::BuildPCMFromBlocks",cpp,31,22,11.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.cpp","Void SNSoundCodec::SetPCMMeta",cpp,24,17,5.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodec.h","モジュール外",h,48,31,12.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodecAccessor.cpp","モジュール外",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodecAccessor.cpp","SNSoundCodecAccessor::SNSoundCodecAccessor",cpp,8,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodecAccessor.cpp","SNSoundCodecAccessor::~SNSoundCodecAccessor",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodecAccessor.cpp","SNSoundCodecResult SNSoundCodecAccessor::GetResult",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodecAccessor.cpp","Void SNSoundCodecAccessor::Callback",cpp,22,15,9.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodecAccessor.cpp","Void SNSoundCodecAccessor::RequestOperation",cpp,14,7,28.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodecAccessor.cpp","Void SNSoundCodecAccessor::ClearOperation",cpp,9,6,19.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodecAccessor.cpp","Void SNSoundCodecAccessor::WaitForOperationComplete",cpp,15,10,5.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodecAccessor.cpp","Boolean SNSoundCodecAccessor::IsOperationComplete",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodecAccessor.cpp","SNSoundCodecResult SNSoundCodecAccessor::OnOperationSoundDecode",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodecAccessor.h","モジュール外",h,37,19,16.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodecThread.cpp","モジュール外",cpp,3,2,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodecThread.cpp","Void SNSoundCodecThread::UserMain",cpp,6,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\27_Codec\Core\SNSoundCodecThread.h","モジュール外",h,10,8,10.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","モジュール外",cpp,4,3,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","SNFocusGroup::SNFocusGroup",cpp,16,11,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","SNFocusGroup::~SNFocusGroup",cpp,5,4,0.0
@@ -583,7 +686,7 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","Void SNFocusGroup::ClearButton",cpp,15,10,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","Void SNFocusGroup::Entry",cpp,33,26,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","Void SNFocusGroup::Exit",cpp,19,14,7.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","Void SNFocusGroup::MovePoint",cpp,14,11,9.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","Void SNFocusGroup::MovePoint",cpp,6,5,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","Void SNFocusGroup::DirUp",cpp,14,11,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","Void SNFocusGroup::DirDown",cpp,14,11,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","Void SNFocusGroup::DirLeft",cpp,15,12,0.0
@@ -598,8 +701,9 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","Void SNFocusGroup::PushCancel",cpp,7,5,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","Void SNFocusGroup::PushPointingDecide",cpp,14,11,7.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","Void SNFocusGroup::ReleaseDecide",cpp,14,12,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","Void SNFocusGroup::ClearButtonSts",cpp,7,6,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.h","モジュール外",h,54,42,6.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","Void SNFocusGroup::ClearButtonSts",cpp,8,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.cpp","SNGUIButton* SNFocusGroup::GetActiveButton",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNFocusGroup.h","モジュール外",h,56,43,6.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNLayerController.cpp","モジュール外",cpp,5,2,23.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNLayerController.cpp","SNLayerController::SNLayerController",cpp,6,4,22.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNLayerController.cpp","SNLayerController::~SNLayerController",cpp,6,4,19.7
@@ -722,7 +826,7 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNUserAppBase.cpp","SNUserAppBase::SNUserAppBase",cpp,8,5,27.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNUserAppBase.cpp","SNUserAppBase::~SNUserAppBase",cpp,5,4,22.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Component\SNUserAppBase.h","モジュール外",h,26,13,41.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Core\SNApplication.cpp","モジュール外",cpp,39,25,27.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Core\SNApplication.cpp","モジュール外",cpp,40,26,27.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Core\SNApplication.cpp","Void SNApplication::Initialize",cpp,18,11,17.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Core\SNApplication.cpp","Void SNApplication::Startup",cpp,25,14,28.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Core\SNApplication.cpp","Void SNApplication::Run",cpp,9,5,40.2
@@ -734,7 +838,7 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Core\SNApplication.cpp","UInt32 SNApplication::GetProcFPS",cpp,6,4,14.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Core\SNApplication.cpp","UInt32 SNApplication::GetSkipFrame",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Core\SNApplication.cpp","UInt32 SNApplication::GetProcTime",cpp,6,4,13.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Core\SNApplication.cpp","Void SNApplication::UserMain",cpp,111,55,29.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Core\SNApplication.cpp","Void SNApplication::UserMain",cpp,114,56,29.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Core\SNApplication.cpp","Void SNApplication::Update",cpp,46,28,36.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Core\SNApplication.cpp","Boolean SNApplication::EventResultProc",cpp,19,12,29.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\Core\SNApplication.h","モジュール外",h,104,49,36.4
@@ -758,19 +862,22 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","Void SNDebugApp::OnDraw",cpp,9,5,10.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","Void SNDebugApp::OnPostDraw",cpp,7,5,14.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\01_DebugApp\SNDebugApp.h","モジュール外",h,53,27,25.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","モジュール外",cpp,10,7,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","モジュール外",cpp,13,9,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::RegisterSysApp",cpp,12,9,13.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::ReleaseSysApp",cpp,12,8,24.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::CallbackPushButton",cpp,8,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::OnEntry",cpp,8,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::OnExit",cpp,9,6,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::OnCycle",cpp,10,8,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::RegisterUserApp",cpp,12,9,13.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::ReleaseUserApp",cpp,13,8,23.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","SNFocus::SNFocus",cpp,7,6,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","SNFocus::~SNFocus",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","SNFocusGroup* SNFocus::GetTarget",cpp,16,13,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Boolean SNFocus::OnPointingDevice",cpp,32,26,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Boolean SNFocus::OnGamePad1",cpp,60,48,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Boolean SNFocus::OnPointingDevice",cpp,47,39,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Boolean SNFocus::OnGamePad1",cpp,74,61,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","SNPhaseResult SNFocus::PhaseStepFunc",cpp,21,18,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.h","モジュール外",h,40,25,6.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNFocus.h","モジュール外",h,51,31,8.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","モジュール外",cpp,14,12,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","Void SNMute::SetMute",cpp,11,7,20.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","SNMuteSts SNMute::GetMuteSts",cpp,5,4,0.0
@@ -808,25 +915,25 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppIdle.cpp","Void SNSysAppIdle::OnEntry",cpp,10,8,5.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppIdle.cpp","Boolean SNSysAppIdle::OnNotifyEvent",cpp,14,9,21.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppIdle.h","モジュール外",h,32,14,23.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","モジュール外",cpp,10,7,14.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","モジュール外",cpp,11,8,13.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","SNSysAppLoading::SNSysAppLoading",cpp,6,4,23.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","SNSysAppLoading::~SNSysAppLoading",cpp,6,4,20.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","Void SNSysAppLoading::OnInitialize",cpp,29,19,13.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","Void SNSysAppLoading::OnInitialize",cpp,31,21,12.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","Void SNSysAppLoading::OnTerminate",cpp,6,4,16.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","Void SNSysAppLoading::OnEntry",cpp,16,8,19.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","Void SNSysAppLoading::OnExit",cpp,16,8,32.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","Void SNSysAppLoading::OnCycle",cpp,25,17,17.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","SNPhaseResult SNSysAppLoading::PhaseStepFunc",cpp,18,14,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","SNPhaseResult SNSysAppLoading::SeqDisp",cpp,56,44,15.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","SNPhaseResult SNSysAppLoading::SeqResLoad",cpp,33,26,16.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","SNPhaseResult SNSysAppLoading::SeqResLoad",cpp,56,44,16.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppLoading.h","モジュール外",h,62,32,21.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.cpp","モジュール外",cpp,8,7,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.cpp","SNSysAppPreClose::SNSysAppPreClose",cpp,29,20,3.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.cpp","SNSysAppPreClose::~SNSysAppPreClose",cpp,6,4,20.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.cpp","Void SNSysAppPreClose::OnEntry",cpp,18,11,11.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.cpp","Void SNSysAppPreClose::OnExit",cpp,8,5,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.cpp","Void SNSysAppPreClose::OnCycle",cpp,25,17,12.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.h","モジュール外",h,34,20,11.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.cpp","Void SNSysAppPreClose::OnCycle",cpp,26,18,11.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.h","モジュール外",h,34,21,11.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","モジュール外",cpp,10,7,14.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","SNSysAppStartup::SNSysAppStartup",cpp,6,4,23.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\51_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","SNSysAppStartup::~SNSysAppStartup",cpp,6,4,20.8
@@ -861,7 +968,7 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::OnDraw",cpp,10,6,8.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::DrawButton",cpp,10,6,5.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::DrawFocus",cpp,10,6,7.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::ButtonTiling",cpp,84,58,6.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::ButtonTiling",cpp,10,6,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIButton.cpp","SNGUI::ButtonBlockStatus SNGUIButton::JudgeStatus",cpp,28,21,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIButton.cpp","SNGUI::ButtonFocusStatus SNGUIButton::JudgeFocusStatus",cpp,19,17,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIButton.h","モジュール外",h,54,29,11.1
@@ -915,20 +1022,24 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIWindow.cpp","SNGUIWindow::~SNGUIWindow",cpp,6,4,23.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIWindow.cpp","Void SNGUIWindow::OnInitialize",cpp,7,5,7.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIWindow.cpp","Void SNGUIWindow::OnTerminate",cpp,8,5,8.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIWindow.cpp","Void SNGUIWindow::OnDraw",cpp,117,80,7.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIWindow.h","モジュール外",h,25,13,17.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Core\SNGUI.cpp","モジュール外",cpp,4,3,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Core\SNGUI.cpp","Void SNGUI::Tiling",cpp,45,32,1.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIWindow.cpp","Void SNGUIWindow::Entry",cpp,10,8,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIWindow.cpp","Void SNGUIWindow::Exit",cpp,9,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIWindow.cpp","Void SNGUIWindow::OnDraw",cpp,9,6,5.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Component\SNGUIWindow.h","モジュール外",h,34,17,29.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Core\SNGUI.cpp","モジュール外",cpp,7,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Core\SNGUI.cpp","Void SNGUI::Tiling",cpp,43,32,1.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Core\SNGUI.cpp","Void SNGUI::Tiling9",cpp,119,80,7.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Core\SNGUI.cpp","Void SNGUI::Initialize",cpp,6,4,22.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Core\SNGUI.cpp","Void SNGUI::Startup",cpp,6,4,20.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Core\SNGUI.cpp","Void SNGUI::Run",cpp,6,4,15.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Core\SNGUI.cpp","Void SNGUI::BeforeTerminate",cpp,6,4,20.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Core\SNGUI.cpp","Void SNGUI::Terminate",cpp,5,4,14.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Core\SNGUI.h","モジュール外",h,156,107,14.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\52_GUI\Core\SNGUI.h","モジュール外",h,147,98,15.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\71_Resource\Resource.h","モジュール外",h,18,2,30.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\71_Resource\SNFixedString.h","モジュール外",h,24,19,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\71_Resource\SNGraphicsResource.h","モジュール外",h,89,55,31.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\72_Config\Component\SNSystemConfig.h","モジュール外",h,127,36,42.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\71_Resource\SNSoundResource.h","モジュール外",h,30,21,6.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\72_Config\Component\SNSystemConfig.h","モジュール外",h,149,44,43.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\72_Config\Component\SNUserConfig.cpp","モジュール外",cpp,9,4,25.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\72_Config\Component\SNUserConfig.cpp","Void SNUserConfig::Initialize",cpp,13,6,30.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\72_Config\Component\SNUserConfig.cpp","Void SNUserConfig::Terminate",cpp,9,5,26.6
@@ -943,7 +1054,7 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\72_Config\Core\SNConfig.cpp","Void SNConfig::BeforeTerminate",cpp,8,5,13.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\72_Config\Core\SNConfig.cpp","Void SNConfig::Terminate",cpp,6,4,12.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\WindowsProject\20_SNFramework\72_Config\Core\SNConfig.h","モジュール外",h,27,14,23.1
-全ステップ数, , ,24037,17142,13.7
+全ステップ数, , ,25963,18411,13.8
 
-クラス数,83
-モジュール数,758
+クラス数,93
+モジュール数,850
