@@ -1,0 +1,783 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="20_Source">
+      <UniqueIdentifier>{69f2f6ec-8b65-432e-ba03-1a76b5d1ffdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\01_Include">
+      <UniqueIdentifier>{df380292-a063-4879-9c69-c3690ff5c232}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\02_System">
+      <UniqueIdentifier>{ed97f228-9408-4187-8e61-310415ff6f02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\02_System\Component">
+      <UniqueIdentifier>{b207d000-3a74-45b4-827a-2f78fb54999e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\02_System\Core">
+      <UniqueIdentifier>{fedd0839-4cbf-4a9b-ab05-9140a6abec37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\03_Resource">
+      <UniqueIdentifier>{3d56fc61-82b3-4da3-910f-de6967310905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\04_Config">
+      <UniqueIdentifier>{3b71d99c-fa4e-46bc-9c64-ce4210cee599}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\04_Config\Core">
+      <UniqueIdentifier>{ac122a8b-a79d-4cfa-984f-16b51d0306ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\04_Config\Component">
+      <UniqueIdentifier>{7b0fb394-18fe-472e-9335-f532dc673393}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\10_Storage">
+      <UniqueIdentifier>{81dfed56-8ae8-427a-8f70-9f2fe4cde731}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\10_Storage\Component">
+      <UniqueIdentifier>{3e3057c4-a9b6-48cc-958c-7574c47d5244}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\10_Storage\Core">
+      <UniqueIdentifier>{755edc67-64ba-4226-88f4-a474fa5981ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\11_Input">
+      <UniqueIdentifier>{2f0279d9-5463-4e63-b302-c07c4b65e1d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\11_Input\Component">
+      <UniqueIdentifier>{55c25d6b-bf4b-433b-baee-977ac439c5ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\11_Input\Core">
+      <UniqueIdentifier>{694b327b-7030-44b1-947c-7fa9b0ef63d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\12_Graphics">
+      <UniqueIdentifier>{1b254bb3-a60f-4a2d-8200-2624e45c7e59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\12_Graphics\Component">
+      <UniqueIdentifier>{64803748-93b0-4bdf-a6eb-a35daf17919f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\12_Graphics\Core">
+      <UniqueIdentifier>{bfca6f61-91ef-41cc-a8ef-df416c9848c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\13_AudioVideo">
+      <UniqueIdentifier>{1386555f-6dc8-4b59-b757-8a01a63b0b2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\13_AudioVideo\Core">
+      <UniqueIdentifier>{24b68496-5061-49c9-8786-f903196b2781}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\13_AudioVideo\Component">
+      <UniqueIdentifier>{c0522be8-0835-41f6-96c6-d78de2e9bdb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\14_Codec">
+      <UniqueIdentifier>{9063cc4f-1628-4704-ab93-371cdb96dfce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\14_Codec\Component">
+      <UniqueIdentifier>{2cc83337-3fc3-4368-998b-dde354b9f7d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\14_Codec\Core">
+      <UniqueIdentifier>{ac0d75e4-a5fe-43f6-a143-a820d23f95ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\20_Application">
+      <UniqueIdentifier>{9b012ca1-713f-4011-a222-057b5d9b3461}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\20_Application\Component">
+      <UniqueIdentifier>{edd42fb2-52c0-464c-b7f3-3fd8c812d281}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\20_Application\Core">
+      <UniqueIdentifier>{3b6f5fc3-b086-4290-ba7b-b0ab35227824}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\20_Application\FrameworkApp">
+      <UniqueIdentifier>{1616018b-cc5f-4678-a7d3-97f8c8af8d4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\20_Application\FrameworkApp\01_DebugApp">
+      <UniqueIdentifier>{d6845243-a7e0-42bb-b270-1b9f10a30162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\21_GUI">
+      <UniqueIdentifier>{fa30a754-e6bc-424a-85b5-a0b059cda031}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\21_GUI\Component">
+      <UniqueIdentifier>{71aa7f17-3937-4462-af63-25f3d19b3eed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\21_GUI\Core">
+      <UniqueIdentifier>{1e52c786-bb51-4f8d-84d2-5ec8ddf0dfc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\20_Application\FrameworkApp\02_OverlapApp">
+      <UniqueIdentifier>{8db24cdd-e649-489b-b25f-5416c61f69fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\20_Application\FrameworkApp\03_SysApp">
+      <UniqueIdentifier>{0e63918a-b1d1-4d30-9e6b-a5608a08534d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\20_Application\FrameworkApp\04_UserApp">
+      <UniqueIdentifier>{4f53a7cc-d4d1-46ba-85e6-d07084088a0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\20_Application\FrameworkApp\05_World">
+      <UniqueIdentifier>{3b3164c7-f998-447f-a34a-52e181eb07ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\20_Application\FrameworkApp\06_BgApp">
+      <UniqueIdentifier>{3c0bf6f0-cba1-4e64-a49e-6f6086560125}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\20_Source\01_Include\SNConst.h">
+      <Filter>20_Source\01_Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\01_Include\SNEnum.h">
+      <Filter>20_Source\01_Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\01_Include\SNFramework.h">
+      <Filter>20_Source\01_Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\01_Include\SNFrameworkInternal.h">
+      <Filter>20_Source\01_Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\01_Include\SNStruct.h">
+      <Filter>20_Source\01_Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\01_Include\SNTypes.h">
+      <Filter>20_Source\01_Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNAutoResource.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNBMString.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNCriticalSection.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNError.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNFPSCounter.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNFPSTimer.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNList.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNMath.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNMemory.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNMutex.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNResourceIF.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNSoftTimer.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNStopWatch.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNStore.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNString.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNSystemTimer.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Component\SNThread.h">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Core\SNSystem.h">
+      <Filter>20_Source\02_System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Core\SNTargetVersion.h">
+      <Filter>20_Source\02_System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Core\SNWindow.h">
+      <Filter>20_Source\02_System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\02_System\Core\SNWindowsAPI.h">
+      <Filter>20_Source\02_System\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\03_Resource\Resource.h">
+      <Filter>20_Source\03_Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\03_Resource\SNFixedString.h">
+      <Filter>20_Source\03_Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\03_Resource\SNGraphicsResource.h">
+      <Filter>20_Source\03_Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\03_Resource\SNMusicResource.h">
+      <Filter>20_Source\03_Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\03_Resource\SNSoundResource.h">
+      <Filter>20_Source\03_Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\04_Config\Component\SNSystemConfig.h">
+      <Filter>20_Source\04_Config\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\04_Config\Component\SNUserConfig.h">
+      <Filter>20_Source\04_Config\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\04_Config\Core\SNConfig.h">
+      <Filter>20_Source\04_Config\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\10_Storage\Component\SNFile.h">
+      <Filter>20_Source\10_Storage\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\10_Storage\Component\SNFolder.h">
+      <Filter>20_Source\10_Storage\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\10_Storage\Component\SNImageFile.h">
+      <Filter>20_Source\10_Storage\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\10_Storage\Component\SNMusicFile.h">
+      <Filter>20_Source\10_Storage\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\10_Storage\Component\SNSoundFile.h">
+      <Filter>20_Source\10_Storage\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\10_Storage\Core\SNStorage.h">
+      <Filter>20_Source\10_Storage\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\10_Storage\Core\SNStorageAccessor.h">
+      <Filter>20_Source\10_Storage\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\10_Storage\Core\SNStorageThread.h">
+      <Filter>20_Source\10_Storage\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\11_Input\Component\SNGamePad.h">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\11_Input\Component\SNKeyboard.h">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\11_Input\Component\SNMouse.h">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\11_Input\Component\SNVirtualDirectGamePad.h">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\11_Input\Component\SNVirtualDirectKeyboard.h">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\11_Input\Component\SNVirtualGamePad.h">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\11_Input\Component\SNVirtualPointingDevice.h">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\11_Input\Core\SNInput.h">
+      <Filter>20_Source\11_Input\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Component\SNBitmap.h">
+      <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Component\SNBitmapFont.h">
+      <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Component\SNColorMatrix.h">
+      <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Component\SNDIBPixel.h">
+      <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Component\SNGraphicsContext.h">
+      <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Component\SNScaling.h">
+      <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Core\SNBMCharTable.h">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Core\SND3DShaderPS.h">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Core\SND3DShaderVS.h">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Core\SNGraphics.h">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Core\SNGraphicsDevice.h">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Core\SNGraphicsResManager.h">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\13_AudioVideo\Component\SNMusic.h">
+      <Filter>20_Source\13_AudioVideo\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\13_AudioVideo\Component\SNSoundEffect.h">
+      <Filter>20_Source\13_AudioVideo\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\13_AudioVideo\Core\SNAudioVideo.h">
+      <Filter>20_Source\13_AudioVideo\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\13_AudioVideo\Core\SNMusicResManager.h">
+      <Filter>20_Source\13_AudioVideo\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\13_AudioVideo\Core\SNSoundAccessor.h">
+      <Filter>20_Source\13_AudioVideo\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\13_AudioVideo\Core\SNSoundDevice.h">
+      <Filter>20_Source\13_AudioVideo\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\13_AudioVideo\Core\SNSoundResManager.h">
+      <Filter>20_Source\13_AudioVideo\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\13_AudioVideo\Core\SNSoundThread.h">
+      <Filter>20_Source\13_AudioVideo\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\14_Codec\Component\SNDIB.h">
+      <Filter>20_Source\14_Codec\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\14_Codec\Component\SNPCM.h">
+      <Filter>20_Source\14_Codec\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\14_Codec\Component\SNPCMStream.h">
+      <Filter>20_Source\14_Codec\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\14_Codec\Core\SNCodec.h">
+      <Filter>20_Source\14_Codec\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\14_Codec\Core\SNImageCodec.h">
+      <Filter>20_Source\14_Codec\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\14_Codec\Core\SNImageCodecAccessor.h">
+      <Filter>20_Source\14_Codec\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\14_Codec\Core\SNImageCodecThread.h">
+      <Filter>20_Source\14_Codec\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\14_Codec\Core\SNSoundCodec.h">
+      <Filter>20_Source\14_Codec\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\14_Codec\Core\SNSoundCodecAccessor.h">
+      <Filter>20_Source\14_Codec\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\14_Codec\Core\SNSoundCodecThread.h">
+      <Filter>20_Source\14_Codec\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\Component\SNFocusGroup.h">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\Component\SNLayerController.h">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\Component\SNPhase.h">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\Component\SNScene.h">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\Component\SNSceneController.h">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\Component\SNSequencer.h">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\Component\SNStateController.h">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\Component\SNThreadSequencer.h">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\Component\SNTimerSequencer.h">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\Component\SNUserAppBase.h">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\Core\SNApplication.h">
+      <Filter>20_Source\20_Application\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\Core\SNApplicationThread.h">
+      <Filter>20_Source\20_Application\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\Core\SNEvent.h">
+      <Filter>20_Source\20_Application\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.h">
+      <Filter>20_Source\20_Application\FrameworkApp\01_DebugApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.h">
+      <Filter>20_Source\20_Application\FrameworkApp\02_OverlapApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.h">
+      <Filter>20_Source\20_Application\FrameworkApp\02_OverlapApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNOverlapApp.h">
+      <Filter>20_Source\20_Application\FrameworkApp\02_OverlapApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysApp.h">
+      <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.h">
+      <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppIdle.h">
+      <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppLoading.h">
+      <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.h">
+      <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.h">
+      <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.h">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorld.h">
+      <Filter>20_Source\20_Application\FrameworkApp\05_World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.h">
+      <Filter>20_Source\20_Application\FrameworkApp\06_BgApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIButton.h">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIPicture.h">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\21_GUI\Component\SNGUISystemText.h">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\21_GUI\Component\SNGUISystemTextEx.h">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIText.h">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\21_GUI\Component\SNGUITextEx.h">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIWindow.h">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\21_GUI\Core\SNGUI.h">
+      <Filter>20_Source\21_GUI\Core</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\20_Source\02_System\Component\SNAutoResource.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNBMString.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNCriticalSection.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNError.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNFPSCounter.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNFPSTimer.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNList.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNMath.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNMemory.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNMutex.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNResourceIF.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNSoftTimer.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNStopWatch.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNStore.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNString.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNSystemTimer.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Component\SNThread.cpp">
+      <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Core\SNEntryPoint.cpp">
+      <Filter>20_Source\02_System\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Core\SNSystem.cpp">
+      <Filter>20_Source\02_System\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\02_System\Core\SNWindow.cpp">
+      <Filter>20_Source\02_System\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\04_Config\Component\SNUserConfig.cpp">
+      <Filter>20_Source\04_Config\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\04_Config\Core\SNConfig.cpp">
+      <Filter>20_Source\04_Config\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\10_Storage\Component\SNFile.cpp">
+      <Filter>20_Source\10_Storage\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\10_Storage\Component\SNFolder.cpp">
+      <Filter>20_Source\10_Storage\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\10_Storage\Component\SNImageFile.cpp">
+      <Filter>20_Source\10_Storage\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\10_Storage\Component\SNMusicFile.cpp">
+      <Filter>20_Source\10_Storage\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\10_Storage\Component\SNSoundFile.cpp">
+      <Filter>20_Source\10_Storage\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\10_Storage\Core\SNStorage.cpp">
+      <Filter>20_Source\10_Storage\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\10_Storage\Core\SNStorageAccessor.cpp">
+      <Filter>20_Source\10_Storage\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\10_Storage\Core\SNStorageThread.cpp">
+      <Filter>20_Source\10_Storage\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\11_Input\Component\SNGamePad.cpp">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\11_Input\Component\SNKeyboard.cpp">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\11_Input\Component\SNMouse.cpp">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\11_Input\Component\SNVirtualDirectGamePad.cpp">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\11_Input\Component\SNVirtualDirectKeyboard.cpp">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\11_Input\Component\SNVirtualGamePad.cpp">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\11_Input\Core\SNInput.cpp">
+      <Filter>20_Source\11_Input\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\12_Graphics\Component\SNBitmap.cpp">
+      <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\12_Graphics\Component\SNBitmapFont.cpp">
+      <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\12_Graphics\Component\SNColorMatrix.cpp">
+      <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\12_Graphics\Component\SNDIBPixel.cpp">
+      <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\12_Graphics\Component\SNGraphicsContext.cpp">
+      <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\12_Graphics\Component\SNScaling.cpp">
+      <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\12_Graphics\Core\SNGraphics.cpp">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\12_Graphics\Core\SNGraphicsResManager.cpp">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\13_AudioVideo\Component\SNMusic.cpp">
+      <Filter>20_Source\13_AudioVideo\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\13_AudioVideo\Component\SNSoundEffect.cpp">
+      <Filter>20_Source\13_AudioVideo\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\13_AudioVideo\Core\SNAudioVideo.cpp">
+      <Filter>20_Source\13_AudioVideo\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\13_AudioVideo\Core\SNMusicResManager.cpp">
+      <Filter>20_Source\13_AudioVideo\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\13_AudioVideo\Core\SNSoundAccessor.cpp">
+      <Filter>20_Source\13_AudioVideo\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\13_AudioVideo\Core\SNSoundDevice.cpp">
+      <Filter>20_Source\13_AudioVideo\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\13_AudioVideo\Core\SNSoundResManager.cpp">
+      <Filter>20_Source\13_AudioVideo\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\13_AudioVideo\Core\SNSoundThread.cpp">
+      <Filter>20_Source\13_AudioVideo\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\14_Codec\Component\SNDIB.cpp">
+      <Filter>20_Source\14_Codec\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\14_Codec\Component\SNPCM.cpp">
+      <Filter>20_Source\14_Codec\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\14_Codec\Component\SNPCMStream.cpp">
+      <Filter>20_Source\14_Codec\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\14_Codec\Core\SNCodec.cpp">
+      <Filter>20_Source\14_Codec\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\14_Codec\Core\SNImageCodec.cpp">
+      <Filter>20_Source\14_Codec\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\14_Codec\Core\SNImageCodecAccessor.cpp">
+      <Filter>20_Source\14_Codec\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\14_Codec\Core\SNImageCodecThread.cpp">
+      <Filter>20_Source\14_Codec\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\14_Codec\Core\SNSoundCodec.cpp">
+      <Filter>20_Source\14_Codec\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\14_Codec\Core\SNSoundCodecAccessor.cpp">
+      <Filter>20_Source\14_Codec\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\14_Codec\Core\SNSoundCodecThread.cpp">
+      <Filter>20_Source\14_Codec\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\Component\SNFocusGroup.cpp">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\Component\SNLayerController.cpp">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\Component\SNPhase.cpp">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\Component\SNScene.cpp">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\Component\SNSceneController.cpp">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\Component\SNSequencer.cpp">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\Component\SNStateController.cpp">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\Component\SNThreadSequencer.cpp">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\Component\SNTimerSequencer.cpp">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\Component\SNUserAppBase.cpp">
+      <Filter>20_Source\20_Application\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\Core\SNApplication.cpp">
+      <Filter>20_Source\20_Application\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\Core\SNApplicationThread.cpp">
+      <Filter>20_Source\20_Application\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\Core\SNEvent.cpp">
+      <Filter>20_Source\20_Application\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\01_DebugApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\02_OverlapApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\02_OverlapApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNOverlapApp.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\02_OverlapApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysApp.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppIdle.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorld.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\05_World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\06_BgApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIButton.cpp">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIPicture.cpp">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\21_GUI\Component\SNGUISystemText.cpp">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\21_GUI\Component\SNGUISystemTextEx.cpp">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIText.cpp">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\21_GUI\Component\SNGUITextEx.cpp">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIWindow.cpp">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\21_GUI\Core\SNGUI.cpp">
+      <Filter>20_Source\21_GUI\Core</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="..\20_Source\03_Resource\Resource.rc">
+      <Filter>20_Source\03_Resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\20_Source\03_Resource\SNFrameworkIcon.ico">
+      <Filter>20_Source\03_Resource</Filter>
+    </Image>
+    <Image Include="..\20_Source\03_Resource\SNFrameworkSmallIcon.ico">
+      <Filter>20_Source\03_Resource</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\20_Source\12_Graphics\Core\SND3DShaderPS.hlsl">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </FxCompile>
+    <FxCompile Include="..\20_Source\12_Graphics\Core\SND3DShaderVS.hlsl">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>
