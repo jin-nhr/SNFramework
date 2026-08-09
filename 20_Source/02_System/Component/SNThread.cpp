@@ -99,6 +99,8 @@ Void SNThread::ThreadMain()
 	// ’â~ó‘ÔƒZƒbƒg
 	RunStatus = false;
 
+	ThreadHandle = nullptr;
+
 	return;
 }
 

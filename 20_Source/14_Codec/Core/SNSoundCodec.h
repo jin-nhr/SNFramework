@@ -32,8 +32,18 @@ public:
 	// 音声デコード
 	static Void Decode(SNMemory* in, SNPCM* out);
 
-	// Musicデコード
-	static Void MusicDecode(SNPCMStream* stream);
+
+	static Boolean ReadSampleOneShot(Handle reader, Handle* sample);
+
+	static Void InitDecodePos(Handle reader);
+
+	static Void LockSampleBuffer(Handle sample, Handle* buffer, UInt8** buffer_adr, UInt32* size);
+
+	static Void CopySample(UInt8* sample, UInt32 src_offset, UInt8* block, UInt32 dst_offset, UInt32 size);
+
+	static Void ReleaseSample(Handle sample, Handle buffer);
+
+	static Void GetPCMMeta(Handle reader, UInt32* ch, UInt32* bits, UInt32* rate);
 
 	// ストリームオープン
 	static Void OpenStream(SNMemory* in, SNPCMStream* out);
@@ -47,9 +57,6 @@ private:
 	static Boolean ReadSample(Handle in_reader, Handle* out_sample);
 	static Void BuildPCMFromBlocks(SNList& memoryblocklist, UInt32 totalsize, SNPCM* out);
 	static Void SetPCMMeta(Handle in_reader, SNPCM* out);
-
-	static Void MusicDecodeToBlocks(SNPCMStream* stream);
-	static Void SetPCMMeta(SNPCMStream* stream);
 
 private:
 	static SNThread* CodecThread;

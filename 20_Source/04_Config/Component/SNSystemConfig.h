@@ -133,7 +133,7 @@ public:
 	static constexpr Int32 DecodeBlockNum = 40;
 
 	// ストリーミングブロックサイズ
-	static constexpr Int32 StreamingBlockSize = 32 * 1024;
+	static constexpr Int32 StreamingBlockSize = 16 * 1024;
 
 	// ストリーミングブロック数
 	static constexpr Int32 StreamingBlockNum = 4;

@@ -12,153 +12,6 @@ SNCriticalSection SNSoundCodec::ListAccessCS;	// ÉäÉXÉgÉAÉNÉZÉXópÉNÉäÉeÉBÉJÉãÉZÉ
 
 
 
-// ÉÅÉÇÉäÉoÉCÉgÉXÉgÉäÅ[ÉÄ
-// SNSoundCodecì‡Ç≈ÇÃÇ›ÇÃégópÇ∆ÇµäOïîÇ…ÇÕåˆäJÇµÇ»Ç¢
-class SNMemoryByteStream : public IMFByteStream
-{
-    LONG  RefCount = 1;
-    BYTE* Data;
-    ULONG Size;
-    ULONG Pos;
-
-public:
-    SNMemoryByteStream(BYTE* src, ULONG src_size)
-    {
-        Data = src;
-        Size = src_size;
-        Pos = 0;
-
-        return;
-    }
-
-    STDMETHODIMP QueryInterface(REFIID riid, void** ppv)
-    {
-        if ((riid == __uuidof(IUnknown)) || (riid == __uuidof(IMFByteStream)))
-        {
-            *ppv = static_cast<IMFByteStream*>(this);
-            AddRef();
-            return S_OK;
-        }
-        *ppv = nullptr;
-
-        return E_NOINTERFACE;
-    }
-
-    STDMETHODIMP_(ULONG) AddRef()
-    {
-        return InterlockedIncrement(&RefCount);
-    }
-
-    STDMETHODIMP_(ULONG) Release()
-    {
-        ULONG c = InterlockedDecrement(&RefCount);
-        if (c == 0)
-        {
-            delete this;
-        }
-        return c;
-    }
-
-    STDMETHODIMP GetCapabilities(DWORD* caps)
-    {
-        *caps = MFBYTESTREAM_IS_READABLE | MFBYTESTREAM_IS_SEEKABLE;
-        return S_OK;
-    }
-
-    STDMETHODIMP GetLength(QWORD* len)
-    {
-        *len = Size;
-        return S_OK;
-    }
-
-    STDMETHODIMP SetLength(QWORD) { return E_NOTIMPL; }
-
-    STDMETHODIMP GetCurrentPosition(QWORD* pos_out)
-    {
-        *pos_out = Pos;
-        return S_OK;
-    }
-
-    STDMETHODIMP SetCurrentPosition(QWORD new_pos)
-    {
-        Pos = (ULONG)new_pos;
-        return S_OK;
-    }
-
-    STDMETHODIMP Read(BYTE* pb, ULONG cb, ULONG* read)
-    {
-        ULONG remain = Size - Pos;
-        ULONG toRead = (cb < remain) ? cb : remain;
-
-        memcpy(pb, Data + Pos, toRead);
-        Pos += toRead;
-
-        *read = toRead;
-        return S_OK;
-    }
-
-    // flagsÇÕégópÇµÇ»Ç¢
-    STDMETHODIMP Seek(MFBYTESTREAM_SEEK_ORIGIN origin, LONGLONG offset, DWORD flags, QWORD* new_pos)
-    {
-        if (origin == msoBegin)
-        {
-            Pos = (ULONG)offset;
-        }
-
-        if (origin == msoCurrent)
-        {
-            Pos += (ULONG)offset;
-        }
-
-        *new_pos = Pos;
-        return S_OK;
-    }
-
-    STDMETHODIMP Flush()
-    {
-        return S_OK;
-    }
-
-    STDMETHODIMP Close()
-    {
-        return S_OK;
-    }
-
-    STDMETHODIMP IsEndOfStream(BOOL* pfEndOfStream)
-    {
-        *pfEndOfStream = (Pos >= Size);
-        return S_OK;
-    }
-
-    STDMETHODIMP BeginRead(BYTE* pb, ULONG cb, IMFAsyncCallback* callback, IUnknown* punkState)
-    {
-        // îÒìØä˙ÇÕégÇÌÇ»Ç¢ÇÃÇ≈ë¶ç¿Ç…ÉGÉâÅ[Çï‘Ç∑
-        return E_NOTIMPL;
-    }
-
-    STDMETHODIMP EndRead(IMFAsyncResult* result, ULONG* pcbRead)
-    {
-        return E_NOTIMPL;
-    }
-
-    STDMETHODIMP Write(const BYTE* pb, ULONG cb, ULONG* pcbWritten)
-    {
-        // ì«Ç›éÊÇËêÍópÇ»ÇÃÇ≈èëÇ´çûÇ›ïsâ¬
-        return E_NOTIMPL;
-    }
-
-    STDMETHODIMP BeginWrite(const BYTE* pb, ULONG cb, IMFAsyncCallback* callback, IUnknown* punkState)
-    {
-        return E_NOTIMPL;
-    }
-
-    STDMETHODIMP EndWrite(IMFAsyncResult* result, ULONG* pcbWritten)
-    {
-        return E_NOTIMPL;
-    }
-};
-
-
 Void SNSoundCodec::Initialize()
 {
 	ListAccessCS.Initialize();
@@ -295,24 +148,135 @@ Void SNSoundCodec::Decode(SNMemory* in, SNPCM* out)
     return;
 }
 
-Void SNSoundCodec::MusicDecode(SNPCMStream* stream)
+Boolean SNSoundCodec::ReadSampleOneShot(Handle reader, Handle* sample)
 {
-    MusicDecodeToBlocks(stream);
+    IMFSourceReader* rd = (IMFSourceReader*)reader;
+    Boolean ret = false;
 
-    // ÉÅÉ^ÉfÅ[É^ê›íË
-    SetPCMMeta(stream);
+    IMFSample* smp = nullptr;
+    UInt32 streamIndex = 0;
+    UInt32 flags = 0;
+    Int64 timestamp = 0;
+    HRESULT hr;
+
+    // ÉfÉRÅ[Éhé¿çs
+    hr = rd->ReadSample(
+        MF_SOURCE_READER_FIRST_AUDIO_STREAM,
+        0,
+        &streamIndex,
+        &flags,
+        &timestamp,
+        &smp);
+
+    if (FAILED(hr))
+    {
+        ret = true;
+    }
+    else if ((flags & MF_SOURCE_READERF_ENDOFSTREAM))
+    {
+        ret = true;
+    }
+    else
+    {
+        *sample = (Handle)smp;
+    }
+
+    return ret;
+}
+
+Void SNSoundCodec::InitDecodePos(Handle reader)
+{
+    IMFSourceReader* rd = (IMFSourceReader*)reader;
+    PROPVARIANT var;
+
+    PropVariantInit(&var);
+    var.vt = VT_I8;
+    var.hVal.QuadPart = 0;
+    rd->SetCurrentPosition(GUID_NULL, var);
+
+    return;
+}
+
+Void SNSoundCodec::LockSampleBuffer(Handle sample, Handle* buffer, UInt8** buffer_adr, UInt32* size)
+{
+    IMFSample* smp = (IMFSample*)sample;
+    IMFMediaBuffer* mf_buffer = nullptr;
+    UInt8* audio_data = nullptr;
+    UInt32 audio_len = 0;
+
+    smp->ConvertToContiguousBuffer(&mf_buffer);
+
+    audio_data = nullptr;
+    audio_len = 0;
+
+    mf_buffer->Lock(&audio_data, nullptr, &audio_len);
+
+    *buffer = mf_buffer;
+    *buffer_adr = audio_data;
+    *size = audio_len;
+
+    return;
+}
+
+Void SNSoundCodec::CopySample(UInt8* sample, UInt32 src_offset, UInt8* block, UInt32 dst_offset, UInt32 size)
+{
+    CopyMemory(
+        block + dst_offset,
+        sample + src_offset,
+        size);
+
+    return;
+}
+
+Void SNSoundCodec::ReleaseSample(Handle sample, Handle buffer)
+{
+    IMFSample* smp = (IMFSample*)sample;
+    IMFMediaBuffer* mf_buffer = (IMFMediaBuffer*)buffer;
+
+    if (mf_buffer != nullptr)
+    {
+        mf_buffer->Unlock();
+        mf_buffer->Release();
+    }
+
+    if (smp != nullptr)
+    {
+        smp->Release();
+    }
+
+    return;
+}
+
+Void SNSoundCodec::GetPCMMeta(Handle reader, UInt32* ch, UInt32* bits, UInt32* rate)
+{
+    IMFSourceReader* rd = (IMFSourceReader*)reader;
+    IMFMediaType* actual_type = nullptr;
+    UINT32 ui32_ch;
+    UINT32 ui32_bits;
+    UINT32 ui32_rate;
+
+    // ReaderÇ©ÇÁtypeÇéÊìæ
+    rd->GetCurrentMediaType(MF_SOURCE_READER_FIRST_AUDIO_STREAM, &actual_type);
+
+    // ÉÅÉ^èÓïÒéÊìæ
+    actual_type->GetUINT32(MF_MT_AUDIO_NUM_CHANNELS, &ui32_ch);
+    actual_type->GetUINT32(MF_MT_AUDIO_BITS_PER_SAMPLE, &ui32_bits);
+    actual_type->GetUINT32(MF_MT_AUDIO_SAMPLES_PER_SECOND, &ui32_rate);
+
+    *ch = ui32_ch;
+    *bits = ui32_bits;
+    *rate = ui32_rate;    
+
+    actual_type->Release();
 
     return;
 }
 
 
-
 // ÉXÉgÉäÅ[ÉÄÉIÅ[ÉvÉì
 Void SNSoundCodec::OpenStream(SNMemory* in, SNPCMStream* out)
 {
-    IMFByteStream* bs = nullptr;
     IMFSourceReader* reader = nullptr;
-    IMFMediaType* pcm = nullptr;
 
     CloseStream(out);
 
@@ -320,26 +284,9 @@ Void SNSoundCodec::OpenStream(SNMemory* in, SNPCMStream* out)
     out->Source.Allocate(in->GetSize());
     out->Source.Copy(in->GetAddress(), in->GetSize());
 
-    // ByteStreamê∂ê¨
-    bs = new SNMemoryByteStream((BYTE*)out->Source.GetAddress(), (ULONG)out->Source.GetSize());
-
-    // Readerê∂ê¨
-    MFCreateSourceReaderFromByteStream(bs, nullptr, &reader);
-
-    // PCMèoóÕÇ…å≈íË
-    MFCreateMediaType(&pcm);
-    pcm->SetGUID(MF_MT_MAJOR_TYPE, MFMediaType_Audio);
-    pcm->SetGUID(MF_MT_SUBTYPE, MFAudioFormat_PCM);
-
-    reader->SetCurrentMediaType(
-        MF_SOURCE_READER_FIRST_AUDIO_STREAM,
-        nullptr,
-        pcm
-    );
-    pcm->Release();
+    reader = (IMFSourceReader*)CreateReaderFromMemory(&out->Source);
 
     // StreamÉNÉâÉXÇ…StreamÇ∆ReaderÇê›íË
-    out->Stream = bs;
     out->Reader = reader;
 
     return;
@@ -349,18 +296,11 @@ Void SNSoundCodec::OpenStream(SNMemory* in, SNPCMStream* out)
 Void SNSoundCodec::CloseStream(SNPCMStream* stream)
 {
     IMFSourceReader* reader = (IMFSourceReader*)stream->Reader;
-    IMFByteStream* bs = (IMFByteStream*)stream->Stream;
 
     if (reader != nullptr)
     {
         reader->Release();
         stream->Reader = nullptr;
-    }
-
-    if (bs != nullptr)
-    {
-        bs->Release();      // éQè∆ÉJÉEÉìÉgÇ™ 0 Ç»ÇÁ delete this Ç™ëñÇÈ
-        stream->Stream = nullptr;
     }
 
     // MP3 ÇÃå≥ÉfÅ[É^Çâï˙
@@ -564,166 +504,3 @@ Void SNSoundCodec::SetPCMMeta(Handle in_reader, SNPCM* out)
 
     return;
 }
-
-// MusicópÉfÉRÅ[Éhèàóù
-Void SNSoundCodec::MusicDecodeToBlocks(SNPCMStream* stream)
-{
-    IMFSourceReader* reader = (IMFSourceReader*)stream->Reader;
-    SNMemory work_memory;
-    SNMemory* stream_pcm;
-    SNMemory* block = &stream->Working;
-    Int64 rem_size;
-    Int64 copy_size;
-    Int64 total_copy_size;
-    PROPVARIANT var;
-    Boolean end_flg = false;
-
-    SNListContainer* it = nullptr;
-    SNListContainer* list_it = nullptr;
-
-    IMFSample* sample = nullptr;
-    UInt8* audio_data = nullptr;
-    UInt32 audio_len = 0;
-    IMFMediaBuffer* buffer = nullptr;
-
-
-    {
-        SNAutoResource cs(&stream->CS);
-
-        // ç≈èâÇÃèàóùëŒè€ÉuÉçÉbÉNÇéÊìæ
-        it = stream->PCMBlockStore.GetResource();
-    }
-
-    // ãÛÇ´ÉuÉçÉbÉNÇ™Ç»Ç≠Ç»ÇÈÇ‹Ç≈èàóùÇ∑ÇÈ
-    while (it != nullptr)
-    {
-        stream_pcm = (SNMemory*)it->UserData;
-        rem_size = stream_pcm->GetSize();
-        copy_size = 0;
-        total_copy_size = 0;
-
-        // ëOÉTÉìÉvÉãÇÃécÇËèàóù
-        if (block->GetSize() > 0)
-        {
-            copy_size = SNMath::SelectMin(rem_size, block->GetSize());
-
-            stream_pcm->Copy(block->GetAddress(), (UInt32)copy_size);
-
-            total_copy_size += copy_size;
-            rem_size -= copy_size;
-        }
-
-        // Ç‹ÇæécÇËÇ™Ç†ÇÈÅH
-        if (copy_size < block->GetSize())
-        {
-            // écÇËÉfÅ[É^ÇblockÇ…ç\íz
-            work_memory.Allocate((UInt32)(block->GetSize() - copy_size));
-            work_memory.Copy((UInt8*)block->GetAddress() + copy_size, (UInt32)(block->GetSize() - copy_size));
-            block->Allocate(work_memory.GetSize());
-            block->Copy(work_memory.GetAddress(), work_memory.GetSize());
-        }
-
-        // écÇËÉfÅ[É^ÇèàóùÇµÇ´ÇÍÇΩèÍçá
-        else
-        {
-            block->Free();
-
-            // ÉuÉçÉbÉNÇÃç\ízÉãÅ[Év
-            while (true)
-            {
-                // ÉfÉRÅ[Éhèàóù
-                if (ReadSample(reader, (Handle*)&sample))
-                {
-                    // èIí[Ç‹Ç≈èàóùçœÇ›ÇÃÇ∆Ç´ÇÕêÊì™Ç…ñﬂÇµÇƒçƒReadÇ∑ÇÈ
-                    PropVariantInit(&var);
-                    var.vt = VT_I8;
-                    var.hVal.QuadPart = 0;
-                    reader->SetCurrentPosition(GUID_NULL, var);
-
-                    end_flg = ReadSample(reader, (Handle*)&sample);
-                }
-
-                // êÊì™Ç…ñﬂÇµÇƒReadÇµÇƒÇ‡É_ÉÅÇ»Ç∆Ç´ÇÕî≤ÇØÇÈ
-                if (end_flg)
-                {
-                    break;
-                }
-
-                // ÉTÉìÉvÉãÇÉÅÉÇÉäÉuÉçÉbÉNÇ…ÉRÉsÅ[
-                sample->ConvertToContiguousBuffer(&buffer);
-
-                audio_data = nullptr;
-                audio_len = 0;
-
-                buffer->Lock(&audio_data, nullptr, &audio_len);
-
-                copy_size = SNMath::SelectMin(audio_len, rem_size);
-                stream_pcm->Copy(audio_data, (UInt32)copy_size);
-
-                total_copy_size += copy_size;
-                rem_size -= copy_size;
-
-                // ÉRÉsÅ[êÊÉuÉçÉbÉNÇ™Ç¢Ç¡ÇœÇ¢
-                if (rem_size == 0)
-                {
-                    // écÇ¡ÇΩÉfÅ[É^ÇblockÇ…ëﬁîÇµÇƒÇ®Ç≠
-                    block->Allocate(UInt32(audio_len - copy_size));
-                    block->Copy((UInt8*)audio_data + copy_size, (UInt32)(audio_len - copy_size));
-                    buffer->Unlock();
-                    buffer->Release();
-                    sample->Release();
-
-                    break;
-                }
-
-                buffer->Unlock();
-                buffer->Release();
-                sample->Release();
-            }
-        }
-
-        if (end_flg)
-        {
-            // ämï€ÇµÇƒÇΩÉuÉçÉbÉNÇStoreÇ…ï‘ãp
-            SNAutoResource cs(&stream->CS);
-            stream->PCMBlockStore.ReleaseResource(it);
-        }
-
-        else
-        {
-            // ÉuÉçÉbÉNÇÉäÉXÉgÇ…ìoò^Ç∑ÇÈ
-            SNAutoResource cs(&stream->CS);
-            list_it = stream->PCMBlockList.InsertLast();
-            list_it->UserData = it;
-        }
-    }
-    
-    return;
-}
-
-
-Void SNSoundCodec::SetPCMMeta(SNPCMStream* stream)
-{
-    IMFSourceReader* reader = (IMFSourceReader*)stream->Reader;
-    IMFMediaType* actual_type = nullptr;
-    UINT32 channels = 0;
-    UINT32 bits = 0;
-    UINT32 samplerate = 0;
-
-    // ReaderÇ©ÇÁtypeÇéÊìæ
-    reader->GetCurrentMediaType(MF_SOURCE_READER_FIRST_AUDIO_STREAM, &actual_type);
-
-    // ÉÅÉ^èÓïÒéÊìæ
-    actual_type->GetUINT32(MF_MT_AUDIO_NUM_CHANNELS, &channels);
-    actual_type->GetUINT32(MF_MT_AUDIO_BITS_PER_SAMPLE, &bits);
-    actual_type->GetUINT32(MF_MT_AUDIO_SAMPLES_PER_SECOND, &samplerate);
-
-    stream->Channels = channels;
-    stream->BitPerSample = bits;
-    stream->SampleRate = samplerate;
-
-    actual_type->Release();
-
-    return;
-}
-

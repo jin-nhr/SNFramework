@@ -3,55 +3,7 @@
 #include "SNMusicResManager.h"
 #include "SNWindowsAPI.h"
 #include "SNAutoResource.h"
-
-// XAUIDOとのIF用クラスのため、外部には公開しない
-class SNXAudio2VoiceCallback : public IXAudio2VoiceCallback
-{
-public:
-	SNXAudio2VoiceCallback(SNMusic* music)
-	{
-		Music = music;
-		return;
-	}
-
-	virtual ~SNXAudio2VoiceCallback()
-	{
-		return;
-	}
-
-	virtual void OnVoiceProcessingPassStart(UINT32 BytesRequired)
-	{
-		return;
-	}
-	virtual void OnVoiceProcessingPassEnd()
-	{
-		return;
-	}
-	virtual void OnStreamEnd()
-	{
-		return;
-	}
-	virtual void OnBufferStart(void* pBufferContext)
-	{
-		return;
-	}
-	virtual void OnBufferEnd(void* pBufferContext)
-	{
-		Music->SubmitBuffer();
-		return;
-	}
-	virtual void OnLoopEnd(void* pBufferContext)
-	{
-		return;
-	}
-	virtual void OnVoiceError(void* pBufferContext, HRESULT Error)
-	{
-		return;
-	}
-
-	SNMusic* Music;
-};
-
+#include "SNSystemConfig.h"
 
 // コンストラクタ
 SNMusic::SNMusic()
@@ -60,14 +12,9 @@ SNMusic::SNMusic()
 	ResID = SNMusicResTop;	// 仮でTopを設定
 	PCMStream = nullptr;
 	Operation = SNMusicOperationNo;
-	Callback = new SNXAudio2VoiceCallback(this);
 	SourceVoice = nullptr;
 
-	DummyPCM.Allocate(32);
-	DummyPCM.Clear();
-
-	// SourceVoice生成
-	SourceVoice = SNSoundDevice::CreateMusicVoice(Callback);
+	PlayBlockList.Allocate(SNSystemConfig::StreamingBlockNum);
 
 	return;
 }
@@ -75,25 +22,10 @@ SNMusic::SNMusic()
 	// デストラクタ
 SNMusic:: ~SNMusic()
 {
-	SNXAudio2VoiceCallback* callback = (SNXAudio2VoiceCallback*)Callback;
-
 	DeleteMusic();
 
 	// 事前にSTOPしていない場合、ここでスレッド終了を待つ(しかない)
 	WaitForThreadEnd();
-
-	if (SourceVoice != nullptr)
-	{
-		// SourceVoice破棄
-		SNSoundDevice::DeleteMusicVoice(SourceVoice);
-		SourceVoice = nullptr;
-	}
-
-	if (callback != nullptr)
-	{
-		delete callback;
-		Callback = nullptr;
-	}
 
 	return;
 }
@@ -103,6 +35,8 @@ Void SNMusic::CreateMusic(SNPCMStream* pcm)
 {
 	DeleteMusic();
 
+	SourceVoice = SNSoundDevice::GetSourceVoice();
+
 	PCMStream = pcm;
 
 	return;
@@ -111,6 +45,8 @@ Void SNMusic::CreateMusic(SNPCMStream* pcm)
 Void SNMusic::CreateMusic(SNMusicResID res_id)
 {
 	DeleteMusic();
+
+	SourceVoice = SNSoundDevice::GetSourceVoice();
 
 	// アクセス権を取得
 	SNMusicResManager::AccessGet(res_id);
@@ -124,6 +60,12 @@ Void SNMusic::CreateMusic(SNMusicResID res_id)
 Void SNMusic::DeleteMusic()
 {
 	Stop();
+
+	if (SourceVoice != nullptr)
+	{
+		SNSoundDevice::ReleaseSourceVoice(SourceVoice);
+		SourceVoice = nullptr;
+	}
 
 	// リソースID使用時はアクセス権放棄
 	if (UseResID)
@@ -171,38 +113,90 @@ Void SNMusic::Stop()
 	return;
 }
 
+
 Void SNMusic::PlayStartup()
 {
+	Int32 cnt;
+
 	// バッファクリアのためにSTOPしておく
 	SNSoundDevice::MusicStop(SourceVoice);
 
-	// デコード(初回)
-	PCMStream->Decode(true);
+	// デコード開始処理
+	PCMStream->StartDecode();
+
+	// フルデコード
+	PCMStream->DecodeFull();
 
 	// 最初のバッファを登録
-	SubmitBuffer();
+	for (cnt = 0; cnt < SNSystemConfig::StreamingBlockNum; cnt++)
+	{
+		SubmitBuffer();
+	}
 
 	return;
 }
 
-// バッファ枯渇コールバック
+Void SNMusic::PlayEnd()
+{
+	Int32 cnt;
+	Int32 rel_num = PlayBlockList.GetNum();
+
+
+	SNSoundDevice::MusicStop(SourceVoice);
+
+	// 再生リストにあるブロックを解放
+	for (cnt = 0; cnt < rel_num; cnt++)
+	{
+		ReleasePlayBlock();
+	}
+
+	PCMStream->EndDecode();
+
+	return;
+}
+
+Void SNMusic::ReleaseBuffer()
+{
+	Int32 xa_num = SNSoundDevice::GetBufferNum(SourceVoice);
+	Int32 list_num = PlayBlockList.GetNum();
+	Int32 rel_num = list_num - (xa_num + 1);
+	Int32 cnt;
+
+	// 再生が終了したブロックを解放
+	for (cnt = 0; cnt < rel_num; cnt++)
+	{
+		ReleasePlayBlock();
+	}
+	return;
+}
+
 Void SNMusic::SubmitBuffer()
 {
-	SNMemory* pcm;
-
-	SNAutoResource res(&PCMStream->CS);
+	SNListContainer* pcm;
+	SNListContainer* it;
 
 	// ストリームのブロック取得
 	pcm = PCMStream->GetStreamBlock();
 
-	// もしデコードが追い付いていないときはダミーをセット
-	if (pcm == nullptr)
+	if (pcm != nullptr)
 	{
-		pcm = &DummyPCM;
+		// ブロックをサブミット
+		SNSoundDevice::SubmitMusicBuffer(SourceVoice, (SNMemory*)pcm->UserData);
+
+		it = PlayBlockList.InsertLast();
+		it->UserData = pcm;
 	}
 
-	// ブロックをサブミット
-	SNSoundDevice::SubmitMusicBuffer(SourceVoice, pcm);
+	return;
+}
+
+Void SNMusic::ReleasePlayBlock()
+{
+	SNListContainer* it;
+
+	it = PlayBlockList.GetTop();
+	PCMStream->ReleaseStreamBlock((SNListContainer*)it->UserData);
+	PlayBlockList.RemoveTop();
 
 	return;
 }
@@ -255,11 +249,19 @@ Void SNMusic::UserMain()
 		}
 
 		// デコード処理(継続)
-		PCMStream->Decode(false);
+		PCMStream->Decode();
+
+		// バッファ解放
+		ReleaseBuffer();
+
+		// バッファ登録
+		SubmitBuffer();
 
 		// 1msのスリープをはさんでおく
 		::Sleep(1);
 	}
+
+	PlayEnd();
 
 	return;
 }

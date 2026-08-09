@@ -6,6 +6,9 @@
 #include "SNSystem.h"
 #include "SNFocus.h"
 
+#include "SNMusicResManager.h"
+#include "SNMusic.h"
+
 // コンストラクタ
 SNSysAppIdle::SNSysAppIdle()
 {
@@ -25,6 +28,9 @@ Void SNSysAppIdle::OnEntry()
 	{
 		SNMute::SetMute(false, true);
 	}
+
+	SNMusicResManager::AccessGet(SNMusicResDummy);
+
 	return;
 }
 

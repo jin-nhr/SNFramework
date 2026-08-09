@@ -41,8 +41,17 @@ public:
 	// 再生準備
 	virtual Void PlayStartup();
 
+	// 再生終了
+	virtual Void PlayEnd();
+
+	// バッファ解放
+	virtual Void ReleaseBuffer();
+
 	// バッファ登録
 	virtual Void SubmitBuffer();
+
+	// 再生ブロック解放
+	virtual Void ReleasePlayBlock();
 
 private:
 	// ユーザー実行関数(派生先で実装する)
@@ -52,7 +61,7 @@ private:
 	SNMusicResID ResID;
 	SNPCMStream* PCMStream;
 	volatile SNMusicOperation Operation;
-	SNMemory DummyPCM;
-	Handle SourceVoice;
-	Handle Callback;
+	SNListContainer* SourceVoice;
+
+	SNList PlayBlockList;
 };

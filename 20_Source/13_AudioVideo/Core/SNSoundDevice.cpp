@@ -234,44 +234,9 @@ Void SNSoundDevice::Stop(SNListContainer* in_source)
 }
 
 
-
-Handle SNSoundDevice::CreateMusicVoice(Handle callback)
+Void SNSoundDevice::SubmitMusicBuffer(SNListContainer* voice, SNMemory* pcm)
 {
-	IXAudio2* xaudio2 = (IXAudio2*)XAudio;
-	IXAudio2SourceVoice* source_voice = nullptr;
-	WAVEFORMATEX wfx = {};
-
-	wfx.wFormatTag = WAVE_FORMAT_PCM;
-	wfx.nChannels = SNSystemConfig::PCMChannel;
-	wfx.nSamplesPerSec = SNSystemConfig::PCMSampleRate;
-	wfx.wBitsPerSample = SNSystemConfig::PCMBitPerSample;
-	wfx.nBlockAlign = wfx.nChannels * (wfx.wBitsPerSample / 8);
-	wfx.nAvgBytesPerSec = wfx.nSamplesPerSec * wfx.nBlockAlign;
-
-	xaudio2->CreateSourceVoice(
-		&source_voice,
-		&wfx,
-		0,
-		XAUDIO2_DEFAULT_FREQ_RATIO,
-		(IXAudio2VoiceCallback*)callback);
-
-	return source_voice;
-}
-
-Void SNSoundDevice::DeleteMusicVoice(Handle res)
-{
-	IXAudio2SourceVoice* source_voice = (IXAudio2SourceVoice*)res;
-
-	source_voice->Stop();
-	source_voice->FlushSourceBuffers();
-	source_voice->DestroyVoice();
-
-	return;
-}
-
-Void SNSoundDevice::SubmitMusicBuffer(Handle voice, SNMemory* pcm)
-{
-	IXAudio2SourceVoice* source_voice = (IXAudio2SourceVoice*)voice;
+	IXAudio2SourceVoice* source_voice = (IXAudio2SourceVoice*)voice->UserData;
 	XAUDIO2_BUFFER buffer = {};
 
 	buffer.AudioBytes = pcm->GetSize();
@@ -283,10 +248,24 @@ Void SNSoundDevice::SubmitMusicBuffer(Handle voice, SNMemory* pcm)
 	return;
 }
 
-// 再生
-Void SNSoundDevice::MusicPlay(Handle voice)
+// バッファ数取得
+Int32 SNSoundDevice::GetBufferNum(SNListContainer* voice)
 {
-	IXAudio2SourceVoice* source_voice = (IXAudio2SourceVoice*)voice;
+	Int32 ret = 0;
+	IXAudio2SourceVoice* source_voice = (IXAudio2SourceVoice*)voice->UserData;
+	XAUDIO2_VOICE_STATE state;
+
+	source_voice->GetState(&state);
+
+	ret = state.BuffersQueued;
+
+	return ret;
+}
+
+// 再生
+Void SNSoundDevice::MusicPlay(SNListContainer* voice)
+{
+	IXAudio2SourceVoice* source_voice = (IXAudio2SourceVoice*)voice->UserData;
 
 	source_voice->Start();
 
@@ -294,9 +273,9 @@ Void SNSoundDevice::MusicPlay(Handle voice)
 }
 
 // 一時停止
-Void SNSoundDevice::MusicPause(Handle voice)
+Void SNSoundDevice::MusicPause(SNListContainer* voice)
 {
-	IXAudio2SourceVoice* source_voice = (IXAudio2SourceVoice*)voice;
+	IXAudio2SourceVoice* source_voice = (IXAudio2SourceVoice*)voice->UserData;
 
 	source_voice->Stop();
 
@@ -304,9 +283,9 @@ Void SNSoundDevice::MusicPause(Handle voice)
 }
 
 // 停止
-Void SNSoundDevice:: MusicStop(Handle voice)
+Void SNSoundDevice:: MusicStop(SNListContainer* voice)
 {
-	IXAudio2SourceVoice* source_voice = (IXAudio2SourceVoice*)voice;
+	IXAudio2SourceVoice* source_voice = (IXAudio2SourceVoice*)voice->UserData;
 
 	// 次の再生時にゴミが残らないようにバッファをクリア
 	source_voice->Stop();

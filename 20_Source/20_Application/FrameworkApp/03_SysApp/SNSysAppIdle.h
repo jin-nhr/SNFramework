@@ -20,8 +20,6 @@ public:
 	virtual ~SNSysAppIdle();
 
 protected:
-
-	// Entry
 	virtual Void OnEntry();
 
 	virtual Boolean OnNotifyEvent();

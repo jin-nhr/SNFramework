@@ -4,7 +4,32 @@
 #include "SNMemory.h"
 #include "SNStore.h"
 #include "SNList.h"
-#include "SNCriticalSection.h"
+
+enum SNPCMStreamDecodePhase
+{
+	SNPCMStreamDecodePhaseSeek,
+	SNPCMStreamDecodePhaseRead,
+	SNPCMStreamDecodePhaseSampleLock,
+	SNPCMStreamDecodePhaseGetBlock,
+	SNPCMStreamDecodePhaseSetBlock,
+	SNPCMStreamDecodePhaseSetList
+};
+
+struct SNPCMStreamSourceInfo
+{
+	Handle Sample;
+	Handle Buffer;
+	UInt8* BufferAdr;
+	UInt32 Size;
+	UInt32 Offset;
+};
+
+struct SNPCMStreamTargetInfo
+{
+	SNListContainer* Block;
+	UInt32 Size;
+	UInt32 Used;
+};
 
 // PCMStreamクラス
 
@@ -25,14 +50,23 @@ public:
 	virtual Void ClosePCMStream();
 	virtual Void ReleaseAllPCMBlock();
 
+	// デコード開始
+	virtual Void StartDecode();
+
 	// デコード処理
-	virtual Void Decode(Boolean reset);
+	virtual Void Decode();
 
-	// ブロックを取得(使用する側でCSロックしておくこと)
-	virtual SNMemory* GetStreamBlock();
+	// 全デコード
+	virtual Void DecodeFull();
 
-	// ブロックを解放(使用する側でCSロックしておくこと)
-	virtual Void ReleaseStreamBlock();
+	// デコード終了
+	virtual Void EndDecode();
+
+	// ブロックを取得
+	virtual SNListContainer* GetStreamBlock();
+
+	// ブロックを解放
+	virtual Void ReleaseStreamBlock(SNListContainer* block);
 
 	Int32 Channels;
 	Int32 SampleRate;
@@ -40,14 +74,16 @@ public:
 
 	SNStore PCMBlockStore;
 	SNList  PCMBlockList;
-	SNCriticalSection CS;
 
 	SNMemory Source;
-	Handle Stream;
 	Handle Reader;
 
 	SNMemory* TargetData;
-	SNMemory Working;
+
+
+	SNPCMStreamDecodePhase DecodePhase;
+	SNPCMStreamSourceInfo DecodeSourceInfo;
+	SNPCMStreamTargetInfo DecodeTargetInfo;
 
 protected:
 	virtual SNSoundCodecResult OnOperationOpenStream();

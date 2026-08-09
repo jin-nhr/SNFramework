@@ -44,23 +44,20 @@ public:
 	////////////////////////////////////////////////////////
 	// Music関連
 
-	// MusicVoiceの生成
-	static Handle CreateMusicVoice(Handle callback);
-
-	// MusicVoiceの解放
-	static Void DeleteMusicVoice(Handle voice);
-
 	// バッファ登録
-	static Void SubmitMusicBuffer(Handle voice, SNMemory* pcm);
+	static Void SubmitMusicBuffer(SNListContainer* voice, SNMemory* pcm);
+
+	// バッファ数取得
+	static Int32 GetBufferNum(SNListContainer* voice);
 
 	// 再生
-	static Void MusicPlay(Handle voice);
+	static Void MusicPlay(SNListContainer* voice);
 
 	// 一時停止
-	static Void MusicPause(Handle voice);
+	static Void MusicPause(SNListContainer* voice);
 
 	// 停止
-	static Void MusicStop(Handle voice);
+	static Void MusicStop(SNListContainer* voice);
 
 
 	static Handle XAudio;
