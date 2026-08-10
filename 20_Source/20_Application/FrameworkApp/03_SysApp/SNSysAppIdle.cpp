@@ -5,9 +5,7 @@
 #include "SNGraphics.h"
 #include "SNSystem.h"
 #include "SNFocus.h"
-
-#include "SNMusicResManager.h"
-#include "SNMusic.h"
+#include "SNVirtualGamePad.h"
 
 // コンストラクタ
 SNSysAppIdle::SNSysAppIdle()
@@ -29,9 +27,24 @@ Void SNSysAppIdle::OnEntry()
 		SNMute::SetMute(false, true);
 	}
 
-	SNMusicResManager::AccessGet(SNMusicResDummy);
-
 	return;
+}
+
+Boolean SNSysAppIdle::OnGamePad1()
+{
+	Boolean ret = false;
+	Boolean menu = SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadMenu][SNVirtualGamePadEventPush];
+
+	if (menu)
+	{
+		SNFocus::CallbackPushButton();
+
+		TransCode = SNTransitionCode0;
+
+		ret = true;
+	}
+
+	return ret;
 }
 
 // イベント通知

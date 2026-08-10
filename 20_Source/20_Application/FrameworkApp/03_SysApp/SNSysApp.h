@@ -6,6 +6,7 @@
 #include "SNSysAppError.h"
 #include "SNSysAppIdle.h"
 #include "SNSysAppPreClose.h"
+#include "SNSysAppConfig.h"
 
 // システムアプリ状態制御
 
@@ -15,12 +16,11 @@ public:
 	SNSysApp();
 	virtual ~SNSysApp();
 
-
-
 	SNSysAppStartup Startup;
 	SNSysAppLoading Loading;
 	SNSysAppError Error;
 	SNSysAppIdle Idle;
 	SNSysAppPreClose PreClose;
+	SNSysAppConfig Config;
 };
 

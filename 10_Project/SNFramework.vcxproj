@@ -110,6 +110,7 @@
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNOverlapApp.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysApp.h" />
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppIdle.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppLoading.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNOverlapApp.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysApp.cpp" />
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppIdle.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp" />
