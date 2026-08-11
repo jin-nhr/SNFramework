@@ -136,8 +136,8 @@ Boolean SNFocus::OnPointingDevice()
 	{
 		if (target != nullptr)
 		{
-			active_btn = target->GetActiveButton();
 			target->MovePoint(&pnt);
+			active_btn = target->GetActiveButton();
 
 			if (pnt_push)
 			{
