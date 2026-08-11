@@ -7,11 +7,11 @@
 
 Int8 SNMath::Sin[SNTrigFuncMaxNum];
 Int8 SNMath::Cos[SNTrigFuncMaxNum];
-Int8 SNMath::Tan[SNTrigFuncMaxNum];
+Int16 SNMath::Tan[SNTrigFuncMaxNum];
 
 Int8 SNMath::ArcSin[SNTrigFuncMaxNum];
 Int8 SNMath::ArcCos[SNTrigFuncMaxNum];
-Int8 SNMath::ArcTan[SNTrigFuncMaxNum];
+Int8 SNMath::ArcTan[SNTrigFuncATanNum];
 
 
 
@@ -24,43 +24,45 @@ Void SNMath::InitTrigFunc()
 	Float64 s, c, t;
 	Int sinv, cosv, tanv;
 	Float64 M_PI = 3.14159265358979323846;
+	Float64 slope;
 
 	for (i = 0; i < SNTrigFuncMaxNum; i++)
 	{
-		// 角度（-128 ～ 127）
+		// 角度（-127 ～ 127）
 		angle = i - SNTrigFuncOffset;
 
 		// ラジアン変換
-		rad = (Float64)angle * (M_PI / 128.0);
+		rad = (Float64)angle * (M_PI / SNTrigFuncBitDepth);
 
 		// ---- 三角関数 ----
 		s = sin(rad);
 		c = cos(rad);
 		t = tan(rad);
 
-		// ---- 量子化（-128 ～ 127）----
-		sinv = RoundToInt(s * 127.0);
-		cosv = RoundToInt(c * 127.0);
-		tanv = RoundToInt(t * 127.0);
+		// ---- 量子化 ----
+		sinv = RoundToInt(s * SNTrigFuncBitDepth);
+		cosv = RoundToInt(c * SNTrigFuncBitDepth);
+		tanv = RoundToInt(t * SNTrigFuncBitDepth);
 
 		// ---- クリップ ----
-		if (sinv < -128) sinv = -128;
-		if (sinv > 127) sinv = 127;
-
-		if (cosv < -128) cosv = -128;
-		if (cosv > 127) cosv = 127;
-
-		if (tanv < -128) tanv = -128;
-		if (tanv > 127) tanv = 127;
+		sinv = (Int)Saturate(sinv, SNTrigFuncMin, SNTrigFuncMax);
+		cosv = (Int)Saturate(cosv, SNTrigFuncMin, SNTrigFuncMax);
+		tanv = (Int)Saturate(tanv, SNTrigFuncTanMin, SNTrigFuncTanMax);
 
 		Sin[i] = (Int8)sinv;
 		Cos[i] = (Int8)cosv;
-		Tan[i] = (Int8)tanv;
+		Tan[i] = (Int16)tanv;
 
 		// ---- Arc 系（角度そのまま入れる）----
 		ArcSin[i] = (Int8)angle;
 		ArcCos[i] = (Int8)angle;
-		ArcTan[i] = (Int8)angle;
+	}
+
+	// atanは別計算
+	for (i = 0; i < SNTrigFuncATanNum; i++)
+	{
+		slope = ((i - SNTrigFuncATanOffset) / SNTrigFuncBitDepth);
+		ArcTan[i] = (Int)Saturate(RoundToInt(atan(slope) * SNTrigFuncBitDepth / M_PI), SNTrigFuncMin, SNTrigFuncMax);
 	}
 
 	return;
@@ -207,41 +209,41 @@ Int8 SNMath::CalcAngle(SNPoint* pnt1, SNPoint* pnt2)
 {
 	Int dx = pnt2->X - pnt1->X;
 	Int dy = pnt2->Y - pnt1->Y;
-
-	// 同一点 → 角度 0
-	if (dx == 0 && dy == 0)
-		return 0;
-
 	Int slope;
+	Float64 f;
+	Int8 angle;
+
 	if (dx == 0)
 	{
 		// 垂直方向は tan が無限大
-		slope = (dy >= 0) ? 127 : -128;
+		slope = (dy >= 0) ? SNTrigFuncTanMax : SNTrigFuncTanMin;
 	}
 	else
 	{
-		Float64 f = (Float64)dy / (Float64)dx;
-		slope = (Int)(f * 127.0);
-
-		if (slope < -128) slope = -128;
-		if (slope > 127)  slope = 127;
+		f = (Float64)dy / (Float64)dx;
+		slope = (Int)RoundToInt(f * SNTrigFuncBitDepth);
+		slope = (Int)Saturate(slope, SNTrigFuncTanMin, SNTrigFuncTanMax);
 	}
 
-	// slope (-128～127) → index (0～255)
-	Int index = slope + SNTrigFuncOffset;
+	// 画面上のY座標系はトップダウンなのでSlopeを反転する
+	slope = slope * -1;
 
-	// 基本角度（-128～127）
-	Int8 angle = ArcTan[index];
+	// ATanの収容範囲に限定する
+	slope = (Int)Saturate(slope, SNTrigFuncATanMin, SNTrigFuncATanMax);
 
-	// ★ 象限補正 ★
-	// tan は 0° と 180° を区別できないので dx の符号で補正する
+	angle = ArcTan[slope + SNTrigFuncATanOffset];
+
+	// 象限補正
 	if (dx < 0)
 	{
-		// 左方向は ±180° 付近に補正する
 		if (angle >= 0)
-			angle = 128 - angle;   // 右上 → 左上
+		{
+			angle += SNTrigFuncMin;
+		}
 		else
-			angle = -128 - angle;  // 右下 → 左下
+		{
+			angle += SNTrigFuncMax;
+		}
 	}
 
 	return angle;

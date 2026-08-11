@@ -94,8 +94,8 @@ Void SNFocusGroup::Entry()
 	else
 	{
 		rect = LastActive->CalcGlobalRect();
-		point.X = rect.PointX + rect.Width / 2;
-		point.Y = rect.PointY + rect.Height / 2;
+		point.X = rect.PointX;
+		point.Y = rect.PointY;
 	}
 
 	SelectNearest(&point);
@@ -131,58 +131,25 @@ Void SNFocusGroup::MovePoint(SNPoint* pnt)
 
 Void SNFocusGroup::DirUp()
 {
-	Int32 offset_x = 0;
-	Int32 offset_y = 0;
-
-	if (LoopV)
-	{
-		offset_y = (Int32)SNSystemConfig::ScreenHeight * -1;
-	}
-
-	SelectDir(96, 32, offset_x, offset_y);
+	SelectUp(LoopV);
 	return;
 }
 
 Void SNFocusGroup::DirDown()
 {
-	Int32 offset_x = 0;
-	Int32 offset_y = 0;
-
-	if (LoopV)
-	{
-		offset_y = SNSystemConfig::ScreenHeight;
-	}
-
-	SelectDir(-32, -96, offset_x, offset_y);
+	SelectDown(LoopV);
 	return;
 }
 
 Void SNFocusGroup::DirLeft()
 {
-	Int32 offset_x = 0;
-	Int32 offset_y = 0;
-
-	if (LoopH)
-	{
-		offset_x = (Int32)SNSystemConfig::ScreenWidth * -1;
-	}
-
-	SelectDir(127, 96, offset_x, offset_y);
-	SelectDir(-96, -128, offset_x, offset_y);
+	SelectLeft(LoopH);
 	return;
 }
 
 Void SNFocusGroup::DirRight()
 {
-	Int32 offset_x = 0;
-	Int32 offset_y = 0;
-
-	if (LoopH)
-	{
-		offset_x = SNSystemConfig::ScreenWidth;
-	}
-
-	SelectDir(32, -32, offset_x, offset_y);
+	SelectRight(LoopH);
 	return;
 }
 
@@ -209,8 +176,8 @@ Void SNFocusGroup::SelectNearest(SNPoint* pnt)
 		{
 			rect = it_btn->CalcGlobalRect();
 
-			pnt2.X = rect.PointX + rect.Width / 2;
-			pnt2.Y = rect.PointY + rect.Height / 2;
+			pnt2.X = rect.PointX;
+			pnt2.Y = rect.PointY;
 
 			tmp_dist = SNMath::CalcDist2(pnt, &pnt2);
 
@@ -282,8 +249,8 @@ Void SNFocusGroup::SelectDir(Int8 angle_top, Int8 angle_bottom, Int32 offset_x, 
 	{
 		rect = ActiveButton->CalcGlobalRect();
 
-		pnt.X = rect.PointX + rect.Width / 2;
-		pnt.Y = rect.PointY + rect.Height / 2;
+		pnt.X = rect.PointX;
+		pnt.Y = rect.PointY;
 	}
 
 	for (cnt = 0; cnt < list_num; cnt++)
@@ -296,8 +263,8 @@ Void SNFocusGroup::SelectDir(Int8 angle_top, Int8 angle_bottom, Int32 offset_x, 
 		{
 			rect = it_btn->CalcGlobalRect();
 
-			pnt2.X = rect.PointX + rect.Width / 2;
-			pnt2.Y = rect.PointY + rect.Height / 2;
+			pnt2.X = rect.PointX;
+			pnt2.Y = rect.PointY;
 
 			tmp_dist = SNMath::CalcDist2(&pnt, &pnt2);
 			angle = SNMath::CalcAngle(&pnt, &pnt2);
@@ -338,6 +305,248 @@ Void SNFocusGroup::SelectDir(Int8 angle_top, Int8 angle_bottom, Int32 offset_x, 
 
 	return;
 }
+
+
+Void SNFocusGroup::SelectUp(Boolean loop)
+{
+	SNListContainer* it;
+	SNGUIButton* it_btn;
+	SNGUIButton* tmp_btn = nullptr;
+	Int list_num = TargetList.GetNum();
+
+	SNRect active_rect = { 0 };
+	SNRect rect;
+	SNRect keep_rect = { 0 };
+	Int32 cnt;
+	Boolean cond_dir = false;
+	Boolean cond_col = false;
+	Boolean cond_pos = false;
+
+	if (ActiveButton != nullptr)
+	{
+		active_rect = ActiveButton->CalcGlobalRect();
+	}
+
+	for (cnt = 0; cnt < list_num; cnt++)
+	{
+		it = TargetList.DirectAccess(cnt);
+		it_btn = (SNGUIButton*)it->UserData;
+
+		// アクティブではないボタンを対象に処理する
+		if (ActiveButton != it_btn)
+		{
+			rect = it_btn->CalcGlobalRect();
+
+			// 上方かどうか (ループ指定時は常に上方と判断)
+			cond_dir = ((active_rect.PointY > rect.PointY) || loop);
+
+			// Y軸方向に重なっているか
+			cond_col = ((active_rect.PointX < rect.PointX + rect.Width) &&
+				        (rect.PointX < active_rect.PointX + active_rect.Width));
+
+			// より近いもの、左のものを選択する
+			cond_pos = ((tmp_btn == nullptr) ||
+						((keep_rect.PointY < rect.PointY) ||
+						 ((keep_rect.PointY == rect.PointY) && (keep_rect.PointX > rect.PointX))));
+
+			if (cond_dir && cond_col && cond_pos)
+			{
+				keep_rect = rect;
+				tmp_btn = it_btn;
+			}
+		}
+	}
+
+	// 候補発見時
+	if (tmp_btn != nullptr)
+	{
+		FocusChange(tmp_btn);
+	}
+
+	return;
+}
+
+
+Void SNFocusGroup::SelectDown(Boolean loop)
+{
+	SNListContainer* it;
+	SNGUIButton* it_btn;
+	SNGUIButton* tmp_btn = nullptr;
+	Int list_num = TargetList.GetNum();
+
+	SNRect active_rect = { 0 };
+	SNRect rect;
+	SNRect keep_rect = { 0 };
+	Int32 cnt;
+	Boolean cond_dir = false;
+	Boolean cond_col = false;
+	Boolean cond_pos = false;
+
+	if (ActiveButton != nullptr)
+	{
+		active_rect = ActiveButton->CalcGlobalRect();
+	}
+
+	for (cnt = 0; cnt < list_num; cnt++)
+	{
+		it = TargetList.DirectAccess(cnt);
+		it_btn = (SNGUIButton*)it->UserData;
+
+		// アクティブではないボタンを対象に処理する
+		if (ActiveButton != it_btn)
+		{
+			rect = it_btn->CalcGlobalRect();
+
+			// 下方かどうか (ループ指定時は常に上方と判断)
+			cond_dir = ((active_rect.PointY < rect.PointY) || loop);
+
+			// Y軸方向に重なっているか
+			cond_col = ((active_rect.PointX < rect.PointX + rect.Width) &&
+				(rect.PointX < active_rect.PointX + active_rect.Width));
+
+			// より近いもの、左のものを選択する
+			cond_pos = ((tmp_btn == nullptr) ||
+						((keep_rect.PointY > rect.PointY) ||
+						 ((keep_rect.PointY == rect.PointY) && (keep_rect.PointX > rect.PointX))));
+
+			if (cond_dir && cond_col && cond_pos)
+			{
+				keep_rect = rect;
+				tmp_btn = it_btn;
+			}
+		}
+	}
+
+	// 候補発見時
+	if (tmp_btn != nullptr)
+	{
+		FocusChange(tmp_btn);
+	}
+
+	return;
+}
+
+
+Void SNFocusGroup::SelectLeft(Boolean loop)
+{
+	SNListContainer* it;
+	SNGUIButton* it_btn;
+	SNGUIButton* tmp_btn = nullptr;
+	Int list_num = TargetList.GetNum();
+
+	SNRect active_rect = { 0 };
+	SNRect rect;
+	SNRect keep_rect = { 0 };
+	Int32 cnt;
+	Boolean cond_dir = false;
+	Boolean cond_col = false;
+	Boolean cond_pos = false;
+
+	if (ActiveButton != nullptr)
+	{
+		active_rect = ActiveButton->CalcGlobalRect();
+	}
+
+	for (cnt = 0; cnt < list_num; cnt++)
+	{
+		it = TargetList.DirectAccess(cnt);
+		it_btn = (SNGUIButton*)it->UserData;
+
+		// アクティブではないボタンを対象に処理する
+		if (ActiveButton != it_btn)
+		{
+			rect = it_btn->CalcGlobalRect();
+
+			// 左方かどうか (ループ指定時は常に上方と判断)
+			cond_dir = ((active_rect.PointX > rect.PointX) || loop);
+
+			// Y軸方向に重なっているか
+			cond_col = ((active_rect.PointY < rect.PointY + rect.Height) &&
+				(rect.PointY < active_rect.PointY + active_rect.Height));
+
+			// より近いもの、左のものを選択する
+			cond_pos = ((tmp_btn == nullptr) ||
+						((keep_rect.PointX < rect.PointX) ||
+						 ((keep_rect.PointX == rect.PointX) && (keep_rect.PointY > rect.PointY))));
+
+			if (cond_dir && cond_col && cond_pos)
+			{
+				keep_rect = rect;
+				tmp_btn = it_btn;
+			}
+		}
+	}
+
+	// 候補発見時
+	if (tmp_btn != nullptr)
+	{
+		FocusChange(tmp_btn);
+	}
+
+	return;
+}
+
+
+Void SNFocusGroup::SelectRight(Boolean loop)
+{
+	SNListContainer* it;
+	SNGUIButton* it_btn;
+	SNGUIButton* tmp_btn = nullptr;
+	Int list_num = TargetList.GetNum();
+
+	SNRect active_rect = { 0 };
+	SNRect rect;
+	SNRect keep_rect = { 0 };
+	Int32 cnt;
+	Boolean cond_dir = false;
+	Boolean cond_col = false;
+	Boolean cond_pos = false;
+
+	if (ActiveButton != nullptr)
+	{
+		active_rect = ActiveButton->CalcGlobalRect();
+	}
+
+	for (cnt = 0; cnt < list_num; cnt++)
+	{
+		it = TargetList.DirectAccess(cnt);
+		it_btn = (SNGUIButton*)it->UserData;
+
+		// アクティブではないボタンを対象に処理する
+		if (ActiveButton != it_btn)
+		{
+			rect = it_btn->CalcGlobalRect();
+
+			// 右方かどうか (ループ指定時は常に上方と判断)
+			cond_dir = ((active_rect.PointX < rect.PointX) || loop);
+
+			// Y軸方向に重なっているか
+			cond_col = ((active_rect.PointY < rect.PointY + rect.Height) &&
+				(rect.PointY < active_rect.PointY + active_rect.Height));
+
+			// より近いもの、左のものを選択する
+			cond_pos = ((tmp_btn == nullptr) ||
+				((keep_rect.PointX > rect.PointX) ||
+					((keep_rect.PointX == rect.PointX) && (keep_rect.PointY > rect.PointY))));
+
+			if (cond_dir && cond_col && cond_pos)
+			{
+				keep_rect = rect;
+				tmp_btn = it_btn;
+			}
+		}
+	}
+
+	// 候補発見時
+	if (tmp_btn != nullptr)
+	{
+		FocusChange(tmp_btn);
+	}
+
+	return;
+}
+
+
 
 Void SNFocusGroup::FocusChange(SNGUIButton* next)
 {
