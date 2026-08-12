@@ -27,7 +27,6 @@ public:
 
 	virtual Void SelectNearest(SNPoint* pnt);
 	virtual Void SelectHover(SNPoint* pnt);
-	virtual Void SelectDir(Int8 angle_top, Int8 angle_bottom, Int32 offset_x, Int32 offset_y);
 	virtual Void SelectUp(Boolean loop);
 	virtual Void SelectDown(Boolean loop);
 	virtual Void SelectLeft(Boolean loop);

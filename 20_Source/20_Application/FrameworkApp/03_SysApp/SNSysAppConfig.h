@@ -34,10 +34,61 @@ protected:
 
 	virtual Boolean OnNotifyEvent();
 
+	virtual Void UpdateState();
+	virtual Void ProcButton();
+
 private:
-	static constexpr Int32 GUITextNum = 9;
-	static constexpr Int32 GUITextExNum = 3;
-	static constexpr Int32 GUIButtonNum = 25;
+	enum GUITextObj
+	{
+		GUITextTitle,
+		GUITextScreenMode,
+		GUITextVSYNC,
+		GUITextDrawFilter,
+		GUITextMasterVolume,
+		GUITextBGMVolume,
+		GUITextSEVolume,
+		GUITextPlayer1Input,
+		GUITextPlayer2Input,
+		GUITextNum
+	};
+
+	enum GUITexxtExObj
+	{
+		GUITextExMasterVolume,
+		GUITextExBGMVolume,
+		GUITextExSEVolume,
+		GUITextExNum
+	};
+
+	enum GUIButtonObj
+	{
+		GUIButtonWindow,
+		GUIButtonFullScreen,
+		GUIButtonVSYNCOFF,
+		GUIButtonVSYNCON,
+		GUIButtonFilterOFF,
+		GUIButtonFilterON,
+		GUIButtonMasterVolDown10,
+		GUIButtonMasterVolDown1,
+		GUIButtonMasterVolUp1,
+		GUIButtonMasterVolUp10,
+		GUIButtonBGMVolDown10,
+		GUIButtonBGMVolDown1,
+		GUIButtonBGMVolUp1,
+		GUIButtonBGMVolUp10,
+		GUIButtonSEVolDown10,
+		GUIButtonSEVolDown1,
+		GUIButtonSEVolUp1,
+		GUIButtonSEVolUp10,
+		GUIButtonP1GamePad,
+		GUIButtonP1Keyboard,
+		GUIButtonP2GamePad,
+		GUIButtonP2Keyboard,
+		GUIButtonInitialize,
+		GUIButtonOK,
+		GUIButtonCancel,
+		GUIButtonNum
+	};
 
 	SNGUIText GUIText[GUITextNum];
 	SNGUITextEx GUITextEx[GUITextExNum];

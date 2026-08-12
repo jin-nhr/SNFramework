@@ -17,6 +17,11 @@ struct SNUserConfigData
 	Boolean DrawFilter;			// 描画フィルタ
 	UInt8 Reserve[1];			// リザーブ
 	//--------------------------------------------
+	UInt8 MasterVolume;			// マスター音量
+	UInt8 BGMVolume;				// BGM音量
+	UInt8 SEVolume;				// SE音量
+	UInt8 Reserve2[1];			// リザーブ
+	//--------------------------------------------
 	SNKeyCode	KeyboardMapping[SNVirtualGamePadIDNum][SNVirtualGamePadButtonNum];	// キーボード入力マッピング
 	//--------------------------------------------
 	SNGamePadID GamePadSelect[SNVirtualGamePadIDNum];	// ゲームパッド割り当て
@@ -40,8 +45,18 @@ public:
 	// 終了処理
 	static Void Terminate();
 
+	// ユーザーデータ初期化
+	static Void InitUserData();
+
+	// ユーザーデータ退避
+	static Void BackupUserData();
+
+	// ユーザーデータ復元
+	static Void RestoreUserData();
+
 	// ユーザーデータ
 	static SNUserConfigData Data;
+	static SNUserConfigData BackupData;
 
 
 private:
@@ -72,7 +87,11 @@ private:
 		true,						// 描画フィルタON
 		0,							// リザーブ
 		//--------------------------------------------
-
+		100,							// マスター音量
+		100,							// BGM音量
+		100,							// SE音量
+		0,							// リザーブ
+		//--------------------------------------------
 		// キーボード入力マッピング
 		// 仮想パッド1
 		SNKeyCodeUp,				// 方向キー上

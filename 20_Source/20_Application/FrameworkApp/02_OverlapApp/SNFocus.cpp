@@ -97,8 +97,9 @@ Void SNFocus::ReleaseUserApp(SNFocusGroup* userapp)
 
 SNFocus::SNFocus()
 {
-	TimerSeq.Initialize(this, 0, 1);
+	TimerSeq.Initialize(this, 0, 2);
 	TimerSeq.SetWait(0, SNSystemConfig::GUIButtonPushTime);
+	TimerSeq.SetWait(1, 0);
 	return;
 }
 
@@ -252,12 +253,24 @@ SNPhaseResult SNFocus::PhaseStepFunc(Int32 ch, Int32 phase_idx, Int32 call_count
 	switch (ch)
 	{
 	case 0:
-		if (target != nullptr)
+		switch (phase_idx)
 		{
-			target->ReleaseDecide();
+		case 0:
+			if (target != nullptr)
+			{
+				target->ReleaseDecide();
+			}
+			ret = SNPhaseResultNext;
+			break;
+
+		case 1:
+			if (target != nullptr)
+			{
+				target->ClearButtonSts();
+			}
+			ret = SNPhaseResultNext;
+			break;
 		}
-		ret = SNPhaseResultNext;
-		break;
 
 	default:
 		break;

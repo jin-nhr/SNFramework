@@ -2,9 +2,11 @@
 #include "SNApplication.h"
 #include "SNEvent.h"
 #include "SNSystemConfig.h"
+#include "SNUserConfig.h"
 #include "SNGraphics.h"
 #include "SNSystem.h"
 #include "SNFocus.h"
+#include "SNMath.h"
 
 SNRect SNSysAppConfig::GUITextRect[GUITextNum] =
 {
@@ -181,17 +183,15 @@ Void SNSysAppConfig::OnEntry()
 {
 	FocusGp.Entry();
 
-	if (SNMute::GetMuteSts() == SNMuteStsOn)
-	{
-		SNMute::SetMute(false, true);
-	}
+	// 現在設定の退避
+	SNUserConfig::BackupUserData();
+
 
 	return;
 }
 
 Void SNSysAppConfig::OnExit()
 {
-
 	FocusGp.Exit();
 
 	return;
@@ -199,6 +199,11 @@ Void SNSysAppConfig::OnExit()
 
 Void SNSysAppConfig::OnCycle()
 {
+	// ボタンの処理実行
+	ProcButton();
+
+	// 状態更新
+	UpdateState();
 
 	return;
 }
@@ -221,3 +226,172 @@ Boolean SNSysAppConfig::OnNotifyEvent()
 	return false;
 }
 
+Void SNSysAppConfig::UpdateState()
+{
+	// 画面モード
+	GUIButton[GUIButtonWindow].Selected = !SNUserConfig::Data.FullScreen;
+	GUIButton[GUIButtonFullScreen].Selected = SNUserConfig::Data.FullScreen;
+
+	// VSYNC
+	GUIButton[GUIButtonVSYNCOFF].Selected = !SNUserConfig::Data.VSync;
+	GUIButton[GUIButtonVSYNCON].Selected = SNUserConfig::Data.VSync;
+
+	// フィルタ
+	GUIButton[GUIButtonFilterOFF].Selected = !SNUserConfig::Data.DrawFilter;
+	GUIButton[GUIButtonFilterON].Selected = SNUserConfig::Data.DrawFilter;
+
+	// Master音量
+	GUITextEx[GUITextExMasterVolume].SetValue((UInt8)SNMath::Saturate(SNUserConfig::Data.MasterVolume, SNSoundVolMin, SNSoundVolMax));
+
+	// BGM音量
+	GUITextEx[GUITextExBGMVolume].SetValue((UInt8)SNMath::Saturate(SNUserConfig::Data.BGMVolume, SNSoundVolMin, SNSoundVolMax));
+
+	// SE音量
+	GUITextEx[GUITextExSEVolume].SetValue((UInt8)SNMath::Saturate(SNUserConfig::Data.SEVolume, SNSoundVolMin, SNSoundVolMax));
+
+	return;
+}
+
+Void SNSysAppConfig::ProcButton()
+{
+	// ウインドウ
+	if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonWindow]))
+	{
+		SNUserConfig::Data.FullScreen = false;
+	}
+
+	// フルスクリーン
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonFullScreen]))
+	{
+		SNUserConfig::Data.FullScreen = true;
+	}
+
+	// VSYNC OFF
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonVSYNCOFF]))
+	{
+		SNUserConfig::Data.VSync = false;
+	}
+
+	// VSYNC ON
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonVSYNCON]))
+	{
+		SNUserConfig::Data.VSync = true;
+	}
+
+	// 描画フィルタ OFF
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonFilterOFF]))
+	{
+		SNUserConfig::Data.DrawFilter = false;
+	}
+
+	// 描画フィルタ ON
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonFilterON]))
+	{
+		SNUserConfig::Data.DrawFilter = true;
+	}
+
+	// マスター音量
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonMasterVolDown10]))
+	{
+		SNUserConfig::Data.MasterVolume = (UInt8)SNMath::Saturate(SNUserConfig::Data.MasterVolume - 10, SNSoundVolMin, SNSoundVolMax);
+	}
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonMasterVolDown1]))
+	{
+		SNUserConfig::Data.MasterVolume = (UInt8)SNMath::Saturate(SNUserConfig::Data.MasterVolume - 1, SNSoundVolMin, SNSoundVolMax);
+	}
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonMasterVolUp1]))
+	{
+		SNUserConfig::Data.MasterVolume = (UInt8)SNMath::Saturate(SNUserConfig::Data.MasterVolume + 1, SNSoundVolMin, SNSoundVolMax);
+	}
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonMasterVolUp10]))
+	{
+		SNUserConfig::Data.MasterVolume = (UInt8)SNMath::Saturate(SNUserConfig::Data.MasterVolume + 10, SNSoundVolMin, SNSoundVolMax);
+	}
+
+	// BGM音量
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonBGMVolDown10]))
+	{
+		SNUserConfig::Data.BGMVolume = (UInt8)SNMath::Saturate(SNUserConfig::Data.BGMVolume - 10, SNSoundVolMin, SNSoundVolMax);
+	}
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonBGMVolDown1]))
+	{
+		SNUserConfig::Data.BGMVolume = (UInt8)SNMath::Saturate(SNUserConfig::Data.BGMVolume - 1, SNSoundVolMin, SNSoundVolMax);
+	}
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonBGMVolUp1]))
+	{
+		SNUserConfig::Data.BGMVolume = (UInt8)SNMath::Saturate(SNUserConfig::Data.BGMVolume + 1, SNSoundVolMin, SNSoundVolMax);
+	}
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonBGMVolUp10]))
+	{
+		SNUserConfig::Data.BGMVolume = (UInt8)SNMath::Saturate(SNUserConfig::Data.BGMVolume + 10, SNSoundVolMin, SNSoundVolMax);
+	}
+
+	// SE音量
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonSEVolDown10]))
+	{
+		SNUserConfig::Data.SEVolume = (UInt8)SNMath::Saturate(SNUserConfig::Data.SEVolume - 10, SNSoundVolMin, SNSoundVolMax);
+	}
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonSEVolDown1]))
+	{
+		SNUserConfig::Data.SEVolume = (UInt8)SNMath::Saturate(SNUserConfig::Data.SEVolume - 1, SNSoundVolMin, SNSoundVolMax);
+	}
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonSEVolUp1]))
+	{
+		SNUserConfig::Data.SEVolume = (UInt8)SNMath::Saturate(SNUserConfig::Data.SEVolume + 1, SNSoundVolMin, SNSoundVolMax);
+	}
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonSEVolUp10]))
+	{
+		SNUserConfig::Data.SEVolume = (UInt8)SNMath::Saturate(SNUserConfig::Data.SEVolume + 10, SNSoundVolMin, SNSoundVolMax);
+	}
+
+	// P1 ゲームパッド
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonP1GamePad]))
+	{
+		// パッド入力設定画面へ
+	}
+	// P1 キーボード
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonP1Keyboard]))
+	{
+		// キーボード入力設定画面へ
+	}
+	// P2 ゲームパッド
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonP2GamePad]))
+	{
+		// パッド入力設定画面へ
+	}
+	// P2 キーボード
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonP2Keyboard]))
+	{
+		// キーボード入力設定画面へ
+	}
+
+	// デフォルト設定に戻す
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonInitialize]))
+	{
+		SNUserConfig::InitUserData();
+	}
+
+	// OK
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonOK]))
+	{
+		TransCode = SNTransitionCode0;
+	}
+
+	// キャンセル
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonCancel]))
+	{
+		// 変更前の設定に戻す
+		SNUserConfig::RestoreUserData();
+		TransCode = SNTransitionCode0;
+	}
+
+	else if (FocusGp.JudgeActCancel())
+	{
+		// 変更前の設定に戻す
+		SNUserConfig::RestoreUserData();
+		TransCode = SNTransitionCode0;
+		SNFocus::CallbackPushButton();
+	}
+
+	return;
+}

@@ -10,7 +10,9 @@ constexpr UInt8 SNFadeStepMax = 255;
 constexpr UInt8 SNAlphaMin = 0;
 constexpr UInt8 SNAlphaMax = 255;
 
-
+// ‰¹—Ê
+constexpr UInt8 SNSoundVolMin = 0;
+constexpr UInt8 SNSoundVolMax = 100;
 
 
 

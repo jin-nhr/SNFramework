@@ -4,6 +4,9 @@
 // ユーザーコンフィグデータ
 SNUserConfigData SNUserConfig::Data;
 
+// バックアップ
+SNUserConfigData SNUserConfig::BackupData;
+
 // コンフィグファイル
 SNFile SNUserConfig::ConfigFile;
 
@@ -12,6 +15,7 @@ Void SNUserConfig::Initialize()
 {
 	// 初期値セット
 	Data = InitValue;
+	BackupData = InitValue;
 
 	// コンフィグ読み込み
 	LoadUserConfig();
@@ -26,6 +30,27 @@ Void SNUserConfig::Terminate()
 	// コンフィグ保存
 	SaveUserConfig();
 
+	return;
+}
+
+// ユーザーデータ初期化
+Void SNUserConfig::InitUserData()
+{
+	Data = InitValue;
+	return;
+}
+
+// ユーザーデータ退避
+Void SNUserConfig::BackupUserData()
+{
+	BackupData = Data;
+	return;
+}
+
+// ユーザーデータ復元
+Void SNUserConfig::RestoreUserData()
+{
+	Data = BackupData;
 	return;
 }
 
