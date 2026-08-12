@@ -77,34 +77,38 @@ Void SNEvent::Update()
 		EventResult[cnt] = false;
 	}
 
-	// ゲームパッド1
-	if (SNVirtualGamePad::EventExist[SNVirtualGamePadID1])
+	if (SNApplication::Active)
 	{
-		EventExist[SNEventTypeVirtualGamePad1] = true;
-	}
 
-	// ゲームパッド2
-	if (SNVirtualGamePad::EventExist[SNVirtualGamePadID2])
-	{
-		EventExist[SNEventTypeVirtualGamePad2] = true;
-	}
+		// ゲームパッド1
+		if (SNVirtualGamePad::EventExist[SNVirtualGamePadID1])
+		{
+			EventExist[SNEventTypeVirtualGamePad1] = true;
+		}
 
-	// ポインティングデバイス
-	if (SNVirtualPointingDevice::EventExist)
-	{
-		EventExist[SNEventTypeVirtualPointing] = true;
-	}
+		// ゲームパッド2
+		if (SNVirtualGamePad::EventExist[SNVirtualGamePadID2])
+		{
+			EventExist[SNEventTypeVirtualGamePad2] = true;
+		}
 
-	// ダイレクトキーボード
-	if (SNVirtualDirectKeyboard::Active)
-	{
-		EventExist[SNEventTypeVirtualDirectKeyboard] = true;
-	}
+		// ポインティングデバイス
+		if (SNVirtualPointingDevice::EventExist)
+		{
+			EventExist[SNEventTypeVirtualPointing] = true;
+		}
 
-	// ダイレクトゲームパッド
-	if (SNVirtualDirectGamePad::Active)
-	{
-		EventExist[SNEventTypeVirtualDirectGamePad] = true;
+		// ダイレクトキーボード
+		if (SNVirtualDirectKeyboard::Active)
+		{
+			EventExist[SNEventTypeVirtualDirectKeyboard] = true;
+		}
+
+		// ダイレクトゲームパッド
+		if (SNVirtualDirectGamePad::Active)
+		{
+			EventExist[SNEventTypeVirtualDirectGamePad] = true;
+		}
 	}
 
 	return;

@@ -4,6 +4,7 @@
 #include "SNVirtualGamePad.h"
 #include "SNSystemConfig.h"
 
+
 SNFocusGroup* SNFocus::SysAppGroup = nullptr;
 SNFocusGroup* SNFocus::UserAppGroup = nullptr;
 
