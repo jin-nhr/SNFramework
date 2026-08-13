@@ -35,7 +35,7 @@ public:
 	static Void UpdateDrawRect(SNSize* size);
 
 	// デバイスリストア処理
-	static Void DeviceRestore(SNSize* size);
+	static Void DeviceRestore(Boolean is_full, SNSize* size);
 
 	// クライアント座標系→サーフェス座標に変換
 	// 引数：画面座標を入力/ 処理後、サーフェス座標に更新する

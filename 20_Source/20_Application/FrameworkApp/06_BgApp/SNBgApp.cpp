@@ -29,19 +29,5 @@ Boolean SNBgApp::OnNotifyEvent()
 		ret = true;
 	}
 
-	// ç≈ëÂâª
-	if (SNApplication::GetEventInfo(SNEventMaximizeDisp))
-	{
-		SNUserConfig::Data.FullScreen = true;
-		ret = true;
-	}
-
-	// í èÌï\é¶
-	if (SNApplication::GetEventInfo(SNEventNormalDisp))
-	{
-		SNUserConfig::Data.FullScreen = false;
-		ret = true;
-	}
-
 	return ret;
 }

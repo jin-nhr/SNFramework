@@ -90,8 +90,6 @@ Void SNFocus::ReleaseUserApp(SNFocusGroup* userapp)
 		UserAppGroup = nullptr;
 	}
 
-	// ‚à‚µƒŒƒCƒ„‰»‚·‚éê‡‚ÍŽŸ‚ÌGroup‚ðEntry‚·‚é
-
 	return;
 }
 
@@ -133,21 +131,23 @@ Boolean SNFocus::OnPointingDevice()
 	Boolean pnt_push = SNVirtualPointingDevice::Event[SNVirtualPointingEventDecide];
 	Boolean cancel_push = SNVirtualPointingDevice::Event[SNVirtualPointingEventCancel];
 	SNGUIButton* active_btn = nullptr;
+	SNGUIButton* push_btn = nullptr;
 
 	if (!TimerSeq.IsProc())
 	{
 		if (target != nullptr)
 		{
-			target->MovePoint(&pnt);
 			active_btn = target->GetActiveButton();
+			target->MovePoint(&pnt);
 
 			if (pnt_push)
 			{
 				target->PushPointingDecide(&pnt);
 
-				if (active_btn != nullptr)
+				push_btn = target->GetActiveButton();
+				if (push_btn != nullptr)
 				{
-					if (active_btn->Push)
+					if (push_btn->Push)
 					{
 						SEPush.Play();
 						TimerSeq.Start();

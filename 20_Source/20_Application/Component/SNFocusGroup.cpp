@@ -91,6 +91,14 @@ Void SNFocusGroup::Entry()
 		point.Y = 0;
 	}
 
+	else if ((!LastActive->Enable) ||
+		(!LastActive->Visible) ||
+		(LastActive->Disable))
+	{
+		point.X = 0;
+		point.Y = 0;
+	}
+
 	else
 	{
 		rect = LastActive->CalcGlobalRect();
@@ -174,18 +182,22 @@ Void SNFocusGroup::SelectNearest(SNPoint* pnt)
 		// アクティブではないボタンを対象に処理する
 		if (ActiveButton != it_btn)
 		{
-			rect = it_btn->CalcGlobalRect();
-
-			pnt2.X = rect.PointX;
-			pnt2.Y = rect.PointY;
-
-			tmp_dist = SNMath::CalcDist2(pnt, &pnt2);
-
-			// より近いボタンを発見
-			if (tmp_dist < dist)
+			// 有効かつ表示のボタンを対象に判定
+			if ((it_btn->Enable) && (it_btn->Visible))
 			{
-				dist = tmp_dist;
-				tmp_btn = it_btn;
+				rect = it_btn->CalcGlobalRect();
+
+				pnt2.X = rect.PointX;
+				pnt2.Y = rect.PointY;
+
+				tmp_dist = SNMath::CalcDist2(pnt, &pnt2);
+
+				// より近いボタンを発見
+				if (tmp_dist < dist)
+				{
+					dist = tmp_dist;
+					tmp_btn = it_btn;
+				}
 			}
 		}
 	}
@@ -217,8 +229,12 @@ Void SNFocusGroup::SelectHover(SNPoint* pnt)
 		{
 			if (it_btn->CheckHover(pnt))
 			{
-				tmp_btn = it_btn;
-				break;
+				// 有効かつ表示のボタンを対象に判定
+				if ((it_btn->Enable) && (it_btn->Visible))
+				{
+					tmp_btn = it_btn;
+					break;
+				}
 			}
 		}
 	}
@@ -260,24 +276,28 @@ Void SNFocusGroup::SelectUp(Boolean loop)
 		// アクティブではないボタンを対象に処理する
 		if (ActiveButton != it_btn)
 		{
-			rect = it_btn->CalcGlobalRect();
-
-			// 上方かどうか (ループ指定時は常に上方と判断)
-			cond_dir = ((active_rect.PointY > rect.PointY) || loop);
-
-			// Y軸方向に重なっているか
-			cond_col = ((active_rect.PointX < rect.PointX + rect.Width) &&
-				        (rect.PointX < active_rect.PointX + active_rect.Width));
-
-			// より近いもの、左のものを選択する
-			cond_pos = ((tmp_btn == nullptr) ||
-						((keep_rect.PointY < rect.PointY) ||
-						 ((keep_rect.PointY == rect.PointY) && (keep_rect.PointX > rect.PointX))));
-
-			if (cond_dir && cond_col && cond_pos)
+			// 有効かつ表示のボタンを対象に判定
+			if ((it_btn->Enable) && (it_btn->Visible))
 			{
-				keep_rect = rect;
-				tmp_btn = it_btn;
+				rect = it_btn->CalcGlobalRect();
+
+				// 上方かどうか (ループ指定時は常に上方と判断)
+				cond_dir = ((active_rect.PointY > rect.PointY) || loop);
+
+				// Y軸方向に重なっているか
+				cond_col = ((active_rect.PointX < rect.PointX + rect.Width) &&
+					(rect.PointX < active_rect.PointX + active_rect.Width));
+
+				// より近いもの、左のものを選択する
+				cond_pos = ((tmp_btn == nullptr) ||
+					((keep_rect.PointY < rect.PointY) ||
+						((keep_rect.PointY == rect.PointY) && (keep_rect.PointX > rect.PointX))));
+
+				if (cond_dir && cond_col && cond_pos)
+				{
+					keep_rect = rect;
+					tmp_btn = it_btn;
+				}
 			}
 		}
 	}
@@ -320,24 +340,28 @@ Void SNFocusGroup::SelectDown(Boolean loop)
 		// アクティブではないボタンを対象に処理する
 		if (ActiveButton != it_btn)
 		{
-			rect = it_btn->CalcGlobalRect();
-
-			// 下方かどうか (ループ指定時は常に上方と判断)
-			cond_dir = ((active_rect.PointY < rect.PointY) || loop);
-
-			// Y軸方向に重なっているか
-			cond_col = ((active_rect.PointX < rect.PointX + rect.Width) &&
-				(rect.PointX < active_rect.PointX + active_rect.Width));
-
-			// より近いもの、左のものを選択する
-			cond_pos = ((tmp_btn == nullptr) ||
-						((keep_rect.PointY > rect.PointY) ||
-						 ((keep_rect.PointY == rect.PointY) && (keep_rect.PointX > rect.PointX))));
-
-			if (cond_dir && cond_col && cond_pos)
+			// 有効かつ表示のボタンを対象に判定
+			if ((it_btn->Enable) && (it_btn->Visible))
 			{
-				keep_rect = rect;
-				tmp_btn = it_btn;
+				rect = it_btn->CalcGlobalRect();
+
+				// 下方かどうか (ループ指定時は常に上方と判断)
+				cond_dir = ((active_rect.PointY < rect.PointY) || loop);
+
+				// Y軸方向に重なっているか
+				cond_col = ((active_rect.PointX < rect.PointX + rect.Width) &&
+					(rect.PointX < active_rect.PointX + active_rect.Width));
+
+				// より近いもの、左のものを選択する
+				cond_pos = ((tmp_btn == nullptr) ||
+					((keep_rect.PointY > rect.PointY) ||
+						((keep_rect.PointY == rect.PointY) && (keep_rect.PointX > rect.PointX))));
+
+				if (cond_dir && cond_col && cond_pos)
+				{
+					keep_rect = rect;
+					tmp_btn = it_btn;
+				}
 			}
 		}
 	}
@@ -380,24 +404,28 @@ Void SNFocusGroup::SelectLeft(Boolean loop)
 		// アクティブではないボタンを対象に処理する
 		if (ActiveButton != it_btn)
 		{
-			rect = it_btn->CalcGlobalRect();
-
-			// 左方かどうか (ループ指定時は常に上方と判断)
-			cond_dir = ((active_rect.PointX > rect.PointX) || loop);
-
-			// Y軸方向に重なっているか
-			cond_col = ((active_rect.PointY < rect.PointY + rect.Height) &&
-				(rect.PointY < active_rect.PointY + active_rect.Height));
-
-			// より近いもの、左のものを選択する
-			cond_pos = ((tmp_btn == nullptr) ||
-						((keep_rect.PointX < rect.PointX) ||
-						 ((keep_rect.PointX == rect.PointX) && (keep_rect.PointY > rect.PointY))));
-
-			if (cond_dir && cond_col && cond_pos)
+			// 有効かつ表示のボタンを対象に判定
+			if ((it_btn->Enable) && (it_btn->Visible))
 			{
-				keep_rect = rect;
-				tmp_btn = it_btn;
+				rect = it_btn->CalcGlobalRect();
+
+				// 左方かどうか (ループ指定時は常に上方と判断)
+				cond_dir = ((active_rect.PointX > rect.PointX) || loop);
+
+				// Y軸方向に重なっているか
+				cond_col = ((active_rect.PointY < rect.PointY + rect.Height) &&
+					(rect.PointY < active_rect.PointY + active_rect.Height));
+
+				// より近いもの、左のものを選択する
+				cond_pos = ((tmp_btn == nullptr) ||
+					((keep_rect.PointX < rect.PointX) ||
+						((keep_rect.PointX == rect.PointX) && (keep_rect.PointY > rect.PointY))));
+
+				if (cond_dir && cond_col && cond_pos)
+				{
+					keep_rect = rect;
+					tmp_btn = it_btn;
+				}
 			}
 		}
 	}
@@ -440,24 +468,28 @@ Void SNFocusGroup::SelectRight(Boolean loop)
 		// アクティブではないボタンを対象に処理する
 		if (ActiveButton != it_btn)
 		{
-			rect = it_btn->CalcGlobalRect();
-
-			// 右方かどうか (ループ指定時は常に上方と判断)
-			cond_dir = ((active_rect.PointX < rect.PointX) || loop);
-
-			// Y軸方向に重なっているか
-			cond_col = ((active_rect.PointY < rect.PointY + rect.Height) &&
-				(rect.PointY < active_rect.PointY + active_rect.Height));
-
-			// より近いもの、左のものを選択する
-			cond_pos = ((tmp_btn == nullptr) ||
-				((keep_rect.PointX > rect.PointX) ||
-					((keep_rect.PointX == rect.PointX) && (keep_rect.PointY > rect.PointY))));
-
-			if (cond_dir && cond_col && cond_pos)
+			// 有効かつ表示のボタンを対象に判定
+			if ((it_btn->Enable) && (it_btn->Visible))
 			{
-				keep_rect = rect;
-				tmp_btn = it_btn;
+				rect = it_btn->CalcGlobalRect();
+
+				// 右方かどうか (ループ指定時は常に上方と判断)
+				cond_dir = ((active_rect.PointX < rect.PointX) || loop);
+
+				// Y軸方向に重なっているか
+				cond_col = ((active_rect.PointY < rect.PointY + rect.Height) &&
+					(rect.PointY < active_rect.PointY + active_rect.Height));
+
+				// より近いもの、左のものを選択する
+				cond_pos = ((tmp_btn == nullptr) ||
+					((keep_rect.PointX > rect.PointX) ||
+						((keep_rect.PointX == rect.PointX) && (keep_rect.PointY > rect.PointY))));
+
+				if (cond_dir && cond_col && cond_pos)
+				{
+					keep_rect = rect;
+					tmp_btn = it_btn;
+				}
 			}
 		}
 	}
@@ -518,7 +550,10 @@ Void SNFocusGroup::PushDecide()
 {
 	if (ActiveButton != nullptr)
 	{
-		ActiveButton->Push = true;
+		if (!ActiveButton->Disable)
+		{
+			ActiveButton->Push = true;
+		}
 	}
 
 	return;

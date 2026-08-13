@@ -89,7 +89,7 @@ Void SNGraphics::Update()
 	UpdateDrawRect(&win_size);
 
 	// デバイスリストア処理
-	DeviceRestore(&win_size);
+	DeviceRestore(is_full, &win_size);
 
 	return;
 }
@@ -115,14 +115,24 @@ Void SNGraphics::UpdateDrawRect(SNSize* size)
 	return;
 }
 
-Void SNGraphics::DeviceRestore(SNSize* size)
+Void SNGraphics::DeviceRestore(Boolean is_full, SNSize* size)
 {
-	// ウインドウのサイズ変更通知をトリガにして
-	// デバイスのリストアを実行する
-	if (SNApplication::GetEventInfo(SNEventWindowSize))
+	static Boolean old_full = false;
+
+	// フルスクリーン状態の切替時
+	if (is_full != old_full)
 	{
 		SNGraphicsDevice::Restore(size);
 	}
+
+	// ウインドウのサイズ変更通知をトリガにして
+	// デバイスのリストアを実行する
+	else if (SNApplication::GetEventInfo(SNEventWindowSize))
+	{
+		SNGraphicsDevice::Restore(size);
+	}
+
+	old_full = is_full;
 
 	return;
 }

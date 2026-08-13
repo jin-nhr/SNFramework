@@ -43,9 +43,6 @@ private:
 	// サイズ変更
 	static Int64 OnSize(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 
-	// システムキー押下
-	static Int64 OnSysKeyDown(Void* window_handle, UInt message, Void* w_param, Void* l_param);
-
 	// その他イベント処理
 	static Int64 OnOtherEvent(Void* window_handle, UInt message, Void* w_param, Void* l_param);
 };

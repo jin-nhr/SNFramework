@@ -91,6 +91,8 @@ Void SNGraphicsDevice::CreateSwapChain()
 
     hr = factory->CreateSwapChain((ID3D11Device*)Device, &sd, (IDXGISwapChain**)&SwapChain);
 
+    factory->MakeWindowAssociation((HWND)SNWindow::WindowHandle, DXGI_MWA_NO_ALT_ENTER);
+
     factory->Release();
     adapter->Release();
     dxgi_dev->Release();

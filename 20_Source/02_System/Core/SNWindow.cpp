@@ -63,11 +63,6 @@ Int64 __stdcall SNWindow::WindowProc(
         ret = OnSize(window_handle, message, w_param, l_param);
         break;
 
-    // ALT系のキー押下
-    case WM_SYSKEYDOWN:
-        ret = OnSysKeyDown(window_handle, message, w_param, l_param);
-        break;
-
     // その他イベント
     default:
         ret = OnOtherEvent(window_handle, message, w_param, l_param);
@@ -250,25 +245,6 @@ Int64 SNWindow::OnSize(Void* window_handle, UInt message, Void* w_param, Void* l
 {
     SNApplication::NotifyEvent(SNApplicationEvent::SNEventWindowSize);
  
-    return 0;
-}
-
-// システムキー押下
-Int64 SNWindow::OnSysKeyDown(Void* window_handle, UInt message, Void* w_param, Void* l_param)
-{
-    // ALT+ENTER が押された
-    if (((WPARAM)w_param == VK_RETURN) && (GetKeyState(VK_MENU) & 0x8000))
-    {
-        if (!SNUserConfig::Data.FullScreen)
-        {
-            SNApplication::NotifyEvent(SNApplicationEvent::SNEventMaximizeDisp);
-        }
-        else
-        {
-            SNApplication::NotifyEvent(SNApplicationEvent::SNEventNormalDisp);
-        }
-    }
-
     return 0;
 }
 
