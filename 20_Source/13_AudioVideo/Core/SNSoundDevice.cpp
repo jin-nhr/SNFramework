@@ -3,6 +3,7 @@
 #include "SNSoundThread.h"
 #include "SNSystemConfig.h"
 #include "SNAutoResource.h"
+#include "SNUserConfig.h"
 
 Handle SNSoundDevice::XAudio = nullptr;
 Handle SNSoundDevice::MasterVoice = nullptr;
@@ -66,6 +67,15 @@ Void SNSoundDevice::InitStore()
 
 	return;
 }
+
+Void SNSoundDevice::Update()
+{
+	IXAudio2MasteringVoice* voice = (IXAudio2MasteringVoice*)MasterVoice;
+	voice->SetVolume(SNUserConfig::Data.MasterVolume / 100.0f);
+
+	return;
+}
+
 
 Void SNSoundDevice::PreTerminate()
 {
@@ -215,8 +225,8 @@ Void SNSoundDevice::Play(SNListContainer* in_source, SNPCM* pcm)
 	buffer.pAudioData = pcm->GetPCM();
 	buffer.Flags = XAUDIO2_END_OF_STREAM;
 
+	source_voice->SetVolume(SNUserConfig::Data.SEVolume / 100.0f);
 	source_voice->SubmitSourceBuffer(&buffer);
-
 	source_voice->Start();
 
 	return;
@@ -243,6 +253,7 @@ Void SNSoundDevice::SubmitMusicBuffer(SNListContainer* voice, SNMemory* pcm)
 	buffer.pAudioData = (BYTE*)pcm->GetAddress();
 	buffer.Flags = 0;
 
+	source_voice->SetVolume(SNUserConfig::Data.BGMVolume / 100.0f);
 	source_voice->SubmitSourceBuffer(&buffer);
 
 	return;
@@ -267,6 +278,7 @@ Void SNSoundDevice::MusicPlay(SNListContainer* voice)
 {
 	IXAudio2SourceVoice* source_voice = (IXAudio2SourceVoice*)voice->UserData;
 
+	source_voice->SetVolume(SNUserConfig::Data.BGMVolume / 100.0f);
 	source_voice->Start();
 
 	return;

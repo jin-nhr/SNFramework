@@ -30,6 +30,7 @@ Void SNAudioVideo::Run()
 
 Void SNAudioVideo::Update()
 {
+	SNSoundDevice::Update();
 	SNSoundResManager::Update();
 	SNMusicResManager::Update();
 	return;

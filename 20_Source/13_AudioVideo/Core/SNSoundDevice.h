@@ -14,6 +14,7 @@ public:
 	static Void InitAudio();
 	static Void InitStore();
 
+	static Void Update();
 
 	static Void PreTerminate();
 	static Void Terminate();
