@@ -10,8 +10,9 @@ enum SNMusicResID
 
 	SNMusicResMute = SNMusicResTop,
 	SNMusicResTitle,
+	SNMusicResEnterWorld,
 
-	SNMusicResEnd = SNMusicResTitle,
+	SNMusicResEnd = SNMusicResEnterWorld,
 
 	SNMusicResNum,
 };
@@ -24,6 +25,6 @@ public:
 		//(String)L"Mute.mp3",
 		(String)L"Mute.mp3",
 		(String)L"yuruyakanaasayake.mp3",
-
+		(String)L"latenightsnow.mp3",
 	};
 };

@@ -10,5 +10,7 @@ public:
 	SNUserAppIdle();
 	virtual ~SNUserAppIdle();
 
+	virtual Void OnEntry();
+
 };
 

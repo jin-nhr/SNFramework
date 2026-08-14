@@ -88,8 +88,14 @@ Void SNMusicPlayer::OnCycle()
 	// 切替確認
 	else
 	{
-		// 再生中レイヤに変更あり？
+		// 再生中レイヤの変更
 		if (PlayingLayer != GetPlayingLayer())
+		{
+			Seq.Start();
+		}
+
+		// 再生中レイヤが同じ場合に再生中RESIDが変わった
+		else if (PlayingResID != ResID[PlayingLayer])
 		{
 			Seq.Start();
 		}

@@ -1,5 +1,5 @@
 #include "SNUserAppIdle.h"
-
+#include "SNMusicPlayer.h"
 
 SNUserAppIdle::SNUserAppIdle()
 {
@@ -8,6 +8,12 @@ SNUserAppIdle::SNUserAppIdle()
 
 SNUserAppIdle::~SNUserAppIdle()
 {
+	return;
+}
+
+Void SNUserAppIdle::OnEntry()
+{
+	SNMusicPlayer::Play(SNMusicLayerLowPri, SNMusicResEnterWorld);
 	return;
 }
 
