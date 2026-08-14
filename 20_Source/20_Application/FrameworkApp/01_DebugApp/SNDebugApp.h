@@ -49,5 +49,6 @@ private:
 	SNGUISystemTextEx txtProcFPS;		// 処理FPS
 	SNGUISystemTextEx txtSkip;			// フレームスキップ
 	SNGUISystemTextEx txtProcTime;		// 処理時間表示
+	SNGUISystemTextEx txtDrawCnt;		// DrawImage回数
 };
 

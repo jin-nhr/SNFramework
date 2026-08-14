@@ -6,6 +6,9 @@
 #include "SNUserConfig.h"
 #include "SNColorMatrix.h"
 
+Int32 SNGraphicsContext::DrawImageCounter = 0;
+Int32 SNGraphicsContext::DrawImageCounterWork = 0;
+
 // コンストラクタ
 SNGraphicsContext::SNGraphicsContext()
 {
@@ -166,6 +169,8 @@ Void SNGraphicsContext::DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_r
         a,
         draw_mode,
         &src_rc);
+
+    DrawImageCounterWork++;
 
     return;
 }

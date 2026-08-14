@@ -16,6 +16,10 @@ struct SNListContainer;
 class SNGraphicsContext
 {
 public:
+	static Int32 DrawImageCounter;
+	static Int32 DrawImageCounterWork;
+
+public:
 	// コンストラクタ
 	SNGraphicsContext();
 
@@ -60,4 +64,5 @@ public:
 
 private:
 	Handle DeviceContext;
+
 };

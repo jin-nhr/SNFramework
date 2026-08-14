@@ -501,6 +501,9 @@ Void SNGraphicsDevice::Flip(SNRect* rect)
 
     ((IDXGISwapChain*)SwapChain)->Present(wait_vsync, 0);
 
+    SNGraphicsContext::DrawImageCounter = (SNGraphicsContext::DrawImageCounterWork + SNGraphicsContext::DrawImageCounter) / 2;
+    SNGraphicsContext::DrawImageCounterWork = 0;
+
     return;
 }
 
