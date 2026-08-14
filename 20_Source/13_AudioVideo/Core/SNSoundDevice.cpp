@@ -16,6 +16,7 @@ SNCriticalSection SNSoundDevice::ListAccessCS;		// ƒŠƒXƒgƒAƒNƒZƒX—pƒNƒŠƒeƒBƒJƒ‹ƒ
 
 SNStore SNSoundDevice::SourceVoiceStore;
 
+Float32 SNSoundDevice::FadeVolume;
 
 Void SNSoundDevice::Initialize()
 {
@@ -55,6 +56,8 @@ Void SNSoundDevice::InitAudio()
 
 	XAudio = x_audio;
 	MasterVoice = master_voice;
+
+	FadeVolume = 1.0F;
 
 	return;
 }
@@ -253,7 +256,7 @@ Void SNSoundDevice::SubmitMusicBuffer(SNListContainer* voice, SNMemory* pcm)
 	buffer.pAudioData = (BYTE*)pcm->GetAddress();
 	buffer.Flags = 0;
 
-	source_voice->SetVolume(SNUserConfig::Data.BGMVolume / 100.0f);
+	source_voice->SetVolume(SNUserConfig::Data.BGMVolume / 100.0f * FadeVolume);
 	source_voice->SubmitSourceBuffer(&buffer);
 
 	return;
@@ -278,7 +281,7 @@ Void SNSoundDevice::MusicPlay(SNListContainer* voice)
 {
 	IXAudio2SourceVoice* source_voice = (IXAudio2SourceVoice*)voice->UserData;
 
-	source_voice->SetVolume(SNUserConfig::Data.BGMVolume / 100.0f);
+	source_voice->SetVolume(SNUserConfig::Data.BGMVolume / 100.0f * FadeVolume);
 	source_voice->Start();
 
 	return;
@@ -297,11 +300,26 @@ Void SNSoundDevice::MusicPause(SNListContainer* voice)
 // ’âŽ~
 Void SNSoundDevice:: MusicStop(SNListContainer* voice)
 {
-	IXAudio2SourceVoice* source_voice = (IXAudio2SourceVoice*)voice->UserData;
+	IXAudio2SourceVoice* source_voice;
+	
+	if (voice != nullptr)
+	{
+		source_voice = (IXAudio2SourceVoice*)voice->UserData;
 
-	// ŽŸ‚ÌÄ¶Žž‚ÉƒSƒ~‚ªŽc‚ç‚È‚¢‚æ‚¤‚Éƒoƒbƒtƒ@‚ðƒNƒŠƒA
-	source_voice->Stop();
-	source_voice->FlushSourceBuffers();
+		if (source_voice != nullptr)
+		{
+			// ŽŸ‚ÌÄ¶Žž‚ÉƒSƒ~‚ªŽc‚ç‚È‚¢‚æ‚¤‚Éƒoƒbƒtƒ@‚ðƒNƒŠƒA
+			source_voice->Stop();
+			source_voice->FlushSourceBuffers();
+		}
+	}
+
+	return;
+}
+
+Void SNSoundDevice::SetFade(Float32 vol)
+{
+	FadeVolume = vol;
 
 	return;
 }
@@ -329,9 +347,12 @@ Void SNSoundDevice::DeleteSourceVoice(Void* res)
 {
 	IXAudio2SourceVoice* source_voice = (IXAudio2SourceVoice*)res;
 
-	source_voice->Stop();
-	source_voice->FlushSourceBuffers();
-	source_voice->DestroyVoice();
+	if (source_voice != nullptr)
+	{
+		source_voice->Stop();
+		source_voice->FlushSourceBuffers();
+		source_voice->DestroyVoice();
+	}
 
 	return;
 }

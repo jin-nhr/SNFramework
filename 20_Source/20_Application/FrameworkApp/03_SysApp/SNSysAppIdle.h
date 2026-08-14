@@ -6,7 +6,8 @@
 // 0
 // 1
 // 2
-// 3 - PreClose
+// 3 - ƒAƒvƒŠI—¹
+
 class SNSysAppIdle : public SNScene
 {
 public:

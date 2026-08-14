@@ -60,9 +60,13 @@ public:
 	// 停止
 	static Void MusicStop(SNListContainer* voice);
 
+	// フェード
+	static Void SetFade(Float32 vol);
+
 
 	static Handle XAudio;
 	static Handle MasterVoice;
+	static Float32 FadeVolume;
 
 private:
 	static SNThread* SoundThread;				// スレッド

@@ -5,8 +5,11 @@
 #include "SNTimerSequencer.h"
 
 // システムアプリ スタートアップ
-// 処理完了時 - SNTransitionCode0
-// エラー時   - 直接アプリ終了通知発行
+// 0 - 起動完了
+// 1 -
+// 2 -
+// 3 -
+
 class SNSysAppStartup : public SNLayerController
 {
 public:

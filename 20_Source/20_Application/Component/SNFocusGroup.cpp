@@ -281,8 +281,14 @@ Void SNFocusGroup::SelectUp(Boolean loop)
 			{
 				rect = it_btn->CalcGlobalRect();
 
+				// ループありかつ自身より下
+				if (loop && (rect.PointY > active_rect.PointY))
+				{
+					rect.PointY -= SNSystemConfig::ScreenHeight;
+				}
+
 				// 上方かどうか (ループ指定時は常に上方と判断)
-				cond_dir = ((active_rect.PointY > rect.PointY) || loop);
+				cond_dir = (active_rect.PointY > rect.PointY);
 
 				// Y軸方向に重なっているか
 				cond_col = ((active_rect.PointX < rect.PointX + rect.Width) &&
@@ -345,8 +351,14 @@ Void SNFocusGroup::SelectDown(Boolean loop)
 			{
 				rect = it_btn->CalcGlobalRect();
 
+				// ループありかつ自身より上
+				if (loop && (rect.PointY < active_rect.PointY))
+				{
+					rect.PointY += SNSystemConfig::ScreenHeight;
+				}
+
 				// 下方かどうか (ループ指定時は常に上方と判断)
-				cond_dir = ((active_rect.PointY < rect.PointY) || loop);
+				cond_dir = (active_rect.PointY < rect.PointY);
 
 				// Y軸方向に重なっているか
 				cond_col = ((active_rect.PointX < rect.PointX + rect.Width) &&
@@ -409,8 +421,14 @@ Void SNFocusGroup::SelectLeft(Boolean loop)
 			{
 				rect = it_btn->CalcGlobalRect();
 
+				// ループありかつ自身より右
+				if (loop && (rect.PointX > active_rect.PointX))
+				{
+					rect.PointX -= SNSystemConfig::ScreenWidth;
+				}
+
 				// 左方かどうか (ループ指定時は常に上方と判断)
-				cond_dir = ((active_rect.PointX > rect.PointX) || loop);
+				cond_dir = (active_rect.PointX > rect.PointX);
 
 				// Y軸方向に重なっているか
 				cond_col = ((active_rect.PointY < rect.PointY + rect.Height) &&
@@ -473,8 +491,14 @@ Void SNFocusGroup::SelectRight(Boolean loop)
 			{
 				rect = it_btn->CalcGlobalRect();
 
+				// ループありかつ自身より左
+				if (loop && (rect.PointX < active_rect.PointX))
+				{
+					rect.PointX += SNSystemConfig::ScreenWidth;
+				}
+
 				// 右方かどうか (ループ指定時は常に上方と判断)
-				cond_dir = ((active_rect.PointX < rect.PointX) || loop);
+				cond_dir = (active_rect.PointX < rect.PointX);
 
 				// Y軸方向に重なっているか
 				cond_col = ((active_rect.PointY < rect.PointY + rect.Height) &&

@@ -3,6 +3,7 @@
 #include "SNLayerController.h"
 #include "SNMute.h"
 #include "SNFocus.h"
+#include "SNMusicPlayer.h"
 
 
 class SNOverlapApp : public SNLayerController
@@ -14,6 +15,6 @@ public:
 
 	SNMute MuteApp;
 	SNFocus Focus;
-
+	SNMusicPlayer MusicPlayer;
 };
 

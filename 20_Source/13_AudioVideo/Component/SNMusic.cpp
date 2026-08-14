@@ -8,8 +8,6 @@
 // コンストラクタ
 SNMusic::SNMusic()
 {
-	UseResID = false;
-	ResID = SNMusicResTop;	// 仮でTopを設定
 	PCMStream = nullptr;
 	Operation = SNMusicOperationNo;
 	SourceVoice = nullptr;
@@ -42,19 +40,6 @@ Void SNMusic::CreateMusic(SNPCMStream* pcm)
 	return;
 }
 
-Void SNMusic::CreateMusic(SNMusicResID res_id)
-{
-	DeleteMusic();
-
-	SourceVoice = SNSoundDevice::GetSourceVoice();
-
-	// アクセス権を取得
-	SNMusicResManager::AccessGet(res_id);
-	UseResID = true;
-	ResID = res_id;
-
-	return;
-}
 
 	// Effect解放
 Void SNMusic::DeleteMusic()
@@ -65,14 +50,6 @@ Void SNMusic::DeleteMusic()
 	{
 		SNSoundDevice::ReleaseSourceVoice(SourceVoice);
 		SourceVoice = nullptr;
-	}
-
-	// リソースID使用時はアクセス権放棄
-	if (UseResID)
-	{
-		SNMusicResManager::AccessRelease(ResID);
-		ResID = SNMusicResTop;
-		UseResID = false;
 	}
 
 	PCMStream = nullptr;

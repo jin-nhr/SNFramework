@@ -22,10 +22,7 @@ SNSysAppIdle::~SNSysAppIdle()
 // Entry
 Void SNSysAppIdle::OnEntry()
 {
-	if (SNMute::GetMuteSts() == SNMuteStsOn)
-	{
-		SNMute::SetMute(false, true);
-	}
+	SNMute::SetMute(false, true);
 
 	return;
 }

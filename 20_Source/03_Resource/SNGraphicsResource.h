@@ -43,9 +43,10 @@ enum SNGraphicsResID
 	// アプリケーションリソース
 	SNGraphicsResAppTop,
 
-	SNGraphicsResAppDummy = SNGraphicsResAppTop,
+	SNGraphicsResAppTitle = SNGraphicsResAppTop,
+	SNGraphicsResMapchip1,
 
-	SNGraphicsResAppEnd = SNGraphicsResAppDummy,
+	SNGraphicsResAppEnd = SNGraphicsResMapchip1,
 	// -----------------------------------------------
 
 	SNGraphicsResNum,
@@ -84,6 +85,7 @@ public:
 		// -----------------------------------------------
 		// アプリケーションリソース
 		(String)L"湖とお城.png",
+		(String)L"マップチップ斜め.png",
 		// -----------------------------------------------
 	};
 };

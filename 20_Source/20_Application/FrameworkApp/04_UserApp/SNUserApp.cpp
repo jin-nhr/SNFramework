@@ -3,8 +3,6 @@
 
 SNUserApp::SNUserApp()
 {
-	SetSceneNum(1);
-	SetScene(&Picture);
 	return;
 }
 
@@ -13,9 +11,20 @@ SNUserApp::~SNUserApp()
 	return;
 }
 
-Void SNUserApp::OnPreDraw()
+Void SNUserApp::OnInitialize()
 {
-	Picture.SetBitmap(SNGraphicsResManager::GetResource(SNGraphicsResAppDummy));
+	SetSceneNum(3);
 
+	//                  0   1   2   3
+	SetScene(&Off,      1, -1, -1, -1);		// 0 OFF
+	SetScene(&Title,    2, -1, -1, -1);		// 1 Title
+	SetScene(&Idle,    -1, -1, -1, -1);		// 2 Idle
+
+	return;
+}
+
+
+Void SNUserApp::OnTerminate()
+{
 	return;
 }

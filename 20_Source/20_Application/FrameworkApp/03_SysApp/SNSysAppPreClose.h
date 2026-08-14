@@ -5,6 +5,13 @@
 #include "SNFocusGroup.h"
 #include "SNSoundEffect.h"
 
+
+// アプリ終了確認
+// 0 - キャンセル
+// 1 - 
+// 2 - 
+// 3 -
+
 class SNSysAppPreClose : public SNGUIWindow
 {
 public:

@@ -64,9 +64,12 @@ Void SNSoundEffect::DeleteEffect()
 
 	PCM = nullptr;
 
-	// SourceVoice‰ð•ú
-	SNSoundDevice::ReleaseSourceVoice(SourceVoice);
-	SourceVoice = nullptr;
+	if (SourceVoice != nullptr)
+	{
+		// SourceVoice‰ð•ú
+		SNSoundDevice::ReleaseSourceVoice(SourceVoice);
+		SourceVoice = nullptr;
+	}
 
 	return;
 }

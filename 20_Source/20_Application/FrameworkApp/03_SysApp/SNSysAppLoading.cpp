@@ -108,6 +108,9 @@ Void SNSysAppLoading::OnCycle()
 		{
 			// Š®—¹Žž
 			TransCode = SNTransitionCode0;
+
+			// ƒAƒvƒŠ‹N“®
+			SNEvent::EventResult[SNEventResultAppStartup] = true;
 		}
 	}
 	return;

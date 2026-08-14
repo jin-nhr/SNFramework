@@ -7,10 +7,10 @@
 #include "SNFocusGroup.h"
 
 // システムアプリ コンフィグ
-// 0 - Idle
+// 0 - クローズ
 // 1
 // 2
-// 3 - PreClose
+// 3 - アプリ終了
 class SNSysAppConfig : public SNGUIWindow
 {
 public:

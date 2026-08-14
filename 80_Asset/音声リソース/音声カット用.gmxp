@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CROASTERP Version="1, 0, 0, 4" RatioX="0.45299911" RatioY="0.50349653" Fps="60" Resolution="1920:1080" Relative="0">
+    <CRClipArr Count="3">
+        <CRClip Type="4" Sample="0" Path="C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\80_Asset\音声リソース\soundリソース\カーソル移動2.mp3" ClipLength="59"/>
+        <CRClip Type="4" Sample="0" Path="C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\80_Asset\音声リソース\soundリソース\決定ボタンを押す7.mp3" ClipLength="72"/>
+        <CRClip Type="4" Sample="0" Path="C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\80_Asset\音声リソース\musicリソース\yuruyakanaasayake.mp3" ClipLength="7219"/>
+    </CRClipArr>
+    <CROwneUnitArr Count="0"/>
+    <CRTrackArr Snap="1" Zoom="45" Length="18000">
+        <CRVideoTrackArr Count="2">
+            <CRTrackList Name="マスター V1" State="104" Count="0"/>
+            <CRTrackList Name="V2" State="96" Count="0"/>
+        </CRVideoTrackArr>
+        <CRVideoEFTrackArr Count="2">
+            <CRTrackEFList State="0" Count="0"/>
+            <CRTrackEFList State="0" Count="0"/>
+        </CRVideoEFTrackArr>
+        <CRAudioTrackArr Count="1">
+            <CRTrackList Name="マスター A1" State="109" Count="1">
+                <CRTrackClip Type="0" ClipIndex="2" Pos="29" Length="7015" ClipLength="-1" Speed="-1" Level="0" Mute="0"/>
+            </CRTrackList>
+        </CRAudioTrackArr>
+    </CRTrackArr>
+</CROASTERP>

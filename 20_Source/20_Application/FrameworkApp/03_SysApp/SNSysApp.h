@@ -7,6 +7,7 @@
 #include "SNSysAppIdle.h"
 #include "SNSysAppPreClose.h"
 #include "SNSysAppConfig.h"
+#include "SNSysAppTitle.h"
 
 // システムアプリ状態制御
 
@@ -19,8 +20,9 @@ public:
 	SNSysAppStartup Startup;
 	SNSysAppLoading Loading;
 	SNSysAppError Error;
-	SNSysAppIdle Idle;
+	SNSysAppTitle Title;
 	SNSysAppPreClose PreClose;
 	SNSysAppConfig Config;
+	SNSysAppIdle Idle;
 };
 

@@ -19,10 +19,9 @@ enum SNEventResult
 {
 	SNEventResultSystemTop = 0,
 	SNEventResultExitApplication,		// アプリケーション終了通知
-	SNEventResultSysAppStartup,			// システムアプリ起動開始
-	SNEventResultPendResize,				// リサイズ保留
-	SNEventResultUserTop = 32,			// ユーザーイベント先頭
-	SNEventResultUserLast = 63,			// ユーザーイベント最終
+	SNEventResultSysAppStartup,				// システムアプリ起動開始
+	SNEventResultAppStartup,				// アプリ起動開始
+	SNEventResultEnterWorld,				// ワールド起動
 	SNEventResultNum
 };
 

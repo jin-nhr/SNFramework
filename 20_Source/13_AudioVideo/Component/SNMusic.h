@@ -21,7 +21,6 @@ public:
 
 	// Music生成
 	virtual Void CreateMusic(SNPCMStream* pcm);
-	virtual Void CreateMusic(SNMusicResID res_id);
 	
 	// Music解放
 	virtual Void DeleteMusic();
@@ -57,8 +56,6 @@ private:
 	// ユーザー実行関数(派生先で実装する)
 	virtual Void UserMain();
 
-	Boolean UseResID;
-	SNMusicResID ResID;
 	SNPCMStream* PCMStream;
 	volatile SNMusicOperation Operation;
 	SNListContainer* SourceVoice;

@@ -6,8 +6,10 @@
 #include "SNSystemConfig.h"
 
 // システムアプリ ローディング
-// 処理完了時 - SNTransitionCode0
-// エラー時   - SNTransitionCode3
+// 0 - ロード完了
+// 1 -
+// 2 -
+// 3 - エラー
 class SNSysAppLoading : public SNLayerController
 {
 public:

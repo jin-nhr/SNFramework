@@ -3,9 +3,10 @@
 
 SNOverlapApp::SNOverlapApp()
 {
-	SetSceneNum(2);
+	SetSceneNum(3);
 	SetScene(&MuteApp);
 	SetScene(&Focus);
+	SetScene(&MusicPlayer);
 
 	return;
 }

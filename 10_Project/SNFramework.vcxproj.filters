@@ -462,6 +462,21 @@
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.h">
       <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
     </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.h">
+      <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMusicPlayer.h">
+      <Filter>20_Source\20_Application\FrameworkApp\02_OverlapApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppIdle.h">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppOff.h">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.h">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\20_Source\02_System\Component\SNAutoResource.cpp">
@@ -763,6 +778,21 @@
     </ClCompile>
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.cpp">
       <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMusicPlayer.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\02_OverlapApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppIdle.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppOff.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

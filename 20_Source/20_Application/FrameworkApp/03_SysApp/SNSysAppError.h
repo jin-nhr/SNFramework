@@ -5,7 +5,12 @@
 #include "SNTimerSequencer.h"
 
 // システムアプリ エラー画面
+// 0 -
+// 1 -
+// 2 -
+// 3 -
 // 時間経過で直接アプリ終了する
+
 class SNSysAppError : public SNLayerController
 {
 public:

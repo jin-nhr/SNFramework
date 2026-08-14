@@ -1,18 +1,26 @@
 #pragma once
 #include "SNFrameworkInternal.h"
-#include "SNLayerController.h"
-#include "SNGUIPicture.h"
+#include "SNStateController.h"
+#include "SNUserAppOff.h"
+#include "SNUserAppTitle.h"
+#include "SNUserAppIdle.h"
 
 
-class SNUserApp : public SNLayerController
+class SNUserApp : public SNStateController
 {
 public:
 	SNUserApp();
 	virtual ~SNUserApp();
 
-	virtual Void OnPreDraw();
+	virtual Void OnInitialize();
+
+	virtual Void OnTerminate();
 
 
-	SNGUIPicture Picture;
+private:
+	SNUserAppOff Off;
+	SNUserAppTitle Title;
+	SNUserAppIdle Idle;
+
 };
 

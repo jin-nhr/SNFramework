@@ -91,6 +91,9 @@ public:
 	static constexpr Int32 PCMSampleRate = 44100;
 	static constexpr Int32 PCMBitPerSample = 16;
 
+	// フェード時間(ms)
+	static constexpr Int32 BGMFadeTime = 500;
+
 	/////////////////////////////////////////////////////////////////
 	// 入力デバイス関連
 

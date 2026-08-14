@@ -8,9 +8,10 @@ enum SNMusicResID
 {
 	SNMusicResTop,
 
-	SNMusicResDummy = SNMusicResTop,
+	SNMusicResMute = SNMusicResTop,
+	SNMusicResTitle,
 
-	SNMusicResEnd = SNMusicResDummy,
+	SNMusicResEnd = SNMusicResTitle,
 
 	SNMusicResNum,
 };
@@ -20,7 +21,9 @@ class SNMusicResource
 public:
 	static constexpr String ResourceInfoTable[SNMusicResNum] =
 	{
-		(String)L"natsuyasuminotanken.mp3",
+		//(String)L"Mute.mp3",
+		(String)L"Mute.mp3",
+		(String)L"yuruyakanaasayake.mp3",
 
 	};
 };

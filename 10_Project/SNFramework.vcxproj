@@ -106,6 +106,7 @@
     <ClInclude Include="..\20_Source\20_Application\Core\SNApplicationThread.h" />
     <ClInclude Include="..\20_Source\20_Application\Core\SNEvent.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.h" />
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMusicPlayer.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNOverlapApp.h" />
@@ -114,9 +115,13 @@
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppIdle.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppLoading.h" />
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.h" />
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppIdle.h" />
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppOff.h" />
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorld.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIButton.h" />
@@ -208,6 +213,7 @@
     <ClCompile Include="..\20_Source\20_Application\Core\SNApplicationThread.cpp" />
     <ClCompile Include="..\20_Source\20_Application\Core\SNEvent.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp" />
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMusicPlayer.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNOverlapApp.cpp" />
@@ -216,9 +222,13 @@
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppIdle.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp" />
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.cpp" />
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppIdle.cpp" />
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppOff.cpp" />
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorld.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIButton.cpp" />
