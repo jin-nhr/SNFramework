@@ -71,7 +71,7 @@ Void SNSysAppTitle::OnInitialize()
 	SetScene(&GUIWin);
 
 	Seq.Initialize(this, 0, 1);
-	Seq.SetWait(0, SNSystemConfig::FadeTime + 100);
+	Seq.SetWait(0, 0);
 
 	return;
 }
@@ -86,10 +86,7 @@ Void SNSysAppTitle::OnTerminate()
 // Entry
 Void SNSysAppTitle::OnEntry()
 {
-	if (SNMute::GetMuteSts() == SNMuteStsOn)
-	{
-		SNMute::SetMute(false, true);
-	}
+	SNMute::SetMute(false, true);
 
 	FocusGp.Entry();
 
@@ -169,18 +166,25 @@ Boolean SNSysAppTitle::OnNotifyEvent()
 
 SNPhaseResult SNSysAppTitle::PhaseStepFunc(Int32 ch, Int32 phase_idx, Int32 call_count)
 {
+	SNPhaseResult ret = SNPhaseResultStay;
+
 	switch (ch)
 	{
 	case 0:
 		switch (phase_idx)
 		{
 		case 0:
-			// ワールド起動イベント発行
-			SNEvent::EventResult[SNEventResultEnterWorld] = true;
-			TransCode = SNTransitionCode0;
+			// ミュート待ち
+			if (SNMute::GetNowSts())
+			{
+				// ワールド起動イベント発行
+				SNEvent::EventResult[SNEventResultEnterWorld] = true;
+				TransCode = SNTransitionCode0;
+				ret = SNPhaseResultNext;
+			}
 			break;
 		}
 		break;
 	}
-	return SNPhaseResultNext;
+	return ret;
 }

@@ -34,14 +34,17 @@ Void SNSysAppLoading::OnInitialize()
 
 
 	// 表示用シーケンサ設定
-	TimerSeqDisp.Initialize(this, SeqChDisp, 7);
+	TimerSeqDisp.Initialize(this, SeqChDisp, 10);
 	TimerSeqDisp.SetWait(0, 0);
-	TimerSeqDisp.SetWait(1, SeqChDispFadeTime);
-	TimerSeqDisp.SetWait(2, SeqChDispPhaseTime);
-	TimerSeqDisp.SetWait(3, SeqChDispFadeTime);
-	TimerSeqDisp.SetWait(4, SeqChDispFadeTime);
-	TimerSeqDisp.SetWait(5, SeqChDispPhaseTime);
-	TimerSeqDisp.SetWait(6, SeqChDispFadeTime);
+	TimerSeqDisp.SetWait(1, 0);
+	TimerSeqDisp.SetWait(2, 0);
+	TimerSeqDisp.SetWait(3, SeqChDispPhaseTime);
+	TimerSeqDisp.SetWait(4, 0);
+	TimerSeqDisp.SetWait(5, 0);
+	TimerSeqDisp.SetWait(6, 0);
+	TimerSeqDisp.SetWait(7, SeqChDispPhaseTime);
+	TimerSeqDisp.SetWait(8, 0);
+	TimerSeqDisp.SetWait(9, 0);
 	// リソースロード
 	TimerSeqResLoad.Initialize(this, SeqChResLoad, 4);
 	TimerSeqResLoad.SetWait(0, 0);
@@ -144,8 +147,11 @@ SNPhaseResult SNSysAppLoading::SeqDisp(Int32 phase_idx, Int32 call_count)
 	switch (phase_idx)
 	{
 	case 0:
-		ret = SNPhaseResultNext;
-
+		// ミュート待ち
+		if (SNMute::GetNowSts())
+		{
+			ret = SNPhaseResultNext;
+		}
 		break;
 	case 1:
 		// フェードイン設定
@@ -153,22 +159,46 @@ SNPhaseResult SNSysAppLoading::SeqDisp(Int32 phase_idx, Int32 call_count)
 		pctLogo.Visible = true;
 		ret = SNPhaseResultNext;
 		break;
+
 	case 2:
+		// フェードイン完了待ち
+		if (!SNMute::GetNowSts())
+		{
+			ret = SNPhaseResultNext;
+		}
+		break;
+
+	case 3:
 		// フェードアウト設定
 		SNMute::SetMute(true, true);
 		ret = SNPhaseResultNext;
 		break;
-	case 3:
+
+	case 4:
+		// フェードアウト待ち
+		if (SNMute::GetNowSts())
+		{
+			ret = SNPhaseResultNext;
+		}
+		break;
+
+	case 5:
 		// ロゴ切替
 		pctLogo.SetBitmap(SNGraphicsResManager::GetResource(SNGraphicsResStartLogo2));
 		// フェードイン設定
 		SNMute::SetMute(false, true);
 		ret = SNPhaseResultNext;
 		break;
-	case 4:
-		ret = SNPhaseResultNext;
+
+	case 6:
+		// フェードイン完了待ち
+		if (!SNMute::GetNowSts())
+		{
+			ret = SNPhaseResultNext;
+		}
 		break;
-	case 5:
+
+	case 7:
 		// リソースロード完了チェック
 		if (!TimerSeqResLoad.IsProc())
 		{
@@ -177,7 +207,16 @@ SNPhaseResult SNSysAppLoading::SeqDisp(Int32 phase_idx, Int32 call_count)
 			ret = SNPhaseResultNext;
 		}
 		break;
-	case 6:
+
+	case 8:
+		// フェードアウト待ち
+		if (SNMute::GetNowSts())
+		{
+			ret = SNPhaseResultNext;
+		}
+		break;
+
+	case 9:
 		// リソースのロード結果を確認
 		if (TimerSeqResLoad.IsError())
 		{

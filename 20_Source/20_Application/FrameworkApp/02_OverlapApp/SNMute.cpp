@@ -5,27 +5,27 @@
 #include "SNGraphicsDevice.h"
 
 SNBitmap SNMute::Surface;
-SNMuteSts SNMute::NowSts = SNMuteStsOn;
-Boolean SNMute::UpdateFlag = false;
+Boolean SNMute::NowMuteSts = false;
 Float32 SNMute::Alpha = 0;
-Float32 SNMute::FadeStep = SNFadeStepMin;
 Boolean SNMute::RequestMute = false;
 Boolean SNMute::RequestFade = false;
+
+SNTimerSequencer SNMute::FadeInSeq;
+SNTimerSequencer SNMute::FadeOutSeq;
+
 
 // ミュート設定(on/off, fade有無, 色)
 Void SNMute::SetMute(Boolean mute, Boolean fade)
 {
 	RequestMute = mute;
 	RequestFade = fade;
-
-	UpdateFlag = true;
 	
 	return;
 }
 
-SNMuteSts SNMute::GetMuteSts()
+Boolean SNMute::GetNowSts()
 {
-	return NowSts;
+	return NowMuteSts;
 }
 
 // コンストラクタ
@@ -58,6 +58,16 @@ Void SNMute::OnInitialize()
 	grc->Clear(&color);
 	grc->End();
 
+	FadeInSeq.Initialize(this, 0, 3);
+	FadeInSeq.SetWait(0, 0);
+	FadeInSeq.SetWait(1, 0);
+	FadeInSeq.SetWait(2, 0);
+
+	FadeOutSeq.Initialize(this, 1, 3);
+	FadeOutSeq.SetWait(0, 0);
+	FadeOutSeq.SetWait(1, 0);
+	FadeOutSeq.SetWait(2, 0);
+
 	return;
 }
 
@@ -74,10 +84,8 @@ Void SNMute::OnEntry()
 {
 	// 初期値として非表示にしておく
 	Visible = false;
-	NowSts = SNMuteStsOn;
-	UpdateFlag = false;
-	Alpha = 0;
-	FadeStep = SNFadeStepMin;
+	NowMuteSts = false;
+	Alpha = SNAlphaMin;;
 	RequestMute = false;
 	RequestFade = false;
 
@@ -93,62 +101,55 @@ Void SNMute::OnExit()
 	// フレーム処理
 Void SNMute::OnCycle()
 {
-	SNMuteSts prev_sts = NowSts;
-
-	// 更新あり
-	if (UpdateFlag)
+	// フェードイン中
+	if (FadeInSeq.IsProc())
 	{
-		// FadeOut
-		if (RequestMute && RequestFade)
-		{
-			NowSts = SNMuteStsFadeOut;
-			Visible = true;
-			Alpha = SNAlphaMin;
-			FadeStep = (Float32)SNAlphaMax / (Float32)(SNSystemConfig::FadeTime / (1000.0F / SNSystemConfig::FPS));
-
-		}
-		// Mute
-		else if (RequestMute && !RequestFade)
-		{
-			NowSts = SNMuteStsOn;
-			Alpha = SNAlphaMax;
-			FadeStep = SNFadeStepMax;
-			Visible = true;
-		}
-		// FadeIn
-		else if (!RequestMute && RequestFade)
-		{
-			NowSts = SNMuteStsFadeIn;
-			Visible = true;
-			Alpha = SNAlphaMax;
-			FadeStep = -1 * (Float32)SNAlphaMax / (Float32)(SNSystemConfig::FadeTime / (1000.0F / SNSystemConfig::FPS));
-
-		}
-		// Mute Off
-		else
-		{
-			NowSts = SNMuteStsOff;
-			Alpha = SNAlphaMin;
-			FadeStep = SNFadeStepMin;
-			Visible = false;
-		}
-
-		UpdateFlag = false;
+		FadeInSeq.Step();
 	}
 
-	// フェード処理継続中
-	switch (NowSts)
+	// フェードアウト中
+	else if (FadeOutSeq.IsProc())
 	{
-	case SNMuteStsFadeOut:
-	case SNMuteStsFadeIn:
-		// フェード処理中
-		if (prev_sts == NowSts)
+		FadeOutSeq.Step();
+	}
+
+	else
+	{
+		// ミュート状態変化確認
+		if (NowMuteSts != RequestMute)
 		{
-			Alpha += FadeStep;
-			Alpha = (Float32)SNMath::SelectMax((Int64)Alpha, SNAlphaMin);
-			Alpha = (Float32)SNMath::SelectMin((Int64)Alpha, SNAlphaMax);
+			if (RequestFade)
+			{
+				if (RequestMute)
+				{
+					// フェードアウト
+					FadeOutSeq.Start();
+				}
+				else
+				{
+					// フェードイン
+					FadeInSeq.Start();
+				}
+			}
+
+			// フェードなし
+			else
+			{
+				// ミュート
+				if (RequestMute)
+				{
+					Visible = true;
+					Alpha = SNAlphaMax;
+				}
+				// ミュート解除
+				else
+				{
+					Visible = false;
+				}
+				// 状態更新
+				NowMuteSts = RequestMute;
+			}
 		}
-		break;
 	}
 
 	return;
@@ -177,3 +178,72 @@ Void SNMute::OnDraw(SNGraphicsContext* grc)
 
 	return;
 }
+
+SNPhaseResult SNMute::PhaseStepFunc(Int32 ch, Int32 phase_idx, Int32 call_count)
+{
+	SNPhaseResult ret = SNPhaseResultStay;
+	Float32 fade_step;
+	Float32 tmp_alpha;
+
+	switch (ch)
+	{
+	// Fade In
+	case 0:
+		switch (phase_idx)
+		{
+		case 0:
+			Visible = true;
+			Alpha = SNAlphaMax;
+			ret = SNPhaseResultNext;
+			break;
+		case 1:
+			fade_step = SNMath::SaturateF(SNAlphaMax / (SNSystemConfig::FadeTime / (1000.0F / SNSystemConfig::FPS)), SNFadeStepMin, SNFadeStepMax);
+			tmp_alpha = Alpha - fade_step;
+			Alpha = SNMath::SaturateF(tmp_alpha, SNAlphaMin, SNAlphaMax);
+
+			// フェードイン完了時
+			if (tmp_alpha <= SNAlphaMin)
+			{
+				ret = SNPhaseResultNext;
+			}
+			break;
+		case 2:
+			Visible = false;
+			NowMuteSts = false;
+			ret = SNPhaseResultNext;
+			break;
+		}
+		break;
+
+	// Fade Out
+	case 1:
+		switch (phase_idx)
+		{
+		case 0:
+			Visible = true;
+			Alpha = SNAlphaMin;
+			ret = SNPhaseResultNext;
+			break;
+		case 1:
+			fade_step = SNMath::SaturateF(SNAlphaMax / (SNSystemConfig::FadeTime / (1000.0F / SNSystemConfig::FPS)), SNFadeStepMin, SNFadeStepMax);
+			tmp_alpha = Alpha + fade_step;
+			Alpha = SNMath::SaturateF(tmp_alpha, SNAlphaMin, SNAlphaMax);
+
+			// フェードアウト完了時
+			if (tmp_alpha >= SNAlphaMax)
+			{
+				ret = SNPhaseResultNext;
+			}
+			break;
+		case 2:
+			Visible = true;
+			NowMuteSts = true;
+			ret = SNPhaseResultNext;
+			break;
+		}
+		break;
+	}
+
+	return ret;
+}
+
