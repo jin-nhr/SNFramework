@@ -6,6 +6,7 @@
 #include "SNSystem.h"
 #include "SNFocus.h"
 #include "SNVirtualGamePad.h"
+#include "SNFixedString.h"
 
 
 SNRect SNSysAppTitle::GUIButtonRect[GUIButtonNum] =
@@ -18,10 +19,10 @@ SNRect SNSysAppTitle::GUIButtonRect[GUIButtonNum] =
 
 String SNSysAppTitle::GUIButtonString[GUIButtonNum] =
 {
-	(String)L"‚Í‚¶‚ß‚©‚ç",
-	(String)L"‚Â‚Ã‚«‚©‚ç",
-	(String)L"ƒVƒXƒeƒ€‚¹‚Á‚Ä‚¢",
-	(String)L"‚µ‚ã‚¤‚è‚å‚¤",
+	SNFixedString::TitleMenuNew,
+	SNFixedString::TitleMenuCont,
+	SNFixedString::TitleMenuConfig,
+	SNFixedString::TitleMenuExit,
 };
 
 

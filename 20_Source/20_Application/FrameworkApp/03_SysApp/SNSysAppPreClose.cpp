@@ -47,13 +47,13 @@ Void SNSysAppPreClose::OnEntry()
 	FocusGp.Entry();
 
 	// テキストはInitializeでは設定できない
-	TxtMessage.SetText(SNFixedString::PreClose1);
+	TxtMessage.SetText(SNFixedString::PreCloseMsg);
 	TxtMessage.Centering(false, true);
 
-	ButtonYes.Caption.SetText(SNFixedString::PreClose2);
+	ButtonYes.Caption.SetText(SNFixedString::PreCloseYes);
 	ButtonYes.Caption.Centering(true, true);
 
-	ButtonNo.Caption.SetText(SNFixedString::PreClose3);
+	ButtonNo.Caption.SetText(SNFixedString::PreCloseNo);
 	ButtonNo.Caption.Centering(true, true);
 
 	return;

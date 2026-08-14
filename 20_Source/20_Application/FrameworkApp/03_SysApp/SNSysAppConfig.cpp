@@ -7,6 +7,8 @@
 #include "SNSystem.h"
 #include "SNFocus.h"
 #include "SNMath.h"
+#include "SNFixedString.h"
+
 
 SNRect SNSysAppConfig::GUITextRect[GUITextNum] =
 {
@@ -59,15 +61,15 @@ SNRect SNSysAppConfig::GUIButtonRect[GUIButtonNum] =
 
 String SNSysAppConfig::GUITextString[GUITextNum] =
 {
-	(String)L"[システムせってい]",
-	(String)L"がめんモード",
-	(String)L"VSYNC",
-	(String)L"びょうがフィルタ",
-	(String)L"マスターおんりょう",
-	(String)L"BGMおんりょう",
-	(String)L"SEおんりょう",
-	(String)L"プレイヤー1にゅうりょく",
-	(String)L"プレイヤー2にゅうりょく",
+	 SNFixedString::ConfigTitle,
+	 SNFixedString::ConfigScrMode,
+	 SNFixedString::ConfigSYNC,
+	 SNFixedString::ConfigFilter,
+	 SNFixedString::ConfigMstVol,
+	 SNFixedString::ConfigBGMVol,
+	 SNFixedString::ConfigSEVol,
+	 SNFixedString::ConfigP1,
+	 SNFixedString::ConfigP2,
 };
 
 String SNSysAppConfig::GUITextExString[GUITextExNum] =
@@ -79,31 +81,31 @@ String SNSysAppConfig::GUITextExString[GUITextExNum] =
 
 String SNSysAppConfig::GUIButtonString[GUIButtonNum] =
 {
-	(String)L"ウインドウ",
-	(String)L"フルスクリーン",
-	(String)L"OFF",
-	(String)L"ON",
-	(String)L"OFF",
-	(String)L"ON",
-	(String)L"-10",
-	(String)L"-1",
-	(String)L"+1",
-	(String)L"+10",
-	(String)L"-10",
-	(String)L"-1",
-	(String)L"+1",
-	(String)L"+10",
-	(String)L"-10",
-	(String)L"-1",
-	(String)L"+1",
-	(String)L"+10",
-	(String)L"ゲームパッドわりあて",
-	(String)L"キーボードわりあて",
-	(String)L"ゲームパッドわりあて",
-	(String)L"キーボードわりあて",
-	(String)L"デフォルトせっていにもどす",
-	(String)L"OK",
-	(String)L"キャンセル",
+	SNFixedString::ConfigScrModeWin,
+	SNFixedString::ConfigScrModeFull,
+	SNFixedString::ConfigOFF,
+	SNFixedString::ConfigON,
+	SNFixedString::ConfigOFF,
+	SNFixedString::ConfigON,
+	SNFixedString::ConfigVolDown10,
+	SNFixedString::ConfigVolDown1,
+	SNFixedString::ConfigVolUp1,
+	SNFixedString::ConfigVolUp10,
+	SNFixedString::ConfigVolDown10,
+	SNFixedString::ConfigVolDown1,
+	SNFixedString::ConfigVolUp1,
+	SNFixedString::ConfigVolUp10,
+	SNFixedString::ConfigVolDown10,
+	SNFixedString::ConfigVolDown1,
+	SNFixedString::ConfigVolUp1,
+	SNFixedString::ConfigVolUp10,
+	SNFixedString::ConfigPadMap,
+	SNFixedString::ConfigKeyboardMap,
+	SNFixedString::ConfigPadMap,
+	SNFixedString::ConfigKeyboardMap,
+	SNFixedString::ConfigInit,
+	SNFixedString::ConfigOK,
+	SNFixedString::ConfigCancel,
 };
 
 // コンストラクタ
