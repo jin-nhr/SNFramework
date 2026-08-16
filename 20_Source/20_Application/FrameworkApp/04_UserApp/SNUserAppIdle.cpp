@@ -13,7 +13,6 @@ SNUserAppIdle::~SNUserAppIdle()
 
 Void SNUserAppIdle::OnEntry()
 {
-	SNMusicPlayer::Play(SNMusicLayerLowPri, SNMusicResEnterWorld);
 	return;
 }
 

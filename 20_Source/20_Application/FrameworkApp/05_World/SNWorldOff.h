@@ -2,11 +2,10 @@
 #include "SNFrameworkInternal.h"
 #include "SNScene.h"
 
-class SNWorld : public SNScene
+class SNWorldOff : public SNScene
 {
 public:
+	virtual Boolean OnInternalEvent();
 
-	virtual Void OnEntry();
-	virtual Void OnExit();
 };
 

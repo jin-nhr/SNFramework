@@ -123,6 +123,8 @@
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppOff.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorld.h" />
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorldOff.h" />
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorldStateMng.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIButton.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIPicture.h" />
@@ -230,6 +232,8 @@
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppOff.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorld.cpp" />
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorldOff.cpp" />
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorldStateMng.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIButton.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIPicture.cpp" />

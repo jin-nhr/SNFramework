@@ -30,7 +30,7 @@ SNDebugApp SNApplication::DebugApp;
 SNOverlapApp SNApplication::OverlapApp;
 SNSysApp SNApplication::SysApp;
 SNUserApp SNApplication::UserApp;
-SNWorld SNApplication::World;
+SNWorldStateMng SNApplication::World;
 SNBgApp SNApplication::BgApp;
 
 ///////////////////////////////////////////////////////////

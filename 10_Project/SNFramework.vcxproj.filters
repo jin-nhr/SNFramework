@@ -477,6 +477,12 @@
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.h">
       <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
     </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorldOff.h">
+      <Filter>20_Source\20_Application\FrameworkApp\05_World</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorldStateMng.h">
+      <Filter>20_Source\20_Application\FrameworkApp\05_World</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\20_Source\02_System\Component\SNAutoResource.cpp">
@@ -793,6 +799,12 @@
     </ClCompile>
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.cpp">
       <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorldOff.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\05_World</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorldStateMng.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\05_World</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
