@@ -50,5 +50,6 @@ private:
 	SNGUISystemTextEx txtSkip;			// フレームスキップ
 	SNGUISystemTextEx txtProcTime;		// 処理時間表示
 	SNGUISystemTextEx txtDrawCnt;		// DrawImage回数
+	SNGUISystemTextEx txtDrawPix;		// 描画Pixel数
 };
 

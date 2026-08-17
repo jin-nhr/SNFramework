@@ -25,6 +25,31 @@ enum SNApplicationEvent
     SNEventNum              // イベント数
 };
 
+enum SNEventType
+{
+    SNEventTypeNotifyEvent,				// 通知イベント               (SNApplication)
+    SNEventTypeInternalEvent,			// 内部イベント               (SNEvent)
+    SNEventTypeVirtualGamePad1,			// ゲームパッド1入力          (SNVirtualGamePad1)
+    SNEventTypeVirtualGamePad2,			// ゲームパッド2入力          (SNVirtualGamePad2)
+    SNEventTypeVirtualPointing,			// ポインティングデバイス入力 (SNVirtualPointingDevice)
+    SNEventTypeVirtualDirectKeyboard,	// ダイレクトキーボード入力   (SNVirtualDirectKeyboard)
+    SNEventTypeVirtualDirectGamePad,	// ダイレクトゲームパッド入力 (SNVritualDirectGamePad)
+    SNEventTypeNum
+};
+
+enum SNEventResult
+{
+    SNEventResultSystemTop = 0,
+    SNEventResultExitApplication,		// アプリケーション終了通知
+    SNEventResultSysAppStartup,			// システムアプリ起動開始
+    SNEventResultAppStartup,				// アプリ起動開始
+    SNEventResultEnterWorld,				// ワールド起動
+    SNEventResultDspPreClose,           // 終了確認表示
+    SNEventResultDspConfig,             // システム設定表示
+    SNEventResultNum
+};
+
+
 // 遷移先コード
 // -1:遷移なし
 // 0~:状態クラス毎に規程する
@@ -635,5 +660,4 @@ enum SNSoundCodecOperation
     SNSoundCodecOperationDecode,
     SNSoundCodecOperationOpenStream,
 };
-
 

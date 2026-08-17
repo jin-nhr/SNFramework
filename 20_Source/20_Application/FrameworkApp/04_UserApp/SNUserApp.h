@@ -1,10 +1,12 @@
 #pragma once
 #include "SNFrameworkInternal.h"
 #include "SNStateController.h"
+#include "SNLayerController.h"
 #include "SNUserAppOff.h"
 #include "SNUserAppTitle.h"
-#include "SNUserAppIdle.h"
-
+#include "SNUserAppMenuOff.h"
+#include "SNUserAppMainMenu.h"
+#include "SNWorldApp.h"
 
 class SNUserApp : public SNStateController
 {
@@ -20,7 +22,10 @@ public:
 private:
 	SNUserAppOff Off;
 	SNUserAppTitle Title;
-	SNUserAppIdle Idle;
-
+	SNLayerController Run;
+	SNStateController Menu;
+	SNUserAppMenuOff MenuOff;
+	SNUserAppMainMenu MainMenu;
+	SNWorldApp World;
 };
 

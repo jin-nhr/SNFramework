@@ -55,5 +55,3 @@ struct SNBitmapInfo
     UInt32 ColorImportant;	// 重要色数 = 0
     UInt8 Reserve[4];		// リザーブ
 };
-
-

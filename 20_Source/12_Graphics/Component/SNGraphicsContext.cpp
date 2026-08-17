@@ -8,6 +8,8 @@
 
 Int32 SNGraphicsContext::DrawImageCounter = 0;
 Int32 SNGraphicsContext::DrawImageCounterWork = 0;
+Int64 SNGraphicsContext::DrawPixelCounter = 0;
+Int64 SNGraphicsContext::DrawPixelCounterWork = 0;
 
 // コンストラクタ
 SNGraphicsContext::SNGraphicsContext()
@@ -171,6 +173,7 @@ Void SNGraphicsContext::DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_r
         &src_rc);
 
     DrawImageCounterWork++;
+    DrawPixelCounterWork += (src_rect->Width * src_rect->Height);
 
     return;
 }

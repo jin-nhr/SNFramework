@@ -19,6 +19,9 @@ public:
 	static Int32 DrawImageCounter;
 	static Int32 DrawImageCounterWork;
 
+	static Int64 DrawPixelCounter;
+	static Int64 DrawPixelCounterWork;
+
 public:
 	// コンストラクタ
 	SNGraphicsContext();

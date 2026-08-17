@@ -23,13 +23,14 @@ Void SNDebugApp::OnInitialize()
 	Int32 y;
 
 	// システム情報のコンテナ設定
-	cntSysInfo.SetSceneNum(6);
+	cntSysInfo.SetSceneNum(7);
 	cntSysInfo.SetScene(&txtSysInfoTitle);
 	cntSysInfo.SetScene(&txtFPS);
 	cntSysInfo.SetScene(&txtProcFPS);
 	cntSysInfo.SetScene(&txtSkip);
 	cntSysInfo.SetScene(&txtProcTime);
 	cntSysInfo.SetScene(&txtDrawCnt);
+	cntSysInfo.SetScene(&txtDrawPix);
 	
 	cntSysInfo.Initialize();
 
@@ -40,6 +41,7 @@ Void SNDebugApp::OnInitialize()
 	txtSkip.SetText((String)L"Skip = %d");
 	txtProcTime.SetText((String)L"ProcTime = %d[ms]");
 	txtDrawCnt.SetText((String)L"DrawImageCount = %d");
+	txtDrawPix.SetText((String)L"DrawPixelCount = %d[MPix]");
 
 	// システム情報の座標設定
 	y = 0;
@@ -56,7 +58,8 @@ Void SNDebugApp::OnInitialize()
 	y += SNBitmapFont::BMCharHeight;
 	txtDrawCnt.Move(0, y);
 	y += SNBitmapFont::BMCharHeight;
-
+	txtDrawPix.Move(0, y);
+	y += SNBitmapFont::BMCharHeight;
 	return;
 }
 
@@ -97,6 +100,7 @@ Void SNDebugApp::OnCycle()
 		txtSkip.SetValue(SNApplication::GetSkipFrame());
 		txtProcTime.SetValue(SNApplication::GetProcTime());
 		txtDrawCnt.SetValue(SNGraphicsContext::DrawImageCounter);
+		txtDrawPix.SetValue(SNGraphicsContext::DrawPixelCounter / (1024 * 1024));
 
 		// ESCが押されたらデバッグ表示の反転
 		// デバッグアプリはイベントに関係なく直接キー状態を見る

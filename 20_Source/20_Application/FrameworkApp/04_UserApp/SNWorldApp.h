@@ -2,11 +2,15 @@
 #include "SNFrameworkInternal.h"
 #include "SNScene.h"
 
-class SNWorld : public SNScene
+
+
+class SNWorldApp : public SNScene
 {
 public:
+	SNWorldApp();
+	virtual ~SNWorldApp();
 
 	virtual Void OnEntry();
-	virtual Void OnExit();
+
 };
 

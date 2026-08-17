@@ -106,10 +106,16 @@
     <Filter Include="20_Source\20_Application\FrameworkApp\04_UserApp">
       <UniqueIdentifier>{4f53a7cc-d4d1-46ba-85e6-d07084088a0f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="20_Source\20_Application\FrameworkApp\05_World">
-      <UniqueIdentifier>{3b3164c7-f998-447f-a34a-52e181eb07ec}</UniqueIdentifier>
+    <Filter Include="22_World">
+      <UniqueIdentifier>{a1d1fe92-ab1d-4822-a90a-af4f085676fd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="20_Source\20_Application\FrameworkApp\06_BgApp">
+    <Filter Include="22_World\Component">
+      <UniqueIdentifier>{94d0dabe-12de-4f72-88f7-a6fc608deb5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="22_World\Core">
+      <UniqueIdentifier>{7f227fde-5549-4b79-a6aa-ea94f3b083d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="20_Source\20_Application\FrameworkApp\05_BgApp">
       <UniqueIdentifier>{3c0bf6f0-cba1-4e64-a49e-6f6086560125}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -426,15 +432,6 @@
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.h">
       <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.h">
-      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorld.h">
-      <Filter>20_Source\20_Application\FrameworkApp\05_World</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.h">
-      <Filter>20_Source\20_Application\FrameworkApp\06_BgApp</Filter>
-    </ClInclude>
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIButton.h">
       <Filter>20_Source\21_GUI\Component</Filter>
     </ClInclude>
@@ -468,7 +465,19 @@
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMusicPlayer.h">
       <Filter>20_Source\20_Application\FrameworkApp\02_OverlapApp</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppIdle.h">
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_BgApp\SNBgApp.h">
+      <Filter>20_Source\20_Application\FrameworkApp\05_BgApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\22_World\Core\SNWorld.h">
+      <Filter>22_World\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.h">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMainMenu.h">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.h">
       <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
     </ClInclude>
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppOff.h">
@@ -477,11 +486,8 @@
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.h">
       <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorldOff.h">
-      <Filter>20_Source\20_Application\FrameworkApp\05_World</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorldStateMng.h">
-      <Filter>20_Source\20_Application\FrameworkApp\05_World</Filter>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.h">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -749,15 +755,6 @@
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp">
       <Filter>20_Source\20_Application\FrameworkApp\03_SysApp</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.cpp">
-      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorld.cpp">
-      <Filter>20_Source\20_Application\FrameworkApp\05_World</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.cpp">
-      <Filter>20_Source\20_Application\FrameworkApp\06_BgApp</Filter>
-    </ClCompile>
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIButton.cpp">
       <Filter>20_Source\21_GUI\Component</Filter>
     </ClCompile>
@@ -791,7 +788,19 @@
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMusicPlayer.cpp">
       <Filter>20_Source\20_Application\FrameworkApp\02_OverlapApp</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppIdle.cpp">
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_BgApp\SNBgApp.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\05_BgApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\22_World\Core\SNWorld.cpp">
+      <Filter>22_World\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMainMenu.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.cpp">
       <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
     </ClCompile>
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppOff.cpp">
@@ -800,11 +809,8 @@
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.cpp">
       <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorldOff.cpp">
-      <Filter>20_Source\20_Application\FrameworkApp\05_World</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_World\SNWorldStateMng.cpp">
-      <Filter>20_Source\20_Application\FrameworkApp\05_World</Filter>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

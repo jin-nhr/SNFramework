@@ -27,23 +27,6 @@ Void SNSysAppIdle::OnEntry()
 	return;
 }
 
-Boolean SNSysAppIdle::OnGamePad1()
-{
-	Boolean ret = false;
-	Boolean menu = SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadMenu][SNVirtualGamePadEventPush];
-
-	if (menu)
-	{
-		SNFocus::CallbackPushButton();
-
-		TransCode = SNTransitionCode0;
-
-		ret = true;
-	}
-
-	return ret;
-}
-
 // イベント通知
 Boolean SNSysAppIdle::OnNotifyEvent()
 {
@@ -60,3 +43,25 @@ Boolean SNSysAppIdle::OnNotifyEvent()
 
 	return false;
 }
+
+// 内部イベント通知
+Boolean SNSysAppIdle::OnInternalEvent()
+{
+	Boolean ret = false;
+
+	if (SNEvent::InternalEvent[SNEventResultDspPreClose])
+	{
+		TransCode = SNTransitionCode3;
+		ret = true;
+	}
+
+	else if (SNEvent::InternalEvent[SNEventResultDspConfig])
+	{
+		TransCode = SNTransitionCode0;
+
+		ret = true;
+	}
+
+	return ret;
+}
+

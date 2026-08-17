@@ -10,7 +10,6 @@
 #include "SNOverlapApp.h"
 #include "SNSysApp.h"
 #include "SNUserApp.h"
-#include "SNWorldStateMng.h"
 #include "SNBgApp.h"
 
 
@@ -91,7 +90,6 @@ private:
 	static SNOverlapApp OverlapApp;
 	static SNSysApp SysApp;
 	static SNUserApp UserApp;
-	static SNWorldStateMng World;
 	static SNBgApp BgApp;
 
 	///////////////////////////////////////////////////////////

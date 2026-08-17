@@ -504,6 +504,9 @@ Void SNGraphicsDevice::Flip(SNRect* rect)
     SNGraphicsContext::DrawImageCounter = (SNGraphicsContext::DrawImageCounterWork + SNGraphicsContext::DrawImageCounter) / 2;
     SNGraphicsContext::DrawImageCounterWork = 0;
 
+    SNGraphicsContext::DrawPixelCounter = (SNGraphicsContext::DrawPixelCounterWork + SNGraphicsContext::DrawPixelCounter) / 2;
+    SNGraphicsContext::DrawPixelCounterWork = 0;
+
     return;
 }
 

@@ -23,9 +23,9 @@ public:
 protected:
 	virtual Void OnEntry();
 
-	virtual Boolean OnGamePad1();
-
 	virtual Boolean OnNotifyEvent();
+
+	virtual Boolean OnInternalEvent();
 
 private:
 

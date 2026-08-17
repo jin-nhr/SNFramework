@@ -2,30 +2,6 @@
 #include "SNFrameworkInternal.h"
 
 
-
-enum SNEventType
-{
-	SNEventTypeNotifyEvent,				// 通知イベント               (SNApplication)
-	SNEventTypeInternalEvent,			// 内部イベント               (SNEvent)
-	SNEventTypeVirtualGamePad1,			// ゲームパッド1入力          (SNVirtualGamePad1)
-	SNEventTypeVirtualGamePad2,			// ゲームパッド2入力          (SNVirtualGamePad2)
-	SNEventTypeVirtualPointing,			// ポインティングデバイス入力 (SNVirtualPointingDevice)
-	SNEventTypeVirtualDirectKeyboard,	// ダイレクトキーボード入力   (SNVirtualDirectKeyboard)
-	SNEventTypeVirtualDirectGamePad,	// ダイレクトゲームパッド入力 (SNVritualDirectGamePad)
-	SNEventTypeNum
-};
-
-enum SNEventResult
-{
-	SNEventResultSystemTop = 0,
-	SNEventResultExitApplication,		// アプリケーション終了通知
-	SNEventResultSysAppStartup,				// システムアプリ起動開始
-	SNEventResultAppStartup,				// アプリ起動開始
-	SNEventResultEnterWorld,				// ワールド起動
-	SNEventResultNum
-};
-
-
 // イベントクラス
 // 各ブロックのイベントを統合管理する
 // 内部イベントについては前回のApplication実行結果をループバックする

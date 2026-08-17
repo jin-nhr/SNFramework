@@ -153,4 +153,15 @@ public:
 	// GUIボタン反転時間()
 	static constexpr Int32 GUIButtonPushTime = 100;
 
+
+	/////////////////////////////////////////////////////////////////
+	// ワールド関連
+
+	static constexpr Float32 WorldPosXMax = 256.0f;
+	static constexpr Float32 WorldPosYMax = 256.0f;
+	static constexpr Float32 WorldPosZMax = 64.0f;
+
+
+
+
 };
