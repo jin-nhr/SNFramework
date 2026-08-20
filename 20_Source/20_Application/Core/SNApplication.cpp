@@ -8,6 +8,7 @@
 #include "SNSoftTimer.h"
 #include "SNAutoResource.h"
 #include "SNAudioVideo.h"
+#include "SNWorld.h"
 
 // アプリケーションクラス
 
@@ -154,6 +155,9 @@ Void SNApplication::UserMain()
 {
 	SNGraphicsContext* grc;
 
+	// ワールド初期化
+	SNWorld::Initialize();
+
 	// FPSタイマを起動
 	FPSTimer.Start();
 
@@ -199,6 +203,9 @@ Void SNApplication::UserMain()
 
 			// アプリケーション実行
 			FrameworkAppLayer.Step();
+
+			// ワールド更新
+			SNWorld::Update();
 
 			// FPSの状態によってスキップ判定
 			if (!FPSTimer.GetSkipFlag())
@@ -255,6 +262,9 @@ Void SNApplication::UserMain()
 
 	// レイヤ制御Exit
 	FrameworkAppLayer.Exit();
+
+	// ワールド終了
+	SNWorld::Terminate();
 
 	// 終了通知を送る
 	SNSystem::NoticeExitApplication();

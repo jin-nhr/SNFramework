@@ -4,6 +4,7 @@
 #include "SNGraphicsResManager.h"
 #include "SNScene.h"
 #include "SNGraphicsContext.h"
+#include "SNGUIDef.h"
 
 // GUIクラス
 Void SNGUI::Tiling(SNGraphicsContext* grc, SNRect* dst_rect, SNBitmap* src_bmp, SNRect* src_rect)
@@ -54,7 +55,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     SNRect dst_rect;
     SNRect src_rect;
     SNRect tiling_rect = { 0 };
-    GUIBlockIndex index;
+    SNGUIDef::GUIBlockIndex index;
     Int32 block = SNSystemConfig::GUIBlockSize;
 
     win_img = SNGraphicsResManager::GetResource(res_id);
@@ -77,7 +78,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     tiling_rect.Height = block;
 
     // 左上
-    index = GUIBlockLeftUp;
+    index = SNGUIDef::GUIBlockLeftUp;
     src_rect.PointX = blockdef[index].X + offset->X;
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX;
@@ -85,7 +86,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     SNGUI::Tiling(grc, &tiling_rect, win_img, &src_rect);
 
     // 右上
-    index = GUIBlockRightUp;
+    index = SNGUIDef::GUIBlockRightUp;
     src_rect.PointX = blockdef[index].X + offset->X;
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX + dst_rect.Width - block;
@@ -93,7 +94,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     SNGUI::Tiling(grc, &tiling_rect, win_img, &src_rect);
 
     // 左下
-    index = GUIBlockLeftBottom;
+    index = SNGUIDef::GUIBlockLeftBottom;
     src_rect.PointX = blockdef[index].X + offset->X;
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX;
@@ -101,7 +102,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     SNGUI::Tiling(grc, &tiling_rect, win_img, &src_rect);
 
     // 右下
-    index = GUIBlockRightBottom;
+    index = SNGUIDef::GUIBlockRightBottom;
     src_rect.PointX = blockdef[index].X + offset->X;
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX + dst_rect.Width - block;
@@ -114,7 +115,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     tiling_rect.Height = block;
 
     // 上
-    index = GUIBlockUp;
+    index = SNGUIDef::GUIBlockUp;
     src_rect.PointX = blockdef[index].X + offset->X;
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX + block;
@@ -122,7 +123,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     SNGUI::Tiling(grc, &tiling_rect, win_img, &src_rect);
 
     // 下
-    index = GUIBlockBottom;
+    index = SNGUIDef::GUIBlockBottom;
     src_rect.PointX = blockdef[index].X + offset->X;
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX + block;
@@ -136,7 +137,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     tiling_rect.Height = dst_rect.Height - block * 2;
 
     // 左
-    index = GUIBlockLeft;
+    index = SNGUIDef::GUIBlockLeft;
     src_rect.PointX = blockdef[index].X + offset->X;
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX;
@@ -144,7 +145,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     SNGUI::Tiling(grc, &tiling_rect, win_img, &src_rect);
 
     // 右
-    index = GUIBlockRight;
+    index = SNGUIDef::GUIBlockRight;
     src_rect.PointX = blockdef[index].X + offset->X;
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX + dst_rect.Width - block;
@@ -153,7 +154,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
 
     ////////////////////////////////////////////
     // 中央
-    index = GUIBlockCenter;
+    index = SNGUIDef::GUIBlockCenter;
     src_rect.PointX = blockdef[index].X + offset->X;
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX + block;

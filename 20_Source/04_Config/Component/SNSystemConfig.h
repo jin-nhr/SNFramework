@@ -157,9 +157,15 @@ public:
 	/////////////////////////////////////////////////////////////////
 	// ƒ[ƒ‹ƒhŠÖ˜A
 
-	static constexpr Float32 WorldPosXMax = 256.0f;
-	static constexpr Float32 WorldPosYMax = 256.0f;
-	static constexpr Float32 WorldPosZMax = 64.0f;
+	static constexpr String WorldMeshPath = (const String)L"World\\Mesh";
+
+	static constexpr Char WorldMeshFileTag[4] = { L'S', L'N', L'W', L'M' };
+
+	static constexpr String WorldMeshFileName = (const String)L"MeshX+03dY+03dZ+03d.snwm";
+
+	// ‰Â‹”ÍˆÍ(”¼Œa)
+	static constexpr Int32 WorldDispRange = 32;
+	static constexpr Int32 WorldDispRangeZ = 16;
 
 
 

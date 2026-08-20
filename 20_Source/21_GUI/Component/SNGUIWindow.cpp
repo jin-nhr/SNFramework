@@ -3,7 +3,9 @@
 #include "SNGraphicsResource.h"
 #include "SNBitmap.h"
 #include "SNGUI.h"
+#include "SNGUIDef.h"
 #include "SNMath.h"
+
 
 // コンストラクタ
 SNGUIWindow::SNGUIWindow()
@@ -36,7 +38,7 @@ Void SNGUIWindow::OnDraw(SNGraphicsContext* grc)
 {
 	SNRect rect = CalcGlobalRect();
 
-	SNGUI::Tiling9(grc, &rect, SNGraphicsResWindow, SNGUI::GUIBlockDef, &SNGUI::WindowBlockOffset[0]);
+	SNGUI::Tiling9(grc, &rect, SNGraphicsResWindow, SNGUIDef::GUIBlockDef, &SNGUIDef::WindowBlockOffset[0]);
 
 	return;
 }

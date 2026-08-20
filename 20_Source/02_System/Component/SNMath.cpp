@@ -40,9 +40,9 @@ Void SNMath::InitTrigFunc()
 		t = tan(rad);
 
 		// ---- 量子化 ----
-		sinv = RoundToInt(s * SNTrigFuncBitDepth);
-		cosv = RoundToInt(c * SNTrigFuncBitDepth);
-		tanv = RoundToInt(t * SNTrigFuncBitDepth);
+		sinv = RoundToInt((Float32)(s * SNTrigFuncBitDepth));
+		cosv = RoundToInt((Float32)(c * SNTrigFuncBitDepth));
+		tanv = RoundToInt((Float32)(t * SNTrigFuncBitDepth));
 
 		// ---- クリップ ----
 		sinv = (Int)Saturate(sinv, SNTrigFuncMin, SNTrigFuncMax);
@@ -62,15 +62,34 @@ Void SNMath::InitTrigFunc()
 	for (i = 0; i < SNTrigFuncATanNum; i++)
 	{
 		slope = ((i - SNTrigFuncATanOffset) / SNTrigFuncBitDepth);
-		ArcTan[i] = (Int)Saturate(RoundToInt(atan(slope) * SNTrigFuncBitDepth / M_PI), SNTrigFuncMin, SNTrigFuncMax);
+		ArcTan[i] = (Int)Saturate(RoundToInt((Float32)(atan(slope) * SNTrigFuncBitDepth / M_PI)), SNTrigFuncMin, SNTrigFuncMax);
 	}
 
 	return;
 }
 
-Int SNMath::RoundToInt(Float64 x)
+Int SNMath::RoundToInt(Float32 x)
 {
 	return (x >= 0.0) ? (int)(x + 0.5) : (int)(x - 0.5);
+}
+
+Int SNMath::FloorToInt(Float32 x)
+{
+	Int32 i = (Int32)x;   // 0方向への丸め（truncate）
+	return (x < (Float32)i) ? (i - 1) : i;
+}
+
+// 絶対値取得
+Float32 SNMath::AbsF(Float32 x)
+{
+	Float32 ret = x;
+
+	if (x < 0)
+	{
+		x = x * -1.0f;
+	}
+
+	return x;
 }
 
 // 大きい値を選択
@@ -221,7 +240,7 @@ Int8 SNMath::CalcAngle(SNPoint* pnt1, SNPoint* pnt2)
 	else
 	{
 		f = (Float64)dy / (Float64)dx;
-		slope = (Int)RoundToInt(f * SNTrigFuncBitDepth);
+		slope = (Int)RoundToInt((Float32)(f * SNTrigFuncBitDepth));
 		slope = (Int)Saturate(slope, SNTrigFuncTanMin, SNTrigFuncTanMax);
 	}
 

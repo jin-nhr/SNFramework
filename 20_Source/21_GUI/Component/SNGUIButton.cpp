@@ -57,9 +57,9 @@ Void SNGUIButton::OnTerminate()
 
 Void SNGUIButton::OnCycle()
 {
-    SNGUI::ButtonBlockStatus button_sts = JudgeStatus();
+    SNGUIDef::ButtonBlockStatus button_sts = JudgeStatus();
 
-    Caption.Color = SNGUI::FontColor[SNGUI::ButtonCaptionColor[button_sts]];
+    Caption.Color = SNGUIDef::FontColor[SNGUIDef::ButtonCaptionColor[button_sts]];
 
     return;
 }
@@ -78,9 +78,9 @@ Void SNGUIButton::OnDraw(SNGraphicsContext* grc)
 // ボタン描画
 Void SNGUIButton::DrawButton(SNGraphicsContext* grc)
 {
-    SNGUI::ButtonBlockStatus button_sts = JudgeStatus();
+    SNGUIDef::ButtonBlockStatus button_sts = JudgeStatus();
 
-    ButtonTiling(grc, SNGraphicsResButton, &SNGUI::ButtonBlockOffset[button_sts]);
+    ButtonTiling(grc, SNGraphicsResButton, &SNGUIDef::ButtonBlockOffset[button_sts]);
 
     return;
 }
@@ -88,9 +88,9 @@ Void SNGUIButton::DrawButton(SNGraphicsContext* grc)
 // フォーカス描画
 Void SNGUIButton::DrawFocus(SNGraphicsContext* grc)
 {
-    SNGUI::ButtonFocusStatus button_sts = JudgeFocusStatus();
+    SNGUIDef::ButtonFocusStatus button_sts = JudgeFocusStatus();
 
-    ButtonTiling(grc, SNGraphicsResFocus, &SNGUI::FocusBlockOffset[button_sts]);
+    ButtonTiling(grc, SNGraphicsResFocus, &SNGUIDef::FocusBlockOffset[button_sts]);
 
     return;
 }
@@ -99,55 +99,55 @@ Void SNGUIButton::ButtonTiling(SNGraphicsContext* grc, SNGraphicsResID res_id, c
 {
     SNRect rect = CalcGlobalRect();
 
-    SNGUI::Tiling9(grc, &rect, res_id, SNGUI::GUIBlockDef, offset);
+    SNGUI::Tiling9(grc, &rect, res_id, SNGUIDef::GUIBlockDef, offset);
 
     return;
 }
 
 
-SNGUI::ButtonBlockStatus SNGUIButton::JudgeStatus()
+SNGUIDef::ButtonBlockStatus SNGUIButton::JudgeStatus()
 {
-    SNGUI::ButtonBlockStatus ret = SNGUI::ButtonStatusNormal;
+    SNGUIDef::ButtonBlockStatus ret = SNGUIDef::ButtonStatusNormal;
 
     if (NoFrame)
     {
-        ret = SNGUI::ButtonStatusNoFrame;
+        ret = SNGUIDef::ButtonStatusNoFrame;
     }
 
     else if (Disable)
     {
-        ret = SNGUI::ButtonStatusDisable;
+        ret = SNGUIDef::ButtonStatusDisable;
     }
 
     else if (Push)
     {
-        ret = SNGUI::ButtonStatusPush;
+        ret = SNGUIDef::ButtonStatusPush;
     }
 
     else if (Selected)
     {
-        ret = SNGUI::ButtonStatusSelected;
+        ret = SNGUIDef::ButtonStatusSelected;
     }
 
     return ret;
 }
 
 
-SNGUI::ButtonFocusStatus SNGUIButton::JudgeFocusStatus()
+SNGUIDef::ButtonFocusStatus SNGUIButton::JudgeFocusStatus()
 {
-    SNGUI::ButtonFocusStatus ret = SNGUI::FocusStatusNoFocus;
+    SNGUIDef::ButtonFocusStatus ret = SNGUIDef::FocusStatusNoFocus;
 
     if (!Focus)
     {
-        ret = SNGUI::FocusStatusNoFocus;
+        ret = SNGUIDef::FocusStatusNoFocus;
     }
     else if (Push)
     {
-        ret = SNGUI::FocusnStatusPush;
+        ret = SNGUIDef::FocusnStatusPush;
     }
     else
     {
-        ret = SNGUI::FocusStatusNormal;
+        ret = SNGUIDef::FocusStatusNormal;
     }
 
     return ret;

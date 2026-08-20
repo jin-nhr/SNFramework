@@ -3,13 +3,13 @@
 #include "SNConfig.h"
 #include "SNBitmapFont.h"
 #include "SNGUI.h"
-
+#include "SNGUIDef.h"
 
 // コンストラクタ
 SNGUIText::SNGUIText()
 {
 	// 変数初期化
-	Color = SNGUI::FontColor[SNGUI::FontColorNormal];
+	Color = SNGUIDef::FontColor[SNGUIDef::FontColorNormal];
 	WorkSurface = nullptr;
 
 	return;

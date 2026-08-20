@@ -661,3 +661,52 @@ enum SNSoundCodecOperation
     SNSoundCodecOperationOpenStream,
 };
 
+
+///////////////////////////////////////////////////////////////
+// ÉèÅ[ÉãÉhä÷òA
+
+// ï˚à 
+enum SNWorldDir
+{
+    SNWorldDirCenter,
+    SNWorldDirN,
+    SNWorldDirNE,
+    SNWorldDirE,
+    SNWorldDirSE,
+    SNWorldDirS,
+    SNWorldDirSW,
+    SNWorldDirW,
+    SNWorldDirNW,
+    SNWorldDirNum
+};
+
+// çÇí·
+enum SNWorldElevation
+{
+    SNWorldElevationUp,
+    SNWorldElevationMid,
+    SNWorldElevationLow,
+    SNWorldElevationNum
+};
+
+// âeï˚å¸
+enum SNWorldShadowDir
+{
+    SNWorldShadowNon,
+    SNWorldShadowDirLT,
+    SNWorldShadowDirLB,
+    SNWorldShadowDirRB,
+    SNWorldShadowDirRT,
+    SNWorldShaodwDirT,
+    SNWorldShadowDirNum 
+};
+
+// ã´äEê¸
+enum SNWorldGroundBorderDir
+{
+    SNWorldGroundBorderNon,
+    SNWorldGroundBorderDirR,
+    SNWorldGroundBorderDirL,
+    SNWorldGroundBorderDirT,
+    SNWorldGroundBorderDirNum,
+};

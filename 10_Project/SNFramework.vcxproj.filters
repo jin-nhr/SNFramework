@@ -291,9 +291,6 @@
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNScaling.h">
       <Filter>20_Source\12_Graphics\Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_Source\12_Graphics\Core\SNBMCharTable.h">
-      <Filter>20_Source\12_Graphics\Core</Filter>
-    </ClInclude>
     <ClInclude Include="..\20_Source\12_Graphics\Core\SND3DShaderPS.h">
       <Filter>20_Source\12_Graphics\Core</Filter>
     </ClInclude>
@@ -488,6 +485,24 @@
     </ClInclude>
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.h">
       <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIWorldView.h">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\22_World\Core\SNWGround.h">
+      <Filter>22_World\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\03_Resource\SNBMCharTable.h">
+      <Filter>20_Source\03_Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\03_Resource\SNMapchip.h">
+      <Filter>20_Source\03_Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\03_Resource\SNGUIDef.h">
+      <Filter>20_Source\03_Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\22_World\Core\SNWGroundMesh.h">
+      <Filter>22_World\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -811,6 +826,15 @@
     </ClCompile>
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.cpp">
       <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIWorldView.cpp">
+      <Filter>20_Source\21_GUI\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\22_World\Core\SNWGround.cpp">
+      <Filter>22_World\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\22_World\Core\SNWGroundMesh.cpp">
+      <Filter>22_World\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

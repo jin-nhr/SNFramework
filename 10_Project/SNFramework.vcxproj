@@ -39,10 +39,13 @@
     <ClInclude Include="..\20_Source\02_System\Core\SNWindow.h" />
     <ClInclude Include="..\20_Source\02_System\Core\SNWindowsAPI.h" />
     <ClInclude Include="..\20_Source\03_Resource\Resource.h" />
+    <ClInclude Include="..\20_Source\03_Resource\SNBMCharTable.h" />
     <ClInclude Include="..\20_Source\03_Resource\SNFixedString.h" />
     <ClInclude Include="..\20_Source\03_Resource\SNGraphicsResource.h" />
+    <ClInclude Include="..\20_Source\03_Resource\SNGUIDef.h" />
     <ClInclude Include="..\20_Source\03_Resource\SNMusicResource.h" />
     <ClInclude Include="..\20_Source\03_Resource\SNSoundResource.h" />
+    <ClInclude Include="..\20_Source\03_Resource\SNMapchip.h" />
     <ClInclude Include="..\20_Source\04_Config\Component\SNSystemConfig.h" />
     <ClInclude Include="..\20_Source\04_Config\Component\SNUserConfig.h" />
     <ClInclude Include="..\20_Source\04_Config\Core\SNConfig.h" />
@@ -68,7 +71,6 @@
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNDIBPixel.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNGraphicsContext.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNScaling.h" />
-    <ClInclude Include="..\20_Source\12_Graphics\Core\SNBMCharTable.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Core\SND3DShaderPS.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Core\SND3DShaderVS.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Core\SNGraphics.h" />
@@ -126,6 +128,7 @@
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_BgApp\SNBgApp.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIButton.h" />
+    <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIWorldView.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIPicture.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUISystemText.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUISystemTextEx.h" />
@@ -133,6 +136,8 @@
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUITextEx.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIWindow.h" />
     <ClInclude Include="..\20_Source\21_GUI\Core\SNGUI.h" />
+    <ClInclude Include="..\20_Source\22_World\Core\SNWGround.h" />
+    <ClInclude Include="..\20_Source\22_World\Core\SNWGroundMesh.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWorld.h" />
   </ItemGroup>
   <ItemGroup>
@@ -235,6 +240,7 @@
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_BgApp\SNBgApp.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIButton.cpp" />
+    <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIWorldView.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIPicture.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUISystemText.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUISystemTextEx.cpp" />
@@ -242,6 +248,8 @@
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUITextEx.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIWindow.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Core\SNGUI.cpp" />
+    <ClCompile Include="..\20_Source\22_World\Core\SNWGround.cpp" />
+    <ClCompile Include="..\20_Source\22_World\Core\SNWGroundMesh.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWorld.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,7 @@
 #pragma once
 
+//////////////////////////////////////////////
+// 基本データ型
 typedef void					Void;
 
 typedef char					Int8;

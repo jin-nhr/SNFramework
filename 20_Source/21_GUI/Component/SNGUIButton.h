@@ -3,6 +3,7 @@
 #include "SNLayerController.h"
 #include "SNGUIText.h"
 #include "SNGUI.h"
+#include "SNGUIDef.h"
 #include "SNGraphicsResource.h"
 
 
@@ -48,7 +49,7 @@ protected:
 	virtual Void ButtonTiling(SNGraphicsContext* grc, SNGraphicsResID res_id, const SNPoint* offset);
 
 	// ステータス判定
-	virtual SNGUI::ButtonBlockStatus JudgeStatus();
+	virtual SNGUIDef::ButtonBlockStatus JudgeStatus();
 
-	virtual SNGUI::ButtonFocusStatus JudgeFocusStatus();
+	virtual SNGUIDef::ButtonFocusStatus JudgeFocusStatus();
 };

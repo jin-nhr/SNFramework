@@ -55,3 +55,17 @@ struct SNBitmapInfo
     UInt32 ColorImportant;	// 重要色数 = 0
     UInt8 Reserve[4];		// リザーブ
 };
+
+
+///////////////////////////////////////////////////////////////
+// ワールド関連
+
+// ワールド座標
+struct SNWorldPos
+{
+    Float32 X;
+    Float32 Y;
+    Float32 Z;
+};
+
+

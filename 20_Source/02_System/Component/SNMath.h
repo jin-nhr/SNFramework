@@ -11,7 +11,14 @@ public:
 	// 三角関数の初期化
 	static Void InitTrigFunc();
 
-	static Int RoundToInt(Float64 x);
+	// 整数変換(四捨五入)
+	static Int RoundToInt(Float32 x);
+
+	// 整数変換(負方向まるめ)
+	static Int FloorToInt(Float32 x);
+
+	// 絶対値取得
+	static Float32 AbsF(Float32 x);
 
 	// 大きい値を選択
 	static Int64 SelectMax(Int64 value1, Int64 value2);
