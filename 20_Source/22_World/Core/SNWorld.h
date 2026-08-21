@@ -26,9 +26,6 @@ public:
 	// çXêV
 	static Void Update();
 
-	// ï`âÊ
-	static Void Draw(SNBitmap* target, SNWorldPos* target_pos, SNWorldDir dir);
-
 
 
 	///////////////////////////////////////////////////////////////////

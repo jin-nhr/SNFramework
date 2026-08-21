@@ -33,17 +33,21 @@ public:
 
 	virtual SNWorldDir GetViewDir();
 
+	virtual Void UpToWorldDirPos(Float32* x, Float32* y);
+	virtual Void DownToWorldDirPos(Float32* x, Float32* y);
+	virtual Void LeftToWorldDirPos(Float32* x, Float32* y);
+	virtual Void RightToWorldDirPos(Float32* x, Float32* y);
+
+	
+
 protected:
 	virtual Void OnInitialize();
-
-	virtual Void OnPreDraw();
 
 	virtual Void OnDraw(SNGraphicsContext* grc);
 
 private:
 	SNWorldPos TargetPos;
 	Float32 ViewScale;
-	SNBitmap WorkSurface;
 	
 	SNWorldDir ViewDir;
 };

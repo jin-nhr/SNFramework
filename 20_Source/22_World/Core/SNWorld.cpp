@@ -50,21 +50,6 @@ Void SNWorld::Update()
 	return;
 }
 
-// ï`âÊ
-Void SNWorld::Draw(SNBitmap* target, SNWorldPos* target_pos, SNWorldDir dir)
-{
-	SNWorldShadowDir shadow_dir;
-
-	if (Run)
-	{
-		shadow_dir = CalcShadowDir(dir);
-
-		Ground.Draw(target, target_pos, true, dir, shadow_dir, SNSystemConfig::WorldDispRange, SNSystemConfig::WorldDispRangeZ);
-	}
-
-	return;
-}
-
 // ÉJÉåÉìÉgç¿ïWê›íË
 Void SNWorld::SetCurrentPos(SNWorldPos* pos)
 {

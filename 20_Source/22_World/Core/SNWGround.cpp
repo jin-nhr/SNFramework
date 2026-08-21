@@ -4,30 +4,39 @@
 #include "SNGraphicsDevice.h"
 #include "SNGraphicsContext.h"
 #include "SNGraphicsResManager.h"
+#include "SNWindowsAPI.h"
 
 
 SNWGround::SNWGround()
 {
 	Int32 dir;
 	Int32 z;
+	SNWMeshInfo* mesh_info;
 
 	CurrentPos = { 0 };
-	MeshExitPos = { 0 };
-	WriteID = { 0 };
+	CurrentID = { 0 };
+	CenterPos = { 0 };
+	CenterID = { 0 };
+	SavedCenterID = { 0 };
 
 	// MeshInfo, MeshRef初期化
 	for (z = 0; z < SNWorldElevationNum; z++)
 	{
 		for (dir = 0; dir < SNWorldDirNum; dir++)
 		{
-			MeshInfo[z * SNWorldDirNum + dir].ID = { 0 };
-			MeshInfo[z * SNWorldDirNum + dir].RefCount = 0;
-			MeshInfo[z * SNWorldDirNum + dir].State = SNWMeshStateIdle;
-			MeshInfo[z * SNWorldDirNum + dir].Dirty = false;
+			mesh_info = &MeshInfo[z * SNWorldDirNum + dir];
 
-			MeshRef[z][dir] = nullptr;
+			mesh_info->ID = { 0 };
+			mesh_info->MeshPos = { 0 };
+			mesh_info->State = SNWMeshStateIdle;
+			mesh_info->Dirty = false;
+
+			MeshRef[z][dir] = -1;
 		}
 	}
+
+	// 空きMesh用のプール確保
+	MeshPool.Allocate(SNWorldElevationNum * SNWorldDirNum);
 
 	return;
 
@@ -43,23 +52,26 @@ Void SNWGround::Initialize()
 {
 	Int32 dir;
 	Int32 z;
+	SNWMeshInfo* mesh_info;
 
 	// MeshInfo, MeshRef初期化
 	for (z = 0; z < SNWorldElevationNum; z++)
 	{
 		for (dir = 0; dir < SNWorldDirNum; dir++)
 		{
-			CalcMeshID(&MeshExitPos, (SNWorldDir)dir, (SNWorldElevation)z, &MeshInfo[z * SNWorldDirNum + dir].ID);
-			MeshInfo[z * SNWorldDirNum + dir].Mesh.Initialize();
-			MeshInfo[z * SNWorldDirNum + dir].RefCount = 0;
-			MeshInfo[z * SNWorldDirNum + dir].State = SNWMeshStateIdle;
+			mesh_info = &MeshInfo[z * SNWorldDirNum + dir];
 
-			MeshRef[z][dir] = &MeshInfo[z * SNWorldDirNum + dir];
-			MeshRef[z][dir]->RefCount++;
+			OffsetMeshID(&CurrentID, (SNWorldDir)dir, (SNWorldElevation)z, &mesh_info->ID);
+			CvtIDToPos(&mesh_info->ID, &mesh_info->MeshPos);
+			mesh_info->Mesh.Initialize();
+			mesh_info->Mesh.SetMeshID((UInt32)mesh_info->ID.X, (UInt32)mesh_info->ID.Y, (UInt32)mesh_info->ID.Z);
+			mesh_info->State = SNWMeshStateIdle;
+
+			MeshRef[z][dir] = (Int16)(z * SNWorldDirNum + dir);
 
 			// ロード指示
-			MeshRef[z][dir]->Mesh.LoadMesh();
-			MeshRef[z][dir]->State = SNWMeshStateLoad;
+			mesh_info->Mesh.LoadMesh();
+			mesh_info->State = SNWMeshStateLoad;
 		}
 	}
 
@@ -71,12 +83,14 @@ Void SNWGround::Terminate()
 {
 	Int32 dir;
 	Int32 z;
+	SNWMeshInfo* mesh_info;
 
 	for (z = 0; z < SNWorldElevationNum; z++)
 	{
 		for (dir = 0; dir < SNWorldDirNum; dir++)
 		{
-			MeshInfo[z * SNWorldDirNum + dir].Mesh.Terminate();
+			mesh_info = &MeshInfo[z * SNWorldDirNum + dir];
+			mesh_info->Mesh.Terminate();
 		}
 	}
 	return;
@@ -86,202 +100,41 @@ Void SNWGround::Terminate()
 Void SNWGround::Update(SNWorldPos* pos)
 {
 	Boolean is_idle;
-	SNWorldPos center_id;
 
 	CurrentPos = *pos;
+	CvtPosToID(&CurrentPos, &CurrentID);
 
 	// 状態更新
-	UpdateState();
-
-	// 処理が終わっているかチェック
-	is_idle = IsOpeComp();
+	is_idle = UpdateState();
 
 	// 処理が終わっているときだけ更新チェック
 	if (is_idle)
 	{
-		// メッシュ外判定
-		if (JudgeOutMesh(pos, &MeshRef[SNWorldElevationMid][SNWorldDirCenter]->ID))
+		// メッシュ更新判定
+		if (JudgeUpdateMesh())
 		{
-			// 移動元ID計算
-			CalcMeshCenterID(&MeshExitPos, &center_id);
-
-			// 移動元IDが未保存
-			if (!IsSameID(&WriteID, &center_id))
+			// 現在のMeshが未保存？
+			if (!IsSameID(&SavedCenterID, &CenterID))
 			{
 				SaveMesh();
-				WriteID = center_id;
+				SavedCenterID = CenterID;
 			}
 
 			// 保存済み
 			else
 			{
 				// メッシュ更新処理
-				UpdateMesh(pos);
+				UpdateMesh();
 			}
 		}
-		// メッシュ移動なし
+		// メッシュ更新なし
 		else
 		{
-			// 出口更新
-			MeshExitPos = *pos;
+			// 中央座標更新
+			CenterPos = *pos;
+			CvtPosToID(&CenterPos, &CenterID);
 		}
 	}
-
-	return;
-}
-
-// 地形描画
-Void SNWGround::Draw(SNBitmap* target, SNWorldPos* target_pos, Boolean focus, SNWorldDir dir, SNWorldShadowDir shadow_dir, Int32 in_range, Int32 in_range_z)
-{
-	Int32 x_start;
-	Int32 x_num;
-	Int32 x_step;
-
-	Int32 y_start;
-	Int32 y_num;
-	Int32 y_step;
-	
-	Int32 z_start;
-	Int32 z_num;
-	Int32 z_step;
-
-	Int32 x_cnt;
-	Int32 y_cnt;
-	Int32 z_cnt;
-
-	SNWorldDir out_dir;
-	SNWorldElevation z;
-	SNWorldPos lpos;
-
-	SNWorldPos in_pos;
-
-	UInt16 code;
-	SNRect dst_rect;
-	SNRect src_rect;
-
-	SNMapchip::SNMapchipCode chip_code;
-
-	SNSize dst_size;
-	SNPoint lt_pos = { 0 };
-
-	
-	x_start = (Int32)(target_pos->X - in_range);
-	x_step = 1;
-	y_start = (Int32)(target_pos->Y - in_range);
-	y_step = 1;
-	z_start = (Int32)(target_pos->Z - in_range_z);
-	z_step = 1;
-
-	SNGraphicsContext* grc = &SNGraphicsDevice::D2DGraphicsContext;
-	SNColor color = { 0, 0, 0, 0 };
-	SNBitmap* source = SNGraphicsResManager::GetResource(SNGraphicsResMapchip1);
-
-	// targetの中心座標から地形データ左上角の座標を算出
-	target->GetSize(&dst_size);
-	lt_pos.X =
-		dst_size.Width / 2
-		- SNMapchip::MapchipCenterOffset[dir].X
-		- (SNMapchip::MapchipStrideX[dir].X * in_range
-			+ SNMapchip::MapchipStrideY[dir].X * in_range
-			+ SNMapchip::MapchipStrideZ[dir].X * in_range_z);
-	lt_pos.Y = 
-		dst_size.Height / 2 
-		- SNMapchip::MapchipCenterOffset[dir].Y 
-		- (SNMapchip::MapchipStrideX[dir].Y * in_range
-			+ SNMapchip::MapchipStrideY[dir].Y * in_range
-			+ SNMapchip::MapchipStrideZ[dir].Y * in_range_z);
-
-	// ワークに対してテキスト描画
-	grc->Begin(target);
-	grc->Clear(&color);
-
-	x_num = in_range * 2 + 1;
-	y_num = x_num;
-	z_num = in_range_z * 2 + 1;
-
-	in_pos.X = (Float32)x_start;
-	in_pos.Y = (Float32)y_start;
-	in_pos.Z = (Float32)z_start;
-	z_cnt = 0;
-
-	while (z_cnt < z_num)
-	{
-		in_pos.Y = (Float32)y_start;
-		y_cnt = 0;
-
-		while (y_cnt < y_num)
-		{
-			in_pos.X = (Float32)x_start;
-			x_cnt = 0;
-
-			while (x_cnt < x_num)
-			{
-				// 方位等と座標取得
-				if (CvtIDAndLocalPos(&in_pos, &out_dir, &z, &lpos))
-				{
-					chip_code = MeshRef[z][out_dir]->Mesh.GetCode((Int32)lpos.X, (Int32)lpos.Y, (Int32)lpos.Z);
-
-					// マップチップ取得
-					code = SNMapchip::Data[chip_code].Code;
-
-					// チップ側の矩形取得
-					SNMapchip::CodeToRect(code, dir, &src_rect);
-
-					dst_rect.PointX = lt_pos.X
-						+ (SNMapchip::MapchipStrideX[dir].X * x_cnt
-							+ SNMapchip::MapchipStrideY[dir].X * y_cnt
-							+ SNMapchip::MapchipStrideZ[dir].X * z_cnt);
-					dst_rect.PointY = lt_pos.Y
-						+ (SNMapchip::MapchipStrideX[dir].Y * x_cnt
-							+ SNMapchip::MapchipStrideY[dir].Y * y_cnt
-							+ SNMapchip::MapchipStrideZ[dir].Y * z_cnt);
-
-					dst_rect.Width = src_rect.Width;
-					dst_rect.Height = src_rect.Height;
-
-					if (chip_code != SNMapchip::SNMapchipBlank)
-					{
-						grc->DrawImage(
-							&dst_rect,
-							source,
-							&src_rect,
-							SNAlphaMax);
-
-
-						// 影描画
-						SNMapchip::CodeToRect(SNMapchip::ShadowCode[shadow_dir], dir, &src_rect);
-
-						grc->DrawImage(
-							&dst_rect,
-							source,
-							&src_rect,
-							SNAlphaMax);
-					}
-
-					// フォーカス
-					if ((focus == true) && (x_cnt == y_cnt) && (x_cnt == in_range) && (z_cnt == in_range_z))
-					{
-						// 影描画
-						SNMapchip::CodeToRect(SNMapchip::FocusCode, dir, &src_rect);
-
-						grc->DrawImage(
-							&dst_rect,
-							source,
-							&src_rect,
-							SNAlphaMax);
-					}
-				}
-				in_pos.X += x_step;
-				x_cnt++;
-			}
-			in_pos.Y += y_step;
-			y_cnt++;
-		}
-		in_pos.Z += z_step;
-		z_cnt++;
-	}
-
-	grc->End();
 
 	return;
 }
@@ -293,62 +146,22 @@ Void SNWGround::Write(SNMapchip::SNMapchipCode code)
 	SNWorldElevation z;
 	SNWorldPos lpos;
 
-	// 方位等と座標取得
+	// メッシュ方位とローカル座標取得
 	if (CvtIDAndLocalPos(&CurrentPos, &dir, &z, &lpos))
 	{
-		MeshRef[z][dir]->Mesh.SetCode((Int32)lpos.X, (Int32)lpos.Y, (Int32)lpos.Z, code);
+		MeshInfo[MeshRef[z][dir]].Mesh.SetCode((Int32)lpos.X, (Int32)lpos.Y, (Int32)lpos.Z, code);
+		MeshInfo[MeshRef[z][dir]].Dirty = true;
 	}
 
 	return;
 }
 
-
-// 処理完了判定
-Boolean SNWGround::IsOpeComp()
-{
-	Boolean ret = true;
-	Int32 dir;
-	Int32 z;
-
-	// 全部Idleかチェック
-	for (z = 0; z < SNWorldElevationNum; z++)
-	{
-		for (dir = 0; dir < SNWorldDirNum; dir++)
-		{
-			if (MeshRef[z][dir]->State != SNWMeshStateIdle)
-			{
-				ret = false;
-				break;
-			}
-		}
-		if (ret == false)
-		{
-			break;
-		}
-	}
-
-	return ret;
-}
-
-// センターID計算
-Void SNWGround::CalcMeshCenterID(SNWorldPos* cur_pos, SNWorldPos* out_id)
+// 座標→ID変換
+Void SNWGround::CvtPosToID(SNWorldPos* cur_pos, SNWorldPos* out_id)
 {
 	out_id->X = (Float32)SNMath::FloorToInt(cur_pos->X / SNWGroundMeshSizeX);
 	out_id->Y = (Float32)SNMath::FloorToInt(cur_pos->Y / SNWGroundMeshSizeY);
 	out_id->Z = (Float32)SNMath::FloorToInt(cur_pos->Z / SNWGroundMeshSizeZ);
-
-	return;
-}
-
-
-// MeshID計算
-Void SNWGround::CalcMeshID(SNWorldPos* cur_pos, SNWorldDir dir, SNWorldElevation ele, SNWorldPos* out_id)
-{
-	SNWorldPos tmp_pos;
-
-	CalcMeshCenterID(cur_pos, &tmp_pos);
-	
-	OffsetMeshID(&tmp_pos, dir, ele, out_id);
 
 	return;
 }
@@ -383,31 +196,31 @@ Void SNWGround::OffsetMeshID(SNWorldPos* cur_id, SNWorldDir dir, SNWorldElevatio
 	return;
 }
 
-// メッシュ外判定
-Boolean SNWGround::JudgeOutMesh(SNWorldPos* cur_pos, SNWorldPos* center_id)
+// メッシュ更新判定
+// 中央メッシュ＋閾値の範囲をでたかどうかをチェック
+Boolean SNWGround::JudgeUpdateMesh()
 {
 	Boolean ret = false;
-	SNWorldPos tmp_pos;
-
-	CvtIDToPos(center_id, &tmp_pos);
+	SNWorldPos* tmp_pos = &MeshInfo[MeshRef[SNWorldElevationMid][SNWorldDirCenter]].MeshPos;
+	SNWorldPos* cur_pos = &CurrentPos;
 
 	// X軸判定
-	if ((cur_pos->X <= tmp_pos.X - SNWMeshLoadThresholdX) ||
-		(tmp_pos.X + SNWGroundMeshSizeX + SNWMeshLoadThresholdX <= cur_pos->X))
+	if ((cur_pos->X <= tmp_pos->X - SNWMeshLoadThresholdX) ||
+		(tmp_pos->X + SNWGroundMeshSizeX + SNWMeshLoadThresholdX <= cur_pos->X))
 	{
 		ret = true;
 	}
 
 	// Y軸判定
-	else if ((cur_pos->Y <= tmp_pos.Y - SNWMeshLoadThresholdY) ||
-		(tmp_pos.Y + SNWGroundMeshSizeY + SNWMeshLoadThresholdY <= cur_pos->Y))
+	else if ((cur_pos->Y <= tmp_pos->Y - SNWMeshLoadThresholdY) ||
+		(tmp_pos->Y + SNWGroundMeshSizeY + SNWMeshLoadThresholdY <= cur_pos->Y))
 	{
 		ret = true;
 	}
 
 	// Z軸判定
-	else if ((cur_pos->Z <= tmp_pos.Z - SNWMeshLoadThresholdZ) ||
-		(tmp_pos.Z + SNWGroundMeshSizeZ + SNWMeshLoadThresholdZ <= cur_pos->Z))
+	else if ((cur_pos->Z <= tmp_pos->Z - SNWMeshLoadThresholdZ) ||
+		(tmp_pos->Z + SNWGroundMeshSizeZ + SNWMeshLoadThresholdZ <= cur_pos->Z))
 	{
 		ret = true;
 	}
@@ -415,61 +228,119 @@ Boolean SNWGround::JudgeOutMesh(SNWorldPos* cur_pos, SNWorldPos* center_id)
 	return ret;
 }
 
-Void SNWGround::UpdateMesh(SNWorldPos* cur_pos)
+// メッシュ更新
+Void SNWGround::UpdateMesh()
 {
-	Int32 dir;
-	Int32 z;
-	SNWorldPos center_id;
-	SNWorldPos mesh_id;
-	Int32 mesh_idx;
+	SNWorldPos delta_id;
 
-	CalcMeshCenterID(cur_pos, &center_id);
+	// 移動量計算
+	CalcMeshMoveDelta(&delta_id);
 
-	// Mesh移動処理
-	for (z = 0; z < SNWorldElevationNum; z++)
+	// 移動処理
+	MoveMesh(&delta_id);
+
+	// メッシュロード処理
+	LoadMesh();
+
+	return;
+}
+
+// メッシュ移動量計算
+Void SNWGround::CalcMeshMoveDelta(SNWorldPos* delta_id)
+{
+	SNWorldPos* center_id = &MeshInfo[MeshRef[SNWorldElevationMid][SNWorldDirCenter]].ID;
+
+	// 中央とカレントIDの差分計算
+	delta_id->X = CurrentID.X - center_id->X;
+	delta_id->Y = CurrentID.Y - center_id->Y;
+	delta_id->Z = CurrentID.Z - center_id->Z;
+
+	return;
+}
+
+Void SNWGround::MoveMesh(SNWorldPos* delta_id)
+{
+	// 1→2→3の方向に移動する
+	
+	// NW,  N, NE
+	//  W,  C,  E
+	// SW,  S, SE
+
+	// コピー方向←
+	if (delta_id->X < 0)
 	{
-		for (dir = 0; dir < SNWorldDirNum; dir++)
-		{
-			// 対象位置のオフセット計算
-			OffsetMeshID(&center_id, (SNWorldDir)dir, (SNWorldElevation)z, &mesh_id);
+		UInt16 array1[3] = { SNWorldDirNE, SNWorldDirE, SNWorldDirSE };
+		UInt16 array2[3] = { SNWorldDirN, SNWorldDirCenter, SNWorldDirS };
+		UInt16 array3[3] = { SNWorldDirNW, SNWorldDirW, SNWorldDirSW };
 
-			// ID検索
-			mesh_idx = SearchMesh(&mesh_id);
+		MoveMeshXY((Int32)(delta_id->X * -1), array1, array2, array3);
+	}
+	// コピー方向→
+	else if (0 < delta_id->X)
+	{
+		UInt16 array1[3] = { SNWorldDirNW, SNWorldDirW, SNWorldDirSW };
+		UInt16 array2[3] = { SNWorldDirN, SNWorldDirCenter, SNWorldDirS };
+		UInt16 array3[3] = { SNWorldDirNE, SNWorldDirE, SNWorldDirSE };
 
-			MeshRef[z][dir]->RefCount--;
-			MeshRef[z][dir] = nullptr;
+		MoveMeshXY((Int32)(delta_id->X), array1, array2, array3);
+	}
+	// コピー方向↑
+	if (delta_id->Y < 0)
+	{
+		UInt16 array1[3] = { SNWorldDirSW, SNWorldDirS, SNWorldDirSE };
+		UInt16 array2[3] = { SNWorldDirW, SNWorldDirCenter, SNWorldDirE };
+		UInt16 array3[3] = { SNWorldDirNW, SNWorldDirN, SNWorldDirNE };
 
-			// 発見
-			if (mesh_idx != -1)
-			{
-				MeshRef[z][dir] = &MeshInfo[mesh_idx];
-				MeshRef[z][dir]->RefCount++;
-			}
-		}
+		MoveMeshXY((Int32)(delta_id->Y * -1), array1, array2, array3);
+	}
+	// コピー方向↓
+	else if (0 < delta_id->Y)
+	{
+		UInt16 array1[3] = { SNWorldDirNW, SNWorldDirN, SNWorldDirNE };
+		UInt16 array2[3] = { SNWorldDirW, SNWorldDirCenter, SNWorldDirE };
+		UInt16 array3[3] = { SNWorldDirSW, SNWorldDirS, SNWorldDirSE };
+
+		MoveMeshXY((Int32)(delta_id->Y), array1, array2, array3);
+	}
+	// コピー方向 高→低
+	if (delta_id->Z < 0)
+	{
+		UInt16 idx1 = SNWorldElevationUp;
+		UInt16 idx2 = SNWorldElevationMid;
+		UInt16 idx3 = SNWorldElevationLow;
+
+		MoveMeshZ((Int32)(delta_id->Z * -1), idx1, idx2, idx3);
+	}
+	// コピー方向 低→高
+	else if (0 < delta_id->Z)
+	{
+		UInt16 idx1 = SNWorldElevationLow;
+		UInt16 idx2 = SNWorldElevationMid;
+		UInt16 idx3 = SNWorldElevationUp;
+
+		MoveMeshZ((Int32)(delta_id->Z), idx1, idx2, idx3);
 	}
 
-	// 更新対象Meshの処理
-	for (z = 0; z < SNWorldElevationNum; z++)
+	return;
+}
+
+Void SNWGround::MoveMeshXY(Int32 cnt, UInt16* array1, UInt16* array2, UInt16* array3)
+{
+	UInt16 move_cnt;
+	UInt16 z_cnt;
+	UInt16 dir_cnt;
+
+	// 移動数ループ
+	for (move_cnt = 0; move_cnt < cnt; move_cnt++)
 	{
-		for (dir = 0; dir < SNWorldDirNum; dir++)
+		// Zループ
+		for (z_cnt = 0; z_cnt < SNWorldElevationNum; z_cnt++)
 		{
-			if (MeshRef[z][dir] == nullptr)
+			// 3回ループ
+			for (dir_cnt = 0; dir_cnt < 3; dir_cnt++)
 			{
-				// 空きMesh検索
-				mesh_idx = SearchMeshBlank();
-
-				if (mesh_idx != -1)
-				{
-					// 対象位置のオフセット計算
-					OffsetMeshID(&center_id, (SNWorldDir)dir, (SNWorldElevation)z, &mesh_id);
-
-					MeshRef[z][dir] = &MeshInfo[mesh_idx];
-
-					MeshRef[z][dir]->ID = mesh_id;
-					MeshRef[z][dir]->Mesh.LoadMesh();
-					MeshRef[z][dir]->State = SNWMeshStateLoad;
-					MeshRef[z][dir]->RefCount++;
-				}
+				MoveMesh1(z_cnt, array2[dir_cnt], z_cnt, array3[dir_cnt]);
+				MoveMesh1(z_cnt, array1[dir_cnt], z_cnt, array2[dir_cnt]);
 			}
 		}
 	}
@@ -477,58 +348,83 @@ Void SNWGround::UpdateMesh(SNWorldPos* cur_pos)
 	return;
 }
 
-// メッシュ検索
-Int32 SNWGround::SearchMesh(SNWorldPos* id)
+Void SNWGround::MoveMeshZ(Int32 cnt, UInt16 idx1, UInt16 idx2, UInt16 idx3)
 {
-	Int32 ret = -1;
-	Int32 dir;
-	Int32 z;
+	UInt16 move_cnt;
+	UInt16 dir_cnt;
 
-	for (z = 0; z < SNWorldElevationNum; z++)
+	// 移動数ループ
+	for (move_cnt = 0; move_cnt < cnt; move_cnt++)
 	{
-		for (dir = 0; dir < SNWorldDirNum; dir++)
+		// dirループ
+		for (dir_cnt = 0; dir_cnt < SNWorldDirNum; dir_cnt++)
 		{
-			if (IsSameID(&MeshInfo[z * SNWorldDirNum + dir].ID, id))
-			{
-				ret = z * SNWorldDirNum + dir;
-				break;
-			}
-		}
-
-		if (ret != -1)
-		{
-			break;
+			MoveMesh1(idx2, dir_cnt, idx3, dir_cnt);
+			MoveMesh1(idx1, dir_cnt, idx2, dir_cnt);
 		}
 	}
 
-	return ret;
+	return;
 }
 
-// メッシュ検索
-Int32 SNWGround::SearchMeshBlank()
+Void SNWGround::MoveMesh1(UInt16 from_z, UInt16 from_dir, UInt16 to_z, UInt16 to_dir)
 {
-	Int32 ret = -1;
+	SNListContainer* it;
+
+	// 移動先をPoolに退避
+	if (MeshRef[to_z][to_dir] != -1)
+	{
+		it = MeshPool.InsertLast();
+		it->UserData = (Void*)MeshRef[to_z][to_dir];
+	}
+
+	// 移動
+	MeshRef[to_z][to_dir] = MeshRef[from_z][from_dir];
+	MeshRef[from_z][from_dir] = -1;
+
+	return;
+}
+
+Void SNWGround::LoadMesh()
+{
 	Int32 dir;
 	Int32 z;
+	Int16 idx;
+	SNWMeshInfo* mesh_info;
+	SNListContainer* it;
 
+	// 無効メッシュをロードする
 	for (z = 0; z < SNWorldElevationNum; z++)
 	{
 		for (dir = 0; dir < SNWorldDirNum; dir++)
 		{
-			if (MeshInfo[z * SNWorldDirNum + dir].RefCount == 0)
+			if (MeshRef[z][dir] == -1)
 			{
-				ret = z * SNWorldDirNum + dir;
-				break;
-			}
-		}
+				// 空きを取得
+				it = MeshPool.GetTop();
+				if (it != nullptr)
+				{
+					idx = (Int16)(intptr_t)it->UserData;
+					MeshPool.Remove(it);
 
-		if (ret != -1)
-		{
-			break;
+					MeshRef[z][dir] = idx;
+					mesh_info = &MeshInfo[idx];
+
+					// ID, 座標を設定
+					OffsetMeshID(&CurrentID, (SNWorldDir)dir, (SNWorldElevation)z, &mesh_info->ID);
+					CvtIDToPos(&mesh_info->ID, &mesh_info->MeshPos);
+
+					mesh_info->Mesh.SetMeshID((Int32)mesh_info->ID.X, (Int32)mesh_info->ID.Y, (Int32)mesh_info->ID.Z);
+
+					// ロード指示
+					mesh_info->Mesh.LoadMesh();
+					mesh_info->State = SNWMeshStateLoad;
+				}
+			}
 		}
 	}
 
-	return ret;
+	return;
 }
 
 // ID同一判定
@@ -550,17 +446,20 @@ Void SNWGround::SaveMesh()
 {
 	Int32 dir;
 	Int32 z;
+	SNWMeshInfo* mesh_info;
 
 	// ダーティなら書き込み指示
 	for (z = 0; z < SNWorldElevationNum; z++)
 	{
 		for (dir = 0; dir < SNWorldDirNum; dir++)
 		{
-			if (MeshRef[z][dir]->Dirty)
+			mesh_info = &MeshInfo[MeshRef[z][dir]];
+
+			if (mesh_info->Dirty)
 			{
-				MeshRef[z][dir]->Mesh.SaveMesh();
-				MeshRef[z][dir]->State = SNWMeshStateSave;
-				MeshRef[z][dir]->Dirty = false;
+				mesh_info->Mesh.SaveMesh();
+				mesh_info->State = SNWMeshStateSave;
+				mesh_info->Dirty = false;
 			}
 		}
 	}
@@ -569,24 +468,33 @@ Void SNWGround::SaveMesh()
 }
 
 // 状態更新
-Void SNWGround::UpdateState()
+Boolean SNWGround::UpdateState()
 {
+	Boolean ret = true;
 	Int32 dir;
 	Int32 z;
+	SNWMeshInfo* mesh_info;
 
 	// 処理が終わってるものはIdleにする
 	for (z = 0; z < SNWorldElevationNum; z++)
 	{
 		for (dir = 0; dir < SNWorldDirNum; dir++)
 		{
-			if (!MeshRef[z][dir]->Mesh.IsProc())
+			mesh_info = &MeshInfo[MeshRef[z][dir]];
+
+			if (!mesh_info->Mesh.IsProc())
 			{
-				MeshRef[z][dir]->State = SNWMeshStateIdle;
+				mesh_info->State = SNWMeshStateIdle;
+			}
+			else
+			{
+				// 処理中があればfalse
+				ret = false;
 			}
 		}
 	}
 
-	return;
+	return ret;
 }
 
 // ID座標変換
@@ -605,8 +513,8 @@ Boolean SNWGround::CvtIDAndLocalPos(SNWorldPos* in_pos, SNWorldDir* out_dir, SNW
 {
 	Boolean ret = false;
 
-	SNWorldPos lu_pos;
-	SNWorldPos delta;
+	SNWorldPos* lu_pos;
+	SNWorldPos delta = { 0 };
 	
 	Int32 id_x;
 	Int32 id_y;
@@ -627,13 +535,13 @@ Boolean SNWGround::CvtIDAndLocalPos(SNWorldPos* in_pos, SNWorldDir* out_dir, SNW
 	};
 	
 
-	// Mesh左上座標取得
-	CvtIDToPos(&MeshRef[SNWorldElevationLow][SNWorldDirNW]->ID, &lu_pos);
+	// 周辺Mesh低＆左上座標取得
+	lu_pos = &MeshInfo[MeshRef[SNWorldElevationLow][SNWorldDirNW]].MeshPos;
 
 	// Offset計算
-	delta.X = in_pos->X - lu_pos.X;
-	delta.Y = in_pos->Y - lu_pos.Y;
-	delta.Z = in_pos->Z - lu_pos.Z;
+	delta.X = in_pos->X - lu_pos->X;
+	delta.Y = in_pos->Y - lu_pos->Y;
+	delta.Z = in_pos->Z - lu_pos->Z;
 
 	id_x = SNMath::FloorToInt(delta.X / SNWGroundMeshSizeX);
 	id_y = SNMath::FloorToInt(delta.Y / SNWGroundMeshSizeY);
@@ -656,3 +564,4 @@ Boolean SNWGround::CvtIDAndLocalPos(SNWorldPos* in_pos, SNWorldDir* out_dir, SNW
 
 	return ret;
 }
+

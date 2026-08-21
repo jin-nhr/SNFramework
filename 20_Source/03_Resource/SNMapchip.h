@@ -54,11 +54,11 @@ public:
 		{12,  0 },	// Center
 		{12,  0 },	// N
 		{ 8,  4 },	// NE
-		{ 0, 12 },	// E
+		{ 0,  6 },	// E
 		{-8,  4 },	// SE
-		{12,  0 },	// S
+		{-12, 0 },	// S
 		{ 8,  4 },	// SW
-		{ 0, 12 },	// W
+		{ 0,  6},	// W
 		{-8,  4 },	// NW
 	};
 
@@ -68,11 +68,11 @@ public:
 		{ 0, 6 },	// Center
 		{ 0, 6 },	// N
 		{-8, 4 },	// NE
-		{ 0, 6 },	// E
+		{-12,0 },	// E
 		{ 8, 4 },	// SE
 		{ 0, 6 },	// S
 		{-8, 4 },	// SW
-		{ 0, 6 },	// W
+		{12, 0 },	// W
 		{ 8, 4 },	// NW
 	};
 
@@ -100,20 +100,20 @@ public:
 	static constexpr UInt16 ShadowCode[SNWorldShadowDirNum] =
 	{
 		0x0000,
-		MapchipBlockNumY + 0x0001,	// 左上
-		MapchipBlockNumY + 0x0002,	// 左下
-		MapchipBlockNumY + 0x0003,	// 右下
-		MapchipBlockNumY + 0x0004,	// 右上
-		MapchipBlockNumY + 0x0005,	// 上
+		MapchipBlockNumY + 0x0000,	// 左上
+		MapchipBlockNumY + 0x0001,	// 左下
+		MapchipBlockNumY + 0x0002,	// 右下
+		MapchipBlockNumY + 0x0003,	// 右上
+		MapchipBlockNumY + 0x0004,	// 上
 	};
 
 	// 境界　ブロック
 	static constexpr UInt16 BorderCode[SNWorldGroundBorderDirNum] =
 	{
 		0x0000,
-		MapchipBlockNumY + 0x0006,	// 右
-		MapchipBlockNumY + 0x0007,	// 左
-		MapchipBlockNumY + 0x0008,	// 上
+		MapchipBlockNumY + 0x0005,	// 右
+		MapchipBlockNumY + 0x0006,	// 左
+		MapchipBlockNumY + 0x0007,	// 上
 	};
 
 

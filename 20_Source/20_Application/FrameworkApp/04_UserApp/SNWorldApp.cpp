@@ -3,6 +3,7 @@
 #include "SNVirtualGamePad.h"
 #include "SNWorld.h"
 #include "SNGraphicsResManager.h"
+#include "SNMath.h"
 
 SNWorldApp::SNWorldApp()
 {
@@ -78,46 +79,64 @@ Boolean SNWorldApp::OnGamePad1()
 	Boolean ret = true;
 	SNWorldPos current = { 0.0f, 0.0f, 0.0f };
 
+	// あげる
+	if (((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadUp][SNVirtualGamePadEventPush]) ||
+		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadUp][SNVirtualGamePadEventRepeat])) &&
+		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadAction][SNVirtualGamePadEventPress]))
+	{
+		current.Z = 1.0f;
+	}
+
 	// 上
-	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadUp][SNVirtualGamePadEventPush]) ||
+	else if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadUp][SNVirtualGamePadEventPush]) ||
 		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadUp][SNVirtualGamePadEventRepeat]))
 	{
-		current.Y = -1.0f;
-	}
-
-	// 下
-	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadDown][SNVirtualGamePadEventPush]) ||
-		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadDown][SNVirtualGamePadEventRepeat]))
-	{
-		current.Y = 1.0f;
-	}
-
-	// 左
-	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadLeft][SNVirtualGamePadEventPush]) ||
-		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadLeft][SNVirtualGamePadEventRepeat]))
-	{
-		current.X = -1.0f;
-	}
-
-	// 下
-	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadRight][SNVirtualGamePadEventPush]) ||
-		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadRight][SNVirtualGamePadEventRepeat]))
-	{
-		current.X = 1.0f;
+		WorldView.UpToWorldDirPos(&current.X, &current.Y);
 	}
 
 	// さげる
-	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPagePrev][SNVirtualGamePadEventPush]) ||
-		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPagePrev][SNVirtualGamePadEventRepeat]))
+	if (((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadDown][SNVirtualGamePadEventPush]) ||
+		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadDown][SNVirtualGamePadEventRepeat])) &&
+		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadAction][SNVirtualGamePadEventPress]))
 	{
 		current.Z = -1.0f;
 	}
 
-	// あげる
-	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPageNext][SNVirtualGamePadEventPush]) ||
-		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPageNext][SNVirtualGamePadEventRepeat]))
+	// 下
+	else if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadDown][SNVirtualGamePadEventPush]) ||
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadDown][SNVirtualGamePadEventRepeat]))
 	{
-		current.Z = 1.0f;
+		WorldView.DownToWorldDirPos(&current.X, &current.Y);
+	}
+
+	// Action+左 ブロック選択
+	if (((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadLeft][SNVirtualGamePadEventPush]) ||
+		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadLeft][SNVirtualGamePadEventRepeat])) &&
+		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadAction][SNVirtualGamePadEventPress]))
+	{
+		SelectBlock = (UInt16)SNMath::Decrement(SelectBlock, SNMapchip::SNMapchipBlank + 1, SNMapchip::SNMapchipNum - 1);
+	}
+
+	// 左
+	else if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadLeft][SNVirtualGamePadEventPush]) ||
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadLeft][SNVirtualGamePadEventRepeat]))
+	{
+		WorldView.LeftToWorldDirPos(&current.X, &current.Y);
+	}
+
+	// Action+右 ブロック選択
+	if (((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadRight][SNVirtualGamePadEventPush]) ||
+		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadRight][SNVirtualGamePadEventRepeat])) &&
+		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadAction][SNVirtualGamePadEventPress]))
+	{
+		SelectBlock = (UInt16)SNMath::Increment(SelectBlock, SNMapchip::SNMapchipBlank + 1, SNMapchip::SNMapchipNum - 1);
+	}
+
+	// 右
+	else if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadRight][SNVirtualGamePadEventPush]) ||
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadRight][SNVirtualGamePadEventRepeat]))
+	{
+		WorldView.RightToWorldDirPos(&current.X, &current.Y);
 	}
 
 	WorldView.MoveViewPos(&current);
@@ -138,12 +157,29 @@ Boolean SNWorldApp::OnGamePad1()
 		WorldView.DownViewScale();
 	}
 
-	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadAction][SNVirtualGamePadEventPush]) ||
-		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadAction][SNVirtualGamePadEventRepeat]))
+	// 右回転
+	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPageNext][SNVirtualGamePadEventPush]) ||
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPageNext][SNVirtualGamePadEventRepeat]))
 	{
-		SNWorld::WriteGroundData(SNMapchip::SNMapchipGreen);
+		WorldView.RotateRViewDir();
 	}
 
+	// 左回転
+	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPagePrev][SNVirtualGamePadEventPush]) ||
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPagePrev][SNVirtualGamePadEventRepeat]))
+	{
+		WorldView.RotateLViewDir();
+	}
+
+
+	// 置く
+	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadDecide][SNVirtualGamePadEventPush]) ||
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadDecide][SNVirtualGamePadEventRepeat]))
+	{
+		SNWorld::WriteGroundData((SNMapchip::SNMapchipCode)SelectBlock);
+	}
+
+	// 消す
 	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadCancel][SNVirtualGamePadEventPush]) ||
 		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadCancel][SNVirtualGamePadEventRepeat]))
 	{

@@ -161,7 +161,7 @@ public:
 
 	static constexpr Char WorldMeshFileTag[4] = { L'S', L'N', L'W', L'M' };
 
-	static constexpr String WorldMeshFileName = (const String)L"MeshX+03dY+03dZ+03d.snwm";
+	static constexpr String WorldMeshFileName = (const String)L"MeshX+04dY+04dZ+04d.snwm";
 
 	// ‰ÂŽ‹”ÍˆÍ(”¼Œa)
 	static constexpr Int32 WorldDispRange = 32;
