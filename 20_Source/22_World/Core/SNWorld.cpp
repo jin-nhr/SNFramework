@@ -203,6 +203,8 @@ Void SNWorld::RegisterNearbyEffectGround(SNWNearbyObject* obj_ptr)
 	Boolean exist_bu;
 	Boolean exist_lu;
 
+	Boolean exist_bottom;
+
 
 	static UInt64 gshadow[SNWEasyLightDirNum] =
 	{
@@ -229,7 +231,7 @@ Void SNWorld::RegisterNearbyEffectGround(SNWNearbyObject* obj_ptr)
 	exist_bu = NearbySpace.IsBlocked(x, y + 1, z + 1, SNWNearbyObjectTypeGround);
 	exist_lu = NearbySpace.IsBlocked(x - 1, y, z + 1, SNWNearbyObjectTypeGround);
 
-
+	exist_bottom = NearbySpace.IsBlocked(x, y, z - 1, SNWNearbyObjectTypeGround);
 
 	// 周囲に地形以外のセルがある
 	if (!(exist_u && exist_r && exist_b && exist_l))
@@ -244,7 +246,7 @@ Void SNWorld::RegisterNearbyEffectGround(SNWNearbyObject* obj_ptr)
 			effect_flg |= (exist_r ? 0 : SNWNearbyEffectGroundBitBorderR);
 			effect_flg |= (exist_b ? 0 : SNWNearbyEffectGroundBitBorderB);
 			effect_flg |= (exist_l ? 0 : SNWNearbyEffectGroundBitBorderL);
-		}
+				}
 	}
 
 	// ボーダー追加設定 周りが高いとき
@@ -256,6 +258,13 @@ Void SNWorld::RegisterNearbyEffectGround(SNWNearbyObject* obj_ptr)
 		effect_flg |= (exist_bu ? SNWNearbyEffectGroundBitBorderB : 0);
 		effect_flg |= (exist_lu ? SNWNearbyEffectGroundBitBorderL : 0);
 	}
+
+	effect_flg |= (exist_u ? 0 : SNWNearbyEffectGroundBitBorderSideU);
+	effect_flg |= (exist_r ? 0 : SNWNearbyEffectGroundBitBorderSideR);
+	effect_flg |= (exist_b ? 0 : SNWNearbyEffectGroundBitBorderSideB);
+	effect_flg |= (exist_l ? 0 : SNWNearbyEffectGroundBitBorderSideL);
+	effect_flg |= (exist_bottom ? 0 : SNWNearbyEffectGroundBitBorderBottom);
+
 
 	// 周囲と上に地形以外のセルがある
 	if (!(exist_u && exist_r && exist_b && exist_l && exist_top))
@@ -316,7 +325,7 @@ Boolean SNWorld::JudgeGroundPShadow(Int32 x, Int32 y, Int32 z)
 	ref_y += step_y;
 	ref_z += 1;
 
-	// 範囲外まで見る(暫定)
+	// 範囲内ぜんぶ見る(暫定)
 	while (NearbySpace.RefSpace(ref_x, ref_y, ref_z))
 	{
 		ret = NearbySpace.IsBlocked(ref_x, ref_y, ref_z, SNWNearbyObjectTypeGround);

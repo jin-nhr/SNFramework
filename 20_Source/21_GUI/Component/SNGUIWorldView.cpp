@@ -504,17 +504,17 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNGraphicsContext* grc, SNWNea
 		{SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowB, SNWNearbyEffectGroundBitGShadowL, SNWNearbyEffectGroundBitGShadowU},	// NW - W
 	};
 
-	static constexpr UInt64 border_mask[SNWorldDirNum][5] =
+	static constexpr UInt64 border_mask[SNWorldDirNum][8] =
 	{
-		{SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderB, 0, SNWNearbyEffectGroundBitBorderU},		// center
-		{SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderB, 0, SNWNearbyEffectGroundBitBorderU},		// N - N
-		{SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderB, 0},		// NE - N
-		{SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderR, 0, SNWNearbyEffectGroundBitBorderL},		// E - E
-		{SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderR, 0},		// SE - E
-		{SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderU, 0, SNWNearbyEffectGroundBitBorderB},		// S - S
-		{SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderU, 0},		// SW - S
-		{SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderL, 0, SNWNearbyEffectGroundBitBorderR},		// W - W
-		{SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderL, 0},		// NW - W
+		{SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderB, 0, SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderSideU,SNWNearbyEffectGroundBitBorderSideL,SNWNearbyEffectGroundBitBorderBottom},		// center
+		{SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderB, 0, SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderSideR,SNWNearbyEffectGroundBitBorderSideL,SNWNearbyEffectGroundBitBorderBottom},		// N - N
+		{SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderB, 0, SNWNearbyEffectGroundBitBorderSideU,SNWNearbyEffectGroundBitBorderSideL,SNWNearbyEffectGroundBitBorderBottom},		// NE - N
+		{SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderR, 0, SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderSideU,SNWNearbyEffectGroundBitBorderSideB,SNWNearbyEffectGroundBitBorderBottom},		// E - E
+		{SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderR, 0, SNWNearbyEffectGroundBitBorderSideL,SNWNearbyEffectGroundBitBorderSideB,SNWNearbyEffectGroundBitBorderBottom},		// SE - E
+		{SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderU, 0, SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderSideL,SNWNearbyEffectGroundBitBorderSideR,SNWNearbyEffectGroundBitBorderBottom},		// S - S
+		{SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderU, 0, SNWNearbyEffectGroundBitBorderSideB,SNWNearbyEffectGroundBitBorderSideR,SNWNearbyEffectGroundBitBorderBottom},		// SW - S
+		{SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderL, 0, SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderSideB,SNWNearbyEffectGroundBitBorderSideU,SNWNearbyEffectGroundBitBorderBottom},		// W - W
+		{SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderL, 0, SNWNearbyEffectGroundBitBorderSideR,SNWNearbyEffectGroundBitBorderSideU,SNWNearbyEffectGroundBitBorderBottom},		// NW - W
 	};
 
 	static constexpr UInt64 pshadow_mask[SNWorldDirNum][2] =
@@ -589,6 +589,24 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNGraphicsContext* grc, SNWNea
 	if ((effect_flg & border_mask[ViewDir][4]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirT];
+		DrawGround(grc, obj, code, draw_base);
+	}
+
+	if ((effect_flg & border_mask[ViewDir][5]) != 0)
+	{
+		code = SNMapchip::BorderCode[SNWorldGroundBorderSideR];
+		DrawGround(grc, obj, code, draw_base);
+	}
+
+	if ((effect_flg & border_mask[ViewDir][6]) != 0)
+	{
+		code = SNMapchip::BorderCode[SNWorldGroundBorderSideL];
+		DrawGround(grc, obj, code, draw_base);
+	}
+
+	if ((effect_flg & border_mask[ViewDir][7]) != 0)
+	{
+		code = SNMapchip::BorderCode[SNWorldGroundBorderBottom];
 		DrawGround(grc, obj, code, draw_base);
 	}
 

@@ -121,6 +121,9 @@ public:
 		MapchipBlockNumY + 0x0009,
 		MapchipBlockNumY + 0x000A,
 		MapchipBlockNumY + 0x000B,
+		MapchipBlockNumY + 0x000C,
+		MapchipBlockNumY + 0x000D,
+		MapchipBlockNumY + 0x000E,
 	};
 
 

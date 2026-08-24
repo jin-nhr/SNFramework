@@ -52,12 +52,19 @@ enum SNWNearbyEffectGroundBit
 	SNWNearbyEffectGroundBitPShadowT = 0x00000100,
 
 	// íiç∑ã´äE
-	SNWNearbyEffectGroundBitBorderU = 0x000001000,
-	SNWNearbyEffectGroundBitBorderR = 0x000002000,
-	SNWNearbyEffectGroundBitBorderB = 0x000004000,
-	SNWNearbyEffectGroundBitBorderL = 0x000008000,
+	SNWNearbyEffectGroundBitBorderU = 0x00001000,
+	SNWNearbyEffectGroundBitBorderR = 0x00002000,
+	SNWNearbyEffectGroundBitBorderB = 0x00004000,
+	SNWNearbyEffectGroundBitBorderL = 0x00008000,
 
-};
+	SNWNearbyEffectGroundBitBorderSideU = 0x00010000,
+	SNWNearbyEffectGroundBitBorderSideR = 0x00020000,
+	SNWNearbyEffectGroundBitBorderSideB = 0x00040000,
+	SNWNearbyEffectGroundBitBorderSideL = 0x00080000,
+
+	SNWNearbyEffectGroundBitBorderBottom = 0x00100000,
+
+};    
 
 // é¸ï”ãÛä‘ÉZÉã
 struct SNWNearbySpaceCell

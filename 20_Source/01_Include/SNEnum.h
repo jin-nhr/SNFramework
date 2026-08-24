@@ -712,5 +712,8 @@ enum SNWorldGroundBorderDir
     SNWorldGroundBorderDirLB,
     SNWorldGroundBorderDirRB,
     SNWorldGroundBorderDirT,
+    SNWorldGroundBorderSideR,
+    SNWorldGroundBorderSideL,
+    SNWorldGroundBorderBottom,
     SNWorldGroundBorderDirNum,
 };
