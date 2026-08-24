@@ -15,9 +15,7 @@ SNWGround::SNWGround()
 
 	CurrentPos = { 0 };
 	CurrentID = { 0 };
-	CenterPos = { 0 };
-	CenterID = { 0 };
-	SavedCenterID = { 0 };
+	SavedCenterID = { 255.0f, 255.0f, 255.0f };	// 初期位置と被らない値にしておく
 
 	// MeshInfo, MeshRef初期化
 	for (z = 0; z < SNWorldElevationNum; z++)
@@ -113,11 +111,11 @@ Void SNWGround::Update(SNWorldPos* pos)
 		// メッシュ更新判定
 		if (JudgeUpdateMesh())
 		{
-			// 現在のMeshが未保存？
-			if (!IsSameID(&SavedCenterID, &CenterID))
+			// 現在の中央IDが未保存？
+			if (!IsSameID(&SavedCenterID, &MeshInfo[MeshRef[SNWorldElevationMid][SNWorldDirCenter]].ID))
 			{
 				SaveMesh();
-				SavedCenterID = CenterID;
+				SavedCenterID = MeshInfo[MeshRef[SNWorldElevationMid][SNWorldDirCenter]].ID;
 			}
 
 			// 保存済み
@@ -130,9 +128,7 @@ Void SNWGround::Update(SNWorldPos* pos)
 		// メッシュ更新なし
 		else
 		{
-			// 中央座標更新
-			CenterPos = *pos;
-			CvtPosToID(&CenterPos, &CenterID);
+
 		}
 	}
 
@@ -152,6 +148,60 @@ Void SNWGround::Write(SNMapchip::SNMapchipCode code)
 		MeshInfo[MeshRef[z][dir]].Mesh.SetCode((Int32)lpos.X, (Int32)lpos.Y, (Int32)lpos.Z, code);
 		MeshInfo[MeshRef[z][dir]].Dirty = true;
 	}
+
+	return;
+}
+
+// 周辺空間へのオブジェクト登録
+Void SNWGround::RegisterNearbyObject(SNWNearbySpace* space)
+{
+	Int32 mesh_dir;
+	Int32 mesh_z;
+	Int32 cnt;
+	SNWMeshInfo* mesh_info;
+	SNWGroundMeshFileData* mesh_data;
+	Int32 block_num;
+	SNWorldPos cell_pos = {0};
+	SNWorldPos glb_pos = {0};
+
+	// 全メッシュを走査
+	for (mesh_z = 0; mesh_z < SNWorldElevationNum; mesh_z++)
+	{
+		for (mesh_dir = 0; mesh_dir < SNWorldDirNum; mesh_dir++)
+		{
+			// メッシュの重複判定
+			if (CollisionMeshVSSpace(mesh_dir, mesh_z, space->GetBasePos()))
+			{
+				mesh_info = &MeshInfo[MeshRef[mesh_z][mesh_dir]];
+
+				// ブロックデータロック
+				mesh_data = mesh_info->Mesh.GetBlock();
+				block_num = mesh_data->BlockNum;
+
+				// メッシュ内オブジェクトを参照
+				for (cnt = 0; cnt < block_num; cnt++)
+				{
+					cell_pos.X = mesh_data->Block[cnt].X;
+					cell_pos.Y = mesh_data->Block[cnt].Y;
+					cell_pos.Z = mesh_data->Block[cnt].Z;
+
+					// グローバル座標変換
+					CvtGlobalPos(&cell_pos, mesh_dir, mesh_z, &glb_pos);
+
+					// 周辺空間内のオブジェクトかチェック
+					if (CollisionCellVSSpace(&glb_pos, space->GetBasePos()))
+					{
+						// オブジェクト登録
+						space->RegisterGroundData(&glb_pos, mesh_data->Block[cnt].Code);
+					}
+				}
+
+				// ブロックデータ解放
+				mesh_info->Mesh.ReleaseBlock();
+			}
+		}
+	}
+
 
 	return;
 }
@@ -266,57 +316,57 @@ Void SNWGround::MoveMesh(SNWorldPos* delta_id)
 	//  W,  C,  E
 	// SW,  S, SE
 
-	// コピー方向←
+	// 左に移動 = コピー方向→
 	if (delta_id->X < 0)
-	{
-		UInt16 array1[3] = { SNWorldDirNE, SNWorldDirE, SNWorldDirSE };
-		UInt16 array2[3] = { SNWorldDirN, SNWorldDirCenter, SNWorldDirS };
-		UInt16 array3[3] = { SNWorldDirNW, SNWorldDirW, SNWorldDirSW };
-
-		MoveMeshXY((Int32)(delta_id->X * -1), array1, array2, array3);
-	}
-	// コピー方向→
-	else if (0 < delta_id->X)
 	{
 		UInt16 array1[3] = { SNWorldDirNW, SNWorldDirW, SNWorldDirSW };
 		UInt16 array2[3] = { SNWorldDirN, SNWorldDirCenter, SNWorldDirS };
 		UInt16 array3[3] = { SNWorldDirNE, SNWorldDirE, SNWorldDirSE };
 
+		MoveMeshXY((Int32)(delta_id->X * -1), array1, array2, array3);
+	}
+	// 右に移動 = コピー方向←
+	else if (0 < delta_id->X)
+	{
+		UInt16 array1[3] = { SNWorldDirNE, SNWorldDirE, SNWorldDirSE };
+		UInt16 array2[3] = { SNWorldDirN, SNWorldDirCenter, SNWorldDirS };
+		UInt16 array3[3] = { SNWorldDirNW, SNWorldDirW, SNWorldDirSW };
+
 		MoveMeshXY((Int32)(delta_id->X), array1, array2, array3);
 	}
-	// コピー方向↑
+	// 上に移動 = コピー方向↓
 	if (delta_id->Y < 0)
-	{
-		UInt16 array1[3] = { SNWorldDirSW, SNWorldDirS, SNWorldDirSE };
-		UInt16 array2[3] = { SNWorldDirW, SNWorldDirCenter, SNWorldDirE };
-		UInt16 array3[3] = { SNWorldDirNW, SNWorldDirN, SNWorldDirNE };
-
-		MoveMeshXY((Int32)(delta_id->Y * -1), array1, array2, array3);
-	}
-	// コピー方向↓
-	else if (0 < delta_id->Y)
 	{
 		UInt16 array1[3] = { SNWorldDirNW, SNWorldDirN, SNWorldDirNE };
 		UInt16 array2[3] = { SNWorldDirW, SNWorldDirCenter, SNWorldDirE };
 		UInt16 array3[3] = { SNWorldDirSW, SNWorldDirS, SNWorldDirSE };
 
+		MoveMeshXY((Int32)(delta_id->Y * -1), array1, array2, array3);
+	}
+	// 下に移動 = コピー方向↑
+	else if (0 < delta_id->Y)
+	{
+		UInt16 array1[3] = { SNWorldDirSW, SNWorldDirS, SNWorldDirSE };
+		UInt16 array2[3] = { SNWorldDirW, SNWorldDirCenter, SNWorldDirE };
+		UInt16 array3[3] = { SNWorldDirNW, SNWorldDirN, SNWorldDirNE };
+
 		MoveMeshXY((Int32)(delta_id->Y), array1, array2, array3);
 	}
-	// コピー方向 高→低
+	// 低に移動 = コピー方向 低→高
 	if (delta_id->Z < 0)
-	{
-		UInt16 idx1 = SNWorldElevationUp;
-		UInt16 idx2 = SNWorldElevationMid;
-		UInt16 idx3 = SNWorldElevationLow;
-
-		MoveMeshZ((Int32)(delta_id->Z * -1), idx1, idx2, idx3);
-	}
-	// コピー方向 低→高
-	else if (0 < delta_id->Z)
 	{
 		UInt16 idx1 = SNWorldElevationLow;
 		UInt16 idx2 = SNWorldElevationMid;
 		UInt16 idx3 = SNWorldElevationUp;
+
+		MoveMeshZ((Int32)(delta_id->Z * -1), idx1, idx2, idx3);
+	}
+	// 高に移動 = コピー方向 高→低
+	else if (0 < delta_id->Z)
+	{
+		UInt16 idx1 = SNWorldElevationUp;
+		UInt16 idx2 = SNWorldElevationMid;
+		UInt16 idx3 = SNWorldElevationLow;
 
 		MoveMeshZ((Int32)(delta_id->Z), idx1, idx2, idx3);
 	}
@@ -565,3 +615,66 @@ Boolean SNWGround::CvtIDAndLocalPos(SNWorldPos* in_pos, SNWorldDir* out_dir, SNW
 	return ret;
 }
 
+// ID+ローカル座標→グローバル座標
+Void SNWGround::CvtGlobalPos(SNWorldPos* in_pos, UInt32 in_dir, UInt32 in_z, SNWorldPos* out_glb_pos)
+{
+	SNWMeshInfo* mesh_info;
+
+	mesh_info = &MeshInfo[MeshRef[in_z][in_dir]];
+
+	// 座標変換
+	out_glb_pos->X = mesh_info->MeshPos.X + in_pos->X;
+	out_glb_pos->Y = mesh_info->MeshPos.Y + in_pos->Y;
+	out_glb_pos->Z = mesh_info->MeshPos.Z + in_pos->Z;
+
+	return;
+}
+
+Boolean SNWGround::CollisionMeshVSSpace(Int32 mesh_dir, Int32 mesh_z, SNWorldPos* space_base_pos)
+{
+	Boolean ret = false;
+	SNWorldPos* mesh_pos;
+
+	mesh_pos = &MeshInfo[MeshRef[mesh_z][mesh_dir]].MeshPos;
+
+	// Meshと周辺空間の衝突判定
+
+	// X軸判定
+	if ((mesh_pos->X <= space_base_pos->X + SNWNearbySpaceSizeX - 1) &&
+		(space_base_pos->X <= mesh_pos->X + SNWGroundMeshSizeX - 1) &&
+
+		// Y軸判定
+		(mesh_pos->Y <= space_base_pos->Y + SNWNearbySpaceSizeY - 1) &&
+		(space_base_pos->Y <= mesh_pos->Y + SNWGroundMeshSizeY - 1) &&
+
+		// Z軸判定
+		(mesh_pos->Z <= space_base_pos->Z + SNWNearbySpaceSizeZ - 1) &&
+		(space_base_pos->Z <= mesh_pos->Z + SNWGroundMeshSizeZ - 1))
+	{
+		ret = true;
+	}
+
+	return ret;
+}
+
+Boolean SNWGround::CollisionCellVSSpace(SNWorldPos* cell_pos, SNWorldPos* space_base_pos)
+{
+	Boolean ret = false;
+
+	// X軸判定
+	if ((cell_pos->X <= space_base_pos->X + SNWNearbySpaceSizeX - 1) &&
+		(space_base_pos->X <= cell_pos->X) &&
+
+		// Y軸判定
+		(cell_pos->Y <= space_base_pos->Y + SNWNearbySpaceSizeY - 1) &&
+		(space_base_pos->Y <= cell_pos->Y) &&
+
+		// Z軸判定
+		(cell_pos->Z <= space_base_pos->Z + SNWNearbySpaceSizeZ - 1) &&
+		(space_base_pos->Z <= cell_pos->Z))
+	{
+		ret = true;
+	}
+
+	return ret;
+}

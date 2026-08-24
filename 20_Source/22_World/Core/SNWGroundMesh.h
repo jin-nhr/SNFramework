@@ -8,6 +8,11 @@
 
 // 地形メッシュ
 
+// ブロック最大数を定義
+// ブロックをしきめつめた面を3面(地面、天井、地下)分は表現できるようにしておく
+static constexpr UInt32 SNGroundMeshBlockDataSize = SNWGroundMeshSizeX * SNWGroundMeshSizeY * 3;
+
+
 
 struct SNWGroundMeshBlockData
 {
@@ -17,17 +22,12 @@ struct SNWGroundMeshBlockData
 	UInt16 Z;
 };
 
-// ブロック最大数を定義
-// ブロックをしきめつめた面を3面(地面、天井、地下)分は表現できるようにしておく
-static constexpr UInt32 SNGroundMeshBlockDataSize = SNWGroundMeshSizeX * SNWGroundMeshSizeY * 3;
-
 struct SNWGroundMeshFileData
 {
 	Char		Tag[4];
 	UInt32		BlockNum;
 	SNWGroundMeshBlockData Block[SNGroundMeshBlockDataSize];
 };
-
 
 enum SNWGroundMeshState
 {

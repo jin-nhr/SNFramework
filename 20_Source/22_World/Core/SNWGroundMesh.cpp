@@ -247,12 +247,34 @@ Void SNWGroundMesh::SetCodeAsync()
 			(data_adr->Block[cnt].Y) == (SetCodeInfo.Y) &&
 			(data_adr->Block[cnt].Z) == (SetCodeInfo.Z))
 		{
-			SNAutoResource res(&CS);
+			break;
+		}
+	}
 
+
+	{
+		SNAutoResource res(&CS);
+
+		// 同一座標のブロックなし
+		if (cnt >= data_adr->BlockNum)
+		{
+			// Blankは登録しない
+			if (SetCodeInfo.Code != SNMapchip::SNMapchipBlank)
+			{
+				if (data_adr->BlockNum < SNGroundMeshBlockDataSize - 1)
+				{
+					data_adr->Block[cnt] = SetCodeInfo;
+					data_adr->BlockNum++;
+				}
+			}
+		}
+
+		// 同一座標のブロック発見
+		else
+		{
 			// コードがBlank=削除のときは最終データを持ってくる
 			if (SetCodeInfo.Code == SNMapchip::SNMapchipBlank)
 			{
-				// 厳密な排他は行わないので最終データはそのまま残しておく
 				data_adr->Block[cnt] = data_adr->Block[data_adr->BlockNum - 1];
 				data_adr->BlockNum--;
 			}
@@ -261,22 +283,8 @@ Void SNWGroundMesh::SetCodeAsync()
 				// コードを上書きする
 				data_adr->Block[cnt] = SetCodeInfo;
 			}
-			break;
 		}
 	}
-
-	// 同一座標のブロックなし
-	if (cnt >= data_adr->BlockNum)
-	{
-		if (data_adr->BlockNum < SNGroundMeshBlockDataSize - 1)
-		{
-			SNAutoResource res(&CS);
-
-			data_adr->Block[cnt] = SetCodeInfo;
-			data_adr->BlockNum++;
-		}
-	}
-
 
 	return;
 }
@@ -293,6 +301,8 @@ Void SNWGroundMesh::SetFileName(SNFile* file)
 	str.Allocate(MAX_PATH * sizeof(Char));
 
 	wsprintf((LPWSTR)str.GetAddress(), (LPWSTR)SNSystemConfig::WorldMeshFileName, MeshX, MeshY, MeshZ);
+
+	file->SetFolderFileName((String)str.GetAddress());
 
 	return;
 }
@@ -317,3 +327,4 @@ Boolean SNWGroundMesh::IsValidFile(SNFile* file)
 
 	return ret;
 }
+

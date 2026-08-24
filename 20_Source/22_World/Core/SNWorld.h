@@ -1,11 +1,19 @@
 #pragma once
 #include "SNFrameworkInternal.h"
-#include "SNBitmap.h"
+#include "SNWNearbySpace.h"
 #include "SNWGround.h"
-#include "SNMapchip.h"
-#include "SNList.h"
 
 // ワールドクラス
+
+// 簡易光源方向
+enum SNWEasyLightDir
+{
+	SNWEasyLightDirUp,
+	SNWEasyLightDirRight,
+	SNWEasyLightDirBottom,
+	SNWEasyLightDirLeft,
+	SNWEasyLightDirNum
+};
 
 
 class SNWorld
@@ -23,9 +31,11 @@ public:
 	// 終了
 	static Void End();
 
+	// 一時停止
+	static Void Pause();
+
 	// 更新
 	static Void Update();
-
 
 
 	///////////////////////////////////////////////////////////////////
@@ -40,19 +50,36 @@ public:
 	// 地形書き込み
 	static Void WriteGroundData(SNMapchip::SNMapchipCode code);
 
-	// 影方向計算
-	static SNWorldShadowDir CalcShadowDir(SNWorldDir dir);
+	// オブジェクトリスト取得
+	static SNWNearbySpace* GetNearbySpace();
 
+	static SNWEasyLightDir RefEasyLightDir();
 
-	///////////////////////////////////////////////////////////////////
-	// ワールド自動実行系
+protected:
+	// 地形更新
+	static Void UpdateGround();
 
-	// :
+	// エフェクト登録
+	static Void RegisterNearbyEffect();
+
+	// 地形エフェクト処理
+	static Void RegisterNearbyEffectGround(SNWNearbyObject* obj_ptr);
+
+	// 地形の投影チェック
+	static Boolean JudgeGroundPShadow(Int32 x, Int32 y, Int32 z);
+
 
 private:
 	static Boolean Run;
+	static Boolean Suspend;
+	static SNWorldPos CurrentPos;	// 現在座標
+	static UInt32 WorldTime;		// ワールド時間
 
-	static SNWorldPos CurrentPos;
+	static SNWGround Ground;		// 地形
+	
+	static SNWNearbySpace NearbySpace;	// 周辺空間
 
-	static SNWGround Ground;
+	static SNWorldDir GlobalLight;	// グローバル光源の方向(光の進む方向)
+	static SNWEasyLightDir EasyLight;	// 簡易光源方向
+
 };

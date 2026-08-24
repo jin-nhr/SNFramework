@@ -7,6 +7,8 @@
 
 SNWorldApp::SNWorldApp()
 {
+	SelectBlock = 0;
+
 	return;
 }
 
@@ -212,7 +214,7 @@ Void SNWorldApp::OnDraw(SNGraphicsContext* grc)
 	SNRect dst_rect;
 	SNRect src_rect;
 	SNWorldDir dir = WorldView.GetViewDir();
-	SNWorldShadowDir shadow_dir = SNWorld::CalcShadowDir(dir);
+	SNWorldShadowDir shadow_dir = SNWorldShadowDirR;
 
 	WorldView.Draw(grc);
 	Win.Draw(grc);

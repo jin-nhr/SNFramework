@@ -57,9 +57,9 @@ public:
 		{ 0,  6 },	// E
 		{-8,  4 },	// SE
 		{-12, 0 },	// S
-		{ 8,  4 },	// SW
-		{ 0,  6},	// W
-		{-8,  4 },	// NW
+		{-8, -4 },	// SW
+		{ 0, -6 },	// W
+		{ 8, -4 },	// NW
 	};
 
 	// ストライドY
@@ -69,9 +69,9 @@ public:
 		{ 0, 6 },	// N
 		{-8, 4 },	// NE
 		{-12,0 },	// E
-		{ 8, 4 },	// SE
-		{ 0, 6 },	// S
-		{-8, 4 },	// SW
+		{-8,-4 },	// SE
+		{ 0,-6 },	// S
+		{ 8,-4 },	// SW
 		{12, 0 },	// W
 		{ 8, 4 },	// NW
 	};
@@ -94,26 +94,33 @@ public:
 
 	// GUIブロック
 	static constexpr UInt16 FocusCode = 0x0001;		// フォーカス
-	static constexpr UInt16 GridCode = 0x0002;		// グリッド
-
+	static constexpr UInt16 SelectedCode = 0x0002;	// 選択
+	static constexpr UInt16 GridCode = 0x0003;		// グリッド
+	
+	
 	// 影ブロック
 	static constexpr UInt16 ShadowCode[SNWorldShadowDirNum] =
 	{
 		0x0000,
-		MapchipBlockNumY + 0x0000,	// 左上
-		MapchipBlockNumY + 0x0001,	// 左下
-		MapchipBlockNumY + 0x0002,	// 右下
-		MapchipBlockNumY + 0x0003,	// 右上
-		MapchipBlockNumY + 0x0004,	// 上
+		MapchipBlockNumY + 0x0000,
+		MapchipBlockNumY + 0x0001,
+		MapchipBlockNumY + 0x0002,
+		MapchipBlockNumY + 0x0003,
+		MapchipBlockNumY + 0x0004,
+		MapchipBlockNumY + 0x0005,
+		MapchipBlockNumY + 0x0006,
+
 	};
 
 	// 境界　ブロック
 	static constexpr UInt16 BorderCode[SNWorldGroundBorderDirNum] =
 	{
 		0x0000,
-		MapchipBlockNumY + 0x0005,	// 右
-		MapchipBlockNumY + 0x0006,	// 左
-		MapchipBlockNumY + 0x0007,	// 上
+		MapchipBlockNumY + 0x0007,
+		MapchipBlockNumY + 0x0008,
+		MapchipBlockNumY + 0x0009,
+		MapchipBlockNumY + 0x000A,
+		MapchipBlockNumY + 0x000B,
 	};
 
 

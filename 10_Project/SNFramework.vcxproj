@@ -136,6 +136,7 @@
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUITextEx.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIWindow.h" />
     <ClInclude Include="..\20_Source\21_GUI\Core\SNGUI.h" />
+    <ClInclude Include="..\20_Source\22_World\Component\SNWNearbySpace.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWGround.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWGroundMesh.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWorld.h" />
@@ -248,6 +249,7 @@
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUITextEx.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIWindow.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Core\SNGUI.cpp" />
+    <ClCompile Include="..\20_Source\22_World\Component\SNWNearbySpace.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWGround.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWGroundMesh.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWorld.cpp" />

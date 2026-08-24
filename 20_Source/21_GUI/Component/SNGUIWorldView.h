@@ -2,6 +2,7 @@
 #include "SNFrameworkInternal.h"
 #include "SNScene.h"
 #include "SNBitmap.h"
+#include "SNWNearbySpace.h"
 
 // ワールドビュー
 class SNGUIWorldView : public SNScene
@@ -43,11 +44,36 @@ public:
 protected:
 	virtual Void OnInitialize();
 
+	virtual Void OnPreDraw();
+	virtual Void SortObject();
+	virtual Void DrawWrokSurface();
+
 	virtual Void OnDraw(SNGraphicsContext* grc);
+
+	// 周辺オブジェクト描画
+	virtual Void DrawNearbyObject(SNGraphicsContext* grc, SNWNearbyObject* obj, SNPoint* draw_base);
+	virtual Void DrawNearbyObjectGround(SNGraphicsContext* grc, SNWNearbyObject* obj, SNPoint* draw_base);
+	virtual Void DrawNearbyObjectEffectGround(SNGraphicsContext* grc, SNWNearbyObject* obj, SNPoint* draw_base);
+	virtual Void DrawNearbyObjectFocus(SNGraphicsContext* grc, SNWNearbyObject* obj, SNPoint* draw_base);
+
+	virtual Void DrawGround(SNGraphicsContext* grc, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
+
+	// ソート処理用オブジェクト比較
+	static Boolean CompareDrawObjectN(Void* a, Void* b);
+	static Boolean CompareDrawObjectNE(Void* a, Void* b);
+	static Boolean CompareDrawObjectE(Void* a, Void* b);
+	static Boolean CompareDrawObjectSE(Void* a, Void* b);
+	static Boolean CompareDrawObjectS(Void* a, Void* b);
+	static Boolean CompareDrawObjectSW(Void* a, Void* b);
+	static Boolean CompareDrawObjectW(Void* a, Void* b);
+	static Boolean CompareDrawObjectNW(Void* a, Void* b);
+
 
 private:
 	SNWorldPos TargetPos;
 	Float32 ViewScale;
 	
 	SNWorldDir ViewDir;
+
+	SNBitmap WorkSurface;
 };

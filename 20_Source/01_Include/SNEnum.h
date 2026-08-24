@@ -693,11 +693,13 @@ enum SNWorldElevation
 enum SNWorldShadowDir
 {
     SNWorldShadowNon,
-    SNWorldShadowDirLT,
-    SNWorldShadowDirLB,
-    SNWorldShadowDirRB,
-    SNWorldShadowDirRT,
+    SNWorldShadowDirR,
+    SNWorldShadowDirB,
+    SNWorldShadowDirL,
+    SNWorldShadowDirU,
     SNWorldShaodwDirT,
+    SNWorldShadowSideR,
+    SNWorldShadowSideL,
     SNWorldShadowDirNum 
 };
 
@@ -707,6 +709,8 @@ enum SNWorldGroundBorderDir
     SNWorldGroundBorderNon,
     SNWorldGroundBorderDirR,
     SNWorldGroundBorderDirL,
+    SNWorldGroundBorderDirLB,
+    SNWorldGroundBorderDirRB,
     SNWorldGroundBorderDirT,
     SNWorldGroundBorderDirNum,
 };

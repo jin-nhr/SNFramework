@@ -10,6 +10,8 @@ struct SNListContainer
 	Void* UserData;			// ユーザーデータ
 };
 
+typedef Boolean(*SNListCompareFunc)(Void* a, Void* b);
+
 
 // リストクラス
 // 双方向リスト構造
@@ -92,6 +94,18 @@ public:
 
 	// 登録数取得
 	Int32 GetNum();
+
+	// ソート
+	Void Sort(SNListCompareFunc cmp);
+
+protected:
+	SNListContainer* MergeSort(SNListContainer* head, SNListContainer** out_tail, SNListCompareFunc cmp);
+
+	// リスト分割
+	SNListContainer* Split(SNListContainer* head);
+	// マージ
+	SNListContainer* Merge(SNListContainer* a, SNListContainer* b, SNListContainer** out_tail, SNListCompareFunc cmp);
+
 
 private:
 	// プールから取得

@@ -548,6 +548,141 @@ Int32 SNList::GetNum()
 	return ListNum;
 }
 
+
+// ソート
+Void SNList::Sort(SNListCompareFunc cmp)
+{
+	SNListContainer* tail;
+
+	if ((Top != nullptr) && (Top->Next != nullptr))
+	{
+		Top = MergeSort(Top, &tail, cmp);
+
+		Last = tail;
+	}
+	return;
+}
+
+
+SNListContainer* SNList::MergeSort(SNListContainer* head, SNListContainer** out_tail, SNListCompareFunc cmp)
+{
+	SNListContainer* ret = head;
+	SNListContainer* mid;
+	SNListContainer* left;
+	SNListContainer* right;
+	SNListContainer* tail = head;
+	SNListContainer* l_tail;
+	SNListContainer* r_tail;
+
+	if ((head != nullptr) && (head->Next != nullptr))
+	{
+		// 分割
+		mid = Split(head);
+
+		// それぞれをソート
+		left = MergeSort(head, &l_tail, cmp);
+		right = MergeSort(mid, &r_tail, cmp);
+
+		// マージ
+		ret = Merge(left, right, &tail, cmp);
+	}
+
+	*out_tail = tail;
+
+	return ret;
+}
+
+
+// リスト分割
+SNListContainer* SNList::Split(SNListContainer* head)
+{
+	SNListContainer* slow = head;
+	SNListContainer* fast = head;
+	SNListContainer* mid;
+
+	while ((fast != nullptr) && (fast->Next != nullptr))
+	{
+		fast = fast->Next->Next;
+		slow = slow->Next;
+	}
+
+	mid = slow;
+
+	// 前半と後半を切り離す
+	if (mid->Prev)
+	{
+		mid->Prev->Next = nullptr;
+		mid->Prev = nullptr;
+	}
+
+	return mid;
+}
+
+// マージ
+SNListContainer* SNList::Merge(SNListContainer* a, SNListContainer* b, SNListContainer** out_tail, SNListCompareFunc cmp)
+{
+	SNListContainer* head = nullptr;
+	SNListContainer* tail = nullptr;
+	SNListContainer* pick;
+	SNListContainer* rest;
+
+	while ((a != nullptr) && (b != nullptr))
+	{
+		if (cmp(a->UserData, b->UserData))
+		{
+			pick = a;
+			a = a->Next;
+		}
+		else
+		{
+			pick = b;
+			b = b->Next;
+		}
+
+		pick->Prev = tail;
+
+		if (tail != nullptr)
+		{
+			tail->Next = pick;
+		}
+		else
+		{
+			head = pick;
+		}
+
+		tail = pick;
+	}
+
+	rest = (a ? a : b);
+
+	while (rest != nullptr)
+	{
+		rest->Prev = tail;
+		if (tail != nullptr)
+		{
+			tail->Next = rest;
+		}
+		else
+		{
+			head = rest;
+		}
+
+		tail = rest;
+		rest = rest->Next;
+	}
+
+	if (tail != nullptr)
+	{
+		tail->Next = nullptr;
+	}
+
+	*out_tail = tail;
+
+	return head;
+}
+
+
+
 // プールから取得
 SNListContainer* SNList::GetFromPool()
 {

@@ -36,8 +36,8 @@ constexpr Float32 SNWViewScaleStepHigh = 0.50f;
 
 
 // ç¿ïWíËã`
-constexpr UInt32 SNWGroundMeshSizeX = 256;
-constexpr UInt32 SNWGroundMeshSizeY = 256;
+constexpr UInt32 SNWGroundMeshSizeX = 128;
+constexpr UInt32 SNWGroundMeshSizeY = 128;
 constexpr UInt32 SNWGroundMeshSizeZ = 64;
 
 constexpr Float32 SNWMeshLoadThresholdX = SNWGroundMeshSizeX * 0.1f;

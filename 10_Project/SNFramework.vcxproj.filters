@@ -504,6 +504,9 @@
     <ClInclude Include="..\20_Source\22_World\Core\SNWGroundMesh.h">
       <Filter>22_World\Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\20_Source\22_World\Component\SNWNearbySpace.h">
+      <Filter>22_World\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\20_Source\02_System\Component\SNAutoResource.cpp">
@@ -835,6 +838,9 @@
     </ClCompile>
     <ClCompile Include="..\20_Source\22_World\Core\SNWGroundMesh.cpp">
       <Filter>22_World\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\22_World\Component\SNWNearbySpace.cpp">
+      <Filter>22_World\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
