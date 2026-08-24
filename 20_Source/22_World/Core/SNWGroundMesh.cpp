@@ -186,6 +186,7 @@ Void SNWGroundMesh::UserMain()
 Void SNWGroundMesh::ReadMeshFile()
 {
 	SNFile file;
+	SNWGroundMeshFileData* data_adr;
 
 	// ƒtƒ@ƒCƒ‹î•ñÝ’è
 	SetFileName(&file);
@@ -201,6 +202,12 @@ Void SNWGroundMesh::ReadMeshFile()
 	{
 		SNAutoResource res(&CS);
 		BlockList.Copy(file.GetDataAddress(), file.FileSize);
+	}
+	else
+	{
+		data_adr = (SNWGroundMeshFileData*)BlockList.GetAddress();
+
+		data_adr->BlockNum = 0;
 	}
 
 	return;
@@ -312,16 +319,19 @@ Boolean SNWGroundMesh::IsValidFile(SNFile* file)
 	Boolean ret = false;
 	SNWGroundMeshFileData* data;
 
-	data = (SNWGroundMeshFileData*)file->GetDataAddress();
-
-	if (data != nullptr)
+	if (file->GetResult() == SNStorageResultNormal)
 	{
-		if ((data->Tag[0] == SNSystemConfig::WorldMeshFileTag[0]) &&
-			(data->Tag[1] == SNSystemConfig::WorldMeshFileTag[1]) &&
-			(data->Tag[2] == SNSystemConfig::WorldMeshFileTag[2]) &&
-			(data->Tag[3] == SNSystemConfig::WorldMeshFileTag[3]))
+		data = (SNWGroundMeshFileData*)file->GetDataAddress();
+
+		if (data != nullptr)
 		{
-			ret = true;
+			if ((data->Tag[0] == SNSystemConfig::WorldMeshFileTag[0]) &&
+				(data->Tag[1] == SNSystemConfig::WorldMeshFileTag[1]) &&
+				(data->Tag[2] == SNSystemConfig::WorldMeshFileTag[2]) &&
+				(data->Tag[3] == SNSystemConfig::WorldMeshFileTag[3]))
+			{
+				ret = true;
+			}
 		}
 	}
 

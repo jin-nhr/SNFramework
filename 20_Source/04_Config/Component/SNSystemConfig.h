@@ -164,8 +164,8 @@ public:
 	static constexpr String WorldMeshFileName = (const String)L"MeshX%04dY%04dZ%04d.snwm";
 
 	// Žü•Ó‹óŠÔƒTƒCƒY(”¼Œa)
-	static constexpr Int32 WorldNearbySpaceSizeH = 32;
-	static constexpr Int32 WorldNearbySpaceSizeV = 16;
+	static constexpr Int32 WorldNearbySpaceSizeH = 96;
+	static constexpr Int32 WorldNearbySpaceSizeV = 48;
 
 
 };

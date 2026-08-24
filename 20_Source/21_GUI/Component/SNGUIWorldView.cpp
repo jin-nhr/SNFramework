@@ -657,7 +657,7 @@ Void SNGUIWorldView::DrawGround(SNGraphicsContext* grc, SNWNearbyObject* obj, UI
 	// マップチップ本体を描画
 	grc->DrawImage(
 		&dst_rect,
-		SNGraphicsResManager::GetResource(SNGraphicsResMapchip1),
+		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource),
 		&src_rect,
 		SNAlphaMax);
 
