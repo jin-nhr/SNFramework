@@ -1,19 +1,10 @@
 #pragma once
 #include "SNFrameworkInternal.h"
 #include "SNWNearbySpace.h"
-#include "SNWGround.h"
+#include "SNWMeshManager.h"
 
 // ワールドクラス
 
-// 簡易光源方向
-enum SNWEasyLightDir
-{
-	SNWEasyLightDirUp,
-	SNWEasyLightDirRight,
-	SNWEasyLightDirBottom,
-	SNWEasyLightDirLeft,
-	SNWEasyLightDirNum
-};
 
 
 class SNWorld
@@ -59,6 +50,9 @@ protected:
 	// 地形更新
 	static Void UpdateGround();
 
+	// オブジェクト更新
+	static Void UpdateGlobalObject();
+
 	// エフェクト登録
 	static Void RegisterNearbyEffect();
 
@@ -75,7 +69,9 @@ private:
 	static SNWorldPos CurrentPos;	// 現在座標
 	static UInt32 WorldTime;		// ワールド時間
 
-	static SNWGround Ground;		// 地形
+	static SNWMeshManager MeshManager;		// メッシュ管理
+
+	static SNWGlobalObject GlobalObject;
 	
 	static SNWNearbySpace NearbySpace;	// 周辺空間
 

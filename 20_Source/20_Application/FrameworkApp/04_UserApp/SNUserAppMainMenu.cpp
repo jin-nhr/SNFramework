@@ -9,13 +9,17 @@ SNRect SNUserAppMainMenu::ButtonRect[SNMainMenuButtonNum] =
 	{16, 112, 160, 32},
 	{16, 160, 160, 32},
 	{16, 208, 160, 32},
+	{16, 256, 160, 32},
+	{16, 304, 160, 32},
 };
 
 String SNUserAppMainMenu::ButtonCaption[SNMainMenuButtonNum] =
 {
-	(String)L"メニュー1",
-	(String)L"メニュー2",
-	(String)L"メニュー3",
+	SNFixedString::MenuCreateMap,
+	SNFixedString::MenuGroundPreset,
+	SNFixedString::MenuSetStaticObject,
+	SNFixedString::MenuSetActiveObject,
+	SNFixedString::MenuTestPlay,
 	SNFixedString::TitleMenuConfig,
 	SNFixedString::TitleMenuExit,
 };
@@ -35,7 +39,7 @@ Void SNUserAppMainMenu::OnInitialize()
 {
 	Int32 cnt;
 
-	SetRect(32, 32, 192, 256);
+	SetRect(32, 32, 192, 352);
 
 	SetSceneNum(SNMainMenuButtonNum);
 	FocusGp.StartRegister(SNFocusLayerUserApp, SNMainMenuButtonNum, true, false);
@@ -73,7 +77,21 @@ Void SNUserAppMainMenu::OnExit()
 
 Void SNUserAppMainMenu::OnCycle()
 {
-	if (FocusGp.JudgeActDecide(&Button[SNMainMenuButtonConfig]))
+	if (FocusGp.JudgeActDecide(&Button[SNMainMenuButtonMap]))
+	{
+		SNEvent::EventResult[SNEventResultMenuMapCreate] = true;
+		SNFocus::CallbackPushButton();
+		TransCode = SNTransitionCode3;
+	}
+
+	else if (FocusGp.JudgeActDecide(&Button[SNMainMenuButtonTestPlay]))
+	{
+		SNEvent::EventResult[SNEventResultMenuTestPlay] = true;
+		SNFocus::CallbackPushButton();
+		TransCode = SNTransitionCode3;
+	}
+
+	else if (FocusGp.JudgeActDecide(&Button[SNMainMenuButtonConfig]))
 	{
 		SNEvent::EventResult[SNEventResultDspConfig] = true;
 	}

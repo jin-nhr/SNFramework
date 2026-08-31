@@ -40,6 +40,7 @@
     <ClInclude Include="..\20_Source\02_System\Core\SNWindowsAPI.h" />
     <ClInclude Include="..\20_Source\03_Resource\Resource.h" />
     <ClInclude Include="..\20_Source\03_Resource\SNBMCharTable.h" />
+    <ClInclude Include="..\20_Source\03_Resource\SNWObjectchip.h" />
     <ClInclude Include="..\20_Source\03_Resource\SNFixedString.h" />
     <ClInclude Include="..\20_Source\03_Resource\SNGraphicsResource.h" />
     <ClInclude Include="..\20_Source\03_Resource\SNGUIDef.h" />
@@ -137,8 +138,10 @@
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIWindow.h" />
     <ClInclude Include="..\20_Source\21_GUI\Core\SNGUI.h" />
     <ClInclude Include="..\20_Source\22_World\Component\SNWNearbySpace.h" />
+    <ClInclude Include="..\20_Source\22_World\Component\SNWObjectBase.h" />
+    <ClInclude Include="..\20_Source\22_World\Core\SNWGlobalObject.h" />
+    <ClInclude Include="..\20_Source\22_World\Core\SNWMeshMAnager.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWGround.h" />
-    <ClInclude Include="..\20_Source\22_World\Core\SNWGroundMesh.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWorld.h" />
   </ItemGroup>
   <ItemGroup>
@@ -250,8 +253,10 @@
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIWindow.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Core\SNGUI.cpp" />
     <ClCompile Include="..\20_Source\22_World\Component\SNWNearbySpace.cpp" />
+    <ClCompile Include="..\20_Source\22_World\Component\SNWObjectBase.cpp" />
+    <ClCompile Include="..\20_Source\22_World\Core\SNWGlobalObject.cpp" />
+    <ClCompile Include="..\20_Source\22_World\Core\SNWMeshManager.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWGround.cpp" />
-    <ClCompile Include="..\20_Source\22_World\Core\SNWGroundMesh.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWorld.cpp" />
   </ItemGroup>
   <ItemGroup>

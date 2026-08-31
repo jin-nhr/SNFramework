@@ -2,6 +2,13 @@
 #include "SNFrameworkInternal.h"
 
 
+enum SNThreadPriority
+{
+	SNThreadPriorityLow,
+	SNThreadPriorityNormal,
+	SNThreadPriorityHigh,
+};
+
 // スレッドクラス
 // スレッドを生成し実行する
 // スレッドが起動するとRunStatusがTrueになり
@@ -35,10 +42,14 @@ public:
 	// 同期処理のため注意
 	Void WaitForThreadEnd();
 
+	// 優先度設定
+	Void SetPriority(SNThreadPriority prio);
+
 private:
 	// ユーザー実行関数(派生先で実装する)
 	virtual Void UserMain();
 
 	Handle ThreadHandle;		// スレッドハンドル
 	volatile Boolean RunStatus;	// 実行状態
+	volatile UInt32 Priority;	// スレッド優先度
 };

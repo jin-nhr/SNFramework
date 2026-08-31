@@ -1,9 +1,10 @@
 #include "SNWorld.h"
 #include "SNSystemConfig.h"
-
+#include "SNWGlobalObject.h"
 
 SNWorldPos SNWorld::CurrentPos = {0};
-SNWGround SNWorld::Ground;
+SNWMeshManager SNWorld::MeshManager;
+SNWGlobalObject SNWorld::GlobalObject;
 UInt32 SNWorld::WorldTime = 0;
 Boolean SNWorld::Run = false;
 Boolean SNWorld::Suspend = false;
@@ -20,11 +21,14 @@ Void SNWorld::Initialize()
 	Run = false;
 	Suspend = false;
 
-	Ground.Initialize();
-	NearbySpace.Initialize();
-
 	GlobalLight = SNWorldDirSE;
 	EasyLight = RefEasyLightDir();
+
+	MeshManager.Initialize();
+	NearbySpace.Initialize();
+
+	GlobalObject.Initialize();
+	GlobalObject.Load();
 
 	return;
 }
@@ -33,7 +37,10 @@ Void SNWorld::Initialize()
 Void SNWorld::Terminate()
 {
 	NearbySpace.Terminate();
-	Ground.Terminate();
+	MeshManager.Terminate();
+
+	GlobalObject.Save();
+	GlobalObject.Terminate();
 
 	return;
 }
@@ -79,7 +86,8 @@ Void SNWorld::Update()
 		// 地形更新
 		UpdateGround();
 
-
+		// グローバルオブジェクト更新
+		UpdateGlobalObject();
 
 
 		// エフェクト登録
@@ -93,14 +101,25 @@ Void SNWorld::Update()
 Void SNWorld::UpdateGround()
 {
 	// 地形更新
-	Ground.Update(&CurrentPos);
+	MeshManager.Update(&CurrentPos);
 
 	// 地形オブジェクト登録
-	Ground.RegisterNearbyObject(&NearbySpace);
+	MeshManager.RegisterNearbyObject(&NearbySpace);
 
 	return;
 }
 
+// グローバルオブジェクト更新
+Void SNWorld::UpdateGlobalObject()
+{
+	// グローバルオブジェクト更新
+	GlobalObject.Update();
+
+	// グローバルオブジェクト登録
+	GlobalObject.RegisterNearbyObject(&NearbySpace);
+
+	return;
+}
 
 
 // カレント座標設定
@@ -124,7 +143,7 @@ Void SNWorld::MoveCurrentPos(SNWorldPos* pos)
 // 地形書き込み
 Void SNWorld::WriteGroundData(SNMapchip::SNMapchipCode code)
 {
-	Ground.Write(code);
+	MeshManager.Write(code);
 
 	return;
 }

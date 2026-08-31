@@ -50,9 +50,12 @@ Void SNSysAppStartup::OnInitialize()
 	TimerSeqDisp.SetWait(4, SeqChDispResultTime);
 
 	// 
-	TimerSeqResLoad.Initialize(this, SeqChResLoad, 2);
+	TimerSeqResLoad.Initialize(this, SeqChResLoad, 4);
 	TimerSeqResLoad.SetWait(0, 0);
 	TimerSeqResLoad.SetWait(1, SeqChResLoadTime);
+	TimerSeqResLoad.SetWait(2, 0);
+	TimerSeqResLoad.SetWait(3, SeqChResLoadTime);
+
 
 	return;
 }
@@ -231,6 +234,29 @@ SNPhaseResult SNSysAppStartup::SeqResLoad(Int32 phase_idx, Int32 call_count)
 		{
 			// エラー時はアクセス権リリース
 			SNGraphics::UnloadSystemResource();
+			ret = SNPhaseResultError;
+		}
+		else
+		{
+			// 完了待ち
+		}
+		break;
+	
+	case 2:
+		// アプリ用グラフィックリソース
+		SNGraphics::LoadAppResource();
+		ret = SNPhaseResultNext;
+		break;
+
+	case 3:
+		if (SNGraphics::IsAppResourceLoaded())
+		{
+			ret = SNPhaseResultNext;
+		}
+		else if (call_count > SeqChResLoadRetry)
+		{
+			// エラー時はアクセス権リリース
+			SNGraphics::UnloadAppResource();
 			ret = SNPhaseResultError;
 		}
 		else

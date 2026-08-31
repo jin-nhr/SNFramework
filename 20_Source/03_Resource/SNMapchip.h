@@ -6,7 +6,11 @@ class SNMapchip
 {
 public:
 	// マップチップリソース
-	static constexpr SNGraphicsResID MapchipResource = SNGraphicsResMapchip1;
+	static constexpr SNGraphicsResID MapchipResource[] =
+	{
+		SNGraphicsResMapchip1,
+	};
+
 
 	// ブロック数
 	static constexpr UInt32 MapchipBlockNumX = 16;
@@ -16,6 +20,10 @@ public:
 	// ブロックサイズ
 	static constexpr UInt32 MapchipBlockSizeX = 16;
 	static constexpr UInt32 MapchipBlockSizeY = 32;
+
+	static constexpr UInt32 SNMapchipCodeMask = 0x00FF;
+	static constexpr UInt32 SNMapchipResIDMask = 0xFF00;
+	static constexpr UInt32 SNMapchipResIDSihit = 8;
 
 	// ブロックオフセット
 	static constexpr SNRect MapchipOffset[SNWorldDirNum] =
@@ -46,7 +54,19 @@ public:
 		{ 8,  4 },	// NW
 	};
 
-
+	// 底面中心オフセット
+	static constexpr SNPoint MapchipBottomCenterOffset[SNWorldDirNum] =
+	{
+		{ 6,  11 },	// Center
+		{ 6,  11 },	// N
+		{ 8,  12 },	// NE
+		{ 6,  11 },	// E
+		{ 8,  12 },	// SE
+		{ 6,  11 },	// S
+		{ 8,  12 },	// SW
+		{ 6,  11 },	// W
+		{ 8,  12 },	// NW
+	};
 
 	// ストライドX
 	static constexpr SNPoint MapchipStrideX[SNWorldDirNum] =
@@ -165,7 +185,7 @@ public:
 	// マップチップデータ
 	static constexpr SNMapchipData Data[SNMapchipNum] =
 	{
-		{	0x0000,			false		},		// Blank
+		{	0x0000,			false			},		// Blank
 		{	0x0020,			true			},		// Green
 		{	0x0021,			true			},		// LightGreen
 		{	0x0022,			true			},		// DeepGreen
@@ -192,12 +212,19 @@ public:
 
 	static inline Void CodeToRect(UInt16 code, Int32 dir, SNRect* out_rect)
 	{
-		out_rect->PointX = (code / MapchipBlockNumY) * MapchipBlockSizeX + MapchipOffset[dir].PointX;
-		out_rect->PointY = (code % MapchipBlockNumY) * MapchipBlockSizeY + MapchipOffset[dir].PointY;
+		UInt16 tmp_code = (code & SNMapchipCodeMask);
+
+		out_rect->PointX = (tmp_code / MapchipBlockNumY) * MapchipBlockSizeX + MapchipOffset[dir].PointX;
+		out_rect->PointY = (tmp_code % MapchipBlockNumY) * MapchipBlockSizeY + MapchipOffset[dir].PointY;
 		out_rect->Width  = MapchipOffset[dir].Width;
 		out_rect->Height = MapchipOffset[dir].Height;
 		
 		return;
 	};
+
+	static inline UInt16 CodeToResID(UInt16 code)
+	{
+		return ((code & SNMapchipCodeMask) >> SNMapchipResIDSihit);
+	}
 };
 

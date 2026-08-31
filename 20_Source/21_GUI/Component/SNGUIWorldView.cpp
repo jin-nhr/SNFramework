@@ -252,9 +252,18 @@ Void SNGUIWorldView::OnDraw(SNGraphicsContext *grc)
 	SNRect dst_rect;
 	SNRect src_rect;
 	SNSize size;
+	SNBitmap* bg_bmp = SNGraphicsResManager::GetResource(SNGraphicsResBG2);
+	SNSize bg_size;
+	SNRect bg_rect;
 
 	dst_rect = CalcGlobalRect();
 	WorkSurface.GetSize(&size);
+	bg_bmp->GetSize(&bg_size);
+	bg_rect.PointX = 0;
+	bg_rect.PointY = 0;
+	bg_rect.Width = bg_size.Width;
+	bg_rect.Height = bg_size.Height;
+	grc->DrawImage(&dst_rect, bg_bmp, &bg_rect, SNAlphaMax);
 
 	src_rect.Width = (Int32)(dst_rect.Width / ViewScale);
 	src_rect.Height = (Int32)(dst_rect.Height / ViewScale);
@@ -382,6 +391,9 @@ Void SNGUIWorldView::DrawNearbyObject(SNGraphicsContext* grc, SNWNearbyObject* o
 	case SNWNearbyObjectTypeEffectGround:
 		DrawNearbyObjectEffectGround(grc, obj, draw_base);
 		break;
+	case SNWNearbyObjectTypeActiveObject:
+		DrawNearbyObjectActiveObject(grc, obj, draw_base);
+		break;
 	case SNWNearbyObjectTypeFocus:
 		DrawNearbyObjectFocus(grc, obj, draw_base);
 		break;
@@ -406,90 +418,8 @@ Void SNGUIWorldView::DrawNearbyObjectGround(SNGraphicsContext* grc, SNWNearbyObj
 
 Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNGraphicsContext* grc, SNWNearbyObject* obj, SNPoint* draw_base)
 {
-#if 0
-	// SNWNearbyObjectTypeEffectGround
-// - UInt64 Effect関連Bit
-	enum SNWNearbyEffectGroundBit
-	{
-		// グローバル光源による影
-		SNWNearbyEffectGroundBitGShadowU = 0x00000001,
-		SNWNearbyEffectGroundBitGShadowR = 0x00000002,
-		SNWNearbyEffectGroundBitGShadowB = 0x00000004,
-		SNWNearbyEffectGroundBitGShadowL = 0x00000008,
-
-		// 他地形の投影
-		SNWNearbyEffectGroundBitPShadowU = 0x00000010,
-		SNWNearbyEffectGroundBitPShadowR = 0x00000020,
-		SNWNearbyEffectGroundBitPShadowB = 0x00000040,
-		SNWNearbyEffectGroundBitPShadowL = 0x00000080,
-		SNWNearbyEffectGroundBitPShadowT = 0x00000100,
-
-		// 段差境界
-		SNWNearbyEffectGroundBitBorderU = 0x000001000,
-		SNWNearbyEffectGroundBitBorderR = 0x000002000,
-		SNWNearbyEffectGroundBitBorderB = 0x000004000,
-		SNWNearbyEffectGroundBitBorderL = 0x000008000,
-
-	};
-
-	// 影ブロック
-	static constexpr UInt16 ShadowCode[SNWorldShadowDirNum] =
-	{
-		0x0000,
-		MapchipBlockNumY + 0x0000,
-		MapchipBlockNumY + 0x0001,
-		MapchipBlockNumY + 0x0002,
-		MapchipBlockNumY + 0x0003,
-		MapchipBlockNumY + 0x0004,
-		MapchipBlockNumY + 0x0005,
-		MapchipBlockNumY + 0x0006,
-
-	};
-
-	// 境界　ブロック
-	static constexpr UInt16 BorderCode[SNWorldGroundBorderDirNum] =
-
-
-
-		// 影方向
-		enum SNWorldShadowDir
-	{
-		SNWorldShadowNon,
-		SNWorldShadowDirR,
-		SNWorldShadowDirB,
-		SNWorldShadowDirL,
-		SNWorldShadowDirU,
-		SNWorldShaodwDirT,
-		SNWorldShadowSideR,
-		SNWorldShadowSideL,
-		SNWorldShadowDirNum
-	};
-
-	// 境界線
-	enum SNWorldGroundBorderDir
-	{
-		SNWorldGroundBorderNon,
-		SNWorldGroundBorderDirR,
-		SNWorldGroundBorderDirL,
-		SNWorldGroundBorderDirT,
-		SNWorldGroundBorderDirNum,
-	};
-
-	SNWorldDirCenter,
-		SNWorldDirN,
-		SNWorldDirNE,
-		SNWorldDirE,
-		SNWorldDirSE,
-		SNWorldDirS,
-		SNWorldDirSW,
-		SNWorldDirW,
-		SNWorldDirNW,
-
-#endif
 	UInt64 effect_flg = (UInt64)(intptr_t)obj->UserData;
 	UInt16 code;
-
-
 
 	static constexpr UInt64 glight_mask[SNWorldDirNum][4] =
 	{
@@ -529,7 +459,6 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNGraphicsContext* grc, SNWNea
 		{SNWNearbyEffectGroundBitPShadowL, 0 },	// W - W
 		{SNWNearbyEffectGroundBitPShadowB, SNWNearbyEffectGroundBitPShadowL },	// NW - W
 	};
-
 
 
 	code = 0;
@@ -632,6 +561,23 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNGraphicsContext* grc, SNWNea
 	return;
 }
 
+
+Void SNGUIWorldView::DrawNearbyObjectActiveObject(SNGraphicsContext* grc, SNWNearbyObject* obj, SNPoint* draw_base)
+{
+	SNWObjectBase* obj_ptr = (SNWObjectBase*)obj->UserData;
+
+	SNWObjectchip::SNWActState act_state = obj_ptr->GetActState();
+	SNWorldDir obj_dir = obj_ptr->CalcDir(ViewDir);
+
+	UInt16 code = obj_ptr->GetCode();
+
+	// 描画
+	DrawActiveObject(grc, obj, code, obj_dir, act_state, draw_base);
+
+	return;
+}
+
+
 // フォーカス描画
 Void SNGUIWorldView::DrawNearbyObjectFocus(SNGraphicsContext* grc, SNWNearbyObject* obj, SNPoint* draw_base)
 {
@@ -675,12 +621,48 @@ Void SNGUIWorldView::DrawGround(SNGraphicsContext* grc, SNWNearbyObject* obj, UI
 	// マップチップ本体を描画
 	grc->DrawImage(
 		&dst_rect,
-		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource),
+		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource[SNMapchip::CodeToResID(code)]),
 		&src_rect,
 		SNAlphaMax);
 
 	return;
 }
+
+Void SNGUIWorldView::DrawActiveObject(SNGraphicsContext* grc, SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, SNWObjectchip::SNWActState act_state, SNPoint* draw_base)
+{
+	SNRect src_rect;
+	SNRect dst_rect;
+
+	// チップ側の矩形取得
+	SNWObjectchip::CodeToRect(code, obj_dir, act_state, &src_rect);
+
+	// 描画座標計算
+	dst_rect.PointX = (Int32)(draw_base->X
+		+ (SNMapchip::MapchipStrideX[ViewDir].X * obj->Pos.X
+			+ SNMapchip::MapchipStrideY[ViewDir].X * obj->Pos.Y
+			+ SNMapchip::MapchipStrideZ[ViewDir].X * obj->Pos.Z))
+		+ SNMapchip::MapchipBottomCenterOffset[ViewDir].X
+		- SNWObjectchip::WObjectCenterOffset[obj_dir].X;
+	dst_rect.PointY = (Int32)(draw_base->Y
+		+ (SNMapchip::MapchipStrideX[ViewDir].Y * obj->Pos.X
+			+ SNMapchip::MapchipStrideY[ViewDir].Y * obj->Pos.Y
+			+ SNMapchip::MapchipStrideZ[ViewDir].Y * obj->Pos.Z))
+		+ SNMapchip::MapchipBottomCenterOffset[ViewDir].Y
+		- SNWObjectchip::WObjectCenterOffset[obj_dir].Y;
+
+	dst_rect.Width = src_rect.Width;
+	dst_rect.Height = src_rect.Height;
+
+	// マップチップ本体を描画
+	grc->DrawImage(
+		&dst_rect,
+		SNGraphicsResManager::GetResource(SNWObjectchip::ObjectchipResource[SNWObjectchip::CodeToResID(code)]),
+		&src_rect,
+		SNAlphaMax);
+
+	return;
+}
+
 
 // ソート用比較関数
 // true:aを選択、false:bを選択
@@ -696,7 +678,6 @@ Boolean SNGUIWorldView::CompareDrawObjectN(Void* a, Void* b)
 	else if (ap->Y > bp->Y) ret = false;
 	else if (ap->Z < bp->Z) ret = true;
 	else if (ap->Z > bp->Z) ret = false;
-	else if (ap->X != bp->X) ret = true;
 	else if (at < bt) ret = true;
 
 	return ret;
@@ -710,10 +691,8 @@ Boolean SNGUIWorldView::CompareDrawObjectNE(Void* a, Void* b)
 	SNWNearbyObjectType at = ((SNWNearbyObject*)a)->Type;
 	SNWNearbyObjectType bt = ((SNWNearbyObject*)b)->Type;
 
-	if (ap->Y < bp->Y)	ret = true;
-	else if (ap->Y > bp->Y) ret = false;
-	else if (ap->X < bp->X) ret = true;
-	else if (ap->X > bp->X) ret = false;
+	if ((ap->X + ap->Y) < (bp->X + bp->Y)) ret = true;
+	else if ((ap->X + ap->Y) > (bp->X + bp->Y)) ret = false;
 	else if (ap->Z < bp->Z) ret = true;
 	else if (ap->Z > bp->Z) ret = false;
 	else if (at < bt) ret = true;
@@ -733,7 +712,6 @@ Boolean SNGUIWorldView::CompareDrawObjectE(Void* a, Void* b)
 	else if (ap->X > bp->X) ret = false;
 	else if (ap->Z < bp->Z) ret = true;
 	else if (ap->Z > bp->Z) ret = false;
-	else if (ap->Y != bp->Y) ret = true;
 	else if (at < bt) ret = true;
 
 	return ret;
@@ -747,10 +725,8 @@ Boolean SNGUIWorldView::CompareDrawObjectSE(Void* a, Void* b)
 	SNWNearbyObjectType at = ((SNWNearbyObject*)a)->Type;
 	SNWNearbyObjectType bt = ((SNWNearbyObject*)b)->Type;
 
-	if (ap->Y > bp->Y)	ret = true;
-	else if (ap->Y < bp->Y) ret = false;
-	else if (ap->X < bp->X) ret = true;
-	else if (ap->X > bp->X) ret = false;
+	if ((ap->X - ap->Y) < (bp->X - bp->Y)) ret = true;
+	else if ((ap->X - ap->Y) > (bp->X - bp->Y)) ret = false;
 	else if (ap->Z < bp->Z) ret = true;
 	else if (ap->Z > bp->Z) ret = false;
 	else if (at < bt) ret = true;
@@ -770,7 +746,6 @@ Boolean SNGUIWorldView::CompareDrawObjectS(Void* a, Void* b)
 	else if (ap->Y < bp->Y) ret = false;
 	else if (ap->Z < bp->Z) ret = true;
 	else if (ap->Z > bp->Z) ret = false;
-	else if (ap->X != bp->X) ret = true;
 	else if (at < bt) ret = true;
 
 	return ret;
@@ -784,10 +759,8 @@ Boolean SNGUIWorldView::CompareDrawObjectSW(Void* a, Void* b)
 	SNWNearbyObjectType at = ((SNWNearbyObject*)a)->Type;
 	SNWNearbyObjectType bt = ((SNWNearbyObject*)b)->Type;
 
-	if (ap->Y > bp->Y)	ret = true;
-	else if (ap->Y < bp->Y) ret = false;
-	else if (ap->X > bp->X) ret = true;
-	else if (ap->X < bp->X) ret = false;
+	if ((- ap->X - ap->Y) < (- bp->X - bp->Y)) ret = true;
+	else if ((- ap->X - ap->Y) > (- bp->X - bp->Y)) ret = false;
 	else if (ap->Z < bp->Z) ret = true;
 	else if (ap->Z > bp->Z) ret = false;
 	else if (at < bt) ret = true;
@@ -807,7 +780,6 @@ Boolean SNGUIWorldView::CompareDrawObjectW(Void* a, Void* b)
 	else if (ap->X < bp->X) ret = false;
 	else if (ap->Z < bp->Z) ret = true;
 	else if (ap->Z > bp->Z) ret = false;
-	else if (ap->Y != bp->Y) ret = true;
 	else if (at < bt) ret = true;
 
 	return ret;
@@ -821,10 +793,8 @@ Boolean SNGUIWorldView::CompareDrawObjectNW(Void* a, Void* b)
 	SNWNearbyObjectType at = ((SNWNearbyObject*)a)->Type;
 	SNWNearbyObjectType bt = ((SNWNearbyObject*)b)->Type;
 
-	if (ap->X > bp->X)	ret = true;
-	else if (ap->X < bp->X) ret = false;
-	else if (ap->Y < bp->Y) ret = true;
-	else if (ap->Y > bp->Y) ret = false;
+	if ((- ap->X + ap->Y) < (- bp->X + bp->Y)) ret = true;
+	else if ((- ap->X + ap->Y) > (- bp->X + bp->Y)) ret = false;
 	else if (ap->Z < bp->Z) ret = true;
 	else if (ap->Z > bp->Z) ret = false;
 	else if (at < bt) ret = true;

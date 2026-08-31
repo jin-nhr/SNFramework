@@ -42,10 +42,12 @@ enum SNEventResult
     SNEventResultSystemTop = 0,
     SNEventResultExitApplication,		// アプリケーション終了通知
     SNEventResultSysAppStartup,			// システムアプリ起動開始
-    SNEventResultAppStartup,				// アプリ起動開始
-    SNEventResultEnterWorld,				// ワールド起動
+    SNEventResultAppStartup,			// アプリ起動開始
+    SNEventResultEnterWorld,			// ワールド起動
     SNEventResultDspPreClose,           // 終了確認表示
     SNEventResultDspConfig,             // システム設定表示
+    SNEventResultMenuMapCreate,         // メニュー - マップ作成
+    SNEventResultMenuTestPlay,          // メニュー - テストプレイ
     SNEventResultNum
 };
 
@@ -716,4 +718,40 @@ enum SNWorldGroundBorderDir
     SNWorldGroundBorderSideL,
     SNWorldGroundBorderBottom,
     SNWorldGroundBorderDirNum,
+};
+
+// 簡易光源方向
+enum SNWEasyLightDir
+{
+    SNWEasyLightDirUp,
+    SNWEasyLightDirRight,
+    SNWEasyLightDirBottom,
+    SNWEasyLightDirLeft,
+    SNWEasyLightDirNum
+};
+
+// メッシュ状態
+enum SNWMeshState
+{
+    SNWMeshStateIdle,
+    SNWMeshStateRead,
+    SNWMeshStateWrite,
+    SNWMeshStateSetCode,
+};
+
+// オブジェクト状態
+enum SNWObjectState
+{
+    SNWObjectStateIdle,
+    SNWObjectStateWalk,
+    SNWObjectStateJog,
+    SNWObjectStateWait,
+    SNWObjectStateJump,
+    SNWObjectStateAttack,
+    SNWObjectStateKnockback,
+    SNWObjectStateSpell,
+    SNWObjectStateOtherAction,
+    SNWObjectStateFlying,
+    SNWObjectStateFall,
+    SNWObjectStateNum,
 };

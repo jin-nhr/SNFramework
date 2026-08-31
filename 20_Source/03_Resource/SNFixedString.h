@@ -48,5 +48,10 @@ public:
 	static constexpr String ConfigOK = (String)L"OK";
 	static constexpr String ConfigCancel = (String)L"キャンセル";
 
+	static constexpr String MenuCreateMap = (String)L"マップさくせい";
+	static constexpr String MenuGroundPreset = (String)L"ちけいプリセット";
+	static constexpr String MenuSetStaticObject = (String)L"せいてきオブジェクト";
+	static constexpr String MenuSetActiveObject = (String)L"どうてきオブジェクト";
+	static constexpr String MenuTestPlay = (String)L"テストプレイ";
 
 };

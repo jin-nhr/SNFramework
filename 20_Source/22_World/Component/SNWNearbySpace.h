@@ -2,6 +2,7 @@
 #include "SNFrameworkInternal.h"
 #include "SNList.h"
 #include "SNSystemConfig.h"
+#include "SNWObjectBase.h"
 
 // 周辺空間
 
@@ -17,6 +18,7 @@ constexpr UInt32 SNWNearbySpaceSizeZ = SNSystemConfig::WorldNearbySpaceSizeV * 2
 enum SNWNearbyObjectType
 {
 	SNWNearbyObjectTypeUnknown,
+	SNWNearbyObjectTypeActiveObject,	// 動的オブジェクト
 	SNWNearbyObjectTypeGround,			// 地形
 	SNWNearbyObjectTypeEffectGround,	// 地形エフェクト
 	SNWNearbyObjectTypeFocus,			// フォーカス
@@ -63,8 +65,16 @@ enum SNWNearbyEffectGroundBit
 	SNWNearbyEffectGroundBitBorderSideL = 0x00080000,
 
 	SNWNearbyEffectGroundBitBorderBottom = 0x00100000,
+};
 
-};    
+// SNWNearbyObjectTypeActiveObject
+// - SNWObjectBaseのポインタ
+
+// SNWNearbyObjectTypeFocus
+// - 未使用
+
+
+
 
 // 周辺空間セル
 struct SNWNearbySpaceCell
@@ -87,6 +97,9 @@ public:
 
 	// 地形データ登録
 	virtual Void RegisterGroundData(SNWorldPos* glb_pos, UInt16 code);
+
+	// オブジェクト登録
+	virtual Void RegisterGObjectData(SNWObjectBase* obj);
 
 	// 地形エフェクト登録
 	virtual Void RegisterGroundEffect(SNWorldPos* local_pos, UInt64 effect);
@@ -114,6 +127,9 @@ public:
 
 	// 指定ブロックが指定種別か
 	virtual Boolean IsBlocked(Int32 x, Int32 y, Int32 z, SNWNearbyObjectType type);
+
+	// 周辺空間内か判定する
+	virtual Boolean CollisionCellVSSpace(SNWorldPos* cell_pos);
 
 
 private:

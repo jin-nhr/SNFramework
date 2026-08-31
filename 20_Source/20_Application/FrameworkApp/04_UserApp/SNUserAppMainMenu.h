@@ -28,9 +28,11 @@ protected:
 protected:
 	enum SNMainMenuButton
 	{
-		SNMainMenuButtonItem1,
-		SNMainMenuButtonItem2,
-		SNMainMenuButtonItem3,
+		SNMainMenuButtonMap,
+		SNMainMenuButtonPreset,
+		SNMainMenuButtonStaticObj,
+		SNMainMenuButtonActiveObj,
+		SNMainMenuButtonTestPlay,
 		SNMainMenuButtonConfig,
 		SNMainMenuButtonExit,
 		SNMainMenuButtonNum

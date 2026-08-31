@@ -239,8 +239,6 @@ SNPhaseResult SNSysAppLoading::SeqResLoad(Int32 phase_idx, Int32 call_count)
 	switch (phase_idx)
 	{
 	case 0:
-		// アプリ用グラフィックリソース
-		SNGraphics::LoadAppResource();
 		ret = SNPhaseResultNext;
 		break;
 

@@ -67,5 +67,3 @@ struct SNWorldPos
     Float32 Y;
     Float32 Z;
 };
-
-

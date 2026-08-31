@@ -489,7 +489,7 @@
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIWorldView.h">
       <Filter>20_Source\21_GUI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_Source\22_World\Core\SNWGround.h">
+    <ClInclude Include="..\20_Source\22_World\Core\SNWMeshMAnager.h">
       <Filter>22_World\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\20_Source\03_Resource\SNBMCharTable.h">
@@ -501,10 +501,19 @@
     <ClInclude Include="..\20_Source\03_Resource\SNGUIDef.h">
       <Filter>20_Source\03_Resource</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_Source\22_World\Core\SNWGroundMesh.h">
+    <ClInclude Include="..\20_Source\22_World\Core\SNWGround.h">
       <Filter>22_World\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\20_Source\22_World\Component\SNWNearbySpace.h">
+      <Filter>22_World\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\03_Resource\SNWObjectchip.h">
+      <Filter>20_Source\03_Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\22_World\Core\SNWGlobalObject.h">
+      <Filter>22_World\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\22_World\Component\SNWObjectBase.h">
       <Filter>22_World\Component</Filter>
     </ClInclude>
   </ItemGroup>
@@ -833,13 +842,19 @@
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIWorldView.cpp">
       <Filter>20_Source\21_GUI\Component</Filter>
     </ClCompile>
+    <ClCompile Include="..\20_Source\22_World\Core\SNWMeshManager.cpp">
+      <Filter>22_World\Core</Filter>
+    </ClCompile>
     <ClCompile Include="..\20_Source\22_World\Core\SNWGround.cpp">
       <Filter>22_World\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_Source\22_World\Core\SNWGroundMesh.cpp">
+    <ClCompile Include="..\20_Source\22_World\Component\SNWNearbySpace.cpp">
+      <Filter>22_World\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\22_World\Core\SNWGlobalObject.cpp">
       <Filter>22_World\Core</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_Source\22_World\Component\SNWNearbySpace.cpp">
+    <ClCompile Include="..\20_Source\22_World\Component\SNWObjectBase.cpp">
       <Filter>22_World\Component</Filter>
     </ClCompile>
   </ItemGroup>

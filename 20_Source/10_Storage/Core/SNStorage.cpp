@@ -62,6 +62,9 @@ Void SNStorage::Startup()
 	// 終了要求をキャンセルしておく
 	ThreadEndRequest = false;
 
+	// 優先度を下げる
+	StorageThread->SetPriority(SNThreadPriorityLow);
+
 	// スレッド実行
 	StorageThread->Run();
 

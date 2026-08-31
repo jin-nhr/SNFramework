@@ -20,6 +20,8 @@ public:
 
 	virtual Boolean OnGamePad1();
 
+	virtual Boolean OnInternalEvent();
+
 	virtual Void OnPreDraw();
 
 	virtual Void OnDraw(SNGraphicsContext* grc);

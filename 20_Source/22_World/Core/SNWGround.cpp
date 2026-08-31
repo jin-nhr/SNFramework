@@ -1,77 +1,39 @@
 #include "SNWGround.h"
+#include "SNMapchip.h"
 #include "SNMath.h"
 #include "SNSystemConfig.h"
-#include "SNGraphicsDevice.h"
-#include "SNGraphicsContext.h"
-#include "SNGraphicsResManager.h"
 #include "SNWindowsAPI.h"
-
+#include "SNAutoResource.h"
 
 SNWGround::SNWGround()
 {
-	Int32 dir;
-	Int32 z;
-	SNWMeshInfo* mesh_info;
+	// メッシュIDクリア
+	MeshX = 0;
+	MeshY = 0;
+	MeshZ = 0;
 
-	CurrentPos = { 0 };
-	CurrentID = { 0 };
-	SavedCenterID = { 255.0f, 255.0f, 255.0f };	// 初期位置と被らない値にしておく
+	SetCodeInfo = {0};
 
-	// MeshInfo, MeshRef初期化
-	for (z = 0; z < SNWorldElevationNum; z++)
-	{
-		for (dir = 0; dir < SNWorldDirNum; dir++)
-		{
-			mesh_info = &MeshInfo[z * SNWorldDirNum + dir];
+	State = SNWMeshStateIdle;
 
-			mesh_info->ID = { 0 };
-			mesh_info->MeshPos = { 0 };
-			mesh_info->State = SNWMeshStateIdle;
-			mesh_info->Dirty = false;
-
-			MeshRef[z][dir] = -1;
-		}
-	}
-
-	// 空きMesh用のプール確保
-	MeshPool.Allocate(SNWorldElevationNum * SNWorldDirNum);
+	CS.Initialize();
 
 	return;
-
 }
+
 SNWGround::~SNWGround()
 {
-
 	return;
 }
 
 // 初期化
 Void SNWGround::Initialize()
 {
-	Int32 dir;
-	Int32 z;
-	SNWMeshInfo* mesh_info;
+	// 平面一枚分のリストを確保しておく
+	BlockList.Allocate(sizeof(SNWGroundFileData));
+	BlockList.Clear();
 
-	// MeshInfo, MeshRef初期化
-	for (z = 0; z < SNWorldElevationNum; z++)
-	{
-		for (dir = 0; dir < SNWorldDirNum; dir++)
-		{
-			mesh_info = &MeshInfo[z * SNWorldDirNum + dir];
-
-			OffsetMeshID(&CurrentID, (SNWorldDir)dir, (SNWorldElevation)z, &mesh_info->ID);
-			CvtIDToPos(&mesh_info->ID, &mesh_info->MeshPos);
-			mesh_info->Mesh.Initialize();
-			mesh_info->Mesh.SetMeshID((UInt32)mesh_info->ID.X, (UInt32)mesh_info->ID.Y, (UInt32)mesh_info->ID.Z);
-			mesh_info->State = SNWMeshStateIdle;
-
-			MeshRef[z][dir] = (Int16)(z * SNWorldDirNum + dir);
-
-			// ロード指示
-			mesh_info->Mesh.LoadMesh();
-			mesh_info->State = SNWMeshStateLoad;
-		}
-	}
+	InitBlockList();
 
 	return;
 }
@@ -79,467 +41,296 @@ Void SNWGround::Initialize()
 // 終了
 Void SNWGround::Terminate()
 {
-	Int32 dir;
-	Int32 z;
-	SNWMeshInfo* mesh_info;
+	// 処理中だったら終了を待つ
+	SNThread::WaitForThreadEnd();
 
-	for (z = 0; z < SNWorldElevationNum; z++)
-	{
-		for (dir = 0; dir < SNWorldDirNum; dir++)
-		{
-			mesh_info = &MeshInfo[z * SNWorldDirNum + dir];
-			mesh_info->Mesh.Terminate();
-		}
-	}
 	return;
 }
 
-// 地形更新
-Void SNWGround::Update(SNWorldPos* pos)
+// MeshID設定
+Void SNWGround::SetMeshID(Int32 x, Int32 y, Int32 z)
 {
-	Boolean is_idle;
+	MeshX = x;
+	MeshY = y;
+	MeshZ = z;
 
-	CurrentPos = *pos;
-	CvtPosToID(&CurrentPos, &CurrentID);
+	return;
+}
 
-	// 状態更新
-	is_idle = UpdateState();
-
-	// 処理が終わっているときだけ更新チェック
-	if (is_idle)
+// Clear
+Void SNWGround::ClearMesh()
+{
+	if (!IsProc())
 	{
-		// メッシュ更新判定
-		if (JudgeUpdateMesh())
-		{
-			// 現在の中央IDが未保存？
-			if (!IsSameID(&SavedCenterID, &MeshInfo[MeshRef[SNWorldElevationMid][SNWorldDirCenter]].ID))
-			{
-				SaveMesh();
-				SavedCenterID = MeshInfo[MeshRef[SNWorldElevationMid][SNWorldDirCenter]].ID;
-			}
-
-			// 保存済み
-			else
-			{
-				// メッシュ更新処理
-				UpdateMesh();
-			}
-		}
-		// メッシュ更新なし
-		else
-		{
-
-		}
+		SNAutoResource res(&CS);
+		InitBlockList();
 	}
 
 	return;
 }
 
-// 地形書き込み
-Void SNWGround::Write(SNMapchip::SNMapchipCode code)
-{
-	SNWorldDir dir;
-	SNWorldElevation z;
-	SNWorldPos lpos;
 
-	// メッシュ方位とローカル座標取得
-	if (CvtIDAndLocalPos(&CurrentPos, &dir, &z, &lpos))
-	{
-		MeshInfo[MeshRef[z][dir]].Mesh.SetCode((Int32)lpos.X, (Int32)lpos.Y, (Int32)lpos.Z, code);
-		MeshInfo[MeshRef[z][dir]].Dirty = true;
-	}
-
-	return;
-}
-
-// 周辺空間へのオブジェクト登録
-Void SNWGround::RegisterNearbyObject(SNWNearbySpace* space)
-{
-	Int32 mesh_dir;
-	Int32 mesh_z;
-	Int32 cnt;
-	SNWMeshInfo* mesh_info;
-	SNWGroundMeshFileData* mesh_data;
-	Int32 block_num;
-	SNWorldPos cell_pos = {0};
-	SNWorldPos glb_pos = {0};
-
-	// 全メッシュを走査
-	for (mesh_z = 0; mesh_z < SNWorldElevationNum; mesh_z++)
-	{
-		for (mesh_dir = 0; mesh_dir < SNWorldDirNum; mesh_dir++)
-		{
-			// メッシュの重複判定
-			if (CollisionMeshVSSpace(mesh_dir, mesh_z, space->GetBasePos()))
-			{
-				mesh_info = &MeshInfo[MeshRef[mesh_z][mesh_dir]];
-
-				// ブロックデータロック
-				mesh_data = mesh_info->Mesh.GetBlock();
-				block_num = mesh_data->BlockNum;
-
-				// メッシュ内オブジェクトを参照
-				for (cnt = 0; cnt < block_num; cnt++)
-				{
-					cell_pos.X = mesh_data->Block[cnt].X;
-					cell_pos.Y = mesh_data->Block[cnt].Y;
-					cell_pos.Z = mesh_data->Block[cnt].Z;
-
-					// グローバル座標変換
-					CvtGlobalPos(&cell_pos, mesh_dir, mesh_z, &glb_pos);
-
-					// 周辺空間内のオブジェクトかチェック
-					if (CollisionCellVSSpace(&glb_pos, space->GetBasePos()))
-					{
-						// オブジェクト登録
-						space->RegisterGroundData(&glb_pos, mesh_data->Block[cnt].Code);
-					}
-				}
-
-				// ブロックデータ解放
-				mesh_info->Mesh.ReleaseBlock();
-			}
-		}
-	}
-
-
-	return;
-}
-
-// 座標→ID変換
-Void SNWGround::CvtPosToID(SNWorldPos* cur_pos, SNWorldPos* out_id)
-{
-	out_id->X = (Float32)SNMath::FloorToInt(cur_pos->X / SNWGroundMeshSizeX);
-	out_id->Y = (Float32)SNMath::FloorToInt(cur_pos->Y / SNWGroundMeshSizeY);
-	out_id->Z = (Float32)SNMath::FloorToInt(cur_pos->Z / SNWGroundMeshSizeZ);
-
-	return;
-}
-
-// メッシュIDオフセット
-Void SNWGround::OffsetMeshID(SNWorldPos* cur_id, SNWorldDir dir, SNWorldElevation ele, SNWorldPos* out_id)
-{
-	const SNPoint offset[SNWorldDirNum] =
-	{
-		{	0,	0	},	// Center
-		{	0,	-1	},	// N
-		{	1,	-1	},	// NE
-		{	1,	0	},	// E
-		{	1,	1	},	// SE
-		{	0,	1	},	// S
-		{	-1,	1	},	// SW
-		{	-1,	0	},	// W
-		{	-1,	-1	},	// NW
-	};
-
-	const Int8 z_offset[SNWorldElevationNum] =
-	{
-		1,	// Up
-		0,	// Mid
-		-1,	// Low
-	};
-
-	out_id->X = cur_id->X + offset[dir].X;
-	out_id->Y = cur_id->Y + offset[dir].Y;
-	out_id->Z = cur_id->Z + z_offset[ele];
-
-	return;
-}
-
-// メッシュ更新判定
-// 中央メッシュ＋閾値の範囲をでたかどうかをチェック
-Boolean SNWGround::JudgeUpdateMesh()
-{
-	Boolean ret = false;
-	SNWorldPos* tmp_pos = &MeshInfo[MeshRef[SNWorldElevationMid][SNWorldDirCenter]].MeshPos;
-	SNWorldPos* cur_pos = &CurrentPos;
-
-	// X軸判定
-	if ((cur_pos->X <= tmp_pos->X - SNWMeshLoadThresholdX) ||
-		(tmp_pos->X + SNWGroundMeshSizeX + SNWMeshLoadThresholdX <= cur_pos->X))
-	{
-		ret = true;
-	}
-
-	// Y軸判定
-	else if ((cur_pos->Y <= tmp_pos->Y - SNWMeshLoadThresholdY) ||
-		(tmp_pos->Y + SNWGroundMeshSizeY + SNWMeshLoadThresholdY <= cur_pos->Y))
-	{
-		ret = true;
-	}
-
-	// Z軸判定
-	else if ((cur_pos->Z <= tmp_pos->Z - SNWMeshLoadThresholdZ) ||
-		(tmp_pos->Z + SNWGroundMeshSizeZ + SNWMeshLoadThresholdZ <= cur_pos->Z))
-	{
-		ret = true;
-	}
-
-	return ret;
-}
-
-// メッシュ更新
-Void SNWGround::UpdateMesh()
-{
-	SNWorldPos delta_id;
-
-	// 移動量計算
-	CalcMeshMoveDelta(&delta_id);
-
-	// 移動処理
-	MoveMesh(&delta_id);
-
-	// メッシュロード処理
-	LoadMesh();
-
-	return;
-}
-
-// メッシュ移動量計算
-Void SNWGround::CalcMeshMoveDelta(SNWorldPos* delta_id)
-{
-	SNWorldPos* center_id = &MeshInfo[MeshRef[SNWorldElevationMid][SNWorldDirCenter]].ID;
-
-	// 中央とカレントIDの差分計算
-	delta_id->X = CurrentID.X - center_id->X;
-	delta_id->Y = CurrentID.Y - center_id->Y;
-	delta_id->Z = CurrentID.Z - center_id->Z;
-
-	return;
-}
-
-Void SNWGround::MoveMesh(SNWorldPos* delta_id)
-{
-	// 1→2→3の方向に移動する
-	
-	// NW,  N, NE
-	//  W,  C,  E
-	// SW,  S, SE
-
-	// 左に移動 = コピー方向→
-	if (delta_id->X < 0)
-	{
-		UInt16 array1[3] = { SNWorldDirNW, SNWorldDirW, SNWorldDirSW };
-		UInt16 array2[3] = { SNWorldDirN, SNWorldDirCenter, SNWorldDirS };
-		UInt16 array3[3] = { SNWorldDirNE, SNWorldDirE, SNWorldDirSE };
-
-		MoveMeshXY((Int32)(delta_id->X * -1), array1, array2, array3);
-	}
-	// 右に移動 = コピー方向←
-	else if (0 < delta_id->X)
-	{
-		UInt16 array1[3] = { SNWorldDirNE, SNWorldDirE, SNWorldDirSE };
-		UInt16 array2[3] = { SNWorldDirN, SNWorldDirCenter, SNWorldDirS };
-		UInt16 array3[3] = { SNWorldDirNW, SNWorldDirW, SNWorldDirSW };
-
-		MoveMeshXY((Int32)(delta_id->X), array1, array2, array3);
-	}
-	// 上に移動 = コピー方向↓
-	if (delta_id->Y < 0)
-	{
-		UInt16 array1[3] = { SNWorldDirNW, SNWorldDirN, SNWorldDirNE };
-		UInt16 array2[3] = { SNWorldDirW, SNWorldDirCenter, SNWorldDirE };
-		UInt16 array3[3] = { SNWorldDirSW, SNWorldDirS, SNWorldDirSE };
-
-		MoveMeshXY((Int32)(delta_id->Y * -1), array1, array2, array3);
-	}
-	// 下に移動 = コピー方向↑
-	else if (0 < delta_id->Y)
-	{
-		UInt16 array1[3] = { SNWorldDirSW, SNWorldDirS, SNWorldDirSE };
-		UInt16 array2[3] = { SNWorldDirW, SNWorldDirCenter, SNWorldDirE };
-		UInt16 array3[3] = { SNWorldDirNW, SNWorldDirN, SNWorldDirNE };
-
-		MoveMeshXY((Int32)(delta_id->Y), array1, array2, array3);
-	}
-	// 低に移動 = コピー方向 低→高
-	if (delta_id->Z < 0)
-	{
-		UInt16 idx1 = SNWorldElevationLow;
-		UInt16 idx2 = SNWorldElevationMid;
-		UInt16 idx3 = SNWorldElevationUp;
-
-		MoveMeshZ((Int32)(delta_id->Z * -1), idx1, idx2, idx3);
-	}
-	// 高に移動 = コピー方向 高→低
-	else if (0 < delta_id->Z)
-	{
-		UInt16 idx1 = SNWorldElevationUp;
-		UInt16 idx2 = SNWorldElevationMid;
-		UInt16 idx3 = SNWorldElevationLow;
-
-		MoveMeshZ((Int32)(delta_id->Z), idx1, idx2, idx3);
-	}
-
-	return;
-}
-
-Void SNWGround::MoveMeshXY(Int32 cnt, UInt16* array1, UInt16* array2, UInt16* array3)
-{
-	UInt16 move_cnt;
-	UInt16 z_cnt;
-	UInt16 dir_cnt;
-
-	// 移動数ループ
-	for (move_cnt = 0; move_cnt < cnt; move_cnt++)
-	{
-		// Zループ
-		for (z_cnt = 0; z_cnt < SNWorldElevationNum; z_cnt++)
-		{
-			// 3回ループ
-			for (dir_cnt = 0; dir_cnt < 3; dir_cnt++)
-			{
-				MoveMesh1(z_cnt, array2[dir_cnt], z_cnt, array3[dir_cnt]);
-				MoveMesh1(z_cnt, array1[dir_cnt], z_cnt, array2[dir_cnt]);
-			}
-		}
-	}
-
-	return;
-}
-
-Void SNWGround::MoveMeshZ(Int32 cnt, UInt16 idx1, UInt16 idx2, UInt16 idx3)
-{
-	UInt16 move_cnt;
-	UInt16 dir_cnt;
-
-	// 移動数ループ
-	for (move_cnt = 0; move_cnt < cnt; move_cnt++)
-	{
-		// dirループ
-		for (dir_cnt = 0; dir_cnt < SNWorldDirNum; dir_cnt++)
-		{
-			MoveMesh1(idx2, dir_cnt, idx3, dir_cnt);
-			MoveMesh1(idx1, dir_cnt, idx2, dir_cnt);
-		}
-	}
-
-	return;
-}
-
-Void SNWGround::MoveMesh1(UInt16 from_z, UInt16 from_dir, UInt16 to_z, UInt16 to_dir)
-{
-	SNListContainer* it;
-
-	// 移動先をPoolに退避
-	if (MeshRef[to_z][to_dir] != -1)
-	{
-		it = MeshPool.InsertLast();
-		it->UserData = (Void*)MeshRef[to_z][to_dir];
-	}
-
-	// 移動
-	MeshRef[to_z][to_dir] = MeshRef[from_z][from_dir];
-	MeshRef[from_z][from_dir] = -1;
-
-	return;
-}
-
+// Load
 Void SNWGround::LoadMesh()
 {
-	Int32 dir;
-	Int32 z;
-	Int16 idx;
-	SNWMeshInfo* mesh_info;
-	SNListContainer* it;
-
-	// 無効メッシュをロードする
-	for (z = 0; z < SNWorldElevationNum; z++)
+	if (!IsProc())
 	{
-		for (dir = 0; dir < SNWorldDirNum; dir++)
+		State = SNWMeshStateRead;
+
+		// スレッド実行
+		SNThread::Run();
+	}
+
+	return;
+}
+
+// Save
+Void SNWGround::SaveMesh()
+{
+	if (!IsProc())
+	{
+		State = SNWMeshStateWrite;
+
+		// スレッド実行
+		SNThread::Run();
+	}
+
+	return;
+}
+
+// ブロック取得
+SNWGroundFileData* SNWGround::GetBlock()
+{
+	CS.Lock();
+	return (SNWGroundFileData*)BlockList.GetAddress();
+}
+
+// ブロック解放
+Void SNWGround::ReleaseBlock()
+{
+	CS.Unlock();
+	return;
+}
+
+// Code書き込み
+Void SNWGround::SetCode(Int32 x, Int32 y, Int32 z, SNMapchip::SNMapchipCode code)
+{
+	if (!IsProc())
+	{
+		State = SNWMeshStateSetCode;
+
+		SetCodeInfo.X = (UInt16)x;
+		SetCodeInfo.Y = (UInt16)y;
+		SetCodeInfo.Z = (UInt16)z;
+		SetCodeInfo.Code = (UInt16)code;
+
+		// スレッド実行
+		SNThread::Run();
+	}
+
+	return;
+}
+
+// ファイルアクセス中？
+Boolean SNWGround::IsProc()
+{
+	Boolean ret = false;
+
+	// スレッド実行中またはIdle以外のとき
+	if (GetRunStatus() || State != SNWMeshStateIdle)
+	{
+		ret = true;
+	}
+
+	return ret;
+}
+
+Void SNWGround::InitBlockList()
+{
+	// アドレス取得
+	SNWGroundFileData* data_adr = (SNWGroundFileData*)BlockList.GetAddress();
+
+	// タグ設定
+	data_adr->Tag[0] = SNSystemConfig::WorldGroundFileTag[0];
+	data_adr->Tag[1] = SNSystemConfig::WorldGroundFileTag[1];
+	data_adr->Tag[2] = SNSystemConfig::WorldGroundFileTag[2];
+	data_adr->Tag[3] = SNSystemConfig::WorldGroundFileTag[3];
+
+	data_adr->BlockNum = 0;
+
+	return;
+}
+
+
+Void SNWGround::UserMain()
+{
+	switch (State)
+	{
+	case SNWMeshStateRead:
+		ReadMeshFile();
+		break;
+
+	case SNWMeshStateWrite:
+		WriteMeshFile();
+		break;
+	case SNWMeshStateSetCode:
+		SetCodeAsync();
+		break;
+	}
+
+	State = SNWMeshStateIdle;
+
+	return;
+}
+
+Void SNWGround::ReadMeshFile()
+{
+	SNFile file;
+	SNWGroundFileData* data_adr;
+
+	// ファイル情報設定
+	SetFileName(&file);
+
+	// ファイル読み込み
+	file.Read();
+
+	// 完了待ち
+	file.WaitForOperationComplete();
+
+	// ファイルチェック
+	if (IsValidFile(&file))
+	{
+		SNAutoResource res(&CS);
+		BlockList.Copy(file.GetDataAddress(), file.FileSize);
+	}
+	else
+	{
+		data_adr = (SNWGroundFileData*)BlockList.GetAddress();
+
+		data_adr->BlockNum = 0;
+	}
+
+	return;
+}
+
+Void SNWGround::WriteMeshFile()
+{
+	SNFile file;
+	SNWGroundFileData* data_adr = (SNWGroundFileData*)BlockList.GetAddress();
+	UInt32 file_size = 16 + sizeof(SNWGroundBlockData) * data_adr->BlockNum;
+
+	// ファイル情報設定
+	SetFileName(&file);
+
+	// メモリ確保 ヘッダ固定16+ブロック数
+	file.GetMemoryObject()->Allocate(file_size);
+
+	{
+		SNAutoResource res(&CS);
+
+		// 書き込みデータコピー
+		file.GetMemoryObject()->Copy(data_adr, file_size);
+	}
+
+	// ファイル書き込み
+	file.Write();
+
+	// 完了待ち
+	file.WaitForOperationComplete();
+
+	return;
+}
+
+Void SNWGround::SetCodeAsync()
+{
+	Int64 cnt;
+	SNWGroundFileData* data_adr = (SNWGroundFileData*)BlockList.GetAddress();
+
+
+	for (cnt = 0; cnt < data_adr->BlockNum; cnt++)
+	{
+		// 同一座標のデータあり
+		if ((data_adr->Block[cnt].X) == (SetCodeInfo.X) &&
+			(data_adr->Block[cnt].Y) == (SetCodeInfo.Y) &&
+			(data_adr->Block[cnt].Z) == (SetCodeInfo.Z))
 		{
-			if (MeshRef[z][dir] == -1)
+			break;
+		}
+	}
+
+
+	{
+		SNAutoResource res(&CS);
+
+		// 同一座標のブロックなし
+		if (cnt >= data_adr->BlockNum)
+		{
+			// Blankは登録しない
+			if (SetCodeInfo.Code != SNMapchip::SNMapchipBlank)
 			{
-				// 空きを取得
-				it = MeshPool.GetTop();
-				if (it != nullptr)
+				if (data_adr->BlockNum < SNGroundBlockDataSize - 1)
 				{
-					idx = (Int16)(intptr_t)it->UserData;
-					MeshPool.Remove(it);
-
-					MeshRef[z][dir] = idx;
-					mesh_info = &MeshInfo[idx];
-
-					// ID, 座標を設定
-					OffsetMeshID(&CurrentID, (SNWorldDir)dir, (SNWorldElevation)z, &mesh_info->ID);
-					CvtIDToPos(&mesh_info->ID, &mesh_info->MeshPos);
-
-					mesh_info->Mesh.SetMeshID((Int32)mesh_info->ID.X, (Int32)mesh_info->ID.Y, (Int32)mesh_info->ID.Z);
-
-					// ロード指示
-					mesh_info->Mesh.LoadMesh();
-					mesh_info->State = SNWMeshStateLoad;
+					data_adr->Block[cnt] = SetCodeInfo;
+					data_adr->BlockNum++;
 				}
 			}
 		}
-	}
 
-	return;
-}
-
-// ID同一判定
-Boolean SNWGround::IsSameID(SNWorldPos* id1, SNWorldPos* id2)
-{
-	Boolean ret = false;
-
-	if ((id1->X == id2->X) &&
-		(id1->Y == id2->Y) &&
-		(id1->Z == id2->Z))
-	{
-		ret = true;
-	}
-
-	return ret;
-}
-
-Void SNWGround::SaveMesh()
-{
-	Int32 dir;
-	Int32 z;
-	SNWMeshInfo* mesh_info;
-
-	// ダーティなら書き込み指示
-	for (z = 0; z < SNWorldElevationNum; z++)
-	{
-		for (dir = 0; dir < SNWorldDirNum; dir++)
+		// 同一座標のブロック発見
+		else
 		{
-			mesh_info = &MeshInfo[MeshRef[z][dir]];
-
-			if (mesh_info->Dirty)
+			// コードがBlank=削除のときは最終データを持ってくる
+			if (SetCodeInfo.Code == SNMapchip::SNMapchipBlank)
 			{
-				mesh_info->Mesh.SaveMesh();
-				mesh_info->State = SNWMeshStateSave;
-				mesh_info->Dirty = false;
-			}
-		}
-	}
-
-	return;
-}
-
-// 状態更新
-Boolean SNWGround::UpdateState()
-{
-	Boolean ret = true;
-	Int32 dir;
-	Int32 z;
-	SNWMeshInfo* mesh_info;
-
-	// 処理が終わってるものはIdleにする
-	for (z = 0; z < SNWorldElevationNum; z++)
-	{
-		for (dir = 0; dir < SNWorldDirNum; dir++)
-		{
-			mesh_info = &MeshInfo[MeshRef[z][dir]];
-
-			if (!mesh_info->Mesh.IsProc())
-			{
-				mesh_info->State = SNWMeshStateIdle;
+				data_adr->Block[cnt] = data_adr->Block[data_adr->BlockNum - 1];
+				data_adr->BlockNum--;
 			}
 			else
 			{
-				// 処理中があればfalse
-				ret = false;
+				// コードを上書きする
+				data_adr->Block[cnt] = SetCodeInfo;
+			}
+		}
+	}
+
+	return;
+}
+
+
+Void SNWGround::SetFileName(SNFile* file)
+{
+	SNMemory str;
+
+	// パス設定
+	file->SetFolderPath(SNSystemConfig::WorldMeshPath);
+
+	// ファイル名設定
+	str.Allocate(MAX_PATH * sizeof(Char));
+
+	wsprintf((LPWSTR)str.GetAddress(), (LPWSTR)SNSystemConfig::WorldGroundFileName, MeshX, MeshY, MeshZ);
+
+	file->SetFolderFileName((String)str.GetAddress());
+
+	return;
+}
+
+Boolean SNWGround::IsValidFile(SNFile* file)
+{
+	Boolean ret = false;
+	SNWGroundFileData* data;
+
+	if (file->GetResult() == SNStorageResultNormal)
+	{
+		data = (SNWGroundFileData*)file->GetDataAddress();
+
+		if (data != nullptr)
+		{
+			if ((data->Tag[0] == SNSystemConfig::WorldGroundFileTag[0]) &&
+				(data->Tag[1] == SNSystemConfig::WorldGroundFileTag[1]) &&
+				(data->Tag[2] == SNSystemConfig::WorldGroundFileTag[2]) &&
+				(data->Tag[3] == SNSystemConfig::WorldGroundFileTag[3]))
+			{
+				ret = true;
 			}
 		}
 	}
@@ -547,134 +338,3 @@ Boolean SNWGround::UpdateState()
 	return ret;
 }
 
-// ID座標変換
-Void SNWGround::CvtIDToPos(SNWorldPos* id, SNWorldPos* pos)
-{
-	pos->X = id->X * SNWGroundMeshSizeX;
-	pos->Y = id->Y * SNWGroundMeshSizeY;
-	pos->Z = id->Z * SNWGroundMeshSizeZ;
-
-	return;
-}
-
-// 座標→ID＋ローカル座標
-// 範囲外:false
-Boolean SNWGround::CvtIDAndLocalPos(SNWorldPos* in_pos, SNWorldDir* out_dir, SNWorldElevation* out_z, SNWorldPos* out_pos)
-{
-	Boolean ret = false;
-
-	SNWorldPos* lu_pos;
-	SNWorldPos delta = { 0 };
-	
-	Int32 id_x;
-	Int32 id_y;
-	Int32 id_z;
-
-	const SNWorldDir dir_array[3][3] =
-	{
-		{SNWorldDirNW,		SNWorldDirN,			SNWorldDirNE		},
-		{SNWorldDirW,		SNWorldDirCenter,		SNWorldDirE			},
-		{SNWorldDirSW,		SNWorldDirS,			SNWorldDirSE		},
-	};
-
-	const SNWorldElevation z_array[3] =
-	{
-		SNWorldElevationLow,
-		SNWorldElevationMid,
-		SNWorldElevationUp,
-	};
-	
-
-	// 周辺Mesh低＆左上座標取得
-	lu_pos = &MeshInfo[MeshRef[SNWorldElevationLow][SNWorldDirNW]].MeshPos;
-
-	// Offset計算
-	delta.X = in_pos->X - lu_pos->X;
-	delta.Y = in_pos->Y - lu_pos->Y;
-	delta.Z = in_pos->Z - lu_pos->Z;
-
-	id_x = SNMath::FloorToInt(delta.X / SNWGroundMeshSizeX);
-	id_y = SNMath::FloorToInt(delta.Y / SNWGroundMeshSizeY);
-	id_z = SNMath::FloorToInt(delta.Z / SNWGroundMeshSizeZ);
-
-	if (((0 <= id_x) && (id_x < 3)) &&
-		((0 <= id_y) && (id_y < 3)) &&
-		((0 <= id_z) && (id_z < 3)))
-	{
-
-		*out_dir = dir_array[id_y][id_x];
-		*out_z = z_array[id_z];
-
-		out_pos->X = (Float32)((Int32)delta.X % SNWGroundMeshSizeX);
-		out_pos->Y = (Float32)((Int32)delta.Y % SNWGroundMeshSizeY);
-		out_pos->Z = (Float32)((Int32)delta.Z % SNWGroundMeshSizeZ);
-
-		ret = true;
-	}
-
-	return ret;
-}
-
-// ID+ローカル座標→グローバル座標
-Void SNWGround::CvtGlobalPos(SNWorldPos* in_pos, UInt32 in_dir, UInt32 in_z, SNWorldPos* out_glb_pos)
-{
-	SNWMeshInfo* mesh_info;
-
-	mesh_info = &MeshInfo[MeshRef[in_z][in_dir]];
-
-	// 座標変換
-	out_glb_pos->X = mesh_info->MeshPos.X + in_pos->X;
-	out_glb_pos->Y = mesh_info->MeshPos.Y + in_pos->Y;
-	out_glb_pos->Z = mesh_info->MeshPos.Z + in_pos->Z;
-
-	return;
-}
-
-Boolean SNWGround::CollisionMeshVSSpace(Int32 mesh_dir, Int32 mesh_z, SNWorldPos* space_base_pos)
-{
-	Boolean ret = false;
-	SNWorldPos* mesh_pos;
-
-	mesh_pos = &MeshInfo[MeshRef[mesh_z][mesh_dir]].MeshPos;
-
-	// Meshと周辺空間の衝突判定
-
-	// X軸判定
-	if ((mesh_pos->X <= space_base_pos->X + SNWNearbySpaceSizeX - 1) &&
-		(space_base_pos->X <= mesh_pos->X + SNWGroundMeshSizeX - 1) &&
-
-		// Y軸判定
-		(mesh_pos->Y <= space_base_pos->Y + SNWNearbySpaceSizeY - 1) &&
-		(space_base_pos->Y <= mesh_pos->Y + SNWGroundMeshSizeY - 1) &&
-
-		// Z軸判定
-		(mesh_pos->Z <= space_base_pos->Z + SNWNearbySpaceSizeZ - 1) &&
-		(space_base_pos->Z <= mesh_pos->Z + SNWGroundMeshSizeZ - 1))
-	{
-		ret = true;
-	}
-
-	return ret;
-}
-
-Boolean SNWGround::CollisionCellVSSpace(SNWorldPos* cell_pos, SNWorldPos* space_base_pos)
-{
-	Boolean ret = false;
-
-	// X軸判定
-	if ((cell_pos->X <= space_base_pos->X + SNWNearbySpaceSizeX - 1) &&
-		(space_base_pos->X <= cell_pos->X) &&
-
-		// Y軸判定
-		(cell_pos->Y <= space_base_pos->Y + SNWNearbySpaceSizeY - 1) &&
-		(space_base_pos->Y <= cell_pos->Y) &&
-
-		// Z軸判定
-		(cell_pos->Z <= space_base_pos->Z + SNWNearbySpaceSizeZ - 1) &&
-		(space_base_pos->Z <= cell_pos->Z))
-	{
-		ret = true;
-	}
-
-	return ret;
-}

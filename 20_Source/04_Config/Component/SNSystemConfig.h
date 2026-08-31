@@ -157,11 +157,28 @@ public:
 	/////////////////////////////////////////////////////////////////
 	// ワールド関連
 
+	static constexpr String WorldPath = (const String)L"World";
+
+	// グローバルオブジェクト
+	static constexpr Char WorldGlobalObjectFileTag[4] = { L'S', L'N', L'W', L'O' };
+	static constexpr String WorldGlobalObjectFileName = (const String)L"GlobalObject.snwo";
+
+
 	static constexpr String WorldMeshPath = (const String)L"World\\Mesh";
 
-	static constexpr Char WorldMeshFileTag[4] = { L'S', L'N', L'W', L'M' };
+	// 地形データ
+	static constexpr Char WorldGroundFileTag[4] = { L'S', L'N', L'W', L'G' };
+	static constexpr String WorldGroundFileName = (const String)L"GroundX%04dY%04dZ%04d.snwg";
 
-	static constexpr String WorldMeshFileName = (const String)L"MeshX%04dY%04dZ%04d.snwm";
+
+	// 静的オブジェクト
+	static constexpr Char WorldStatObjFileTag[4] = { L'S', L'N', L'W', L'S' };
+	static constexpr String WorldStatObjFileName = (const String)L"SObjX%04dY%04dZ%04d.snws";
+
+	// 動的オブジェクト
+	static constexpr Char WorldActiveObjFileTag[4] = { L'S', L'N', L'W', L'A' };
+	static constexpr String WorldActiveObjFileName = (const String)L"AObjX%04dY%04dZ%04d.snwa";
+
 
 	// 周辺空間サイズ(半径)
 	static constexpr Int32 WorldNearbySpaceSizeH = 96;

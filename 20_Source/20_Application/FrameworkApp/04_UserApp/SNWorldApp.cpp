@@ -81,10 +81,11 @@ Boolean SNWorldApp::OnGamePad1()
 	Boolean ret = true;
 	SNWorldPos current = { 0.0f, 0.0f, 0.0f };
 
+	
 	// あげる
 	if (((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadUp][SNVirtualGamePadEventPush]) ||
-		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadUp][SNVirtualGamePadEventRepeat])) &&
-		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadAction][SNVirtualGamePadEventPress]))
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadUp][SNVirtualGamePadEventRepeat])) &&
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadAction][SNVirtualGamePadEventPress]))
 	{
 		current.Z = 1.0f;
 	}
@@ -98,8 +99,8 @@ Boolean SNWorldApp::OnGamePad1()
 
 	// さげる
 	if (((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadDown][SNVirtualGamePadEventPush]) ||
-		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadDown][SNVirtualGamePadEventRepeat])) &&
-		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadAction][SNVirtualGamePadEventPress]))
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadDown][SNVirtualGamePadEventRepeat])) &&
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadAction][SNVirtualGamePadEventPress]))
 	{
 		current.Z = -1.0f;
 	}
@@ -113,8 +114,8 @@ Boolean SNWorldApp::OnGamePad1()
 
 	// Action+左 ブロック選択
 	if (((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadLeft][SNVirtualGamePadEventPush]) ||
-		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadLeft][SNVirtualGamePadEventRepeat])) &&
-		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadAction][SNVirtualGamePadEventPress]))
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadLeft][SNVirtualGamePadEventRepeat])) &&
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadAction][SNVirtualGamePadEventPress]))
 	{
 		SelectBlock = (UInt16)SNMath::Decrement(SelectBlock, SNMapchip::SNMapchipBlank + 1, SNMapchip::SNMapchipNum - 1);
 	}
@@ -128,8 +129,8 @@ Boolean SNWorldApp::OnGamePad1()
 
 	// Action+右 ブロック選択
 	if (((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadRight][SNVirtualGamePadEventPush]) ||
-		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadRight][SNVirtualGamePadEventRepeat])) &&
-		 (SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadAction][SNVirtualGamePadEventPress]))
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadRight][SNVirtualGamePadEventRepeat])) &&
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadAction][SNVirtualGamePadEventPress]))
 	{
 		SelectBlock = (UInt16)SNMath::Increment(SelectBlock, SNMapchip::SNMapchipBlank + 1, SNMapchip::SNMapchipNum - 1);
 	}
@@ -163,14 +164,14 @@ Boolean SNWorldApp::OnGamePad1()
 	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPageNext][SNVirtualGamePadEventPush]) ||
 		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPageNext][SNVirtualGamePadEventRepeat]))
 	{
-		WorldView.RotateRViewDir();
+		WorldView.RotateLViewDir();
 	}
 
 	// 左回転
 	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPagePrev][SNVirtualGamePadEventPush]) ||
 		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPagePrev][SNVirtualGamePadEventRepeat]))
 	{
-		WorldView.RotateLViewDir();
+		WorldView.RotateRViewDir();
 	}
 
 
@@ -187,6 +188,14 @@ Boolean SNWorldApp::OnGamePad1()
 	{
 		SNWorld::WriteGroundData(SNMapchip::SNMapchipBlank);
 	}
+
+	return ret;
+}
+
+Boolean SNWorldApp::OnInternalEvent()
+{
+	Boolean ret = false;
+
 
 	return ret;
 }

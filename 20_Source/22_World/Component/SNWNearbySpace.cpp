@@ -83,6 +83,43 @@ Void SNWNearbySpace::RegisterGroundData(SNWorldPos* glb_pos, UInt16 code)
 	return;
 }
 
+// オブジェクト登録
+Void SNWNearbySpace::RegisterGObjectData(SNWObjectBase* obj)
+{
+	SNListContainer* it = nullptr;
+	SNWNearbyObject* obj_ptr = nullptr;
+	SNWNearbySpaceCell* cell_ptr = nullptr;
+	SNWObjectInfo* obj_info = obj->RefInfo();
+
+	if (ObjectNum < SNWNearbyObjectNum)
+	{
+		// オブジェクト設定
+		obj_ptr = &Object[ObjectNum];
+		ObjectNum++;
+
+		obj_ptr->Type = SNWNearbyObjectTypeActiveObject;
+
+		// ローカル座標に変換
+		obj_ptr->Pos.X = obj_info->Pos.X - BasePos.X;
+		obj_ptr->Pos.Y = obj_info->Pos.Y - BasePos.Y;
+		obj_ptr->Pos.Z = obj_info->Pos.Z - BasePos.Z;
+
+		obj_ptr->UserData = (Void*)obj;
+
+		// リスト登録
+		it = ObjectList.InsertLast();
+		it->UserData = (Void*)obj_ptr;
+
+		// 空間登録
+		cell_ptr = &NearbySpace[(Int32)obj_ptr->Pos.Z][(Int32)obj_ptr->Pos.Y][(Int32)obj_ptr->Pos.X];
+
+		cell_ptr->Object = obj_ptr;
+		cell_ptr->TimeStamp = TimeStamp;
+	}
+
+	return;
+}
+
 // 地形エフェクト登録
 // エフェクトは当たり判定不要なので周辺空間に登録不要(というか地形と重複するので登録不可)
 Void SNWNearbySpace::RegisterGroundEffect(SNWorldPos* local_pos, UInt64 effect)
@@ -202,6 +239,30 @@ Boolean SNWNearbySpace::IsBlocked(Int32 x, Int32 y, Int32 z, SNWNearbyObjectType
 
 	top = RefObject(x, y, z);
 	if ((top != nullptr) && (top->Type == type))
+	{
+		ret = true;
+	}
+
+	return ret;
+}
+
+
+Boolean SNWNearbySpace::CollisionCellVSSpace(SNWorldPos* cell_pos)
+{
+	Boolean ret = false;
+	SNWorldPos* space_base_pos = GetBasePos();
+
+	// X軸判定
+	if ((cell_pos->X <= space_base_pos->X + SNWNearbySpaceSizeX - 1) &&
+		(space_base_pos->X <= cell_pos->X) &&
+
+		// Y軸判定
+		(cell_pos->Y <= space_base_pos->Y + SNWNearbySpaceSizeY - 1) &&
+		(space_base_pos->Y <= cell_pos->Y) &&
+
+		// Z軸判定
+		(cell_pos->Z <= space_base_pos->Z + SNWNearbySpaceSizeZ - 1) &&
+		(space_base_pos->Z <= cell_pos->Z))
 	{
 		ret = true;
 	}

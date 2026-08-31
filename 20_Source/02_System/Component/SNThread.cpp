@@ -36,6 +36,7 @@ SNThread::SNThread()
 	// 変数初期化
 	ThreadHandle = nullptr;
 	RunStatus = false;
+	Priority = SNThreadPriorityNormal;
 
 	return;
 }
@@ -90,8 +91,26 @@ Handle SNThread::GetThreadHandle()
 // スレッドメイン処理
 Void SNThread::ThreadMain()
 {
+	int prio;
+
 	// 動作状態セット
 	RunStatus = true;
+
+	switch (Priority)
+	{
+	case SNThreadPriorityLow:
+		prio = THREAD_PRIORITY_BELOW_NORMAL;
+		break;
+	case SNThreadPriorityNormal:
+		prio = THREAD_PRIORITY_NORMAL;
+		break;
+	case SNThreadPriorityHigh:
+		prio = THREAD_PRIORITY_ABOVE_NORMAL;
+		break;
+	}
+
+	// 優先度設定
+	SetThreadPriority((HANDLE)ThreadHandle, prio);
 
 	// ユーザー実行関数
 	UserMain();
@@ -123,5 +142,11 @@ Void SNThread::WaitForThreadEnd()
 		::Sleep(1);
 	}
 
+	return;
+}
+
+Void SNThread::SetPriority(SNThreadPriority prio)
+{
+	Priority = prio;
 	return;
 }
