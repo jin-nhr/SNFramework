@@ -3,23 +3,13 @@
 
 SNUserApp::SNUserApp()
 {
-	SetSceneNum(3);
+	SetSceneNum(4);
 
 	//                  0   1   2   3
-	SetScene(&Off, 1, -1, -1, -1);		// 0 OFF
-	SetScene(&Title, 2, -1, -1, -1);		// 1 Title
-	SetScene(&Run, -1, -1, -1, -1);		// 2 Run
-
-
-	Run.SetSceneNum(2);
-	Run.SetScene(&Menu);
-	Run.SetScene(&World);
-
-
-	Menu.SetSceneNum(2);
-	//							 0   1   2   3
-	Menu.SetScene(&MenuOff, 1, -1, -1, -1);		// 0 Off
-	Menu.SetScene(&MainMenu, -1, -1, -1, 0);		// 1 Main Menu
+	SetScene(&Off,      1, -1, -1, -1);		// 0 OFF
+	SetScene(&Title,    2, -1, -1, -1);		// 1 Title
+	SetScene(&MenuOff,  3, -1, -1, -1);		// 2 Menu Off
+	SetScene(&MainMenu,-1, -1, -1,  2);		// 3 Main Menu
 
 	return;
 }

@@ -1,17 +1,25 @@
 #include "SNWorld.h"
 #include "SNSystemConfig.h"
 #include "SNWGlobalObject.h"
+#include "SNMath.h"
 
 SNWorldPos SNWorld::CurrentPos = {0};
 SNWMeshManager SNWorld::MeshManager;
 SNWGlobalObject SNWorld::GlobalObject;
-UInt32 SNWorld::WorldTime = 0;
+UInt32 SNWorld::WorldTime = 0; 
+
+SNSoftTimer SNWorld::GroundAnimeTimer;
+Int32 SNWorld::GroundAnimeStep;
+
 Boolean SNWorld::Run = false;
 Boolean SNWorld::Suspend = false;
 SNWNearbySpace SNWorld::NearbySpace;	// 周辺空間
 
 SNWorldDir SNWorld::GlobalLight;
 SNWEasyLightDir SNWorld::EasyLight;
+
+SNWActObject SNWorld::PCObject;
+
 
 // 初期化
 Void SNWorld::Initialize()
@@ -29,6 +37,12 @@ Void SNWorld::Initialize()
 
 	GlobalObject.Initialize();
 	GlobalObject.Load();
+
+	// PCオブジェクトの設定
+	PCObject.SetObject(GlobalObject.RefObject(SNWGlobalObjectPlayer));
+
+	GroundAnimeTimer.Initialize();
+	GroundAnimeStep = 0;
 
 	return;
 }
@@ -48,28 +62,22 @@ Void SNWorld::Terminate()
 Void SNWorld::Start()
 {
 	Run = true;
-	WorldTime = 0;
+	Suspend = false;
+	GroundAnimeTimer.Start(SNSystemConfig::GroundAnimeInterval);
 	return;
 }
 
 Void SNWorld::End()
 {
 	Run = false;
+	GroundAnimeTimer.Stop();
 	return;
 }
 
 Void SNWorld::Pause()
 {
-	// 状態反転
-	if (Suspend)
-	{
-		Suspend = false;
-	}
-
-	else
-	{
-		Suspend = true;
-	}
+	Suspend = true;
+	GroundAnimeTimer.Stop();
 
 	return;
 }
@@ -82,6 +90,13 @@ Void SNWorld::Update()
 		// 更新準備
 		WorldTime++;
 		NearbySpace.UpdateStart(&CurrentPos, WorldTime);
+
+		// 地形アニメカウンタ制御
+		if (GroundAnimeTimer.IsTimeout())
+		{
+			GroundAnimeTimer.Restart();
+			GroundAnimeStep = (Int32)SNMath::Increment(GroundAnimeStep, 0, SNMapchip::MapchipAnimeStep - 1);
+		}
 
 		// 地形更新
 		UpdateGround();
@@ -122,6 +137,12 @@ Void SNWorld::UpdateGlobalObject()
 }
 
 
+// PC取得
+SNWActObject* SNWorld::GetPCObject()
+{
+	return &PCObject;
+}
+
 // カレント座標設定
 Void SNWorld::SetCurrentPos(SNWorldPos* pos)
 {
@@ -153,6 +174,15 @@ SNWNearbySpace* SNWorld::GetNearbySpace()
 	return &NearbySpace;
 }
 
+SNWGlobalObject* SNWorld::GetGlobalObject()
+{
+	return &GlobalObject;
+}
+
+Int32 SNWorld::GetAGroundAnimeStep()
+{
+	return GroundAnimeStep;
+}
 
 SNWEasyLightDir SNWorld::RefEasyLightDir()
 {

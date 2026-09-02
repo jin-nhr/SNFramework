@@ -126,8 +126,12 @@
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppOff.h" />
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.h" />
-    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.h" />
-    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_BgApp\SNBgApp.h" />
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldApp.h" />
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppBase.h" />
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.h" />
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppOff.h" />
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.h" />
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIButton.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIWorldView.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIPicture.h" />
@@ -139,6 +143,7 @@
     <ClInclude Include="..\20_Source\21_GUI\Core\SNGUI.h" />
     <ClInclude Include="..\20_Source\22_World\Component\SNWNearbySpace.h" />
     <ClInclude Include="..\20_Source\22_World\Component\SNWObjectBase.h" />
+    <ClInclude Include="..\20_Source\22_World\Component\SNWActObject.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWGlobalObject.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWMeshMAnager.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWGround.h" />
@@ -241,8 +246,12 @@
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppOff.cpp" />
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.cpp" />
-    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.cpp" />
-    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_BgApp\SNBgApp.cpp" />
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldApp.cpp" />
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppBase.cpp" />
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp" />
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppOff.cpp" />
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.cpp" />
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIButton.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIWorldView.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIPicture.cpp" />
@@ -254,6 +263,7 @@
     <ClCompile Include="..\20_Source\21_GUI\Core\SNGUI.cpp" />
     <ClCompile Include="..\20_Source\22_World\Component\SNWNearbySpace.cpp" />
     <ClCompile Include="..\20_Source\22_World\Component\SNWObjectBase.cpp" />
+    <ClCompile Include="..\20_Source\22_World\Component\SNWActObject.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWGlobalObject.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWMeshManager.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWGround.cpp" />
@@ -312,14 +322,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)90_Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)90_Build\$(Configuration)\</IntDir>
-    <IncludePath>..\20_Source\01_Include;..\20_Source\02_System\Component;..\20_Source\02_System\Core;..\20_Source\10_Storage\Component;..\20_Source\10_Storage\Core;..\20_Source\11_Input\Component;..\20_Source\11_Input\Core;..\20_Source\12_Graphics\Component;..\20_Source\12_Graphics\Core;..\20_Source\13_AudioVideo\Component;..\20_Source\13_AudioVideo\Core;..\20_Source\14_Codec\Component;..\20_Source\14_Codec\Core;..\20_Source\20_Application\Component;..\20_Source\20_Application\Core;..\20_Source\20_Application\FrameworkApp;..\20_Source\20_Application\FrameworkApp\01_DebugApp;..\20_Source\20_Application\FrameworkApp\02_OverlapApp;..\20_Source\20_Application\FrameworkApp\03_SysApp;..\20_Source\20_Application\FrameworkApp\04_UserApp;..\20_Source\20_Application\FrameworkApp\05_BgApp;..\20_Source\21_GUI\Component;..\20_Source\21_GUI\Core;..\20_Source\03_Resource;..\20_Source\04_Config\Component;..\20_Source\04_Config\Core;..\20_Source\22_World\Component;..\20_Source\22_World\Core;$(IncludePath)</IncludePath>
+    <IncludePath>..\20_Source\01_Include;..\20_Source\02_System\Component;..\20_Source\02_System\Core;..\20_Source\10_Storage\Component;..\20_Source\10_Storage\Core;..\20_Source\11_Input\Component;..\20_Source\11_Input\Core;..\20_Source\12_Graphics\Component;..\20_Source\12_Graphics\Core;..\20_Source\13_AudioVideo\Component;..\20_Source\13_AudioVideo\Core;..\20_Source\14_Codec\Component;..\20_Source\14_Codec\Core;..\20_Source\20_Application\Component;..\20_Source\20_Application\Core;..\20_Source\20_Application\FrameworkApp;..\20_Source\20_Application\FrameworkApp\01_DebugApp;..\20_Source\20_Application\FrameworkApp\02_OverlapApp;..\20_Source\20_Application\FrameworkApp\03_SysApp;..\20_Source\20_Application\FrameworkApp\04_UserApp;..\20_Source\20_Application\FrameworkApp\05_WorldApp;..\20_Source\20_Application\FrameworkApp\06_BgApp;..\20_Source\21_GUI\Component;..\20_Source\21_GUI\Core;..\20_Source\03_Resource;..\20_Source\04_Config\Component;..\20_Source\04_Config\Core;..\20_Source\22_World\Component;..\20_Source\22_World\Core;$(IncludePath)</IncludePath>
     <SourcePath>$(VC_SourcePath)</SourcePath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)90_Build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)90_Build\$(Configuration)\</IntDir>
-    <IncludePath>..\20_Source\01_Include;..\20_Source\02_System\Component;..\20_Source\02_System\Core;..\20_Source\10_Storage\Component;..\20_Source\10_Storage\Core;..\20_Source\11_Input\Component;..\20_Source\11_Input\Core;..\20_Source\12_Graphics\Component;..\20_Source\12_Graphics\Core;..\20_Source\13_AudioVideo\Component;..\20_Source\13_AudioVideo\Core;..\20_Source\14_Codec\Component;..\20_Source\14_Codec\Core;..\20_Source\20_Application\Component;..\20_Source\20_Application\Core;..\20_Source\20_Application\FrameworkApp;..\20_Source\20_Application\FrameworkApp\01_DebugApp;..\20_Source\20_Application\FrameworkApp\02_OverlapApp;..\20_Source\20_Application\FrameworkApp\03_SysApp;..\20_Source\20_Application\FrameworkApp\04_UserApp;..\20_Source\20_Application\FrameworkApp\05_BgApp;..\20_Source\21_GUI\Component;..\20_Source\21_GUI\Core;..\20_Source\03_Resource;..\20_Source\04_Config\Component;..\20_Source\04_Config\Core;..\20_Source\22_World\Component;..\20_Source\22_World\Core;$(IncludePath)</IncludePath>
+    <IncludePath>..\20_Source\01_Include;..\20_Source\02_System\Component;..\20_Source\02_System\Core;..\20_Source\10_Storage\Component;..\20_Source\10_Storage\Core;..\20_Source\11_Input\Component;..\20_Source\11_Input\Core;..\20_Source\12_Graphics\Component;..\20_Source\12_Graphics\Core;..\20_Source\13_AudioVideo\Component;..\20_Source\13_AudioVideo\Core;..\20_Source\14_Codec\Component;..\20_Source\14_Codec\Core;..\20_Source\20_Application\Component;..\20_Source\20_Application\Core;..\20_Source\20_Application\FrameworkApp;..\20_Source\20_Application\FrameworkApp\01_DebugApp;..\20_Source\20_Application\FrameworkApp\02_OverlapApp;..\20_Source\20_Application\FrameworkApp\03_SysApp;..\20_Source\20_Application\FrameworkApp\04_UserApp;..\20_Source\20_Application\FrameworkApp\05_WorldApp;..\20_Source\20_Application\FrameworkApp\06_BgApp;..\20_Source\21_GUI\Component;..\20_Source\21_GUI\Core;..\20_Source\03_Resource;..\20_Source\04_Config\Component;..\20_Source\04_Config\Core;..\20_Source\22_World\Component;..\20_Source\22_World\Core;$(IncludePath)</IncludePath>
     <SourcePath>$(VC_SourcePath)</SourcePath>
     <ReferencePath>$(ReferencePath)</ReferencePath>
   </PropertyGroup>

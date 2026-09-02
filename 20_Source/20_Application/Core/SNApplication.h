@@ -11,6 +11,7 @@
 #include "SNSysApp.h"
 #include "SNUserApp.h"
 #include "SNBgApp.h"
+#include "SNWorldApp.h"
 
 
 
@@ -90,6 +91,7 @@ private:
 	static SNOverlapApp OverlapApp;
 	static SNSysApp SysApp;
 	static SNUserApp UserApp;
+	static SNWorldApp WorldApp;
 	static SNBgApp BgApp;
 
 	///////////////////////////////////////////////////////////

@@ -184,5 +184,8 @@ public:
 	static constexpr Int32 WorldNearbySpaceSizeH = 96;
 	static constexpr Int32 WorldNearbySpaceSizeV = 48;
 
+	// 地形アニメインターバル
+	static constexpr Int32 GroundAnimeInterval = 500;
+
 
 };

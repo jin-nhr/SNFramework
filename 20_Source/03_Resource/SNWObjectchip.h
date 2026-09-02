@@ -120,6 +120,10 @@ public:
 	{
 		UInt16 Code;										// オブジェクトコード
 		SNAnimationCode AnimeCode[SNWObjectStateNum];		// アニメコード		
+		Float32 SpeedWalk;
+		Float32 SpeedJog;
+		Float32 SpeedJump;
+		Float32 SpeedFlying;
 	};
 
 
@@ -131,8 +135,12 @@ public:
 
 	static constexpr WObjectChipData	Data[WObjectCodeNum] =
 	{
+		// WObjectCodeMaleOrg
 		{
+			// Code
 			0x0000,
+
+			// Animation
 			SNAnimationCodeWait,	// Idle
 			SNAnimationCodeWalk,	// Walk
 			SNAnimationCodeWalk,	// Jog
@@ -144,6 +152,12 @@ public:
 			SNAnimationCodeWait,	// OtherAction
 			SNAnimationCodeWait,	// Flying
 			SNAnimationCodeWait,	// Fall
+
+			// Speed (blk/sec) ※ 1フレームでの移動距離は1blk上限とする (60fpsなら16.6くらい)
+			2.0f,			// Walk
+			4.0f,			// Jog
+			4.0f,			// Jump
+			3.0f			// Flying
 		},
 
 	};

@@ -39,10 +39,11 @@ public:
 	virtual Void LeftToWorldDirPos(Float32* x, Float32* y);
 	virtual Void RightToWorldDirPos(Float32* x, Float32* y);
 
-	
+	virtual Void SetFocusVisible(Boolean visible);
 
 protected:
 	virtual Void OnInitialize();
+	virtual Void OnTerminate();
 
 	virtual Void OnPreDraw();
 	virtual Void SortObject();
@@ -74,6 +75,7 @@ protected:
 private:
 	SNWorldPos TargetPos;
 	Float32 ViewScale;
+	Boolean FocusVisible;
 	
 	SNWorldDir ViewDir;
 

@@ -15,6 +15,8 @@ SNGUIWorldView::SNGUIWorldView()
 
 	ViewDir = SNWorldDirN;
 
+	FocusVisible = false;
+
 	return;
 }
 
@@ -108,6 +110,13 @@ Void SNGUIWorldView::OnInitialize()
 	return;
 }
 
+Void SNGUIWorldView::OnTerminate()
+{
+	WorkSurface.DeleteBitmap();
+
+	return;
+}
+
 // View方向設定
 Void SNGUIWorldView::SetViewDir(SNWorldDir dir)
 {
@@ -140,7 +149,11 @@ SNWorldDir SNGUIWorldView::GetViewDir()
 
 Void SNGUIWorldView::OnPreDraw()
 {
-	SNWorld::GetNearbySpace()->RegisterFocus(&TargetPos);
+	// 表示設定の場合、フォーカスを登録する
+	if (FocusVisible)
+	{
+		SNWorld::GetNearbySpace()->RegisterFocus(&TargetPos);
+	}
 
 	SortObject();
 
@@ -379,6 +392,13 @@ Void SNGUIWorldView::RightToWorldDirPos(Float32* x, Float32* y)
 	return;
 }
 
+Void SNGUIWorldView::SetFocusVisible(Boolean visible)
+{
+	FocusVisible = visible;
+
+	return;
+}
+
 
 // 周辺オブジェクト描画
 Void SNGUIWorldView::DrawNearbyObject(SNGraphicsContext* grc, SNWNearbyObject* obj, SNPoint* draw_base)
@@ -408,7 +428,7 @@ Void SNGUIWorldView::DrawNearbyObjectGround(SNGraphicsContext* grc, SNWNearbyObj
 	UInt16 chip_code = (UInt16)(intptr_t)obj->UserData;
 
 	// マップチップ取得
-	code = SNMapchip::Data[chip_code].Code;
+	code = SNMapchip::Data[chip_code].Code[SNWorld::GetAGroundAnimeStep()];
 
 	// 描画
 	DrawGround(grc, obj, code, draw_base);

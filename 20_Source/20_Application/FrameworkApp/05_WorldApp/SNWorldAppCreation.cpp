@@ -1,25 +1,27 @@
-#include "SNWorldApp.h"
+#include "SNWorldAppCreation.h"
 #include "SNMusicPlayer.h"
 #include "SNVirtualGamePad.h"
 #include "SNWorld.h"
 #include "SNGraphicsResManager.h"
 #include "SNMath.h"
+#include "SNFocus.h"
 
-SNWorldApp::SNWorldApp()
+
+SNWorldAppCreation::SNWorldAppCreation()
 {
 	SelectBlock = 0;
 
 	return;
 }
 
-SNWorldApp::~SNWorldApp()
+SNWorldAppCreation::~SNWorldAppCreation()
 {
 	return;
 }
 
-Void SNWorldApp::OnInitialize()
+Void SNWorldAppCreation::OnInitialize()
 {
-	WorldView.Initialize();
+	SNWorldAppBase::OnInitialize();
 	
 	Win.SetSceneNum(3);
 	Win.SetScene(&txtX);
@@ -35,16 +37,24 @@ Void SNWorldApp::OnInitialize()
 	return;
 }
 
-Void SNWorldApp::OnEntry()
+Void SNWorldAppCreation::OnTerminate()
 {
-	SNWorldPos current = { 0.0f, 0.0f, 0.0f };
+	SNWorldAppBase::OnTerminate();
 
+	Win.Terminate();
+
+	WinBlock.Terminate();
+
+	return;
+}
+
+Void SNWorldAppCreation::OnEntry()
+{
 	SNMusicPlayer::Play(SNMusicLayerLowPri, SNMusicResEnterWorld);
-	SNWorld::Start();
 
-	SNWorld::SetCurrentPos(&current);
-	WorldView.Entry();
-	WorldView.SetViewPos(&current);
+	SNWorldAppBase::OnEntry();
+
+	WorldView.SetFocusVisible(true);
 
 	Win.Entry();
 
@@ -62,21 +72,22 @@ Void SNWorldApp::OnEntry()
 	WinBlock.SetRect(16, 460, 64, 64);
 	WinBlock.Centering(false, true);
 
+	SNWorld::GetPCObject()->SetEnable(false);
+	SNWorld::GetPCObject()->SetVisible(false);
+
 	return;
 }
 
-Void SNWorldApp::OnExit()
+Void SNWorldAppCreation::OnExit()
 {
 	Win.Exit();
-	WorldView.Exit();
 
-	SNMusicPlayer::Stop(SNMusicLayerLowPri);
-	SNWorld::End();
+	SNWorldAppBase::OnExit();
 
 	return;
 }
 
-Boolean SNWorldApp::OnGamePad1()
+Boolean SNWorldAppCreation::OnGamePad1()
 {
 	Boolean ret = true;
 	SNWorldPos current = { 0.0f, 0.0f, 0.0f };
@@ -192,17 +203,24 @@ Boolean SNWorldApp::OnGamePad1()
 	return ret;
 }
 
-Boolean SNWorldApp::OnInternalEvent()
+Boolean SNWorldAppCreation::OnInternalEvent()
 {
 	Boolean ret = false;
 
+	if (SNEvent::InternalEvent[SNEventResultMenuTestPlay])
+	{
+		TransCode = SNTransitionCode0;
+		ret = true;
+	}
 
 	return ret;
 }
 
-Void SNWorldApp::OnPreDraw()
+Void SNWorldAppCreation::OnPreDraw()
 {
 	SNWorldPos pos;
+
+	SNWorldAppBase::OnPreDraw();
 
 	WorldView.GetViewPos(&pos);
 
@@ -216,7 +234,7 @@ Void SNWorldApp::OnPreDraw()
 	return;
 }
 
-Void SNWorldApp::OnDraw(SNGraphicsContext* grc)
+Void SNWorldAppCreation::OnDraw(SNGraphicsContext* grc)
 {
 	SNBitmap* bmp = SNGraphicsResManager::GetResource(SNGraphicsResMapchip1);
 	SNRect win_rect;
@@ -225,14 +243,15 @@ Void SNWorldApp::OnDraw(SNGraphicsContext* grc)
 	SNWorldDir dir = WorldView.GetViewDir();
 	SNWorldShadowDir shadow_dir = SNWorldShadowDirR;
 
-	WorldView.Draw(grc);
+	SNWorldAppBase::OnDraw(grc);
+
 	Win.Draw(grc);
 	WinBlock.Draw(grc);
 
 	// ウインドウに選択中のマップチップを描画する
 	win_rect = WinBlock.CalcGlobalRect();
 
-	SNMapchip::CodeToRect(SNMapchip::Data[SelectBlock].Code, dir, &src_rect);
+	SNMapchip::CodeToRect(SNMapchip::Data[SelectBlock].Code[0], dir, &src_rect);
 
 	dst_rect.PointX = win_rect.PointX + (win_rect.Width - (src_rect.Width * 2)) / 2;
 	dst_rect.PointY = win_rect.PointY + (win_rect.Height - (src_rect.Height * 2)) / 2;

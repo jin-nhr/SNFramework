@@ -11,6 +11,7 @@ public:
 		SNGraphicsResMapchip1,
 	};
 
+	static constexpr Int32 MapchipAnimeStep = 4;
 
 	// ブロック数
 	static constexpr UInt32 MapchipBlockNumX = 16;
@@ -150,8 +151,15 @@ public:
 	// マップチップデータ
 	struct SNMapchipData
 	{
-		UInt16			Code;
+		UInt16			Code[MapchipAnimeStep];
+		Boolean			Visible;
 		Boolean			Collision;
+		Boolean			Light;
+		Boolean			Shadow;
+		Float32			MoveScale;
+		Float32			JumpScale;
+		Float32			FallScale;
+		Float32			FlyScale;
 	};
 
 	// マップチップコード
@@ -185,31 +193,32 @@ public:
 	// マップチップデータ
 	static constexpr SNMapchipData Data[SNMapchipNum] =
 	{
-		{	0x0000,			false			},		// Blank
-		{	0x0020,			true			},		// Green
-		{	0x0021,			true			},		// LightGreen
-		{	0x0022,			true			},		// DeepGreen
-		{	0x0023,			true			},		// Sakura
-		{	0x0024,			true			},		// Ishou
-		{	0x0025,			true			},		// Kaede
-		{	0x0026,			true			},		// DeadLeaf
-		{	0x0030,			true			},		// Sea
-		{	0x0031,			true			},		// DeepSea
-		{	0x0032,			true			},		// Magma
-		{	0x0033,			true			},		// PoisonSwamp
-		{	0x0040,			true			},		// Dirt
-		{	0x0041,			true			},		// RedDirt
-		{	0x0042,			true			},		// BlackDirt
-		{	0x0043,			true			},		// Sand
-		{	0x0044,			true			},		// Snow
-		{	0x0045,			true			},		// Stone
-		{	0x0050,			true			},		// RedBrick1
-		{	0x0051,			true			},		// RedBrick2
-		{	0x0052,			true			},		// WhiteBrick1
-		{	0x0053,			true			},		// WhiteBrick2
+		//	[0]		[1]		[2]		[3]		Visible	Collision	Light	Shadow	MoveScale	JumpScale	FallScale	FlyScale
+		{	0x0000,	0x0000,	0x0000,	0x0000,	false,	false,		false,	false,	1.0f,		0.0f,		1.0f,		1.0f,	},		// Blank
+		{	0x0020,	0x0020,	0x0020,	0x0020,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Green
+		{	0x0021,	0x0021,	0x0021,	0x0021,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// LightGreen
+		{	0x0022,	0x0022,	0x0022,	0x0022,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// DeepGreen
+		{	0x0023,	0x0023,	0x0023,	0x0023,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Sakura
+		{	0x0024,	0x0024,	0x0024,	0x0024,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Ishou
+		{	0x0025,	0x0025,	0x0025,	0x0025,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Kaede
+		{	0x0026,	0x0026,	0x0026,	0x0026,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// DeadLeaf
+		{	0x0030,	0x0031,	0x0032,	0x0033,	true,	false,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Sea
+		{	0x0034,	0x0035,	0x0036,	0x0037,	true,	false,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// DeepSea
+		{	0x0038,	0x0039,	0x003A,	0x003B,	true,	false,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Magma
+		{	0x003C,	0x003D,	0x003E,	0x003F,	true,	false,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// PoisonSwamp
+		{	0x0040,	0x0040,	0x0040,	0x0040,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Dirt
+		{	0x0041,	0x0041,	0x0041,	0x0041,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// RedDirt
+		{	0x0042,	0x0042,	0x0042,	0x0042,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// BlackDirt
+		{	0x0043,	0x0043,	0x0043,	0x0043,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Sand
+		{	0x0044,	0x0044,	0x0044,	0x0044,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Snow
+		{	0x0045,	0x0045,	0x0045,	0x0045,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Stone
+		{	0x0050,	0x0050,	0x0050,	0x0050,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// RedBrick1
+		{	0x0051,	0x0051,	0x0051,	0x0051,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// RedBrick2
+		{	0x0052,	0x0052,	0x0052,	0x0052,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// WhiteBrick1
+		{	0x0053,	0x0053,	0x0053,	0x0053,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// WhiteBrick2
 	};
-
-
+		
+			
 	static inline Void CodeToRect(UInt16 code, Int32 dir, SNRect* out_rect)
 	{
 		UInt16 tmp_code = (code & SNMapchipCodeMask);
@@ -222,7 +231,7 @@ public:
 		return;
 	};
 
-	static inline UInt16 CodeToResID(UInt16 code)
+	static inline UInt16 CodeToResID(UInt16	code)
 	{
 		return ((code & SNMapchipCodeMask) >> SNMapchipResIDSihit);
 	}

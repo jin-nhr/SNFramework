@@ -2,6 +2,7 @@
 #include "SNFrameworkInternal.h"
 #include "SNWNearbySpace.h"
 #include "SNWMeshManager.h"
+#include "SNWActObject.h"
 
 // ワールドクラス
 
@@ -32,6 +33,9 @@ public:
 	///////////////////////////////////////////////////////////////////
 	// ワールド操作系
 
+	// PC取得
+	static SNWActObject* GetPCObject();
+
 	// カレント座標設定
 	static Void SetCurrentPos(SNWorldPos* pos);
 
@@ -44,7 +48,14 @@ public:
 	// オブジェクトリスト取得
 	static SNWNearbySpace* GetNearbySpace();
 
+	// 簡易光源方向取得
 	static SNWEasyLightDir RefEasyLightDir();
+
+	// グローバルオブジェクト取得
+	static SNWGlobalObject* GetGlobalObject();
+
+	// アニメステップ取得
+	static Int32 GetAGroundAnimeStep();
 
 protected:
 	// 地形更新
@@ -68,6 +79,8 @@ private:
 	static Boolean Suspend;
 	static SNWorldPos CurrentPos;	// 現在座標
 	static UInt32 WorldTime;		// ワールド時間
+	static SNSoftTimer GroundAnimeTimer;
+	static Int32 GroundAnimeStep;
 
 	static SNWMeshManager MeshManager;		// メッシュ管理
 
@@ -77,5 +90,7 @@ private:
 
 	static SNWorldDir GlobalLight;	// グローバル光源の方向(光の進む方向)
 	static SNWEasyLightDir EasyLight;	// 簡易光源方向
+
+	static SNWActObject PCObject;
 
 };

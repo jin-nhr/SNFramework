@@ -1,7 +1,7 @@
 #pragma once
 #include "SNFrameworkInternal.h"
 #include "SNWObjectchip.h"
-
+#include "SNSoftTimer.h"
 
 struct SNWObjectInfo
 {
@@ -17,7 +17,7 @@ struct SNWObjectInfo
 
 	SNWorldDir FrontDir;	        	// 向き
 	SNWorldPos Pos;	        			// 座標
-	SNWorldPos Accelaration;	        // 加速度
+	SNWorldPos Acceleration;	        // 加速度
 
 	SNWorldPos Speed;			        // 速度
 };
@@ -50,5 +50,6 @@ public:
 
 private:
     SNWObjectInfo Info;
+    SNSoftTimer Timer;
 };
 

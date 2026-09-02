@@ -1,18 +1,16 @@
 #pragma once
 #include "SNFrameworkInternal.h"
-#include "SNScene.h"
-#include "SNGUIWorldView.h"
-#include "SNGUITextEx.h"
-#include "SNGUIWindow.h"
-#include "SNMapchip.h"
+#include "SNWorldAppBase.h"
 
-class SNWorldApp : public SNScene
+class SNWorldAppTest : public SNWorldAppBase
 {
 public:
-	SNWorldApp();
-	virtual ~SNWorldApp();
+	SNWorldAppTest();
+	virtual ~SNWorldAppTest();
 
 	virtual Void OnInitialize();
+
+	virtual Void OnTerminate();
 
 	virtual Void OnEntry();
 
@@ -27,7 +25,6 @@ public:
 	virtual Void OnDraw(SNGraphicsContext* grc);
 
 private:
-	SNGUIWorldView WorldView;
 	SNGUIWindow Win;
 	SNGUITextEx	txtX;
 	SNGUITextEx txtY;

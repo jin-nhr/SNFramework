@@ -6,7 +6,7 @@
 #include "SNUserAppTitle.h"
 #include "SNUserAppMenuOff.h"
 #include "SNUserAppMainMenu.h"
-#include "SNWorldApp.h"
+#include "SNWorldAppCreation.h"
 
 class SNUserApp : public SNStateController
 {
@@ -22,10 +22,7 @@ public:
 private:
 	SNUserAppOff Off;
 	SNUserAppTitle Title;
-	SNLayerController Run;
-	SNStateController Menu;
 	SNUserAppMenuOff MenuOff;
 	SNUserAppMainMenu MainMenu;
-	SNWorldApp World;
 };
 
