@@ -98,23 +98,43 @@ Void SNWActObject::SetPos(SNWorldPos* pos)
 // Walk
 Void SNWActObject::Walk(SNWorldDir dir)
 {
+	if (Object != nullptr)
+	{
+		Object->Notify(SNWObjectEventWalk);
+	}
 
+	return;
 }
 
 // Jog
 Void SNWActObject::Jog(SNWorldDir dir)
 {
+	if (Object != nullptr)
+	{
+		Object->Notify(SNWObjectEventJog);
+	}
 
+	return;
 }
 
 // Stop
 Void SNWActObject::Stop()
 {
+	if (Object != nullptr)
+	{
+		Object->Notify(SNWObjectEventStop);
+	}
 
+	return;
 }
 
 // Jump
-Void SNWActObject::Jump(SNWorldDir dir)
+Void SNWActObject::Jump()
 {
+	if (Object != nullptr)
+	{
+		Object->Notify(SNWObjectEventJump);
+	}
 
+	return;
 }

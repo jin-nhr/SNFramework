@@ -4,24 +4,28 @@
 SNWObjectBase::SNWObjectBase()
 {
 	InitObjectInfo();
+	EventList.Allocate(EventMaxNum);
 
 	return;
 }
 
 SNWObjectBase::~SNWObjectBase()
 {
+	EventList.Free();
 	return;
 }
 
 Void SNWObjectBase::Initialize()
 {
 	InitObjectInfo();
+	EventList.Clear();
 
 	return;
 }
 
 Void SNWObjectBase::Terminate()
 {
+	EventList.Free();
 	return;
 }
 
@@ -78,4 +82,23 @@ SNWorldDir SNWObjectBase::CalcDir(SNWorldDir base_dir)
 {
 	return (SNWorldDir)(((Info.FrontDir - SNWorldDirN + SNWorldDirNW) + (base_dir - SNWorldDirN)) % (SNWorldDirNW) + SNWorldDirN);
 
+}
+
+Void SNWObjectBase::Notify(SNWObjectEvent event)
+{
+	SNListContainer* it = EventList.InsertLast();
+
+	if (it != nullptr)
+	{
+		it->UserData = (Void*)(Int64)event;
+	}
+
+	return;
+}
+
+
+Void SNWObjectBase::Update()
+{
+
+	return;
 }

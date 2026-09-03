@@ -8,6 +8,17 @@
 class SNGUIWorldView : public SNScene
 {
 public:
+	static constexpr SNGraphicsResID BGRes[SNWTimeZoneNum] =
+	{
+		SNGraphicsResBG1,
+		SNGraphicsResBG2,
+		SNGraphicsResBG3,
+		SNGraphicsResBG4,
+	};
+
+	static const UInt8 TimeZoneAlpha = 40;
+
+public:
 	// コンストラクタ
 	SNGUIWorldView();
 
@@ -33,6 +44,15 @@ public:
 	virtual Void RotateLViewDir();
 
 	virtual SNWorldDir GetViewDir();
+
+	virtual SNWorldDir UpToWorldDir();
+	virtual SNWorldDir UpLeftToWorldDir();
+	virtual SNWorldDir UpRightToWorldDir();
+	virtual SNWorldDir DownToWorldDir();
+	virtual SNWorldDir DownLeftToWorldDir();
+	virtual SNWorldDir DownRightToWorldDir();
+	virtual SNWorldDir LeftToWorldDir();
+	virtual SNWorldDir RightToWorldDir();
 
 	virtual Void UpToWorldDirPos(Float32* x, Float32* y);
 	virtual Void DownToWorldDirPos(Float32* x, Float32* y);

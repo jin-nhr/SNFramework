@@ -11,6 +11,23 @@
 class SNWorld
 {
 public:
+	static constexpr UInt32 DefTimeZone[SNWTimeZoneNum] =
+	{
+		10000,
+		10000,
+		10000,
+		10000,
+	};
+
+	static constexpr SNWorldDir DefTimeZoneLight[SNWTimeZoneNum] =
+	{
+		SNWorldDirW,
+		SNWorldDirN,
+		SNWorldDirE,
+		SNWorldDirS,
+	};
+
+public:
 	// 初期化
 	static Void Initialize();
 
@@ -57,6 +74,9 @@ public:
 	// アニメステップ取得
 	static Int32 GetAGroundAnimeStep();
 
+	// タイムゾーン取得
+	static SNWTimeZone GetTimeZone();
+
 protected:
 	// 地形更新
 	static Void UpdateGround();
@@ -73,11 +93,15 @@ protected:
 	// 地形の投影チェック
 	static Boolean JudgeGroundPShadow(Int32 x, Int32 y, Int32 z);
 
+	// タイムゾーン更新
+	static Void UpdateTimeZone();
+
 
 private:
 	static Boolean Run;
 	static Boolean Suspend;
 	static SNWorldPos CurrentPos;	// 現在座標
+	static UInt32 WorldCount;		// ワールドカウンタ
 	static UInt32 WorldTime;		// ワールド時間
 	static SNSoftTimer GroundAnimeTimer;
 	static Int32 GroundAnimeStep;
@@ -88,6 +112,7 @@ private:
 	
 	static SNWNearbySpace NearbySpace;	// 周辺空間
 
+	static SNWTimeZone TimeZone;	// タイムゾーン
 	static SNWorldDir GlobalLight;	// グローバル光源の方向(光の進む方向)
 	static SNWEasyLightDir EasyLight;	// 簡易光源方向
 

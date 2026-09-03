@@ -265,7 +265,7 @@ Void SNGUIWorldView::OnDraw(SNGraphicsContext *grc)
 	SNRect dst_rect;
 	SNRect src_rect;
 	SNSize size;
-	SNBitmap* bg_bmp = SNGraphicsResManager::GetResource(SNGraphicsResBG2);
+	SNBitmap* bg_bmp = SNGraphicsResManager::GetResource(BGRes[SNWorld::GetTimeZone()]);
 	SNSize bg_size;
 	SNRect bg_rect;
 
@@ -285,7 +285,43 @@ Void SNGUIWorldView::OnDraw(SNGraphicsContext *grc)
 
 	grc->DrawImage(&dst_rect, &WorkSurface, &src_rect, SNAlphaMax);
 
+	grc->DrawImage(&dst_rect, bg_bmp, &bg_rect, TimeZoneAlpha);
+
 	return;
+}
+
+// Viewの方向 → ワールド方位をもとめる
+SNWorldDir SNGUIWorldView::UpToWorldDir()
+{
+	return ViewDir;
+}
+SNWorldDir SNGUIWorldView::UpLeftToWorldDir()
+{
+	return (SNWorldDir)((((ViewDir - 1) + SNWorldDirNW - 1) % (SNWorldDirNum - 1)) + 1);
+}
+SNWorldDir SNGUIWorldView::UpRightToWorldDir()
+{
+	return (SNWorldDir)((((ViewDir - 1) + SNWorldDirNE - 1) % (SNWorldDirNum - 1)) + 1);
+}
+SNWorldDir SNGUIWorldView::DownToWorldDir()
+{
+	return (SNWorldDir)((((ViewDir - 1) + SNWorldDirS - 1) % (SNWorldDirNum - 1)) + 1);
+}
+SNWorldDir SNGUIWorldView::DownLeftToWorldDir()
+{
+	return (SNWorldDir)((((ViewDir - 1) + SNWorldDirSW - 1) % (SNWorldDirNum - 1)) + 1);
+}
+SNWorldDir SNGUIWorldView::DownRightToWorldDir()
+{
+	return (SNWorldDir)((((ViewDir - 1) + SNWorldDirSE - 1) % (SNWorldDirNum - 1)) + 1);
+}
+SNWorldDir SNGUIWorldView::LeftToWorldDir()
+{
+	return (SNWorldDir)((((ViewDir - 1) + SNWorldDirW - 1) % (SNWorldDirNum - 1)) + 1);
+}
+SNWorldDir SNGUIWorldView::RightToWorldDir()
+{
+	return (SNWorldDir)((((ViewDir - 1) + SNWorldDirE - 1) % (SNWorldDirNum - 1)) + 1);
 }
 
 // View上 → ワールドでの方位
@@ -445,7 +481,7 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNGraphicsContext* grc, SNWNea
 	{
 		{SNWNearbyEffectGroundBitGShadowU, SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowB, SNWNearbyEffectGroundBitGShadowL},	// center
 		{SNWNearbyEffectGroundBitGShadowU, SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowB, SNWNearbyEffectGroundBitGShadowL},	// N - N
-		{SNWNearbyEffectGroundBitGShadowU, SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowL},	// NE - N
+		{SNWNearbyEffectGroundBitGShadowU, SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowB, SNWNearbyEffectGroundBitGShadowL},	// NE - N
 		{SNWNearbyEffectGroundBitGShadowL, SNWNearbyEffectGroundBitGShadowU, SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowB},	// E - E
 		{SNWNearbyEffectGroundBitGShadowL, SNWNearbyEffectGroundBitGShadowU, SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowB},	// SE - E
 		{SNWNearbyEffectGroundBitGShadowB, SNWNearbyEffectGroundBitGShadowL, SNWNearbyEffectGroundBitGShadowU, SNWNearbyEffectGroundBitGShadowR},	// S - S

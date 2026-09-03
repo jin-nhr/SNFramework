@@ -6,7 +6,8 @@
 SNWorldPos SNWorld::CurrentPos = {0};
 SNWMeshManager SNWorld::MeshManager;
 SNWGlobalObject SNWorld::GlobalObject;
-UInt32 SNWorld::WorldTime = 0; 
+UInt32 SNWorld::WorldCount = 0; 
+UInt32 SNWorld::WorldTime = 0;
 
 SNSoftTimer SNWorld::GroundAnimeTimer;
 Int32 SNWorld::GroundAnimeStep;
@@ -15,6 +16,7 @@ Boolean SNWorld::Run = false;
 Boolean SNWorld::Suspend = false;
 SNWNearbySpace SNWorld::NearbySpace;	// 周辺空間
 
+SNWTimeZone SNWorld::TimeZone;
 SNWorldDir SNWorld::GlobalLight;
 SNWEasyLightDir SNWorld::EasyLight;
 
@@ -25,11 +27,13 @@ SNWActObject SNWorld::PCObject;
 Void SNWorld::Initialize()
 {
 	CurrentPos = {0};
+	WorldCount = 0;
 	WorldTime = 0;
 	Run = false;
 	Suspend = false;
 
-	GlobalLight = SNWorldDirSE;
+	TimeZone = SNWTimeZoneAfternoon;
+	GlobalLight = DefTimeZoneLight[TimeZone];
 	EasyLight = RefEasyLightDir();
 
 	MeshManager.Initialize();
@@ -88,8 +92,10 @@ Void SNWorld::Update()
 	if (Run && !Suspend)
 	{
 		// 更新準備
-		WorldTime++;
-		NearbySpace.UpdateStart(&CurrentPos, WorldTime);
+		WorldCount++;
+		NearbySpace.UpdateStart(&CurrentPos, WorldCount);
+
+		UpdateTimeZone();
 
 		// 地形アニメカウンタ制御
 		if (GroundAnimeTimer.IsTimeout())
@@ -182,6 +188,11 @@ SNWGlobalObject* SNWorld::GetGlobalObject()
 Int32 SNWorld::GetAGroundAnimeStep()
 {
 	return GroundAnimeStep;
+}
+
+SNWTimeZone SNWorld::GetTimeZone()
+{
+	return TimeZone;
 }
 
 SNWEasyLightDir SNWorld::RefEasyLightDir()
@@ -393,3 +404,17 @@ Boolean SNWorld::JudgeGroundPShadow(Int32 x, Int32 y, Int32 z)
 	return ret;
 }
 
+Void SNWorld::UpdateTimeZone()
+{
+	WorldTime++;
+
+	if ((DefTimeZone[TimeZone] * SNSystemConfig::FPS / 1000) <= WorldTime)
+	{
+		TimeZone = (SNWTimeZone)SNMath::Increment(TimeZone, 0, SNWTimeZoneNum - 1);
+		GlobalLight = DefTimeZoneLight[TimeZone];
+		EasyLight = RefEasyLightDir();
+		WorldTime = 0;
+	}
+
+	return;
+}

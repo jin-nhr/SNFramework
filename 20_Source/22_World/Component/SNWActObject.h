@@ -32,16 +32,18 @@ public:
     virtual Void SetPos(SNWorldPos* pos);
 
     // Walk
+    // グローバル座標系における方向を指定する
     virtual Void Walk(SNWorldDir dir);
 
     // Jog
+   // グローバル座標系における方向を指定する
     virtual Void Jog(SNWorldDir dir);
 
     // Stop
     virtual Void Stop();
 
     // Jump
-    virtual Void Jump(SNWorldDir dir);
+    virtual Void Jump();
 
 
 private:

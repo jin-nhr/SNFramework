@@ -2,6 +2,7 @@
 #include "SNFrameworkInternal.h"
 #include "SNWObjectchip.h"
 #include "SNSoftTimer.h"
+#include "SNList.h"
 
 struct SNWObjectInfo
 {
@@ -26,6 +27,8 @@ struct SNWObjectInfo
 class SNWObjectBase
 {
 public:
+    static constexpr Int32 EventMaxNum = 8;
+public:
     SNWObjectBase();
 
     virtual ~SNWObjectBase();
@@ -48,8 +51,16 @@ public:
 
     virtual Void InitObjectInfo();
 
+    // イベント通知
+    virtual Void Notify(SNWObjectEvent event);
+
+    // 更新
+    virtual Void Update();
+
 private:
     SNWObjectInfo Info;
     SNSoftTimer Timer;
+
+    SNList EventList;
 };
 

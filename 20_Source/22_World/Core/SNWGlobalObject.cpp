@@ -162,6 +162,13 @@ Void SNWGlobalObject::CopyObjectInfoToFile(SNWObjectInfo* obj_info_array)
 
 Void SNWGlobalObject::Update()
 {
+	Int32 cnt;
+
+	for (cnt = 0; cnt < SNWGlobalObjectNum; cnt++)
+	{
+		ObjectArray[cnt].Update();
+	}
+
 	return;
 }
 

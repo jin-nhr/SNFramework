@@ -750,8 +750,28 @@ enum SNWObjectState
     SNWObjectStateAttack,
     SNWObjectStateKnockback,
     SNWObjectStateSpell,
-    SNWObjectStateOtherAction,
+    SNWObjectStateAction,
     SNWObjectStateFlying,
     SNWObjectStateFall,
     SNWObjectStateNum,
+};
+
+// オブジェクトイベント
+enum SNWObjectEvent
+{
+    SNWObjectEventStop,
+    SNWObjectEventWalk,
+    SNWObjectEventJog,
+    SNWObjectEventJump,
+    SNWObjectEventNum,
+};
+
+// ワールドのタイムゾーン
+enum SNWTimeZone
+{
+    SNWTimeZoneMorning,
+    SNWTimeZoneAfternoon,
+    SNWTimeZoneEvening,
+    SNWTimeZoneNight,
+    SNWTimeZoneNum,
 };
