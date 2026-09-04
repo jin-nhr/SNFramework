@@ -1,7 +1,7 @@
 #pragma once
 #include "SNFrameworkInternal.h"
 #include "SNSoftTimer.h"
-
+#include "SNVGamePadNStyle.h"
 
 
 
@@ -42,6 +42,9 @@ public:
 	// 更新処理
 	static Void Update();
 
+	// Nスタイル参照
+	static SNVGamePadNStyle* RefN1();
+	static SNVGamePadNStyle* RefN2();
 
 private:
 	// 状態更新
@@ -55,4 +58,7 @@ private:
 	// 仮想デバイス更新
 	// 実デバイスの入力をもとに仮想デバイスの情報を更新する
 	static Void UpdateVirtualDevice();
+
+
+	static SNVGamePadNStyle GamePadN[SNVirtualGamePadIDNum];
 };

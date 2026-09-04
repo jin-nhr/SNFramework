@@ -61,6 +61,7 @@
     <ClInclude Include="..\20_Source\11_Input\Component\SNGamePad.h" />
     <ClInclude Include="..\20_Source\11_Input\Component\SNKeyboard.h" />
     <ClInclude Include="..\20_Source\11_Input\Component\SNMouse.h" />
+    <ClInclude Include="..\20_Source\11_Input\Component\SNVGamePadNStyle.h" />
     <ClInclude Include="..\20_Source\11_Input\Component\SNVirtualDirectGamePad.h" />
     <ClInclude Include="..\20_Source\11_Input\Component\SNVirtualDirectKeyboard.h" />
     <ClInclude Include="..\20_Source\11_Input\Component\SNVirtualGamePad.h" />
@@ -183,6 +184,7 @@
     <ClCompile Include="..\20_Source\11_Input\Component\SNGamePad.cpp" />
     <ClCompile Include="..\20_Source\11_Input\Component\SNKeyboard.cpp" />
     <ClCompile Include="..\20_Source\11_Input\Component\SNMouse.cpp" />
+    <ClCompile Include="..\20_Source\11_Input\Component\SNVGamePadNStyle.cpp" />
     <ClCompile Include="..\20_Source\11_Input\Component\SNVirtualDirectGamePad.cpp" />
     <ClCompile Include="..\20_Source\11_Input\Component\SNVirtualDirectKeyboard.cpp" />
     <ClCompile Include="..\20_Source\11_Input\Component\SNVirtualGamePad.cpp" />

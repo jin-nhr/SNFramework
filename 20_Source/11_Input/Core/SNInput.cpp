@@ -11,6 +11,9 @@
 
 // 入力装置クラス
 
+
+SNVGamePadNStyle SNInput::GamePadN[];
+
 // 初期化処理
 Void SNInput::Initialize()
 {
@@ -24,6 +27,9 @@ Void SNInput::Initialize()
 	SNVirtualPointingDevice::Initialize();
 	SNVirtualDirectKeyboard::Initialize();
 	SNVirtualDirectGamePad::Initialize();
+
+	GamePadN[SNVirtualGamePadID1].SetID(SNVirtualGamePadID1);
+	GamePadN[SNVirtualGamePadID2].SetID(SNVirtualGamePadID2);
 
 	return;
 }
@@ -78,6 +84,18 @@ Void SNInput::Update()
 	return;
 }
 
+
+SNVGamePadNStyle* SNInput::RefN1()
+{
+	return &GamePadN[SNVirtualGamePadID1];
+}
+
+SNVGamePadNStyle* SNInput::RefN2()
+{
+	return &GamePadN[SNVirtualGamePadID2];
+}
+
+
 // 状態更新
 Void SNInput::UpdateState()
 {
@@ -117,3 +135,4 @@ Void SNInput::UpdateVirtualDevice()
 
 	return;
 }
+

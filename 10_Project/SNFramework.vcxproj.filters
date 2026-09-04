@@ -534,6 +534,9 @@
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.h">
       <Filter>20_Source\20_Application\FrameworkApp\05_WorldApp</Filter>
     </ClInclude>
+    <ClInclude Include="..\20_Source\11_Input\Component\SNVGamePadNStyle.h">
+      <Filter>20_Source\11_Input\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\20_Source\02_System\Component\SNAutoResource.cpp">
@@ -889,6 +892,9 @@
     </ClCompile>
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.cpp">
       <Filter>20_Source\20_Application\FrameworkApp\05_WorldApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\11_Input\Component\SNVGamePadNStyle.cpp">
+      <Filter>20_Source\11_Input\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

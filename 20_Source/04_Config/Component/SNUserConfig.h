@@ -108,8 +108,16 @@ private:
 		SNKeyCodeS,					// ページ送り(Rボタン)
 		SNKeyCodeD,					// Lトリガ(L2ボタン)
 		SNKeyCodeF,					// Rトリガ(R2ボタン)
+		SNKeyCodeG,					// L3
+		SNKeyCodeH,					// R3
 		SNKeyCodeG,					// リストアップ(拡大)
 		SNKeyCodeH,					// リストダウン(縮小)
+		SNKeyCodeQ,					// 左スティック左
+		SNKeyCodeW,					// 左スティック右
+		SNKeyCodeE,					// 右スティック上
+		SNKeyCodeR,					// 右スティック下
+		SNKeyCodeT,					// 右スティック左
+		SNKeyCodeY,					// 右スティック右
 
 		// 仮想パッド2
 		SNKeyCodeNull,				// 方向キー上
@@ -126,8 +134,16 @@ private:
 		SNKeyCodeNull,				// ページ送り(Rボタン)
 		SNKeyCodeNull,				// Lトリガ(L2ボタン)
 		SNKeyCodeNull,				// Rトリガ(R2ボタン)
+		SNKeyCodeNull,				// L3
+		SNKeyCodeNull,				// R3
 		SNKeyCodeNull,				// リストアップ(拡大)
 		SNKeyCodeNull,				// リストダウン(縮小)
+		SNKeyCodeNull,				// 左スティック左
+		SNKeyCodeNull,				// 左スティック右
+		SNKeyCodeNull,				// 右スティック上
+		SNKeyCodeNull,				// 右スティック下
+		SNKeyCodeNull,				// 右スティック左
+		SNKeyCodeNull,				// 右スティック右
 		
 		//--------------------------------------------
 		// パッド割り当て
@@ -151,8 +167,16 @@ private:
 		SNGamePadButton6,			// ページ送り(Rボタン)
 		SNGamePadAxis3Down,			// Lトリガ(L2ボタン)
 		SNGamePadAxis3Up,			// Rトリガ(R2ボタン)
+		SNGamePadButton9,			// L3
+		SNGamePadButton10,			// R3
 		SNGamePadAxis2Up,			// リストアップ(拡大)
 		SNGamePadAxis2Down,			// リストダウン(縮小)
+		SNGamePadAxis1Up,			// 左スティック左
+		SNGamePadAxis1Down,			// 左スティック右
+		SNGamePadAxis5Up,			// 右スティック上
+		SNGamePadAxis5Down,			// 右スティック下
+		SNGamePadAxis4Up,			// 右スティック左
+		SNGamePadAxis4Down,			// 右スティック右
 
 
 		// 仮想パッド2
@@ -170,8 +194,16 @@ private:
 		SNGamePadButtonNull,			// ページ送り(Rボタン)
 		SNGamePadButtonNull,			// Lトリガ(L2ボタン)
 		SNGamePadButtonNull,			// Rトリガ(R2ボタン)
-		SNGamePadButtonNull,			// リストアップ(拡大)
-		SNGamePadButtonNull,			// リストダウン(縮小)
+		SNGamePadButtonNull,			// L3
+		SNGamePadButtonNull,			// R3
+		SNGamePadButtonNull,			// リストアップ(拡大) 左スティック上
+		SNGamePadButtonNull,			// リストダウン(縮小) 左スティック下
+		SNGamePadButtonNull,			// 左スティック左
+		SNGamePadButtonNull,			// 左スティック右
+		SNGamePadButtonNull,			// 右スティック上
+		SNGamePadButtonNull,			// 右スティック下
+		SNGamePadButtonNull,			// 右スティック左
+		SNGamePadButtonNull,			// 右スティック右
 
 		//--------------------------------------------
 		0,							// チェックサム

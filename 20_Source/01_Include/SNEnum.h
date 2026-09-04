@@ -469,8 +469,16 @@ enum SNVirtualGamePadButton
     SNVirtualGamePadPageNext,  // ページ送り(Rボタン)
     SNVirtualGamePadTriggerL,  // Lトリガ(L2ボタン)
     SNVirtualGamePadTriggerR,  // Rトリガ(R2ボタン)
-    SNVirtualGamePadListUp,    // リストアップ(拡大)
-    SNVirtualGamePadListDown,  // リストダウン(縮小)
+    SNVirtualGamePadL3,        // L3ボタン
+    SNVirtualGamePadR3,        // R3ボタン
+    SNVirtualGamePadListUp,    // リストアップ(拡大) 左スティック上
+    SNVirtualGamePadListDown,  // リストダウン(縮小) 左スティック下
+    SNVirtualGamePadLStkLeft,  // 左スティック左
+    SNVirtualGamePadLStkRight, // 左スティック右
+    SNVirtualGamePadRStkUp,    // 右スティック上
+    SNVirtualGamePadRStkDown,  // 右スティック下
+    SNVirtualGamePadRStkLeft,  // 右スティック左
+    SNVirtualGamePadRStkRight, // 右スティック右
     SNVirtualGamePadButtonNum
 };
 
