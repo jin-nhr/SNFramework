@@ -89,6 +89,8 @@ Void SNGraphicsContext::CreateBitmap(SNBitmap* bmp, SNSize* size)
     // 共有サーフェス生成
     D3D11_TEXTURE2D_DESC td = {};
     ID3D11Texture2D* d3d_texture = nullptr;
+    ID3D11ShaderResourceView* d3d_srv = nullptr;
+    ID3D11RenderTargetView* d3d_rtv = nullptr;
     IDXGISurface* dxgi_surface = nullptr;
     ID2D1Bitmap1* d2d_target = nullptr;
     ID2D1Bitmap1* d2d_source = nullptr;
@@ -116,21 +118,46 @@ Void SNGraphicsContext::CreateBitmap(SNBitmap* bmp, SNSize* size)
 
     if (d3d_texture != nullptr)
     {
-        d3d_texture->QueryInterface(&dxgi_surface);
+        ((ID3D11Device*)SNGraphicsDevice::Device)->CreateShaderResourceView(d3d_texture, nullptr, &d3d_srv);
 
-        if (dxgi_surface != nullptr)
+        if (d3d_srv != nullptr)
         {
-            // ターゲット生成
-            d2d_dc->CreateBitmapFromDxgiSurface(dxgi_surface, &props, &d2d_target);
-            
-            // ソース生成
-            props.bitmapOptions = D2D1_BITMAP_OPTIONS_NONE;
-            d2d_dc->CreateBitmapFromDxgiSurface(dxgi_surface, &props, &d2d_source);
+            ((ID3D11Device*)SNGraphicsDevice::Device)->CreateRenderTargetView(d3d_texture, nullptr, &d3d_rtv);
 
-            dxgi_surface->Release();
+            if (d3d_rtv != nullptr)
+            {
+                d3d_texture->QueryInterface(&dxgi_surface);
 
-            // ビットマップ設定
-            bmp->SetBitmap(d3d_texture, d2d_target, d2d_source);
+                if (dxgi_surface != nullptr)
+                {
+                    // ターゲット生成
+                    d2d_dc->CreateBitmapFromDxgiSurface(dxgi_surface, &props, &d2d_target);
+
+                    // ソース生成
+                    props.bitmapOptions = D2D1_BITMAP_OPTIONS_NONE;
+                    d2d_dc->CreateBitmapFromDxgiSurface(dxgi_surface, &props, &d2d_source);
+
+                    dxgi_surface->Release();
+
+                    // ビットマップ設定
+                    bmp->SetBitmap(d3d_texture, d3d_srv, d3d_rtv, d2d_target, d2d_source);
+                }
+                else
+                {
+                    d3d_rtv->Release();
+                    d3d_srv->Release();
+                    d3d_texture->Release();
+                }
+            }
+            else
+            {
+                d3d_srv->Release();
+                d3d_texture->Release();
+            }
+        }
+        else
+        {
+            d3d_texture->Release();
         }
     }
 

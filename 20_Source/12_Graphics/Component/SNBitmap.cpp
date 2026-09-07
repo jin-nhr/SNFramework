@@ -4,6 +4,8 @@
 SNBitmap::SNBitmap()
 {
 	D3DTexture = nullptr;
+	D3DSrv = nullptr;
+	D3DRtv = nullptr;
 	D2DTargetBitmap = nullptr;
 	D2DSourceBitmap = nullptr;
 	return;
@@ -18,11 +20,13 @@ SNBitmap::~SNBitmap()
 
 
 // ビットマップ設定
-Void SNBitmap::SetBitmap(Handle d3d_texture, Handle d2d_target, Handle d2d_source)
+Void SNBitmap::SetBitmap(Handle d3d_texture, Handle srv, Handle rtv,  Handle d2d_target, Handle d2d_source)
 {
 	DeleteBitmap();
 
 	D3DTexture = d3d_texture;
+	D3DSrv = srv;
+	D3DRtv = rtv;
 	D2DTargetBitmap = d2d_target;
 	D2DSourceBitmap = d2d_source;
 
@@ -66,6 +70,8 @@ Void SNBitmap::DeleteBitmap()
 	ID2D1Bitmap1* btarget = (ID2D1Bitmap1*)D2DTargetBitmap;
 	ID2D1Bitmap1* source = (ID2D1Bitmap1*)D2DSourceBitmap;
 	ID3D11Texture2D* texture = (ID3D11Texture2D*)D3DTexture;
+	ID3D11ShaderResourceView* srv = (ID3D11ShaderResourceView*)D3DSrv;
+	ID3D11RenderTargetView* rtv = (ID3D11RenderTargetView*)D3DRtv;
 
 	if (D2DTargetBitmap != nullptr)
 	{
@@ -77,6 +83,18 @@ Void SNBitmap::DeleteBitmap()
 	{
 		source->Release();
 		D2DSourceBitmap = nullptr;
+	}
+
+	if (D3DRtv != nullptr)
+	{
+		rtv->Release();
+		D3DRtv = nullptr;
+	}
+
+	if (D3DSrv != nullptr)
+	{
+		srv->Release();
+		D3DSrv = nullptr;
 	}
 
 	if (D3DTexture != nullptr)
