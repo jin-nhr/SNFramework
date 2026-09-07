@@ -39,6 +39,7 @@ Void SNWPhysics::Update()
 
 	info->Pos.X += info->Speed.X;
 	info->Pos.Y += info->Speed.Y;
+	info->Pos.Z += info->Speed.Z;
 
 	return;
 }

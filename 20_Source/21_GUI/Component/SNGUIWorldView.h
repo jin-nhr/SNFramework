@@ -79,6 +79,8 @@ protected:
 	virtual Void DrawNearbyObjectFocus(SNGraphicsContext* grc, SNWNearbyObject* obj, SNPoint* draw_base);
 
 	virtual Void DrawGround(SNGraphicsContext* grc, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
+	virtual Void DrawGroundBorder(SNGraphicsContext* grc, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
+	virtual Void DrawGroundShadow(SNGraphicsContext* grc, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
 	virtual Void DrawActiveObject(SNGraphicsContext* grc, SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, SNWObjectchip::SNWActState obj_state, SNPoint* draw_base);
 
 	// ソート処理用オブジェクト比較

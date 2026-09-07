@@ -143,6 +143,7 @@ Boolean SNWorldAppTest::OnGamePad1()
 
 	if (dir_input)
 	{
+		// ダッシュ？
 		if (pd->YPress())
 		{
 			SNWorld::GetPCObject()->Jog(dir, SNWorld::DirToAngle(dir));
@@ -159,7 +160,11 @@ Boolean SNWorldAppTest::OnGamePad1()
 		SNWorld::GetPCObject()->Stop();
 	}
 
-
+	// ジャンプ？
+	if (pd->BPress())
+	{
+		SNWorld::GetPCObject()->Jump();
+	}
 
 	// 表示変更操作
 
@@ -209,9 +214,11 @@ Boolean SNWorldAppTest::OnInternalEvent()
 
 Void SNWorldAppTest::OnCycle()
 {
-	// PC座標をViewにセットする
-	WorldView.SetViewPos(&SNWorld::GetPCObject()->RefInfo()->Pos);
+	SNWorldPos* pos = &SNWorld::GetPCObject()->RefInfo()->Pos;
 
+	// PC座標をViewにセットする
+	WorldView.SetViewPos(pos);
+	SNWorld::SetCurrentPos(pos);
 	return;
 }
 

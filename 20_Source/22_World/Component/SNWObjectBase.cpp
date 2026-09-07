@@ -108,6 +108,9 @@ Void SNWObjectBase::Update()
 	SNListContainer* it;
 	SNWObjectEventParam evt;
 
+	// 状態更新処理
+	UpdateState();
+
 	// リストすべてを参照
 	while (EventList.GetNum() != 0)
 	{
@@ -226,6 +229,9 @@ Void SNWObjectBase::UpdateState()
 	// フィードバック情報の確認
 
 
+	// Jumpの加速度クリア
+	Info.Acceleration.Z = 0;
+
 	// 落下速度ありならFall
 
 
@@ -279,6 +285,7 @@ Void SNWObjectBase::UpdateSpeed()
 	// 目標速度から現在速度を計算する
 	Info.Speed.X += (Info.Acceleration.X - Info.Speed.X);
 	Info.Speed.Y += (Info.Acceleration.Y - Info.Speed.Y);
+	Info.Speed.Z += (Info.Acceleration.Z - Info.Speed.Z);
 
 	return;
 }

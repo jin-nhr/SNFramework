@@ -381,6 +381,8 @@ Boolean SNWorld::JudgeGroundPShadow(Int32 x, Int32 y, Int32 z)
 	Int32 ref_y = y;
 	Int32 ref_z = z;
 
+	Int32 srch_cnt = 0;
+
 	switch (EasyLight)
 	{
 	case SNWEasyLightDirUp:
@@ -401,24 +403,37 @@ Boolean SNWorld::JudgeGroundPShadow(Int32 x, Int32 y, Int32 z)
 		break;
 	}
 
-	ref_x += step_x;
-	ref_y += step_y;
-	ref_z += 1;
-
-	// 範囲内ぜんぶ見る(暫定)
-	while (NearbySpace.RefSpace(ref_x, ref_y, ref_z))
+	// 対象オブジェクトが影投影対象化判定
+	if ((SNSystemConfig::GroundPShadowOutRange < ref_x) &&
+		(ref_x < SNWNearbySpaceSizeX - SNSystemConfig::GroundPShadowOutRange) &&
+		(SNSystemConfig::GroundPShadowOutRange < ref_y) &&
+		(ref_y < SNWNearbySpaceSizeY - SNSystemConfig::GroundPShadowOutRange) &&
+		(SNSystemConfig::GroundPShadowOutRange < ref_z) &&
+		(ref_z < SNWNearbySpaceSizeZ - SNSystemConfig::GroundPShadowOutRange))
 	{
-		ret = NearbySpace.IsBlocked(ref_x, ref_y, ref_z, SNWNearbyObjectTypeGround);
-		ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
-
-		if (ret)
-		{
-			break;
-		}
-
 		ref_x += step_x;
 		ref_y += step_y;
-		ref_z += step_z;
+		ref_z += 1;
+
+		srch_cnt = 0;
+
+		while (NearbySpace.RefSpace(ref_x, ref_y, ref_z) &&
+			   (SNSystemConfig::GroundPShadowSearchRange >= srch_cnt))
+		{
+			ret = NearbySpace.IsBlocked(ref_x, ref_y, ref_z, SNWNearbyObjectTypeGround);
+			ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
+
+			if (ret)
+			{
+				break;
+			}
+
+			ref_x += step_x;
+			ref_y += step_y;
+			ref_z += step_z;
+
+			srch_cnt++;
+		}
 	}
 
 	return ret;

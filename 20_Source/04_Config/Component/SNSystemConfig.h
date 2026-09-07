@@ -187,5 +187,11 @@ public:
 	// 地形アニメインターバル
 	static constexpr Int32 GroundAnimeInterval = 500;
 
+	// 影投影オブジェクトの検索範囲
+	static constexpr Int32 GroundPShadowSearchRange = 16;
+
+	// 影投影除外範囲
+	static constexpr Int32 GroundPShadowOutRange = 16;
+
 
 };

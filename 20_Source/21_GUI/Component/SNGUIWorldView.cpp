@@ -684,6 +684,70 @@ Void SNGUIWorldView::DrawGround(SNGraphicsContext* grc, SNWNearbyObject* obj, UI
 	return;
 }
 
+
+Void SNGUIWorldView::DrawGroundBorder(SNGraphicsContext* grc, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base)
+{
+	SNRect src_rect;
+	SNRect dst_rect;
+
+	// チップ側の矩形取得
+	SNMapchip::CodeToRect(code, ViewDir, &src_rect);
+
+	// 描画座標計算
+	dst_rect.PointX = (Int32)(draw_base->X
+		+ (SNMapchip::MapchipStrideX[ViewDir].X * obj->Pos.X
+			+ SNMapchip::MapchipStrideY[ViewDir].X * obj->Pos.Y
+			+ SNMapchip::MapchipStrideZ[ViewDir].X * obj->Pos.Z));
+	dst_rect.PointY = (Int32)(draw_base->Y
+		+ (SNMapchip::MapchipStrideX[ViewDir].Y * obj->Pos.X
+			+ SNMapchip::MapchipStrideY[ViewDir].Y * obj->Pos.Y
+			+ SNMapchip::MapchipStrideZ[ViewDir].Y * obj->Pos.Z));
+
+	dst_rect.Width = src_rect.Width;
+	dst_rect.Height = src_rect.Height;
+
+	// マップチップ本体を描画
+	grc->DrawImage(
+		&dst_rect,
+		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource[SNMapchip::CodeToResID(code)]),
+		&src_rect,
+		SNAlphaMax);
+
+	return;
+}
+
+Void SNGUIWorldView::DrawGroundShadow(SNGraphicsContext* grc, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base)
+{
+	SNRect src_rect;
+	SNRect dst_rect;
+
+	// チップ側の矩形取得
+	SNMapchip::CodeToRect(code, ViewDir, &src_rect);
+
+	// 描画座標計算
+	dst_rect.PointX = (Int32)(draw_base->X
+		+ (SNMapchip::MapchipStrideX[ViewDir].X * obj->Pos.X
+			+ SNMapchip::MapchipStrideY[ViewDir].X * obj->Pos.Y
+			+ SNMapchip::MapchipStrideZ[ViewDir].X * obj->Pos.Z));
+	dst_rect.PointY = (Int32)(draw_base->Y
+		+ (SNMapchip::MapchipStrideX[ViewDir].Y * obj->Pos.X
+			+ SNMapchip::MapchipStrideY[ViewDir].Y * obj->Pos.Y
+			+ SNMapchip::MapchipStrideZ[ViewDir].Y * obj->Pos.Z));
+
+	dst_rect.Width = src_rect.Width;
+	dst_rect.Height = src_rect.Height;
+
+	// マップチップ本体を描画
+	grc->DrawImage(
+		&dst_rect,
+		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource[SNMapchip::CodeToResID(code)]),
+		&src_rect,
+		SNAlphaMax);
+
+	return;
+}
+
+
 Void SNGUIWorldView::DrawActiveObject(SNGraphicsContext* grc, SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, SNWObjectchip::SNWActState act_state, SNPoint* draw_base)
 {
 	SNRect src_rect;
