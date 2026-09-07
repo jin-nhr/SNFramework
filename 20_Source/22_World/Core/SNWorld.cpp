@@ -3,6 +3,7 @@
 #include "SNWGlobalObject.h"
 #include "SNMath.h"
 
+
 SNWorldPos SNWorld::CurrentPos = {0};
 SNWMeshManager SNWorld::MeshManager;
 SNWGlobalObject SNWorld::GlobalObject;
@@ -21,6 +22,8 @@ SNWorldDir SNWorld::GlobalLight;
 SNWEasyLightDir SNWorld::EasyLight;
 
 SNWActObject SNWorld::PCObject;
+
+SNWPhysics SNWorld::Physics;
 
 
 // 初期化
@@ -48,6 +51,13 @@ Void SNWorld::Initialize()
 	GroundAnimeTimer.Initialize();
 	GroundAnimeStep = 0;
 
+	// 物理エンジンの初期化
+	Physics.Initialize();
+
+	// 物理エンジン設定
+	Physics.SetSpace(&NearbySpace);
+	Physics.SetGlobalObject(&GlobalObject);
+
 	return;
 }
 
@@ -59,6 +69,9 @@ Void SNWorld::Terminate()
 
 	GlobalObject.Save();
 	GlobalObject.Terminate();
+
+	// 物理エンジン終了
+	Physics.Terminate();
 
 	return;
 }
@@ -110,9 +123,11 @@ Void SNWorld::Update()
 		// グローバルオブジェクト更新
 		UpdateGlobalObject();
 
-
 		// エフェクト登録
 		RegisterNearbyEffect();
+
+		// 物理エンジン実行
+		Physics.Update();
 	}
 
 	return;
@@ -193,6 +208,11 @@ Int32 SNWorld::GetAGroundAnimeStep()
 SNWTimeZone SNWorld::GetTimeZone()
 {
 	return TimeZone;
+}
+
+Int8 SNWorld::DirToAngle(SNWorldDir dir)
+{
+	return DirToAngleTable[dir];
 }
 
 SNWEasyLightDir SNWorld::RefEasyLightDir()

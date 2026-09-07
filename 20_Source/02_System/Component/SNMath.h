@@ -58,19 +58,12 @@ public:
 	// ï˚à åvéZ
 	static Int8 CalcAngle(SNPoint* pnt1, SNPoint* pnt2);
 
-private:
-	static constexpr Float64 SNTrigFuncBitDepth = 127.0;
-	static constexpr Int32 SNTrigFuncMaxNum = 255;
-	static constexpr Int32 SNTrigFuncOffset = 127;
-	static constexpr Int32 SNTrigFuncMax = 127;
-	static constexpr Int32 SNTrigFuncMin = -127;
-	static constexpr Int32 SNTrigFuncTanMax = 32767;
-	static constexpr Int32 SNTrigFuncTanMin = -32767;
-	static constexpr Int32 SNTrigFuncATanNum = 12263;
-	static constexpr Int32 SNTrigFuncATanOffset = 6131;
-	static constexpr Int32 SNTrigFuncATanMax = 6131;
-	static constexpr Int32 SNTrigFuncATanMin = -6131;
+	// éOäpä÷êî
+	static Int8 GetSin(Int32 angle);
+	static Int8 GetCos(Int32 angle);
 
+
+private:
 	static Int8 Sin[SNTrigFuncMaxNum];
 	static Int8 Cos[SNTrigFuncMaxNum];
 	static Int16 Tan[SNTrigFuncMaxNum];

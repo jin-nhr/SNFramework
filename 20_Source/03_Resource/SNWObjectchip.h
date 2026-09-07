@@ -74,6 +74,7 @@ public:
 	struct SNWAnimationInfo
 	{
 		Boolean Loop;
+		UInt8 StepNum;
 		SNWAnimationStep StepInfo[AnimationStepNum];
 	};
 
@@ -82,6 +83,7 @@ public:
 	{
 		SNAnimationCodeWait,
 		SNAnimationCodeWalk,
+		SNAnimationCodeJog,
 		SNAnimationCodeNum
 	};
 
@@ -90,7 +92,7 @@ public:
 	{
 		// Wait
 		{
-			true,
+			true, 1,
 			SNActStateIdle, 1,
 			SNActStateIdle,	0,
 			SNActStateIdle,	0,
@@ -103,11 +105,24 @@ public:
 
 		// Walk
 		{
-			true,
+			true, 4,
 			SNActStateMove1, 300,
 			SNActStateIdle,  300,
-			SNActStateMove1, 300,
+			SNActStateMove2, 300,
 			SNActStateIdle,  300,
+			SNActStateIdle,	 0,
+			SNActStateIdle,	 0,
+			SNActStateIdle,	 0,
+			SNActStateIdle,	 0,
+		},
+
+		// Jog
+		{
+			true, 4,
+			SNActStateMove1, 150,
+			SNActStateIdle,  150,
+			SNActStateMove2, 150,
+			SNActStateIdle,  150,
 			SNActStateIdle,	 0,
 			SNActStateIdle,	 0,
 			SNActStateIdle,	 0,
@@ -143,7 +158,7 @@ public:
 			// Animation
 			SNAnimationCodeWait,	// Idle
 			SNAnimationCodeWalk,	// Walk
-			SNAnimationCodeWalk,	// Jog
+			SNAnimationCodeJog,		// Jog
 			SNAnimationCodeWait,	// Wait
 			SNAnimationCodeWait,	// Jump
 			SNAnimationCodeWait,	// Attack
@@ -154,10 +169,10 @@ public:
 			SNAnimationCodeWait,	// Fall
 
 			// Speed (blk/sec) Å¶ 1ÉtÉåÅ[ÉÄÇ≈ÇÃà⁄ìÆãóó£ÇÕ1blkè„å¿Ç∆Ç∑ÇÈ (60fpsÇ»ÇÁ16.6Ç≠ÇÁÇ¢)
-			2.0f,			// Walk
-			4.0f,			// Jog
-			4.0f,			// Jump
-			3.0f			// Flying
+			4.0f,			// Walk
+			8.0f,			// Jog
+			8.0f,			// Jump
+			8.0f			// Flying
 		},
 
 	};

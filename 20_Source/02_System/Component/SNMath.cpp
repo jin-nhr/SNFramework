@@ -267,3 +267,31 @@ Int8 SNMath::CalcAngle(SNPoint* pnt1, SNPoint* pnt2)
 
 	return angle;
 }
+
+Int8 SNMath::GetSin(Int32 angle)
+{
+	Int8 ret;
+	Int8 tmp_angle;
+	UInt8 index;
+
+	tmp_angle = (Int8)Saturate(angle, SNTrigFuncMin, SNTrigFuncMax);
+	index = tmp_angle + SNTrigFuncOffset;
+
+	ret = Sin[index];
+
+	return ret;
+}
+
+Int8 SNMath::GetCos(Int32 angle)
+{
+	Int8 ret;
+	Int8 tmp_angle;
+	UInt8 index;
+
+	tmp_angle = (Int8)Saturate(angle, SNTrigFuncMin, SNTrigFuncMax);
+	index = tmp_angle + SNTrigFuncOffset;
+
+	ret = Cos[index];
+
+	return ret;
+}

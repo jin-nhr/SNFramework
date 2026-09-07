@@ -79,8 +79,10 @@ enum SNWNearbyEffectGroundBit
 // 周辺空間セル
 struct SNWNearbySpaceCell
 {
-	UInt32 TimeStamp;
-	SNWNearbyObject* Object;
+	UInt32 TimeStampG;
+	UInt32 TimeStampO;
+	SNWNearbyObject* ObjectG;
+	SNWNearbyObject* ObjectO;
 };
 
 class SNWNearbySpace
@@ -120,7 +122,7 @@ public:
 
 	// オブジェクトアクセス
 	virtual SNWNearbyObject* RefObject(Int32 index);
-	virtual SNWNearbyObject* RefObject(Int32 x, Int32 y, Int32 z);
+	virtual SNWNearbyObject* RefObjectG(Int32 x, Int32 y, Int32 z);
 
 	// 周辺空間アクセス
 	virtual SNWNearbySpaceCell* RefSpace(Int32 x, Int32 y, Int32 z);

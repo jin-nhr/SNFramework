@@ -290,38 +290,38 @@ Void SNGUIWorldView::OnDraw(SNGraphicsContext *grc)
 	return;
 }
 
-// Viewの方向 → ワールド方位をもとめる
-SNWorldDir SNGUIWorldView::UpToWorldDir()
+// Viewの方向 → ワールドの方位を求める
+SNWorldDir SNGUIWorldView::UpToAngle()
 {
-	return ViewDir;
+	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirN - 1)) % (SNWorldDirNum - 1)) + 1);
 }
-SNWorldDir SNGUIWorldView::UpLeftToWorldDir()
+SNWorldDir SNGUIWorldView::UpLeftToAngle()
 {
-	return (SNWorldDir)((((ViewDir - 1) + SNWorldDirNW - 1) % (SNWorldDirNum - 1)) + 1);
+	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirNW - 1)) % (SNWorldDirNum - 1)) + 1);
 }
-SNWorldDir SNGUIWorldView::UpRightToWorldDir()
+SNWorldDir SNGUIWorldView::UpRightToAngle()
 {
-	return (SNWorldDir)((((ViewDir - 1) + SNWorldDirNE - 1) % (SNWorldDirNum - 1)) + 1);
+	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirNE - 1)) % (SNWorldDirNum - 1)) + 1);
 }
-SNWorldDir SNGUIWorldView::DownToWorldDir()
+SNWorldDir SNGUIWorldView::DownToAngle()
 {
-	return (SNWorldDir)((((ViewDir - 1) + SNWorldDirS - 1) % (SNWorldDirNum - 1)) + 1);
+	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirS - 1)) % (SNWorldDirNum - 1)) + 1);
 }
-SNWorldDir SNGUIWorldView::DownLeftToWorldDir()
+SNWorldDir SNGUIWorldView::DownLeftToAngle()
 {
-	return (SNWorldDir)((((ViewDir - 1) + SNWorldDirSW - 1) % (SNWorldDirNum - 1)) + 1);
+	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirSW - 1)) % (SNWorldDirNum - 1)) + 1);
 }
-SNWorldDir SNGUIWorldView::DownRightToWorldDir()
+SNWorldDir SNGUIWorldView::DownRightToAngle()
 {
-	return (SNWorldDir)((((ViewDir - 1) + SNWorldDirSE - 1) % (SNWorldDirNum - 1)) + 1);
+	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirSE - 1)) % (SNWorldDirNum - 1)) + 1);
 }
-SNWorldDir SNGUIWorldView::LeftToWorldDir()
+SNWorldDir SNGUIWorldView::LeftToAngle()
 {
-	return (SNWorldDir)((((ViewDir - 1) + SNWorldDirW - 1) % (SNWorldDirNum - 1)) + 1);
+	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirW - 1)) % (SNWorldDirNum - 1)) + 1);
 }
-SNWorldDir SNGUIWorldView::RightToWorldDir()
+SNWorldDir SNGUIWorldView::RightToAngle()
 {
-	return (SNWorldDir)((((ViewDir - 1) + SNWorldDirE - 1) % (SNWorldDirNum - 1)) + 1);
+	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirE - 1)) % (SNWorldDirNum - 1)) + 1);
 }
 
 // View上 → ワールドでの方位

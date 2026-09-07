@@ -146,9 +146,10 @@
     <ClInclude Include="..\20_Source\22_World\Component\SNWObjectBase.h" />
     <ClInclude Include="..\20_Source\22_World\Component\SNWActObject.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWGlobalObject.h" />
-    <ClInclude Include="..\20_Source\22_World\Core\SNWMeshMAnager.h" />
+    <ClInclude Include="..\20_Source\22_World\Core\SNWMeshManager.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWGround.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWorld.h" />
+    <ClInclude Include="..\20_Source\22_World\Core\SNWPhysics.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\20_Source\02_System\Component\SNAutoResource.cpp" />
@@ -270,6 +271,7 @@
     <ClCompile Include="..\20_Source\22_World\Core\SNWMeshManager.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWGround.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWorld.cpp" />
+    <ClCompile Include="..\20_Source\22_World\Core\SNWPhysics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\20_Source\03_Resource\Resource.rc" />

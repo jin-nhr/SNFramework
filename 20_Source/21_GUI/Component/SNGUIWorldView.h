@@ -45,14 +45,14 @@ public:
 
 	virtual SNWorldDir GetViewDir();
 
-	virtual SNWorldDir UpToWorldDir();
-	virtual SNWorldDir UpLeftToWorldDir();
-	virtual SNWorldDir UpRightToWorldDir();
-	virtual SNWorldDir DownToWorldDir();
-	virtual SNWorldDir DownLeftToWorldDir();
-	virtual SNWorldDir DownRightToWorldDir();
-	virtual SNWorldDir LeftToWorldDir();
-	virtual SNWorldDir RightToWorldDir();
+	virtual SNWorldDir UpToAngle();
+	virtual SNWorldDir UpLeftToAngle();
+	virtual SNWorldDir UpRightToAngle();
+	virtual SNWorldDir DownToAngle();
+	virtual SNWorldDir DownLeftToAngle();
+	virtual SNWorldDir DownRightToAngle();
+	virtual SNWorldDir LeftToAngle();
+	virtual SNWorldDir RightToAngle();
 
 	virtual Void UpToWorldDirPos(Float32* x, Float32* y);
 	virtual Void DownToWorldDirPos(Float32* x, Float32* y);

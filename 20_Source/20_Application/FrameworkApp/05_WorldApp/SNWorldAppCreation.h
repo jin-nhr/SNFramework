@@ -5,6 +5,8 @@
 class SNWorldAppCreation : public SNWorldAppBase
 {
 public:
+	static constexpr Int32 MapchipListView = 4;
+public:
 	SNWorldAppCreation();
 	virtual ~SNWorldAppCreation();
 

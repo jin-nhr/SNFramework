@@ -77,8 +77,8 @@ Void SNWNearbySpace::RegisterGroundData(SNWorldPos* glb_pos, UInt16 code)
 		// ‹óŠÔ“o˜^
 		cell_ptr = &NearbySpace[(Int32)obj_ptr->Pos.Z][(Int32)obj_ptr->Pos.Y][(Int32)obj_ptr->Pos.X];
 
-		cell_ptr->Object = obj_ptr;
-		cell_ptr->TimeStamp = TimeStamp;
+		cell_ptr->ObjectG = obj_ptr;
+		cell_ptr->TimeStampG = TimeStamp;
 	}
 	return;
 }
@@ -113,8 +113,8 @@ Void SNWNearbySpace::RegisterGObjectData(SNWObjectBase* obj)
 		// ‹óŠÔ“o˜^
 		cell_ptr = &NearbySpace[(Int32)obj_ptr->Pos.Z][(Int32)obj_ptr->Pos.Y][(Int32)obj_ptr->Pos.X];
 
-		cell_ptr->Object = obj_ptr;
-		cell_ptr->TimeStamp = TimeStamp;
+		cell_ptr->ObjectO = obj_ptr;
+		cell_ptr->TimeStampO = TimeStamp;
 	}
 
 	return;
@@ -203,15 +203,15 @@ SNWNearbyObject* SNWNearbySpace::RefObject(Int32 index)
 	return &Object[index];
 }
 
-SNWNearbyObject* SNWNearbySpace::RefObject(Int32 x, Int32 y, Int32 z)
+SNWNearbyObject* SNWNearbySpace::RefObjectG(Int32 x, Int32 y, Int32 z)
 {
 	SNWNearbyObject* ret = nullptr;
 	SNWNearbySpaceCell* cell;
 
 	cell = RefSpace(x, y, z);
-	if ((cell != nullptr) && (cell->Object != nullptr) && (cell->TimeStamp == TimeStamp))
+	if ((cell != nullptr) && (cell->ObjectG != nullptr) && (cell->TimeStampG == TimeStamp))
 	{
-		ret = cell->Object;
+		ret = cell->ObjectG;
 	}
 
 	return ret;
@@ -237,7 +237,7 @@ Boolean SNWNearbySpace::IsBlocked(Int32 x, Int32 y, Int32 z, SNWNearbyObjectType
 	Boolean ret = false;
 	SNWNearbyObject* top;
 
-	top = RefObject(x, y, z);
+	top = RefObjectG(x, y, z);
 	if ((top != nullptr) && (top->Type == type))
 	{
 		ret = true;

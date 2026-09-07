@@ -486,7 +486,7 @@
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIWorldView.h">
       <Filter>20_Source\21_GUI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_Source\22_World\Core\SNWMeshMAnager.h">
+    <ClInclude Include="..\20_Source\22_World\Core\SNWMeshManager.h">
       <Filter>22_World\Core</Filter>
     </ClInclude>
     <ClInclude Include="..\20_Source\03_Resource\SNBMCharTable.h">
@@ -536,6 +536,9 @@
     </ClInclude>
     <ClInclude Include="..\20_Source\11_Input\Component\SNVGamePadNStyle.h">
       <Filter>20_Source\11_Input\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\22_World\Core\SNWPhysics.h">
+      <Filter>22_World\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -895,6 +898,9 @@
     </ClCompile>
     <ClCompile Include="..\20_Source\11_Input\Component\SNVGamePadNStyle.cpp">
       <Filter>20_Source\11_Input\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\22_World\Core\SNWPhysics.cpp">
+      <Filter>22_World\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

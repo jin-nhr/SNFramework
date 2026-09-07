@@ -33,11 +33,11 @@ public:
 
     // Walk
     // グローバル座標系における方向を指定する
-    virtual Void Walk(SNWorldDir dir);
+    virtual Void Walk(SNWorldDir dir, Int8 angle);
 
     // Jog
    // グローバル座標系における方向を指定する
-    virtual Void Jog(SNWorldDir dir);
+    virtual Void Jog(SNWorldDir dir, Int8 angle);
 
     // Stop
     virtual Void Stop();

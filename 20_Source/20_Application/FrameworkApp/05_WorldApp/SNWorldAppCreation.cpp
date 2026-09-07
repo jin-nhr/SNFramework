@@ -69,7 +69,7 @@ Void SNWorldAppCreation::OnEntry()
 
 	WinBlock.Entry();
 
-	WinBlock.SetRect(16, 460, 64, 64);
+	WinBlock.SetRect(16, 460, 320, 64);
 	WinBlock.Centering(false, true);
 
 	SNWorld::GetPCObject()->SetEnable(false);
@@ -239,7 +239,10 @@ Void SNWorldAppCreation::OnDraw(SNGraphicsContext* grc)
 	SNBitmap* bmp = SNGraphicsResManager::GetResource(SNGraphicsResMapchip1);
 	SNRect win_rect;
 	SNRect dst_rect;
+	SNRect dst_tmp;
+	UInt16 code_tmp;
 	SNRect src_rect;
+	Int32 cnt;
 	SNWorldDir dir = WorldView.GetViewDir();
 	SNWorldShadowDir shadow_dir = SNWorldShadowDirR;
 
@@ -258,10 +261,57 @@ Void SNWorldAppCreation::OnDraw(SNGraphicsContext* grc)
 	dst_rect.Width = src_rect.Width * 2;
 	dst_rect.Height = src_rect.Height * 2;
 
+	// 選択中ブロック描画
 	grc->DrawImage(&dst_rect, bmp, &src_rect, SNAlphaMax);
 
+	// 選択中ブロックに影を付加
 	SNMapchip::CodeToRect(SNMapchip::ShadowCode[shadow_dir], dir, &src_rect);
 	grc->DrawImage(&dst_rect, bmp, &src_rect, SNAlphaMax);
+
+	// フォーカス描画
+	SNMapchip::CodeToRect(SNMapchip::FocusCode, dir, &src_rect);
+	grc->DrawImage(&dst_rect, bmp, &src_rect, SNAlphaMax);
+
+
+	dst_tmp = dst_rect;
+	code_tmp = SelectBlock;
+
+	// リスト左表示
+	for (cnt = 0; cnt < MapchipListView; cnt++)
+	{
+		code_tmp = (UInt16)SNMath::Decrement(code_tmp, SNMapchip::SNMapchipBlank + 1, SNMapchip::SNMapchipNum - 1);
+
+		SNMapchip::CodeToRect(SNMapchip::Data[code_tmp].Code[0], dir, &src_rect);
+
+		dst_tmp.PointX -= dst_tmp.Width;
+
+		// 選択中ブロック描画
+		grc->DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
+
+		// 選択中ブロックに影を付加
+		SNMapchip::CodeToRect(SNMapchip::ShadowCode[shadow_dir], dir, &src_rect);
+		grc->DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
+	}
+
+	dst_tmp = dst_rect;
+	code_tmp = SelectBlock;
+
+	// リスト右表示
+	for (cnt = 0; cnt < MapchipListView; cnt++)
+	{
+		code_tmp = (UInt16)SNMath::Increment(code_tmp, SNMapchip::SNMapchipBlank + 1, SNMapchip::SNMapchipNum - 1);
+
+		SNMapchip::CodeToRect(SNMapchip::Data[code_tmp].Code[0], dir, &src_rect);
+
+		dst_tmp.PointX += dst_tmp.Width;
+
+		// 選択中ブロック描画
+		grc->DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
+
+		// 選択中ブロックに影を付加
+		SNMapchip::CodeToRect(SNMapchip::ShadowCode[shadow_dir], dir, &src_rect);
+		grc->DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
+	}
 
 	return;
 }

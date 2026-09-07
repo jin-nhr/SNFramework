@@ -3,6 +3,8 @@
 #include "SNWNearbySpace.h"
 #include "SNWMeshManager.h"
 #include "SNWActObject.h"
+#include "SNWPhysics.h"
+
 
 // ワールドクラス
 
@@ -25,6 +27,19 @@ public:
 		SNWorldDirN,
 		SNWorldDirE,
 		SNWorldDirS,
+	};
+
+	static constexpr Int8 DirToAngleTable[SNWorldDirNum] =
+	{
+		0,			// Top
+		63,			// N
+		31,			// NE
+		0,			// E
+		-31,		// SE
+		-63,		// S
+		-95,		// SW,
+		127,		// W
+		95,			// NW
 	};
 
 public:
@@ -77,6 +92,9 @@ public:
 	// タイムゾーン取得
 	static SNWTimeZone GetTimeZone();
 
+	// 方向→角度変換
+	static Int8 DirToAngle(SNWorldDir dir);
+
 protected:
 	// 地形更新
 	static Void UpdateGround();
@@ -117,5 +135,7 @@ private:
 	static SNWEasyLightDir EasyLight;	// 簡易光源方向
 
 	static SNWActObject PCObject;
+
+	static SNWPhysics Physics;
 
 };

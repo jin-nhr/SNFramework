@@ -101,11 +101,11 @@ Void SNWGlobalObject::InitFileData(SNWGlobalObjectFileData* obj_file)
 		
 		info->Code = SNWObjectchip::WObjectCodeMaleOrg;
 		info->AnimationStep = 0;
-		info->AnimationCount = 0;
 		info->Enable = false;
 		info->Visible = false;
 		info->Weight = false;
 		info->State = SNWObjectStateIdle;
+		info->PrevState = SNWObjectStateNum;
 		info->FrontDir = SNWorldDirS;
 		info->Pos.X = 0;
 		info->Pos.Y = 0;

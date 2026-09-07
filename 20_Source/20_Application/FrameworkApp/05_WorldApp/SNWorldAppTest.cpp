@@ -4,12 +4,11 @@
 #include "SNWorld.h"
 #include "SNGraphicsResManager.h"
 #include "SNMath.h"
+#include "SNInput.h"
 
 
 SNWorldAppTest::SNWorldAppTest()
 {
-	SelectBlock = 0;
-
 	return;
 }
 
@@ -29,10 +28,6 @@ Void SNWorldAppTest::OnInitialize()
 
 	Win.Initialize();
 
-	WinBlock.Initialize();
-
-	SelectBlock = SNMapchip::SNMapchipGreen;
-
 	return;
 }
 
@@ -41,8 +36,6 @@ Void SNWorldAppTest::OnTerminate()
 	SNWorldAppBase::OnTerminate();
 
 	Win.Terminate();
-
-	WinBlock.Terminate();
 
 	return;
 }
@@ -57,24 +50,19 @@ Void SNWorldAppTest::OnEntry()
 
 	Win.Entry();
 
-	Win.SetRect(784, 420, 160, 104);
-	txtX.SetRect(16, 16, 128, 24);
-	txtY.SetRect(16, 40, 128, 24);
-	txtZ.SetRect(16, 64, 128, 24);
+Win.SetRect(784, 420, 160, 104);
+txtX.SetRect(16, 16, 128, 24);
+txtY.SetRect(16, 40, 128, 24);
+txtZ.SetRect(16, 64, 128, 24);
 
-	txtX.SetText((String)L"X=%+06d");
-	txtY.SetText((String)L"Y=%+06d");
-	txtZ.SetText((String)L"Z=%+06d");
+txtX.SetText((String)L"X=%+06d");
+txtY.SetText((String)L"Y=%+06d");
+txtZ.SetText((String)L"Z=%+06d");
 
-	WinBlock.Entry();
+SNWorld::GetPCObject()->SetEnable(true);
+SNWorld::GetPCObject()->SetVisible(true);
 
-	WinBlock.SetRect(16, 460, 64, 64);
-	WinBlock.Centering(false, true);
-
-	SNWorld::GetPCObject()->SetEnable(true);
-	SNWorld::GetPCObject()->SetVisible(true);
-
-	return;
+return;
 }
 
 Void SNWorldAppTest::OnExit()
@@ -92,6 +80,116 @@ Void SNWorldAppTest::OnExit()
 Boolean SNWorldAppTest::OnGamePad1()
 {
 	Boolean ret = true;
+	SNVGamePadNStyle* pd = SNInput::RefN1();
+	SNWorldDir dir;
+	Boolean dir_input = false;
+
+	// 左上
+	if (pd->DPadLeftPress() && pd->DPadUpPress())
+	{
+		dir = WorldView.UpLeftToAngle();
+		dir_input = true;
+	}
+
+	// 右上
+	else if (pd->DPadRightPress() && pd->DPadUpPress())
+	{
+		dir = WorldView.UpRightToAngle();
+		dir_input = true;
+	}
+
+	// 左下
+	else if (pd->DPadLeftPress() && pd->DPadDownPress())
+	{
+		dir = WorldView.DownLeftToAngle();
+		dir_input = true;
+	}
+
+	// 右下
+	else if (pd->DPadRightPress() && pd->DPadDownPress())
+	{
+		dir = WorldView.DownRightToAngle();
+		dir_input = true;
+	}
+
+	// 上
+	else if (pd->DPadUpPress())
+	{
+		dir = WorldView.UpToAngle();
+		dir_input = true;
+	}
+
+	// 下
+	else if (pd->DPadDownPress())
+	{
+		dir = WorldView.DownToAngle();
+		dir_input = true;
+	}
+
+	// 左
+	else if (pd->DPadLeftPress())
+	{
+		dir = WorldView.LeftToAngle();
+		dir_input = true;
+	}
+
+	// 右
+	else if (pd->DPadRightPress())
+	{
+		dir = WorldView.RightToAngle();
+		dir_input = true;
+
+	}
+
+	if (dir_input)
+	{
+		if (pd->YPress())
+		{
+			SNWorld::GetPCObject()->Jog(dir, SNWorld::DirToAngle(dir));
+		}
+		else
+		{
+			SNWorld::GetPCObject()->Walk(dir, SNWorld::DirToAngle(dir));
+		}
+	}
+
+	// 方向入力なし
+	else
+	{
+		SNWorld::GetPCObject()->Stop();
+	}
+
+
+
+	// 表示変更操作
+
+	// 拡大
+	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadListUp][SNVirtualGamePadEventPush]) ||
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadListUp][SNVirtualGamePadEventRepeat]))
+	{
+		WorldView.UpViewScale();
+	}
+
+	// 縮小
+	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadListDown][SNVirtualGamePadEventPush]) ||
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadListDown][SNVirtualGamePadEventRepeat]))
+	{
+		WorldView.DownViewScale();
+	}
+
+	// 右回転
+	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPageNext][SNVirtualGamePadEventPush]) ||
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPageNext][SNVirtualGamePadEventRepeat]))
+	{
+		WorldView.RotateLViewDir();
+	}
+
+	// 左回転
+	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPagePrev][SNVirtualGamePadEventPush]) ||
+		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPagePrev][SNVirtualGamePadEventRepeat]))
+	{
+		WorldView.RotateRViewDir();
+	}
 
 	return ret;
 }
@@ -107,6 +205,14 @@ Boolean SNWorldAppTest::OnInternalEvent()
 	}
 
 	return ret;
+}
+
+Void SNWorldAppTest::OnCycle()
+{
+	// PC座標をViewにセットする
+	WorldView.SetViewPos(&SNWorld::GetPCObject()->RefInfo()->Pos);
+
+	return;
 }
 
 Void SNWorldAppTest::OnPreDraw()
@@ -130,31 +236,12 @@ Void SNWorldAppTest::OnPreDraw()
 Void SNWorldAppTest::OnDraw(SNGraphicsContext* grc)
 {
 	SNBitmap* bmp = SNGraphicsResManager::GetResource(SNGraphicsResMapchip1);
-	SNRect win_rect;
-	SNRect dst_rect;
-	SNRect src_rect;
 	SNWorldDir dir = WorldView.GetViewDir();
 	SNWorldShadowDir shadow_dir = SNWorldShadowDirR;
 
 	SNWorldAppBase::OnDraw(grc);
 
 	Win.Draw(grc);
-	WinBlock.Draw(grc);
-
-	// ウインドウに選択中のマップチップを描画する
-	win_rect = WinBlock.CalcGlobalRect();
-
-	SNMapchip::CodeToRect(SNMapchip::Data[SelectBlock].Code[0], dir, &src_rect);
-
-	dst_rect.PointX = win_rect.PointX + (win_rect.Width - (src_rect.Width * 2)) / 2;
-	dst_rect.PointY = win_rect.PointY + (win_rect.Height - (src_rect.Height * 2)) / 2;
-	dst_rect.Width = src_rect.Width * 2;
-	dst_rect.Height = src_rect.Height * 2;
-
-	grc->DrawImage(&dst_rect, bmp, &src_rect, SNAlphaMax);
-
-	SNMapchip::CodeToRect(SNMapchip::ShadowCode[shadow_dir], dir, &src_rect);
-	grc->DrawImage(&dst_rect, bmp, &src_rect, SNAlphaMax);
 
 	return;
 }

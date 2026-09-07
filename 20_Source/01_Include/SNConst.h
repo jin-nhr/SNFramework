@@ -3,6 +3,24 @@
 
 
 //////////////////////////////////////////////////////
+// システム関連
+
+// 三角関数関連
+constexpr Float64 SNTrigFuncBitDepth = 127.0;
+constexpr Int32 SNTrigFuncMaxNum = 255;
+constexpr Int32 SNTrigFuncOffset = 127;
+constexpr Int32 SNTrigFuncMax = 127;
+constexpr Int32 SNTrigFuncMin = -127;
+constexpr Int32 SNTrigFuncTanMax = 32767;
+constexpr Int32 SNTrigFuncTanMin = -32767;
+constexpr Int32 SNTrigFuncATanNum = 12263;
+constexpr Int32 SNTrigFuncATanOffset = 6131;
+constexpr Int32 SNTrigFuncATanMax = 6131;
+constexpr Int32 SNTrigFuncATanMin = -6131;
+
+
+
+//////////////////////////////////////////////////////
 // グラフィクス関連
 
 // フェードステップ
@@ -35,10 +53,10 @@ constexpr Float32 SNWViewScaleStepLow = 0.25f;
 constexpr Float32 SNWViewScaleStepHigh = 0.50f;
 
 
-// 座標定義
+// メッシュサイズ定義
 constexpr UInt32 SNWGroundMeshSizeX = 128;
 constexpr UInt32 SNWGroundMeshSizeY = 128;
-constexpr UInt32 SNWGroundMeshSizeZ = 64;
+constexpr UInt32 SNWGroundMeshSizeZ = 32;
 
 constexpr Float32 SNWMeshLoadThresholdX = SNWGroundMeshSizeX * 0.1f;
 constexpr Float32 SNWMeshLoadThresholdY = SNWGroundMeshSizeY * 0.1f;

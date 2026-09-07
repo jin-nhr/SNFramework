@@ -20,6 +20,8 @@ public:
 
 	virtual Boolean OnInternalEvent();
 
+	virtual Void OnCycle();
+
 	virtual Void OnPreDraw();
 
 	virtual Void OnDraw(SNGraphicsContext* grc);
@@ -29,8 +31,5 @@ private:
 	SNGUITextEx	txtX;
 	SNGUITextEx txtY;
 	SNGUITextEx txtZ;
-	SNGUIWindow WinBlock;
-
-	UInt16 SelectBlock;
 };
 

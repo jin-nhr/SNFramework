@@ -96,22 +96,32 @@ Void SNWActObject::SetPos(SNWorldPos* pos)
 }
 
 // Walk
-Void SNWActObject::Walk(SNWorldDir dir)
+Void SNWActObject::Walk(SNWorldDir dir, Int8 angle)
 {
+	SNWObjectEventParam param = {0};
+
 	if (Object != nullptr)
 	{
-		Object->Notify(SNWObjectEventWalk);
+		param.Event = SNWObjectEventWalk;
+		param.Param1 = dir;
+		param.Param2 = angle;
+		Object->Notify(&param);
 	}
 
 	return;
 }
 
 // Jog
-Void SNWActObject::Jog(SNWorldDir dir)
+Void SNWActObject::Jog(SNWorldDir dir, Int8 angle)
 {
+	SNWObjectEventParam param = { 0 };
+
 	if (Object != nullptr)
 	{
-		Object->Notify(SNWObjectEventJog);
+		param.Event = SNWObjectEventJog;
+		param.Param1 = dir;
+		param.Param2 = angle;
+		Object->Notify(&param);
 	}
 
 	return;
@@ -120,9 +130,12 @@ Void SNWActObject::Jog(SNWorldDir dir)
 // Stop
 Void SNWActObject::Stop()
 {
+	SNWObjectEventParam param = { 0 };
+
 	if (Object != nullptr)
 	{
-		Object->Notify(SNWObjectEventStop);
+		param.Event = SNWObjectEventStop;
+		Object->Notify(&param);
 	}
 
 	return;
@@ -131,9 +144,12 @@ Void SNWActObject::Stop()
 // Jump
 Void SNWActObject::Jump()
 {
+	SNWObjectEventParam param = { 0 };
+
 	if (Object != nullptr)
 	{
-		Object->Notify(SNWObjectEventJump);
+		param.Event = SNWObjectEventJump;
+		Object->Notify(&param);
 	}
 
 	return;
