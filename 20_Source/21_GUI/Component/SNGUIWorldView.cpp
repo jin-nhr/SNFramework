@@ -208,6 +208,8 @@ Void SNGUIWorldView::SortObject()
 
 Void SNGUIWorldView::DrawWrokSurface()
 {
+	ID3D11DeviceContext* ctx = (ID3D11DeviceContext*)SNGraphicsDevice::DeviceContext;
+
 	SNGraphicsContext* grc = &SNGraphicsDevice::D2DGraphicsContext;
 	SNList* list = SNWorld::GetNearbySpace()->GetList();
 	Int32 list_num = list->GetNum();

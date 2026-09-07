@@ -39,6 +39,16 @@ Handle SNBitmap::Get3DTexture()
 	return D3DTexture;
 }
 
+Handle SNBitmap::GetSRV()
+{
+	return D3DSrv;
+}
+
+Handle SNBitmap::GetRTV()
+{
+	return D3DRtv;
+}
+
 // ターゲット取得
 Handle SNBitmap::GetTargetBitmap()
 {

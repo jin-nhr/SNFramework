@@ -14,6 +14,10 @@ public:
 
 	virtual Handle Get3DTexture();
 
+	virtual Handle GetSRV();
+
+	virtual Handle GetRTV();
+
 	// ターゲットビットマップ取得
 	virtual Handle GetTargetBitmap();
 
