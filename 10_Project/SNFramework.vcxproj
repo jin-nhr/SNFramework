@@ -75,6 +75,8 @@
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNScaling.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Core\SND3DShaderPS.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Core\SND3DShaderVS.h" />
+    <ClInclude Include="..\20_Source\12_Graphics\Core\SND3DWorldShaderPS.h" />
+    <ClInclude Include="..\20_Source\12_Graphics\Core\SND3DWorldShaderVS.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Core\SNGraphics.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Core\SNGraphicsDevice.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Core\SNGraphicsResManager.h" />
@@ -284,10 +286,34 @@
     <FxCompile Include="..\20_Source\12_Graphics\Core\SND3DShaderPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\20_source\12_Graphics\Core\SND3DShaderPS.h</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\20_source\12_Graphics\Core\SND3DShaderPS.h</HeaderFileOutput>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_PS_FullscreenQuad</VariableName>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_PS_FullscreenQuad</VariableName>
     </FxCompile>
     <FxCompile Include="..\20_Source\12_Graphics\Core\SND3DShaderVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\20_source\12_Graphics\Core\SND3DShaderVS.h</HeaderFileOutput>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\20_source\12_Graphics\Core\SND3DShaderVS.h</HeaderFileOutput>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_VS_FullscreenQuad</VariableName>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_VS_FullscreenQuad</VariableName>
+    </FxCompile>
+    <FxCompile Include="..\20_Source\12_Graphics\Core\SND3DWorldShaderPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_WorldShaderPS</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\20_source\12_Graphics\Core\SND3DWorldShaderPS.h</HeaderFileOutput>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_WorldShaderPS</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\20_source\12_Graphics\Core\SND3DWorldShaderPS.h</HeaderFileOutput>
+    </FxCompile>
+    <FxCompile Include="..\20_Source\12_Graphics\Core\SND3DWorldShaderVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">g_WorldShaderVS</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\20_source\12_Graphics\Core\SND3DWorldShaderVS.h</HeaderFileOutput>
+      <VariableName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">g_WorldShaderVS</VariableName>
+      <HeaderFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\20_source\12_Graphics\Core\SND3DWorldShaderVS.h</HeaderFileOutput>
     </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">

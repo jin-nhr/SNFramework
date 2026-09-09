@@ -540,6 +540,12 @@
     <ClInclude Include="..\20_Source\22_World\Core\SNWPhysics.h">
       <Filter>22_World\Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Core\SND3DWorldShaderPS.h">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Core\SND3DWorldShaderVS.h">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\20_Source\02_System\Component\SNAutoResource.cpp">
@@ -921,6 +927,12 @@
       <Filter>20_Source\12_Graphics\Core</Filter>
     </FxCompile>
     <FxCompile Include="..\20_Source\12_Graphics\Core\SND3DShaderVS.hlsl">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </FxCompile>
+    <FxCompile Include="..\20_Source\12_Graphics\Core\SND3DWorldShaderPS.hlsl">
+      <Filter>20_Source\12_Graphics\Core</Filter>
+    </FxCompile>
+    <FxCompile Include="..\20_Source\12_Graphics\Core\SND3DWorldShaderVS.hlsl">
       <Filter>20_Source\12_Graphics\Core</Filter>
     </FxCompile>
   </ItemGroup>

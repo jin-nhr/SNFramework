@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include "SNFrameworkInternal.h"
 #include "SNGraphicsContext.h"
 #include "SNBitmap.h"
@@ -8,94 +8,139 @@ class SNGraphicsDevice
 public:
 
 	////////////////////////////////////////////
-	// ‰Šú‰»
+	// åˆæœŸåŒ–
 	static Void Initialize();
 
-	// ƒfƒoƒCƒX¶¬
+	// ãƒ‡ãƒã‚¤ã‚¹ç”Ÿæˆ
 	static Void CreateDevice();
 
-	// SwapChain¶¬
+	// SwapChainç”Ÿæˆ
 	static Void CreateSwapChain();
 
-	// RTV¶¬
+	// RTVç”Ÿæˆ
 	static Void CreateRTV();
 
 	static Void CreateD2DFactory();
 	static Void CreateDeviceContext();
 
-	// ƒT[ƒtƒFƒX¶¬
+	// ã‚µãƒ¼ãƒ•ã‚§ã‚¹ç”Ÿæˆ
 	static Void CreateSurface();
 
-	// SRV¶¬
+	// SRVç”Ÿæˆ
 	static Void CreateSRV();
 
-	// ƒNƒAƒbƒh’¸“_ƒoƒbƒtƒ@¶¬
+	// ã‚¯ã‚¢ãƒƒãƒ‰é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç”Ÿæˆ
 	static Void CreateFullscreenQuad();
 
-	// ƒVƒF[ƒ_[¶¬
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ç”Ÿæˆ
 	static Void CreateShaders();
 
-	// ƒTƒ“ƒvƒ‰[¶¬
+	// ã‚µãƒ³ãƒ—ãƒ©ãƒ¼ç”Ÿæˆ
 	static Void CreateSampler();
 
-	// WIC¶¬
+	// WICç”Ÿæˆ
 	static Void CreateWIC();
 
+	// D3Dæç”»åˆæœŸåŒ–
+	static Void CreateDrawImageD3D();
+
 	////////////////////////////////////////////
-	// I—¹
+	// çµ‚äº†
 	static Void Terminate();
 
-	// ƒfƒoƒCƒX‰ğ•ú
+	// ãƒ‡ãƒã‚¤ã‚¹è§£æ”¾
 	static Void ReleaseDevice();
 	
-	// SwapChain‰ğ•ú
+	// SwapChainè§£æ”¾
 	static Void ReleaseSwapChain();
 
-	// RTV‰ğ•ú
+	// RTVè§£æ”¾
 	static Void ReleaseRTV();
 	
 	static Void ReleaseFactory();
 	static Void ReleaseDeviceContext();
 
-	// ƒT[ƒtƒFƒX‰ğ•ú
+	// ã‚µãƒ¼ãƒ•ã‚§ã‚¹è§£æ”¾
 	static Void ReleaseSurface();
 	// 
-	// SRV‰ğ•ú
+	// SRVè§£æ”¾
 	static Void ReleaseSRV();
 
-	// ƒNƒAƒbƒh’¸“_ƒoƒbƒtƒ@‰ğ•ú
+	// ã‚¯ã‚¢ãƒƒãƒ‰é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡è§£æ”¾
 	static Void ReleaseFullscreenQuad();
 
-	// ƒVƒF[ƒ_[‰ğ•ú
+	// ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼è§£æ”¾
 	static Void ReleaseShaders();
 
-	// ƒTƒ“ƒvƒ‰[‰ğ•ú
+	// ã‚µãƒ³ãƒ—ãƒ©ãƒ¼è§£æ”¾
 	static Void ReleaseSampler();
 
-	// WIC‰ğ•ú
+	// WICè§£æ”¾
 	static Void ReleaseWIC();
 
+	// D3Dæç”»è§£æ”¾
+	static Void ReleaseDrawImageD3D();
+
 	////////////////////////////////////////////
-	// ‚»‚Ì‘¼
+	// ãã®ä»–
 
 	static Void Restore(SNSize* size);
 
-	// ƒXƒe[ƒgƒNƒŠƒA
+	// ã‚¹ãƒ†ãƒ¼ãƒˆã‚¯ãƒªã‚¢
 	static Void ClearState();
 
-	// ƒtƒŠƒbƒvˆ—
+	// ãƒ•ãƒªãƒƒãƒ—å‡¦ç†
 	static Void Flip(SNRect* rect);
 
-	// ƒtƒ‹ƒXƒNƒŠ[ƒ“İ’è
+	// ãƒ•ãƒ«ã‚¹ã‚¯ãƒªãƒ¼ãƒ³è¨­å®š
 	static Void SetFullScreen(Boolean fs);
 
-	// ƒŠƒTƒCƒY
+	// ãƒªã‚µã‚¤ã‚º
 	static Void ResizeBuffer(SNSize* size);
 
-	// ‰æ–ÊƒTƒCƒYæ“¾
+	// ç”»é¢ã‚µã‚¤ã‚ºå–å¾—
 	static Void GetWindowSize(SNSize* size);
 
+	////////////////////////////////////////////
+	// D3Dæç”»
+
+	static Void D3DBegin(Handle ctx, SNBitmap* target);
+
+	static Void DrawImageD3D(Handle ctx, SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNSize* size);
+
+	static Void D3DEnd(Handle ctx);
+
 public:
+
+	struct SNTileVertex
+	{
+		Float32 PosX;   // ç”»é¢ä¸Šã® Xï¼ˆå¾Œã§æ‹¡å¤§ã•ã‚Œã‚‹ï¼‰
+		Float32 PosY;   // ç”»é¢ä¸Šã® Yï¼ˆå¾Œã§æ‹¡å¤§ã•ã‚Œã‚‹ï¼‰
+		Float32 PosZ;   // 2Dãªã®ã§å¸¸ã« 0
+
+		Float32 U;      // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã® Uï¼ˆ0ã€œ1ï¼‰
+		Float32 V;      // ãƒ†ã‚¯ã‚¹ãƒãƒ£ã® Vï¼ˆ0ã€œ1ï¼‰
+	};
+
+	struct SNTileCB
+	{
+		Float32 DstX;
+		Float32 DstY;
+		Float32 DstW;
+		Float32 DstH;
+
+		Float32 SrcX;
+		Float32 SrcY;
+		Float32 SrcW;
+		Float32 SrcH;
+
+		Float32 Alpha;
+		Float32 ScreenWidth;
+		Float32 ScreenHeight;
+		Float32 reserve;
+
+		Float32 Reserve2[4];
+	};
 
 	static Handle Device;
 	static Handle DeviceContext;
@@ -103,14 +148,26 @@ public:
 	static Handle RenderTargetView;
 	static Handle ShaderResourceView;
 
+	// ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚µãƒ¼ãƒ•ã‚§ã‚¹
 	static Handle VertexBuffer;
 	static Handle InputLayout;
 	static Handle VertexShader;
 	static Handle PixelShader;
 	static Handle SamplerState;
 
+	// D2D11
 	static Handle D2DFactory;
 	static Handle D2DDevice;
 	static SNGraphicsContext D2DGraphicsContext;
 	static SNBitmap D2DTargetBitmap;
+
+	// D3Dæç”»
+	static Handle TileVertexBuffer;
+	static Handle TileIndexBuffer;
+	static Handle TileConstantBuffer;
+	static Handle WorldVSShader;
+	static Handle WorldPSShader;
+	static Handle WorldInputLayout;
+	static Handle WorldSampler;
+	static Handle WorldBlendState;
 };
