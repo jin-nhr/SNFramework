@@ -106,9 +106,11 @@ public:
 
 	static Void D3DBegin(Handle ctx, SNBitmap* target);
 
-	static Void DrawImageD3D(Handle ctx, SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNSize* size);
+	static Void DrawImageD3D(Handle ctx, SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha);
 
 	static Void D3DEnd(Handle ctx);
+
+	static Void FlushD3DDrawCommand(Handle ctx);
 
 public:
 
@@ -122,7 +124,7 @@ public:
 		Float32 V;      // テクスチャの V（0〜1）
 	};
 
-	struct SNTileCB
+	struct SNTile
 	{
 		Float32 DstX;
 		Float32 DstY;
@@ -141,6 +143,8 @@ public:
 
 		Float32 Reserve2[4];
 	};
+
+	static constexpr Int64 D3DDrawCommandMax = 32767;
 
 	static Handle Device;
 	static Handle DeviceContext;
@@ -162,12 +166,18 @@ public:
 	static SNBitmap D2DTargetBitmap;
 
 	// D3D描画
-	static Handle TileVertexBuffer;
-	static Handle TileIndexBuffer;
-	static Handle TileConstantBuffer;
+	static Handle WorldVertexBuffer;
+	static Handle WorldIndexBuffer;
+	static Handle WorldConstantBuffer;
+	static Handle WorldInstanceBuffer;
+	static Handle WorldInstanceSRV;
 	static Handle WorldVSShader;
 	static Handle WorldPSShader;
 	static Handle WorldInputLayout;
 	static Handle WorldSampler;
 	static Handle WorldBlendState;
+	static SNBitmap* D3DSourceBitmap;
+	static SNSize D3DTargetSize;
+	static SNTile D3DDrawCommand[D3DDrawCommandMax];
+	static UInt32 D3DDrawCommandNum;
 };

@@ -72,16 +72,16 @@ protected:
 	virtual Void OnDraw(SNGraphicsContext* grc);
 
 	// 周辺オブジェクト描画(D3D)
-	virtual Void DrawNearbyObject(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base, SNSize* size);
-	virtual Void DrawNearbyObjectGround(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base, SNSize* size);
-	virtual Void DrawNearbyObjectEffectGround(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base, SNSize* size);
-	virtual Void DrawNearbyObjectActiveObject(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base, SNSize* size);
-	virtual Void DrawNearbyObjectFocus(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base, SNSize* size);
+	virtual Void DrawNearbyObject(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base);
+	virtual Void DrawNearbyObjectGround(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base);
+	virtual Void DrawNearbyObjectEffectGround(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base);
+	virtual Void DrawNearbyObjectActiveObject(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base);
+	virtual Void DrawNearbyObjectFocus(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base);
 
-	virtual Void DrawGround(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base, SNSize* size);
-	virtual Void DrawGroundBorder(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base, SNSize* size);
-	virtual Void DrawGroundShadow(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base, SNSize* size);
-	virtual Void DrawActiveObject(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, SNWObjectchip::SNWActState obj_state, SNPoint* draw_base, SNSize* size);
+	virtual Void DrawGround(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
+	virtual Void DrawGroundBorder(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
+	virtual Void DrawGroundShadow(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
+	virtual Void DrawActiveObject(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, SNWObjectchip::SNWActState obj_state, SNPoint* draw_base);
 
 	// ソート処理用オブジェクト比較
 	static Boolean CompareDrawObjectN(Void* a, Void* b);

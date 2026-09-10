@@ -27,14 +27,22 @@ Handle SNGraphicsDevice::D2DDevice = nullptr;
 SNGraphicsContext SNGraphicsDevice::D2DGraphicsContext;
 SNBitmap SNGraphicsDevice::D2DTargetBitmap;
 
-Handle SNGraphicsDevice::TileVertexBuffer = nullptr;
-Handle SNGraphicsDevice::TileIndexBuffer = nullptr;
-Handle SNGraphicsDevice::TileConstantBuffer = nullptr;
+Handle SNGraphicsDevice::WorldVertexBuffer = nullptr;
+Handle SNGraphicsDevice::WorldIndexBuffer = nullptr;
+Handle SNGraphicsDevice::WorldConstantBuffer = nullptr;
+Handle SNGraphicsDevice::WorldInstanceBuffer = nullptr;
+Handle SNGraphicsDevice::WorldInstanceSRV = nullptr;
 Handle SNGraphicsDevice::WorldVSShader = nullptr;
 Handle SNGraphicsDevice::WorldPSShader = nullptr;
 Handle SNGraphicsDevice::WorldInputLayout = nullptr;
 Handle SNGraphicsDevice::WorldSampler = nullptr;
 Handle SNGraphicsDevice::WorldBlendState = nullptr;
+
+SNBitmap* SNGraphicsDevice::D3DSourceBitmap = nullptr;
+SNSize SNGraphicsDevice::D3DTargetSize;
+
+SNGraphicsDevice::SNTile SNGraphicsDevice::D3DDrawCommand[D3DDrawCommandMax];
+UInt32 SNGraphicsDevice::D3DDrawCommandNum = 0;
 
 Void SNGraphicsDevice::Initialize()
 {
@@ -319,6 +327,9 @@ Void SNGraphicsDevice::CreateDrawImageD3D()
     D3D11_BLEND_DESC bd = {};
     D3D11_RENDER_TARGET_BLEND_DESC* rt;
 
+    D3D11_SHADER_RESOURCE_VIEW_DESC srv_desc = {};
+    ID3D11ShaderResourceView* srv = nullptr;
+
     HRESULT hr;
 
     // 頂点バッファ生成
@@ -333,7 +344,7 @@ Void SNGraphicsDevice::CreateDrawImageD3D()
 
     if (buf != nullptr)
     {
-        TileVertexBuffer = buf;
+        WorldVertexBuffer = buf;
         buf = nullptr;
     }
 
@@ -349,13 +360,13 @@ Void SNGraphicsDevice::CreateDrawImageD3D()
 
     if (buf != nullptr)
     {
-        TileIndexBuffer = buf;
+        WorldIndexBuffer = buf;
         buf = nullptr;
     }
 
     // コンスタントバッファ生成
     ZeroMemory(&desc, sizeof(desc));
-    desc.ByteWidth = sizeof(SNTileCB);
+    desc.ByteWidth = sizeof(SNTile);
     desc.Usage = D3D11_USAGE_DEFAULT;
     desc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
     desc.CPUAccessFlags = 0;
@@ -364,9 +375,36 @@ Void SNGraphicsDevice::CreateDrawImageD3D()
 
     if (buf != nullptr)
     {
-        TileConstantBuffer = buf;
+        WorldConstantBuffer = buf;
     }
 
+    // インスタンスデータバッファ
+    ZeroMemory(&desc, sizeof(desc));
+    desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+    desc.ByteWidth = sizeof(SNTile) * D3DDrawCommandMax;
+    desc.StructureByteStride = sizeof(SNTile);
+    desc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
+    desc.Usage = D3D11_USAGE_DYNAMIC;
+    desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+    hr = dev->CreateBuffer(&desc, nullptr, &buf);
+    if (buf != nullptr)
+    {
+        WorldInstanceBuffer = buf;
+
+        // インスタンスバッファのSRV作成
+        srv_desc.Format = DXGI_FORMAT_UNKNOWN;
+        srv_desc.ViewDimension = D3D11_SRV_DIMENSION_BUFFER;
+        srv_desc.Buffer.FirstElement = 0;
+        srv_desc.Buffer.NumElements = D3DDrawCommandMax;
+
+        hr = dev->CreateShaderResourceView(buf, &srv_desc, &srv);
+
+        if (srv != nullptr)
+        {
+            WorldInstanceSRV = srv;
+        }
+    }
 
     hr = dev->CreateVertexShader(
         g_WorldShaderVS,
@@ -581,13 +619,15 @@ Void SNGraphicsDevice::ReleaseSampler()
 
 Void SNGraphicsDevice::ReleaseDrawImageD3D()
 {
-    ID3D11Buffer* vertex = (ID3D11Buffer*)TileVertexBuffer;
-    ID3D11Buffer* index = (ID3D11Buffer*)TileIndexBuffer;
-    ID3D11Buffer* constbuf = (ID3D11Buffer*)TileConstantBuffer;
+    ID3D11Buffer* vertex = (ID3D11Buffer*)WorldVertexBuffer;
+    ID3D11Buffer* index = (ID3D11Buffer*)WorldIndexBuffer;
+    ID3D11Buffer* constbuf = (ID3D11Buffer*)WorldConstantBuffer;
+    ID3D11Buffer* instbuf = (ID3D11Buffer*)WorldInstanceBuffer;
     ID3D11VertexShader* vs = (ID3D11VertexShader*)WorldVSShader;
     ID3D11PixelShader* ps = (ID3D11PixelShader*)WorldPSShader;
     ID3D11SamplerState* ss = (ID3D11SamplerState*)WorldSampler;
     ID3D11BlendState* bs = (ID3D11BlendState*)WorldBlendState;
+    ID3D11ShaderResourceView* srv = (ID3D11ShaderResourceView*)WorldInstanceSRV;
 
     if (WorldBlendState != nullptr)
     {
@@ -613,22 +653,34 @@ Void SNGraphicsDevice::ReleaseDrawImageD3D()
         WorldVSShader = nullptr;
     }
 
-    if (TileConstantBuffer != nullptr)
+    if (WorldInstanceSRV != nullptr)
+    {
+        srv->Release();
+        WorldInstanceSRV = nullptr;
+    }
+
+    if (WorldInstanceBuffer != nullptr)
+    {
+        instbuf->Release();
+        WorldInstanceBuffer = nullptr;
+    }
+
+    if (WorldConstantBuffer != nullptr)
     {
         constbuf->Release();
-        TileConstantBuffer = nullptr;
+        WorldConstantBuffer = nullptr;
     }
 
-    if (TileIndexBuffer != nullptr)
+    if (WorldIndexBuffer != nullptr)
     {
         index->Release();
-        TileIndexBuffer = nullptr;
+        WorldIndexBuffer = nullptr;
     }
 
-    if (TileVertexBuffer != nullptr)
+    if (WorldVertexBuffer != nullptr)
     {
         vertex->Release();
-        TileVertexBuffer = nullptr;
+        WorldVertexBuffer = nullptr;
     }
 
     return;
@@ -784,7 +836,7 @@ Void SNGraphicsDevice::D3DBegin(Handle ctx, SNBitmap* target)
     ID3D11InputLayout* input_layout = (ID3D11InputLayout*)SNGraphicsDevice::WorldInputLayout;
     ID3D11VertexShader* vs = (ID3D11VertexShader*)SNGraphicsDevice::WorldVSShader;
     ID3D11PixelShader* ps = (ID3D11PixelShader*)SNGraphicsDevice::WorldPSShader;
-    ID3D11Buffer* vb = (ID3D11Buffer*)TileVertexBuffer;
+    ID3D11Buffer* vb = (ID3D11Buffer*)WorldVertexBuffer;
     UINT stride = sizeof(SNTileVertex);
     UINT offset = 0;
     D3D11_VIEWPORT vp = {0};
@@ -826,59 +878,92 @@ Void SNGraphicsDevice::D3DBegin(Handle ctx, SNBitmap* target)
     d3d_ctx->VSSetShader(vs, nullptr, 0);
     d3d_ctx->PSSetShader(ps, nullptr, 0);
 
+    target->GetSize(&D3DTargetSize);
+
+    D3DSourceBitmap = nullptr;
+
+    D3DDrawCommandNum = 0;
+
     return;
 }
 
-Void SNGraphicsDevice::DrawImageD3D(Handle ctx, SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNSize* size)
+Void SNGraphicsDevice::DrawImageD3D(Handle ctx, SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha)
 {
-    ID3D11DeviceContext* d3d_ctx = (ID3D11DeviceContext*)ctx;
-    SNTileCB cb = {0};
-    ID3D11Buffer* cbh = (ID3D11Buffer*)TileConstantBuffer;
-    ID3D11ShaderResourceView* srv = (ID3D11ShaderResourceView*)src->GetSRV();
-    D3D11_VIEWPORT vp;
-    ID3D11SamplerState* ss = (ID3D11SamplerState*)WorldSampler;
-    UINT vp_num = 1;
+    // ソースが変わる場合は描画する
+    if (D3DSourceBitmap != src)
+    {
+        FlushD3DDrawCommand(ctx);
 
-    d3d_ctx->RSGetViewports(&vp_num, &vp);
+        D3DSourceBitmap = src;
+    }
 
-    // --- 定数バッファ更新（座標とUVとアルファ） ---
-    cb.DstX = (Float32)dst_rect->PointX;
-    cb.DstY = (Float32)dst_rect->PointY;
-    cb.DstW = (Float32)dst_rect->Width;
-    cb.DstH = (Float32)dst_rect->Height;
+    // 描画コマンドを追加設定する
+    D3DDrawCommand[D3DDrawCommandNum].DstX = (Float32)dst_rect->PointX;
+    D3DDrawCommand[D3DDrawCommandNum].DstY = (Float32)dst_rect->PointY;
+    D3DDrawCommand[D3DDrawCommandNum].DstW = (Float32)dst_rect->Width;
+    D3DDrawCommand[D3DDrawCommandNum].DstH = (Float32)dst_rect->Height;
 
-    cb.SrcX = (Float32)src_rect->PointX;
-    cb.SrcY = (Float32)src_rect->PointY;
-    cb.SrcW = (Float32)src_rect->Width;
-    cb.SrcH = (Float32)src_rect->Height;
+    D3DDrawCommand[D3DDrawCommandNum].SrcX = (Float32)src_rect->PointX;
+    D3DDrawCommand[D3DDrawCommandNum].SrcY = (Float32)src_rect->PointY;
+    D3DDrawCommand[D3DDrawCommandNum].SrcW = (Float32)src_rect->Width;
+    D3DDrawCommand[D3DDrawCommandNum].SrcH = (Float32)src_rect->Height;
 
-    cb.Alpha = (Float32)alpha / (Float32)SNAlphaMax;
-    cb.ScreenWidth = vp.Width;
-    cb.ScreenHeight = vp.Height;
+    D3DDrawCommand[D3DDrawCommandNum].Alpha = (Float32)alpha / (Float32)SNAlphaMax;
+    D3DDrawCommand[D3DDrawCommandNum].ScreenWidth = (Float32)D3DTargetSize.Width;
+    D3DDrawCommand[D3DDrawCommandNum].ScreenHeight = (Float32)D3DTargetSize.Height;
 
-    // 定数バッファ設定
-    d3d_ctx->UpdateSubresource(cbh, 0, nullptr, &cb, 0, 0);
-    d3d_ctx->VSSetConstantBuffers(0, 1, &cbh);
-    d3d_ctx->PSSetConstantBuffers(0, 1, &cbh);
-
-    // SRV設定
-    d3d_ctx->PSSetShaderResources(0, 1, &srv);
-
-    // サンプラ設定
-    d3d_ctx->PSSetSamplers(0, 1, &ss);
-
-    // インデックスバッファ設定
-    d3d_ctx->IASetIndexBuffer((ID3D11Buffer*)TileIndexBuffer, DXGI_FORMAT_R16_UINT, 0);
-
-    // 描画
-    d3d_ctx->DrawIndexed(6, 0, 0);
+    D3DDrawCommandNum++;
 
     return;
 }
 
 Void SNGraphicsDevice::D3DEnd(Handle ctx)
 {
+    // 残っている描画コマンドを処理
+    FlushD3DDrawCommand(ctx);
+
+    D3DSourceBitmap = nullptr;
+
     return;
 }
 
 
+Void SNGraphicsDevice::FlushD3DDrawCommand(Handle ctx)
+{
+    ID3D11DeviceContext* d3d_ctx = (ID3D11DeviceContext*)ctx;
+    ID3D11Buffer* cbh = (ID3D11Buffer*)WorldConstantBuffer;
+    ID3D11ShaderResourceView* srv = nullptr;
+    ID3D11SamplerState* ss = (ID3D11SamplerState*)WorldSampler;
+    ID3D11Buffer* inst_buf = (ID3D11Buffer*)WorldInstanceBuffer;
+    ID3D11ShaderResourceView* inst_srv = (ID3D11ShaderResourceView*)WorldInstanceSRV;
+    D3D11_MAPPED_SUBRESOURCE mapped;
+
+    if (D3DDrawCommandNum != 0)
+    {
+        srv = (ID3D11ShaderResourceView*)D3DSourceBitmap->GetSRV();
+
+        // SRV設定
+        d3d_ctx->PSSetShaderResources(0, 1, &srv);
+
+        // サンプラ設定
+        d3d_ctx->PSSetSamplers(0, 1, &ss);
+
+        // インデックスバッファ設定
+        d3d_ctx->IASetIndexBuffer((ID3D11Buffer*)WorldIndexBuffer, DXGI_FORMAT_R16_UINT, 0);
+
+        // GPUへインスタンスデータを転送
+        d3d_ctx->Map(inst_buf, 0, D3D11_MAP_WRITE_DISCARD, 0, &mapped);
+        memcpy(mapped.pData, D3DDrawCommand, sizeof(SNTile) * D3DDrawCommandNum);
+        d3d_ctx->Unmap(inst_buf, 0);
+
+        // インスタンスデータのSRVをセット
+        d3d_ctx->VSSetShaderResources(1, 1, &inst_srv);
+
+        // 描画の実行
+        d3d_ctx->DrawIndexedInstanced(6, D3DDrawCommandNum, 0, 0, 0);
+
+        D3DDrawCommandNum = 0;
+    }
+
+    return;
+}

@@ -247,7 +247,7 @@ Void SNGUIWorldView::DrawWrokSurface()
 	for (cnt = 0; cnt < list_num; cnt++)
 	{
 		// オブジェクト描画
-		DrawNearbyObject(ctx, (SNWNearbyObject*)it->UserData, &draw_base, &size);
+		DrawNearbyObject(ctx, (SNWNearbyObject*)it->UserData, &draw_base);
 
 		it = it->Next;
 	}
@@ -435,28 +435,28 @@ Void SNGUIWorldView::SetFocusVisible(Boolean visible)
 
 
 // 周辺オブジェクト描画
-Void SNGUIWorldView::DrawNearbyObject(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base, SNSize* size)
+Void SNGUIWorldView::DrawNearbyObject(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base)
 {
 	switch (obj->Type)
 	{
 	case SNWNearbyObjectTypeGround:
-		DrawNearbyObjectGround(ctx, obj, draw_base, size);
+		DrawNearbyObjectGround(ctx, obj, draw_base);
 		break;
 	case SNWNearbyObjectTypeEffectGround:
-		DrawNearbyObjectEffectGround(ctx, obj, draw_base, size);
+		DrawNearbyObjectEffectGround(ctx, obj, draw_base);
 		break;
 	case SNWNearbyObjectTypeActiveObject:
-		DrawNearbyObjectActiveObject(ctx, obj, draw_base, size);
+		DrawNearbyObjectActiveObject(ctx, obj, draw_base);
 		break;
 	case SNWNearbyObjectTypeFocus:
-		DrawNearbyObjectFocus(ctx, obj, draw_base, size);
+		DrawNearbyObjectFocus(ctx, obj, draw_base);
 		break;
 	}
 
 	return;
 }
 
-Void SNGUIWorldView::DrawNearbyObjectGround(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base, SNSize* size)
+Void SNGUIWorldView::DrawNearbyObjectGround(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base)
 {
 	UInt16 code;
 	UInt16 chip_code = (UInt16)(intptr_t)obj->UserData;
@@ -465,12 +465,12 @@ Void SNGUIWorldView::DrawNearbyObjectGround(Handle ctx, SNWNearbyObject* obj, SN
 	code = SNMapchip::Data[chip_code].Code[SNWorld::GetAGroundAnimeStep()];
 
 	// 描画
-	DrawGround(ctx, obj, code, draw_base, size);
+	DrawGround(ctx, obj, code, draw_base);
 
 	return;
 }
 
-Void SNGUIWorldView::DrawNearbyObjectEffectGround(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base, SNSize* size)
+Void SNGUIWorldView::DrawNearbyObjectEffectGround(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base)
 {
 	UInt64 effect_flg = (UInt64)(intptr_t)obj->UserData;
 	UInt16 code;
@@ -540,7 +540,7 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(Handle ctx, SNWNearbyObject* o
 	if (code != 0)
 	{
 		// 描画
-		DrawGround(ctx, obj, code, draw_base, size);
+		DrawGround(ctx, obj, code, draw_base);
 	}
 
 
@@ -549,48 +549,48 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(Handle ctx, SNWNearbyObject* o
 	if ((effect_flg & border_mask[ViewDir][0]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirR];
-		DrawGround(ctx, obj, code, draw_base, size);
+		DrawGround(ctx, obj, code, draw_base);
 	}
 	if ((effect_flg & border_mask[ViewDir][1]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirL];
-		DrawGround(ctx, obj, code, draw_base, size);
+		DrawGround(ctx, obj, code, draw_base);
 	}
 
 	if ((effect_flg & border_mask[ViewDir][2]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirRB];
-		DrawGround(ctx, obj, code, draw_base, size);
+		DrawGround(ctx, obj, code, draw_base);
 	}
 
 	if ((effect_flg & border_mask[ViewDir][3]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirLB];
-		DrawGround(ctx, obj, code, draw_base, size);
+		DrawGround(ctx, obj, code, draw_base);
 	}
 
 	if ((effect_flg & border_mask[ViewDir][4]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirT];
-		DrawGround(ctx, obj, code, draw_base, size);
+		DrawGround(ctx, obj, code, draw_base);
 	}
 
 	if ((effect_flg & border_mask[ViewDir][5]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderSideR];
-		DrawGround(ctx, obj, code, draw_base, size);
+		DrawGround(ctx, obj, code, draw_base);
 	}
 
 	if ((effect_flg & border_mask[ViewDir][6]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderSideL];
-		DrawGround(ctx, obj, code, draw_base, size);
+		DrawGround(ctx, obj, code, draw_base);
 	}
 
 	if ((effect_flg & border_mask[ViewDir][7]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderBottom];
-		DrawGround(ctx, obj, code, draw_base, size);
+		DrawGround(ctx, obj, code, draw_base);
 	}
 
 	//////////////////////////////////////////////////
@@ -598,25 +598,25 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(Handle ctx, SNWNearbyObject* o
 	if ((effect_flg & pshadow_mask[ViewDir][0]) != 0)
 	{
 		code = SNMapchip::ShadowCode[SNWorldShadowSideR];
-		DrawGround(ctx, obj, code, draw_base, size);
+		DrawGround(ctx, obj, code, draw_base);
 	}
 	if ((effect_flg & pshadow_mask[ViewDir][1]) != 0)
 	{
 		code = SNMapchip::ShadowCode[SNWorldShadowSideL];
-		DrawGround(ctx, obj, code, draw_base, size);
+		DrawGround(ctx, obj, code, draw_base);
 	}
 
 	if ((effect_flg & SNWNearbyEffectGroundBitPShadowT) != 0)
 	{
 		code = SNMapchip::ShadowCode[SNWorldShaodwDirT];
-		DrawGround(ctx, obj, code, draw_base, size);
+		DrawGround(ctx, obj, code, draw_base);
 	}
 
 	return;
 }
 
 
-Void SNGUIWorldView::DrawNearbyObjectActiveObject(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base, SNSize* size)
+Void SNGUIWorldView::DrawNearbyObjectActiveObject(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base)
 {
 	SNWObjectBase* obj_ptr = (SNWObjectBase*)obj->UserData;
 
@@ -626,14 +626,14 @@ Void SNGUIWorldView::DrawNearbyObjectActiveObject(Handle ctx, SNWNearbyObject* o
 	UInt16 code = obj_ptr->GetCode();
 
 	// 描画
-	DrawActiveObject(ctx, obj, code, obj_dir, act_state, draw_base, size);
+	DrawActiveObject(ctx, obj, code, obj_dir, act_state, draw_base);
 
 	return;
 }
 
 
 // フォーカス描画
-Void SNGUIWorldView::DrawNearbyObjectFocus(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base, SNSize* size)
+Void SNGUIWorldView::DrawNearbyObjectFocus(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base)
 {
 	Int32 x, y, z;
 
@@ -643,15 +643,15 @@ Void SNGUIWorldView::DrawNearbyObjectFocus(Handle ctx, SNWNearbyObject* obj, SNP
 
 	if (SNWorld::GetNearbySpace()->IsBlocked(x, y, z, SNWNearbyObjectTypeGround))
 	{
-		DrawGround(ctx, obj, SNMapchip::SelectedCode, draw_base, size);
+		DrawGround(ctx, obj, SNMapchip::SelectedCode, draw_base);
 	}
 
-	DrawGround(ctx, obj, SNMapchip::FocusCode, draw_base, size);
+	DrawGround(ctx, obj, SNMapchip::FocusCode, draw_base);
 
 	return;
 }
 
-Void SNGUIWorldView::DrawGround(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base, SNSize* size)
+Void SNGUIWorldView::DrawGround(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base)
 {
 	SNRect src_rect;
 	SNRect dst_rect;
@@ -678,13 +678,13 @@ Void SNGUIWorldView::DrawGround(Handle ctx, SNWNearbyObject* obj, UInt16 code, S
 		&dst_rect,
 		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource[SNMapchip::CodeToResID(code)]),
 		&src_rect,
-		SNAlphaMax, size);
+		SNAlphaMax);
 
 	return;
 }
 
 
-Void SNGUIWorldView::DrawGroundBorder(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base, SNSize* size)
+Void SNGUIWorldView::DrawGroundBorder(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base)
 {
 	SNRect src_rect;
 	SNRect dst_rect;
@@ -711,12 +711,12 @@ Void SNGUIWorldView::DrawGroundBorder(Handle ctx, SNWNearbyObject* obj, UInt16 c
 		&dst_rect,
 		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource[SNMapchip::CodeToResID(code)]),
 		&src_rect,
-		SNAlphaMax, size);
+		SNAlphaMax);
 
 	return;
 }
 
-Void SNGUIWorldView::DrawGroundShadow(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base, SNSize* size)
+Void SNGUIWorldView::DrawGroundShadow(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base)
 {
 	SNRect src_rect;
 	SNRect dst_rect;
@@ -743,13 +743,13 @@ Void SNGUIWorldView::DrawGroundShadow(Handle ctx, SNWNearbyObject* obj, UInt16 c
 		&dst_rect,
 		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource[SNMapchip::CodeToResID(code)]),
 		&src_rect,
-		SNAlphaMax, size);
+		SNAlphaMax);
 
 	return;
 }
 
 
-Void SNGUIWorldView::DrawActiveObject(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, SNWObjectchip::SNWActState act_state, SNPoint* draw_base, SNSize* size)
+Void SNGUIWorldView::DrawActiveObject(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, SNWObjectchip::SNWActState act_state, SNPoint* draw_base)
 {
 	SNRect src_rect;
 	SNRect dst_rect;
@@ -780,7 +780,7 @@ Void SNGUIWorldView::DrawActiveObject(Handle ctx, SNWNearbyObject* obj, UInt16 c
 		&dst_rect,
 		SNGraphicsResManager::GetResource(SNWObjectchip::ObjectchipResource[SNWObjectchip::CodeToResID(code)]),
 		&src_rect,
-		SNAlphaMax, size);
+		SNAlphaMax);
 
 	return;
 }
