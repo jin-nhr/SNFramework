@@ -69,19 +69,19 @@ protected:
 	virtual Void SortObject();
 	virtual Void DrawWrokSurface();
 
-	virtual Void OnDraw(SNGraphicsContext* grc);
+	virtual Void OnDraw();
 
 	// 周辺オブジェクト描画(D3D)
-	virtual Void DrawNearbyObject(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base);
-	virtual Void DrawNearbyObjectGround(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base);
-	virtual Void DrawNearbyObjectEffectGround(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base);
-	virtual Void DrawNearbyObjectActiveObject(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base);
-	virtual Void DrawNearbyObjectFocus(Handle ctx, SNWNearbyObject* obj, SNPoint* draw_base);
+	virtual Void DrawNearbyObject(SNWNearbyObject* obj, SNPoint* draw_base);
+	virtual Void DrawNearbyObjectGround(SNWNearbyObject* obj, SNPoint* draw_base);
+	virtual Void DrawNearbyObjectEffectGround(SNWNearbyObject* obj, SNPoint* draw_base);
+	virtual Void DrawNearbyObjectActiveObject(SNWNearbyObject* obj, SNPoint* draw_base);
+	virtual Void DrawNearbyObjectFocus(SNWNearbyObject* obj, SNPoint* draw_base);
 
-	virtual Void DrawGround(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
-	virtual Void DrawGroundBorder(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
-	virtual Void DrawGroundShadow(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
-	virtual Void DrawActiveObject(Handle ctx, SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, SNWObjectchip::SNWActState obj_state, SNPoint* draw_base);
+	virtual Void DrawGround(SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
+	virtual Void DrawGroundBorder(SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
+	virtual Void DrawGroundShadow(SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
+	virtual Void DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, SNWObjectchip::SNWActState obj_state, SNPoint* draw_base);
 
 	// ソート処理用オブジェクト比較
 	static Boolean CompareDrawObjectN(Void* a, Void* b);

@@ -3,6 +3,7 @@
 #include "SNSystemConfig.h"
 #include "SNMath.h"
 #include "SNGraphicsDevice.h"
+#include "SNGraphicsResManager.h"
 
 SNBitmap SNMute::Surface;
 Boolean SNMute::NowMuteSts = false;
@@ -44,19 +45,13 @@ SNMute::~SNMute()
 Void SNMute::OnInitialize()
 {
 	SNSize size;
-	SNGraphicsContext* grc = &SNGraphicsDevice::D2DGraphicsContext;
-	SNColor color = { 0, 0, 0, 255 };	// 黒
+	SNColor color = { 0, 0, 0, 255 };
 
 	size.Width = SNSystemConfig::ScreenWidth;
 	size.Height = SNSystemConfig::ScreenHeight;
 
 	// 画面サイズのサーフェス生成
-	grc->CreateBitmap(&Surface, &size);
-
-	// 初期設定
-	grc->Begin(&Surface);
-	grc->Clear(&color);
-	grc->End();
+	SNGraphicsDevice::CreateBitmap(&Surface, &size);
 
 	FadeInSeq.Initialize(this, 0, 3);
 	FadeInSeq.SetWait(0, 0);
@@ -88,6 +83,28 @@ Void SNMute::OnEntry()
 	Alpha = SNAlphaMin;;
 	RequestMute = false;
 	RequestFade = false;
+
+	SNRect dst_rect;
+	SNRect src_rect;
+	SNSize size;
+	SNBitmap* src_bmp = SNGraphicsResManager::GetResource(SNGraphicsResSystemBlack);
+
+	src_bmp->GetSize(&size);
+
+	dst_rect.PointX = 0;
+	dst_rect.PointY = 0;
+	dst_rect.Width = SNSystemConfig::ScreenWidth;
+	dst_rect.Height = SNSystemConfig::ScreenHeight;
+
+	src_rect.PointX = 0;
+	src_rect.PointY = 0;
+	src_rect.Width = size.Width;
+	src_rect.Height = size.Height;
+
+	// 初期設定
+	SNGraphicsDevice::Begin(&Surface);
+	SNGraphicsDevice::DrawImage(&dst_rect, src_bmp, &src_rect, SNAlphaMax);
+	SNGraphicsDevice::End();
 
 	return;
 }
@@ -156,8 +173,9 @@ Void SNMute::OnCycle()
 }
 
 // 描画処理
-Void SNMute::OnDraw(SNGraphicsContext* grc)
+Void SNMute::OnDraw()
 {
+	
 	SNSize size;
 	SNRect dst_rect;
 	SNRect src_rect;
@@ -174,7 +192,7 @@ Void SNMute::OnDraw(SNGraphicsContext* grc)
 	src_rect.Width = size.Width;
 	src_rect.Height = size.Height;
 
-	grc->DrawImage(&dst_rect, &Surface, &src_rect, (UInt8)Alpha);
+	SNGraphicsDevice::DrawImage(&dst_rect, &Surface, &src_rect, (UInt8)Alpha);
 
 	return;
 }

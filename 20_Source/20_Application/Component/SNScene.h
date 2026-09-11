@@ -2,7 +2,6 @@
 #include "SNFrameworkInternal.h"
 #include "SNEvent.h"
 #include "SNPhase.h"
-#include "SNGraphicsContext.h"
 
 // シーンクラス
 class SNScene : public SNPhase
@@ -33,7 +32,7 @@ public:
 	virtual Void PreDraw();
 
 	// 描画処理(インターフェース)
-	virtual Void Draw(SNGraphicsContext* grc);
+	virtual Void Draw();
 
 	// 描画後処理
 	virtual Void PostDraw();
@@ -125,7 +124,7 @@ protected:
 	virtual Void OnPreDraw();
 
 	// 描画処理(実装用)
-	virtual Void OnDraw(SNGraphicsContext* grc);
+	virtual Void OnDraw();
 
 	// 描画後処理
 	virtual Void OnPostDraw();

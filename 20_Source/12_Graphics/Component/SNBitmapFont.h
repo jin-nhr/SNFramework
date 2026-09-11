@@ -1,8 +1,6 @@
 #pragma once
 #include "SNFrameworkInternal.h"
-#include "SNGraphicsContext.h"
 #include "SNBitmap.h"
-#include "SNColorMatrix.h"
 #include "SNStore.h"
 
 // ビットマップフォントクラス
@@ -21,19 +19,12 @@ public:
 	static Void Terminate();
 
 	// システムテキスト描画
-	static Void DrawSystemText(SNGraphicsContext* dst_dc, Int32 x, Int32 y, BMString str, UInt32 len);
+	static Void DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len);
 
-	// ストアからワーク取得
-	static SNListContainer* GetWorkSurface();
-
-	// ワーク解放
-	static Void ReleaseWorkSurface(SNListContainer* work);
-
-	// テキストのプレ描画
-	static Void PreDrawText(SNListContainer* work, BMString str, UInt32 len);
+	static Void DrawSystemTextImp(Int32 x, Int32 y, BMString str, UInt32 len, SNColor* color);
 
 	// 拡張テキスト描画
-	static Void DrawExtraText(SNGraphicsContext* dst_dc, SNListContainer* work, Int32 x, Int32 y, SNColor* color, UInt32 len);
+	static Void DrawExtraText(Int32 x, Int32 y, SNColor* color, BMString str, UInt32 len);
 
 	// String→BMString
 	static Void StringToBMString(String str, Int32 len, BMString bmstr, Int32 bmlen);
@@ -65,9 +56,5 @@ public:
 	static constexpr UInt32 BMCharBlockNumY = 16;
 
 private:
-	static SNColorMatrix ColorMatrix;
-	static SNStore       WorkStore;
 
-	static Void* CreateWorkSurface();
-	static Void DeleteWorkSurface(Void* res);
 };

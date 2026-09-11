@@ -3,7 +3,6 @@
 #include "SNImageCodecAccessor.h"
 #include "SNBitmap.h"
 #include "SNDIBPixel.h"
-#include "SNGraphicsContext.h"
 
 // DIBƒNƒ‰ƒX
 // SNBitmap, SNDeviceContext‚Æ“¯—l‚ÌIF‚ð‚à‚Â‚ª

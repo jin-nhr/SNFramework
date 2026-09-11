@@ -240,15 +240,15 @@ Void SNWorldAppTest::OnPreDraw()
 	return;
 }
 
-Void SNWorldAppTest::OnDraw(SNGraphicsContext* grc)
+Void SNWorldAppTest::OnDraw()
 {
 	SNBitmap* bmp = SNGraphicsResManager::GetResource(SNGraphicsResMapchip1);
 	SNWorldDir dir = WorldView.GetViewDir();
 	SNWorldShadowDir shadow_dir = SNWorldShadowDirR;
 
-	SNWorldAppBase::OnDraw(grc);
+	SNWorldAppBase::OnDraw();
 
-	Win.Draw(grc);
+	Win.Draw();
 
 	return;
 }

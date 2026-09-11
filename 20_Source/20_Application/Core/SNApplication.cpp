@@ -155,8 +155,6 @@ UInt32 SNApplication::GetProcTime()
 // スレッドクラスのユーザー実行関数
 Void SNApplication::UserMain()
 {
-	SNGraphicsContext* grc;
-
 	// ワールド初期化
 	SNWorld::Initialize();
 
@@ -216,12 +214,12 @@ Void SNApplication::UserMain()
 				FrameworkAppLayer.PreDraw();
 
 				{
-					grc = SNGraphics::GetContext();
+					SNGraphics::BeginDraw();
 
 					// 描画処理
-					FrameworkAppLayer.Draw(grc);
+					FrameworkAppLayer.Draw();
 
-					SNGraphics::ReleaseContext();
+					SNGraphics::EndDraw();
 				}
 
 				// サーフェスフリップ

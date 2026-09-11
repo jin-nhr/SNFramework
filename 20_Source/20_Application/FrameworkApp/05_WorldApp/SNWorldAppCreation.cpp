@@ -5,6 +5,7 @@
 #include "SNGraphicsResManager.h"
 #include "SNMath.h"
 #include "SNFocus.h"
+#include "SNGraphicsDevice.h"
 
 
 SNWorldAppCreation::SNWorldAppCreation()
@@ -234,7 +235,7 @@ Void SNWorldAppCreation::OnPreDraw()
 	return;
 }
 
-Void SNWorldAppCreation::OnDraw(SNGraphicsContext* grc)
+Void SNWorldAppCreation::OnDraw()
 {
 	SNBitmap* bmp = SNGraphicsResManager::GetResource(SNGraphicsResMapchip1);
 	SNRect win_rect;
@@ -246,10 +247,10 @@ Void SNWorldAppCreation::OnDraw(SNGraphicsContext* grc)
 	SNWorldDir dir = WorldView.GetViewDir();
 	SNWorldShadowDir shadow_dir = SNWorldShadowDirR;
 
-	SNWorldAppBase::OnDraw(grc);
+	SNWorldAppBase::OnDraw();
 
-	Win.Draw(grc);
-	WinBlock.Draw(grc);
+	Win.Draw();
+	WinBlock.Draw();
 
 	// ウインドウに選択中のマップチップを描画する
 	win_rect = WinBlock.CalcGlobalRect();
@@ -262,15 +263,15 @@ Void SNWorldAppCreation::OnDraw(SNGraphicsContext* grc)
 	dst_rect.Height = src_rect.Height * 2;
 
 	// 選択中ブロック描画
-	grc->DrawImage(&dst_rect, bmp, &src_rect, SNAlphaMax);
+	SNGraphicsDevice::DrawImage(&dst_rect, bmp, &src_rect, SNAlphaMax);
 
 	// 選択中ブロックに影を付加
 	SNMapchip::CodeToRect(SNMapchip::ShadowCode[shadow_dir], dir, &src_rect);
-	grc->DrawImage(&dst_rect, bmp, &src_rect, SNAlphaMax);
+	SNGraphicsDevice::DrawImage(&dst_rect, bmp, &src_rect, SNAlphaMax);
 
 	// フォーカス描画
 	SNMapchip::CodeToRect(SNMapchip::FocusCode, dir, &src_rect);
-	grc->DrawImage(&dst_rect, bmp, &src_rect, SNAlphaMax);
+	SNGraphicsDevice::DrawImage(&dst_rect, bmp, &src_rect, SNAlphaMax);
 
 
 	dst_tmp = dst_rect;
@@ -286,11 +287,11 @@ Void SNWorldAppCreation::OnDraw(SNGraphicsContext* grc)
 		dst_tmp.PointX -= dst_tmp.Width;
 
 		// 選択中ブロック描画
-		grc->DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
+		SNGraphicsDevice::DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
 
 		// 選択中ブロックに影を付加
 		SNMapchip::CodeToRect(SNMapchip::ShadowCode[shadow_dir], dir, &src_rect);
-		grc->DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
+		SNGraphicsDevice::DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
 	}
 
 	dst_tmp = dst_rect;
@@ -306,11 +307,11 @@ Void SNWorldAppCreation::OnDraw(SNGraphicsContext* grc)
 		dst_tmp.PointX += dst_tmp.Width;
 
 		// 選択中ブロック描画
-		grc->DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
+		SNGraphicsDevice::DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
 
 		// 選択中ブロックに影を付加
 		SNMapchip::CodeToRect(SNMapchip::ShadowCode[shadow_dir], dir, &src_rect);
-		grc->DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
+		SNGraphicsDevice::DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
 	}
 
 	return;

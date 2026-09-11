@@ -147,7 +147,7 @@ Void SNScene::PreDraw()
 }
 
 // •`‰æˆ—
-Void SNScene::Draw(SNGraphicsContext* grc)
+Void SNScene::Draw()
 {
 	// —LŒø‚Ì‚İˆ—
 	if (Enable)
@@ -155,7 +155,7 @@ Void SNScene::Draw(SNGraphicsContext* grc)
 		// •\¦ó‘Ô‚Ì‚İDrawÀs
 		if (Visible)
 		{
-			OnDraw(grc);
+			OnDraw();
 		}
 	}
 	
@@ -363,7 +363,7 @@ Void SNScene::OnPreDraw()
 }
 
 // •`‰æˆ—
-Void SNScene::OnDraw(SNGraphicsContext* grc)
+Void SNScene::OnDraw()
 {
 	return;
 }

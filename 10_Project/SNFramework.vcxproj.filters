@@ -282,13 +282,7 @@
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNBitmapFont.h">
       <Filter>20_Source\12_Graphics\Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_Source\12_Graphics\Component\SNColorMatrix.h">
-      <Filter>20_Source\12_Graphics\Component</Filter>
-    </ClInclude>
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNDIBPixel.h">
-      <Filter>20_Source\12_Graphics\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_Source\12_Graphics\Component\SNGraphicsContext.h">
       <Filter>20_Source\12_Graphics\Component</Filter>
     </ClInclude>
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNScaling.h">
@@ -668,13 +662,7 @@
     <ClCompile Include="..\20_Source\12_Graphics\Component\SNBitmapFont.cpp">
       <Filter>20_Source\12_Graphics\Component</Filter>
     </ClCompile>
-    <ClCompile Include="..\20_Source\12_Graphics\Component\SNColorMatrix.cpp">
-      <Filter>20_Source\12_Graphics\Component</Filter>
-    </ClCompile>
     <ClCompile Include="..\20_Source\12_Graphics\Component\SNDIBPixel.cpp">
-      <Filter>20_Source\12_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_Source\12_Graphics\Component\SNGraphicsContext.cpp">
       <Filter>20_Source\12_Graphics\Component</Filter>
     </ClCompile>
     <ClCompile Include="..\20_Source\12_Graphics\Component\SNScaling.cpp">

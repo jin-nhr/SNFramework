@@ -38,7 +38,7 @@ Void SNGUISystemText::OnTerminate()
 }
 
 // ï`âÊèàóù
-Void SNGUISystemText::OnDraw(SNGraphicsContext* grc)
+Void SNGUISystemText::OnDraw()
 {
 	SNRect rect;
 
@@ -46,7 +46,6 @@ Void SNGUISystemText::OnDraw(SNGraphicsContext* grc)
 
 	// ï∂éöï`âÊ
 	SNBitmapFont::DrawSystemText(
-		grc,
 		rect.PointX,
 		rect.PointY,
 		Text.GetString(),

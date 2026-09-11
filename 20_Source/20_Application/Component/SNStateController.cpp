@@ -179,7 +179,7 @@ Void SNStateController::PreDraw()
 
 
 // •`‰æˆ—
-Void SNStateController::Draw(SNGraphicsContext* grc)
+Void SNStateController::Draw()
 {
 	// —LŒø
 	if (Enable)
@@ -188,10 +188,10 @@ Void SNStateController::Draw(SNGraphicsContext* grc)
 		if (Visible)
 		{
 			// ©g‚ÌScene‚Ì•`‰æˆ—
-			SNScene::Draw(grc);
+			SNScene::Draw();
 
 			// Œ»İó‘Ô‚Ì•`‰æˆ—‚ğÀs
-			((SNScene*)SceneList.DirectAccess(NowState)->UserData)->Draw(grc);
+			((SNScene*)SceneList.DirectAccess(NowState)->UserData)->Draw();
 		}
 	}
 	return;

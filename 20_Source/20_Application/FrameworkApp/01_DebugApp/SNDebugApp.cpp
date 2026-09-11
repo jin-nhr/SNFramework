@@ -99,8 +99,8 @@ Void SNDebugApp::OnCycle()
 		txtProcFPS.SetValue(SNApplication::GetProcFPS());
 		txtSkip.SetValue(SNApplication::GetSkipFrame());
 		txtProcTime.SetValue(SNApplication::GetProcTime());
-		txtDrawCnt.SetValue(SNGraphicsContext::DrawImageCounter);
-		txtDrawPix.SetValue(SNGraphicsContext::DrawPixelCounter / (1024 * 1024));
+		txtDrawCnt.SetValue(0);
+		txtDrawPix.SetValue(0);
 
 		// ESCが押されたらデバッグ表示の反転
 		// デバッグアプリはイベントに関係なく直接キー状態を見る
@@ -143,9 +143,9 @@ Void SNDebugApp::OnPreDraw()
 
 
 // 描画処理
-Void SNDebugApp::OnDraw(SNGraphicsContext* grc)
+Void SNDebugApp::OnDraw()
 {
-	cntSysInfo.Draw(grc);
+	cntSysInfo.Draw();
 
 	return;
 }

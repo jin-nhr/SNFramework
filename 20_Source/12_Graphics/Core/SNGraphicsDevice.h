@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "SNFrameworkInternal.h"
-#include "SNGraphicsContext.h"
 #include "SNBitmap.h"
+#include "SNDIB.h"
 
 class SNGraphicsDevice
 {
@@ -20,10 +20,15 @@ public:
 	// RTV生成
 	static Void CreateRTV();
 
-	static Void CreateD2DFactory();
-	static Void CreateDeviceContext();
+	static Void CreateBitmap(SNBitmap* bmp, SNSize* size);
 
-	// サーフェス生成
+	// BitmapからDIBを生成する
+	static Void CreateDIBFromBitmap(SNBitmap* src_bitmap, SNDIB* dst_dib);
+
+	// DIBからBitmapを生成する
+	static Void CreateBitmapFromDIB(SNDIB* src_dib, SNBitmap* dst_bitmap);
+
+	// 画面サーフェス生成
 	static Void CreateSurface();
 
 	// SRV生成
@@ -56,9 +61,6 @@ public:
 
 	// RTV解放
 	static Void ReleaseRTV();
-	
-	static Void ReleaseFactory();
-	static Void ReleaseDeviceContext();
 
 	// サーフェス解放
 	static Void ReleaseSurface();
@@ -101,16 +103,23 @@ public:
 	// 画面サイズ取得
 	static Void GetWindowSize(SNSize* size);
 
+
 	////////////////////////////////////////////
-	// D3D描画
+	// 描画
 
-	static Void D3DBegin(Handle ctx, SNBitmap* target);
+	static Void Begin(SNBitmap* target);
 
-	static Void DrawImageD3D(Handle ctx, SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha);
+	static Void DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect);
+	static Void DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, SNColor* color);
+	static Void DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha);
+	static Void DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNColor* color);
 
-	static Void D3DEnd(Handle ctx);
+	static Void DrawImageImp(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNColor* color);
 
-	static Void FlushD3DDrawCommand(Handle ctx);
+
+	static Void End();
+
+	static Void FlushD3DDrawCommand();
 
 public:
 
@@ -141,7 +150,10 @@ public:
 		Float32 ScreenHeight;
 		Float32 reserve;
 
-		Float32 Reserve2[4];
+		Float32 MulR;
+		Float32 MulG;
+		Float32 MulB;
+		Float32 MulA;
 	};
 
 	static constexpr Int64 D3DDrawCommandMax = 32767;
@@ -151,6 +163,7 @@ public:
 	static Handle SwapChain;
 	static Handle RenderTargetView;
 	static Handle ShaderResourceView;
+	static SNBitmap ScreenSurface;
 
 	// スクリーンサーフェス
 	static Handle VertexBuffer;
@@ -158,12 +171,6 @@ public:
 	static Handle VertexShader;
 	static Handle PixelShader;
 	static Handle SamplerState;
-
-	// D2D11
-	static Handle D2DFactory;
-	static Handle D2DDevice;
-	static SNGraphicsContext D2DGraphicsContext;
-	static SNBitmap D2DTargetBitmap;
 
 	// D3D描画
 	static Handle WorldVertexBuffer;

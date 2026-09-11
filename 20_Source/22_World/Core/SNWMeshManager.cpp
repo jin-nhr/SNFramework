@@ -2,7 +2,6 @@
 #include "SNMath.h"
 #include "SNSystemConfig.h"
 #include "SNGraphicsDevice.h"
-#include "SNGraphicsContext.h"
 #include "SNGraphicsResManager.h"
 #include "SNWindowsAPI.h"
 

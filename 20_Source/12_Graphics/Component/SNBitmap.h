@@ -10,19 +10,13 @@ public:
 	virtual ~SNBitmap();
 
 	// ビットマップ設定
-	virtual Void SetBitmap(Handle d3d_texture, Handle srv, Handle rtv, Handle d2d_target, Handle d2d_source);
+	virtual Void SetBitmap(Handle d3d_texture, Handle srv, Handle rtv);
 
 	virtual Handle Get3DTexture();
 
 	virtual Handle GetSRV();
 
 	virtual Handle GetRTV();
-
-	// ターゲットビットマップ取得
-	virtual Handle GetTargetBitmap();
-
-	// ソースビットマップ取得
-	virtual Handle GetSourceBitmap();
 
 	// サイズ取得
 	virtual Void GetSize(SNSize* size);
@@ -34,6 +28,4 @@ private:
 	Handle D3DTexture;
 	Handle D3DSrv;
 	Handle D3DRtv;
-	Handle D2DTargetBitmap;
-	Handle D2DSourceBitmap;
 };

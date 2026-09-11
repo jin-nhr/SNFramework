@@ -67,9 +67,9 @@ Void SNWorldAppBase::OnPreDraw()
 	return;
 }
 
-Void SNWorldAppBase::OnDraw(SNGraphicsContext* grc)
+Void SNWorldAppBase::OnDraw()
 {
-	WorldView.Draw(grc);
+	WorldView.Draw();
 
 	return;
 }

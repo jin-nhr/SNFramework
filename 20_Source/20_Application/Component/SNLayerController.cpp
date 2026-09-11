@@ -156,7 +156,7 @@ Void SNLayerController::PreDraw()
 
 
 // •`‰æˆ—
-Void SNLayerController::Draw(SNGraphicsContext* grc)
+Void SNLayerController::Draw()
 {
 	SNListContainer* list_it;
 
@@ -166,7 +166,7 @@ Void SNLayerController::Draw(SNGraphicsContext* grc)
 		if (Visible)
 		{
 			// Ž©g‚Ì•`‰æˆ—
-			SNScene::Draw(grc);
+			SNScene::Draw();
 
 			// ÅIŽæ“¾
 			list_it = SceneList.GetLast();
@@ -174,7 +174,7 @@ Void SNLayerController::Draw(SNGraphicsContext* grc)
 			// ÅI‚©‚çæ“ª‚Ü‚Åˆ—
 			while (list_it != nullptr)
 			{
-				((SNScene*)list_it->UserData)->Draw(grc);
+				((SNScene*)list_it->UserData)->Draw();
 				list_it = list_it->Prev;
 			}
 		}

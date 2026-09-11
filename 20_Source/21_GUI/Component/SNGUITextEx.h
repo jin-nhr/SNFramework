@@ -23,10 +23,7 @@ protected:
 
 	virtual Void OnExit();
 
-	// •`‰æ‘Oˆ—
-	virtual Void OnPreDraw();
-
 	// •`‰æˆ—
-	virtual Void OnDraw(SNGraphicsContext* grc);
+	virtual Void OnDraw();
 };
 

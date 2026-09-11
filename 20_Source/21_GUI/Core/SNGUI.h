@@ -1,7 +1,6 @@
 #pragma once
 #include "SNFrameworkInternal.h"
 #include "SNSystemConfig.h"
-#include "SNGraphicsContext.h"
 #include "SNBitmap.h"
 #include "SNBitmapFont.h"
 #include "SNGraphicsResource.h"
@@ -10,8 +9,8 @@
 class SNGUI
 {
 public:
-	static Void Tiling(SNGraphicsContext* grc, SNRect* dst_rect, SNBitmap* src_bmp, SNRect* src_rect);
-	static Void Tiling9(SNGraphicsContext* grc, SNRect* dst_rect, SNGraphicsResID res_id, const SNPoint* blockdef, const SNPoint* offset);
+	static Void Tiling(SNRect* dst_rect, SNBitmap* src_bmp, SNRect* src_rect);
+	static Void Tiling9(SNRect* dst_rect, SNGraphicsResID res_id, const SNPoint* blockdef, const SNPoint* offset);
 
 
 public:

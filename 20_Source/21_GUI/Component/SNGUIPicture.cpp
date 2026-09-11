@@ -1,6 +1,6 @@
 #include "SNGUIPicture.h"
 #include "SNScaling.h"
-
+#include "SNGraphicsDevice.h"
 
 // コンストラクタ
 SNGUIPicture::SNGUIPicture()
@@ -49,7 +49,7 @@ Void SNGUIPicture::OnPreDraw()
 }
 
 // 描画処理
-Void SNGUIPicture::OnDraw(SNGraphicsContext* grc)
+Void SNGUIPicture::OnDraw()
 {
 	SNSize bmp_size;
 	SNRect dst_rect;
@@ -82,7 +82,7 @@ Void SNGUIPicture::OnDraw(SNGraphicsContext* grc)
 			break;
 		}
 
-		grc->DrawImage(&dst_rect, Bitmap, &src_rect, SNAlphaMax);
+		SNGraphicsDevice::DrawImage(&dst_rect, Bitmap, &src_rect, SNAlphaMax);
 	}
 	return;
 }

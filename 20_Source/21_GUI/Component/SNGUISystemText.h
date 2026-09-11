@@ -27,7 +27,7 @@ protected:
 	virtual Void OnTerminate();
 
 	// 描画処理
-	virtual Void OnDraw(SNGraphicsContext* grc);
+	virtual Void OnDraw();
 
 	SNBMString Text;			// テキスト (自前で領域確保)
 };

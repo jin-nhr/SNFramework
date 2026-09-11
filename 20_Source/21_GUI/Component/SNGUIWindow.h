@@ -21,5 +21,5 @@ protected:
 	virtual Void OnTerminate();
 
 	// •`‰æˆ—
-	virtual Void OnDraw(SNGraphicsContext* grc);
+	virtual Void OnDraw();
 };

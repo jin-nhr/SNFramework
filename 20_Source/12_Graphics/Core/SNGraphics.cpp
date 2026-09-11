@@ -188,29 +188,6 @@ Boolean SNGraphics::IsFullScreen()
 	return ((SNUserConfig::Data.FullScreen) & (SNApplication::Active));
 }
 
-// コンテキスト取得
-SNGraphicsContext* SNGraphics::GetContext()
-{
-	SNGraphicsContext* dc = &SNGraphicsDevice::D2DGraphicsContext;
-	SNBitmap* tgbmp = &SNGraphicsDevice::D2DTargetBitmap;
-	SNColor color = { 0, 0, 0, 255 };
-
-	// 描画開始
-	dc->Begin(tgbmp);
-	dc->Clear(&color);
-
-	return dc;
-}
-
-// コンテキスト解放
-Void SNGraphics::ReleaseContext()
-{
-	SNGraphicsContext* dc = &SNGraphicsDevice::D2DGraphicsContext;
-
-	dc->End();
-	return;
-}
-
 // スタートアップ用のリソース読み込み
 Void SNGraphics::LoadStartupResource()
 {
@@ -223,6 +200,20 @@ Void SNGraphics::LoadStartupResource()
 		SNGraphicsResManager::Update();
 		Sleep(1);
 	}
+
+	return;
+}
+
+Void SNGraphics::BeginDraw()
+{
+	SNGraphicsDevice::Begin(&SNGraphicsDevice::ScreenSurface);
+
+	return;
+}
+
+Void SNGraphics::EndDraw()
+{
+	SNGraphicsDevice::End();
 
 	return;
 }

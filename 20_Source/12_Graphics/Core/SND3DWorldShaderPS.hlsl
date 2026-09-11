@@ -6,6 +6,7 @@ struct PS_INPUT
     float4 Pos : SV_POSITION;
     float2 Tex : TEXCOORD0;
     float Alpha : TEXCOORD1;
+    float4 ColorMul : TEXCOORD2;
 };
 
 float4 main(PS_INPUT input) : SV_TARGET
@@ -17,6 +18,8 @@ float4 main(PS_INPUT input) : SV_TARGET
 
     float4 color = g_Tex.Sample(g_Sampler, uv);
 
+    color.rgb *= input.ColorMul.rgb;
+    
     color.rgb *= input.Alpha;
     color.a *= input.Alpha;
 

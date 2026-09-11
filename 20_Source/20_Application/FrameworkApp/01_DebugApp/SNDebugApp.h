@@ -37,7 +37,7 @@ protected:
 	virtual Void OnPreDraw();
 
 	// •`‰æˆ—
-	virtual Void OnDraw(SNGraphicsContext* grc);
+	virtual Void OnDraw();
 
 	// •`‰æŒãˆ—
 	virtual Void OnPostDraw();

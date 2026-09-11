@@ -34,11 +34,11 @@ Void SNGUIWindow::OnTerminate()
 }
 
 // ï`âÊèàóù
-Void SNGUIWindow::OnDraw(SNGraphicsContext* grc)
+Void SNGUIWindow::OnDraw()
 {
 	SNRect rect = CalcGlobalRect();
 
-	SNGUI::Tiling9(grc, &rect, SNGraphicsResWindow, SNGUIDef::GUIBlockDef, &SNGUIDef::WindowBlockOffset[0]);
+	SNGUI::Tiling9(&rect, SNGraphicsResWindow, SNGUIDef::GUIBlockDef, &SNGUIDef::WindowBlockOffset[0]);
 
 	return;
 }

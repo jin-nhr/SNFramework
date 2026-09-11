@@ -24,7 +24,7 @@ public:
 
 	virtual Void OnPreDraw();
 
-	virtual Void OnDraw(SNGraphicsContext* grc);
+	virtual Void OnDraw();
 
 private:
 	SNGUIWindow Win;

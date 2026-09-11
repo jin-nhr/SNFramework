@@ -38,15 +38,15 @@ protected:
 	virtual Void OnCycle();
 
 	// 描画処理
-	virtual Void OnDraw(SNGraphicsContext* grc);
+	virtual Void OnDraw();
 
 	// ボタン描画
-	virtual Void DrawButton(SNGraphicsContext* grc);
+	virtual Void DrawButton();
 
 	// フォーカス描画
-	virtual Void DrawFocus(SNGraphicsContext* grc);
+	virtual Void DrawFocus();
 
-	virtual Void ButtonTiling(SNGraphicsContext* grc, SNGraphicsResID res_id, const SNPoint* offset);
+	virtual Void ButtonTiling(SNGraphicsResID res_id, const SNPoint* offset);
 
 	// ステータス判定
 	virtual SNGUIDef::ButtonBlockStatus JudgeStatus();

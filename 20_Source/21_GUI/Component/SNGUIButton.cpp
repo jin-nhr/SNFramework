@@ -66,40 +66,40 @@ Void SNGUIButton::OnCycle()
 
 
 // 描画処理
-Void SNGUIButton::OnDraw(SNGraphicsContext* grc)
+Void SNGUIButton::OnDraw()
 {
-    DrawButton(grc);
+    DrawButton();
 
-    DrawFocus(grc);
+    DrawFocus();
 
     return;
 }
 
 // ボタン描画
-Void SNGUIButton::DrawButton(SNGraphicsContext* grc)
+Void SNGUIButton::DrawButton()
 {
     SNGUIDef::ButtonBlockStatus button_sts = JudgeStatus();
 
-    ButtonTiling(grc, SNGraphicsResButton, &SNGUIDef::ButtonBlockOffset[button_sts]);
+    ButtonTiling(SNGraphicsResButton, &SNGUIDef::ButtonBlockOffset[button_sts]);
 
     return;
 }
 
 // フォーカス描画
-Void SNGUIButton::DrawFocus(SNGraphicsContext* grc)
+Void SNGUIButton::DrawFocus()
 {
     SNGUIDef::ButtonFocusStatus button_sts = JudgeFocusStatus();
 
-    ButtonTiling(grc, SNGraphicsResFocus, &SNGUIDef::FocusBlockOffset[button_sts]);
+    ButtonTiling(SNGraphicsResFocus, &SNGUIDef::FocusBlockOffset[button_sts]);
 
     return;
 }
 
-Void SNGUIButton::ButtonTiling(SNGraphicsContext* grc, SNGraphicsResID res_id, const SNPoint* offset)
+Void SNGUIButton::ButtonTiling(SNGraphicsResID res_id, const SNPoint* offset)
 {
     SNRect rect = CalcGlobalRect();
 
-    SNGUI::Tiling9(grc, &rect, res_id, SNGUIDef::GUIBlockDef, offset);
+    SNGUI::Tiling9(&rect, res_id, SNGUIDef::GUIBlockDef, offset);
 
     return;
 }

@@ -2,6 +2,7 @@
 #include "SNFrameworkInternal.h"
 #include "SNScene.h"
 #include "SNTimerSequencer.h"
+#include "SNBitmap.h"
 
 // MuteƒAƒvƒŠ
 class SNMute : public SNScene
@@ -38,7 +39,7 @@ protected:
 	virtual Void OnCycle();
 
 	// •`‰æˆ—
-	virtual Void OnDraw(SNGraphicsContext* grc);
+	virtual Void OnDraw();
 
 	virtual SNPhaseResult PhaseStepFunc(Int32 ch, Int32 phase_idx, Int32 call_count);
 

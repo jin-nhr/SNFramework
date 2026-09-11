@@ -18,7 +18,6 @@ SNBitmap SNGraphicsResManager::DummyBitmap;
 
 Void SNGraphicsResManager::Initialize()
 {
-	SNGraphicsContext* grc = &SNGraphicsDevice::D2DGraphicsContext;
 	Int32 cnt = 0;
 	SNSize size = { SNSystemConfig::ScreenWidth, SNSystemConfig::ScreenHeight };
 	SNColor color = { 0, 0, 0, 0 };
@@ -34,10 +33,10 @@ Void SNGraphicsResManager::Initialize()
 	ProcID = (SNGraphicsResID)0;
 
 	// ダミービットマップ生成
-	grc->CreateBitmap(&DummyBitmap, &size);
-	grc->Begin(&DummyBitmap);
-	grc->Clear(&color);
-	grc->End();
+	SNGraphicsDevice::CreateBitmap(&DummyBitmap, &size);
+	SNGraphicsDevice::Begin(&DummyBitmap);
+	// Begin実行によりクリアされる
+	SNGraphicsDevice::End();
 
     return;
 }
@@ -298,7 +297,7 @@ Void SNGraphicsResManager::StateMachinePhaseProc(SNGraphicsResID id)
 		if (info->RefCount > 0)
 		{
 			// ビットマップへの展開しロード済みへ
-			SNGraphicsDevice::D2DGraphicsContext.CreateBitmapFromDIB(&Loader, &info->Res);
+			SNGraphicsDevice::CreateBitmapFromDIB(&Loader, &info->Res);
 			info->State = ResLoaded;
 		}
 		else

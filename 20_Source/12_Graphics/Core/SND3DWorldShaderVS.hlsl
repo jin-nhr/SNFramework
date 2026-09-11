@@ -15,7 +15,10 @@ struct Tile
     float ScreenHeight;
     float reserve;
 
-    float reserve2[4];
+    float MulR;
+    float MulG;
+    float MulB;
+    float MulA;
 };
 
 StructuredBuffer<Tile> Inst : register(t1);
@@ -31,6 +34,7 @@ struct VS_OUTPUT
     float4 Pos : SV_POSITION;
     float2 Tex : TEXCOORD0;
     float Alpha : TEXCOORD1;
+    float4 ColorMul : TEXCOORD2;
 };
 
 VS_OUTPUT main(VS_INPUT input, uint instanceID : SV_InstanceID)
@@ -50,6 +54,8 @@ VS_OUTPUT main(VS_INPUT input, uint instanceID : SV_InstanceID)
     o.Tex.x = (t.SrcX + input.Tex.x * t.SrcW);
     o.Tex.y = (t.SrcY + input.Tex.y * t.SrcH);
     o.Alpha = t.Alpha;
+    
+    o.ColorMul = float4(t.MulR, t.MulG, t.MulB, t.MulA);
 
     return o;
 }

@@ -3,11 +3,11 @@
 #include "SNMath.h"
 #include "SNGraphicsResManager.h"
 #include "SNScene.h"
-#include "SNGraphicsContext.h"
 #include "SNGUIDef.h"
+#include "SNGraphicsDevice.h"
 
 // GUIクラス
-Void SNGUI::Tiling(SNGraphicsContext* grc, SNRect* dst_rect, SNBitmap* src_bmp, SNRect* src_rect)
+Void SNGUI::Tiling(SNRect* dst_rect, SNBitmap* src_bmp, SNRect* src_rect)
 {
     Int32 block = SNSystemConfig::GUIBlockSize;
     Int32 remain_w = dst_rect->Width;
@@ -36,7 +36,7 @@ Void SNGUI::Tiling(SNGraphicsContext* grc, SNRect* dst_rect, SNBitmap* src_bmp, 
             draw_src_rect.Width = target_rect.Width;
             draw_src_rect.Height = target_rect.Height;
 
-            grc->DrawImage(&target_rect, src_bmp, &draw_src_rect, SNAlphaMax);
+            SNGraphicsDevice::DrawImage(&target_rect, src_bmp, &draw_src_rect, SNAlphaMax);
 
             x += target_rect.Width;
             remain_w -= target_rect.Width;
@@ -49,7 +49,7 @@ Void SNGUI::Tiling(SNGraphicsContext* grc, SNRect* dst_rect, SNBitmap* src_bmp, 
     return;
 }
 
-Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id, const SNPoint* blockdef, const SNPoint* offset)
+Void SNGUI::Tiling9(SNRect* rect, SNGraphicsResID res_id, const SNPoint* blockdef, const SNPoint* offset)
 {
     SNBitmap* win_img = nullptr;
     SNRect dst_rect;
@@ -83,7 +83,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX;
     tiling_rect.PointY = dst_rect.PointY;
-    SNGUI::Tiling(grc, &tiling_rect, win_img, &src_rect);
+    SNGUI::Tiling(&tiling_rect, win_img, &src_rect);
 
     // 右上
     index = SNGUIDef::GUIBlockRightUp;
@@ -91,7 +91,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX + dst_rect.Width - block;
     tiling_rect.PointY = dst_rect.PointY;
-    SNGUI::Tiling(grc, &tiling_rect, win_img, &src_rect);
+    SNGUI::Tiling(&tiling_rect, win_img, &src_rect);
 
     // 左下
     index = SNGUIDef::GUIBlockLeftBottom;
@@ -99,7 +99,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX;
     tiling_rect.PointY = dst_rect.PointY + dst_rect.Height - block;
-    SNGUI::Tiling(grc, &tiling_rect, win_img, &src_rect);
+    SNGUI::Tiling(&tiling_rect, win_img, &src_rect);
 
     // 右下
     index = SNGUIDef::GUIBlockRightBottom;
@@ -107,7 +107,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX + dst_rect.Width - block;
     tiling_rect.PointY = dst_rect.PointY + dst_rect.Height - block;
-    SNGUI::Tiling(grc, &tiling_rect, win_img, &src_rect);
+    SNGUI::Tiling(&tiling_rect, win_img, &src_rect);
 
     ////////////////////////////////////////////
     // 上下共通
@@ -120,7 +120,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX + block;
     tiling_rect.PointY = dst_rect.PointY;
-    SNGUI::Tiling(grc, &tiling_rect, win_img, &src_rect);
+    SNGUI::Tiling(&tiling_rect, win_img, &src_rect);
 
     // 下
     index = SNGUIDef::GUIBlockBottom;
@@ -128,7 +128,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX + block;
     tiling_rect.PointY = dst_rect.PointY + dst_rect.Height - block;
-    SNGUI::Tiling(grc, &tiling_rect, win_img, &src_rect);
+    SNGUI::Tiling(&tiling_rect, win_img, &src_rect);
 
 
     ////////////////////////////////////////////
@@ -142,7 +142,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX;
     tiling_rect.PointY = dst_rect.PointY + block;
-    SNGUI::Tiling(grc, &tiling_rect, win_img, &src_rect);
+    SNGUI::Tiling(&tiling_rect, win_img, &src_rect);
 
     // 右
     index = SNGUIDef::GUIBlockRight;
@@ -150,7 +150,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     src_rect.PointY = blockdef[index].Y + offset->Y;
     tiling_rect.PointX = dst_rect.PointX + dst_rect.Width - block;
     tiling_rect.PointY = dst_rect.PointY + block;
-    SNGUI::Tiling(grc, &tiling_rect, win_img, &src_rect);
+    SNGUI::Tiling(&tiling_rect, win_img, &src_rect);
 
     ////////////////////////////////////////////
     // 中央
@@ -161,7 +161,7 @@ Void SNGUI::Tiling9(SNGraphicsContext* grc, SNRect* rect, SNGraphicsResID res_id
     tiling_rect.PointY = dst_rect.PointY + block;
     tiling_rect.Width = dst_rect.Width - block * 2;
     tiling_rect.Height = dst_rect.Height - block * 2;
-    SNGUI::Tiling(grc, &tiling_rect, win_img, &src_rect);
+    SNGUI::Tiling(&tiling_rect, win_img, &src_rect);
 
     return;
 }

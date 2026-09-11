@@ -35,7 +35,7 @@ public:
 	virtual Void PreDraw();
 
 	// •`‰æˆ—
-	virtual Void Draw(SNGraphicsContext* grc);
+	virtual Void Draw();
 
 	// •`‰æŒãˆ—
 	virtual Void PostDraw();

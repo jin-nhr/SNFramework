@@ -1,6 +1,5 @@
 #pragma once
 #include "SNFrameworkInternal.h"
-#include "SNGraphicsContext.h"
 #include "SNGraphicsResource.h"
 #include "SNGraphicsResManager.h"
 
@@ -45,11 +44,11 @@ public:
 	// フルスクリーン判定
 	static Boolean IsFullScreen();
 
-	// コンテキスト取得
-	static SNGraphicsContext* GetContext();
+	// 描画開始
+	static Void BeginDraw();
 
-	// コンテキスト解放
-	static Void ReleaseContext();
+	// 描画終了
+	static Void EndDraw();
 
 	// スタートアップリソースロード(やり切り)
 	static Void LoadStartupResource();

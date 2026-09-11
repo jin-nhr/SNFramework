@@ -69,9 +69,7 @@
     <ClInclude Include="..\20_Source\11_Input\Core\SNInput.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNBitmap.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNBitmapFont.h" />
-    <ClInclude Include="..\20_Source\12_Graphics\Component\SNColorMatrix.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNDIBPixel.h" />
-    <ClInclude Include="..\20_Source\12_Graphics\Component\SNGraphicsContext.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNScaling.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Core\SND3DShaderPS.h" />
     <ClInclude Include="..\20_Source\12_Graphics\Core\SND3DShaderVS.h" />
@@ -195,9 +193,7 @@
     <ClCompile Include="..\20_Source\11_Input\Core\SNInput.cpp" />
     <ClCompile Include="..\20_Source\12_Graphics\Component\SNBitmap.cpp" />
     <ClCompile Include="..\20_Source\12_Graphics\Component\SNBitmapFont.cpp" />
-    <ClCompile Include="..\20_Source\12_Graphics\Component\SNColorMatrix.cpp" />
     <ClCompile Include="..\20_Source\12_Graphics\Component\SNDIBPixel.cpp" />
-    <ClCompile Include="..\20_Source\12_Graphics\Component\SNGraphicsContext.cpp" />
     <ClCompile Include="..\20_Source\12_Graphics\Component\SNScaling.cpp" />
     <ClCompile Include="..\20_Source\12_Graphics\Core\SNGraphics.cpp" />
     <ClCompile Include="..\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp" />
