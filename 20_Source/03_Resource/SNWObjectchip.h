@@ -134,7 +134,9 @@ public:
 	struct WObjectChipData
 	{
 		UInt16 Code;										// オブジェクトコード
-		SNAnimationCode AnimeCode[SNWObjectStateNum];		// アニメコード		
+		Float32 SizeH;
+		Float32 SizeV;
+		SNAnimationCode AnimeCode[SNWObjectStateNum];		// アニメコード	
 		Float32 SpeedWalk;
 		Float32 SpeedJog;
 		Float32 SpeedJump;
@@ -155,6 +157,9 @@ public:
 			// Code
 			0x0000,
 
+			// Size
+			1, 4,
+
 			// Animation
 			SNAnimationCodeWait,	// Idle
 			SNAnimationCodeWalk,	// Walk
@@ -171,7 +176,7 @@ public:
 			// Speed (blk/sec) ※ 1フレームでの移動距離は1blk上限とする (60fpsなら16.6くらい)
 			4.0f,			// Walk
 			8.0f,			// Jog
-			8.0f,			// Jump
+			12.0f,			// Jump
 			8.0f			// Flying
 		},
 

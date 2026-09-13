@@ -4,6 +4,13 @@
 #include "SNSoftTimer.h"
 #include "SNList.h"
 
+// オブジェクトベース
+
+// ワールド内に存在するオブジェクト全般を表現するクラス
+// フレーム毎の速度計算、物理エンジンからのフィードバックにより
+// 状態遷移を行う
+
+
 struct SNWObjectEventParam
 {
     UInt8 Event;
@@ -27,7 +34,8 @@ struct SNWObjectInfo
 
 	SNWorldDir FrontDir;	        	// 向き
 	SNWorldPos Pos;	        			// 座標
-	SNWorldPos Acceleration;	        // 加速度
+	SNWorldPos Acceleration;	        // 入力加速度
+    SNWorldPos PhysicsAcc;              // 物理加速度
 
 	SNWorldPos Speed;			        // 速度
 };
@@ -73,6 +81,7 @@ private:
     virtual Void EventFuncWalk(SNWObjectEventParam* param);
     virtual Void EventFuncJog(SNWObjectEventParam* param);
     virtual Void EventFuncJump(SNWObjectEventParam* param);
+    virtual Void EventFuncJumpEnd(SNWObjectEventParam* param);
 
     // 状態更新
     virtual Void UpdateState();
@@ -80,9 +89,8 @@ private:
     // アニメーション更新
     virtual Void UpdateAnimation();
 
-    // 速度更新
-    virtual Void UpdateSpeed();
-
+    // 状態設定
+    virtual Void SetState(SNWObjectState state);
 
     SNWObjectInfo Info;
     SNSoftTimer Timer;

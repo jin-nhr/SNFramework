@@ -49,7 +49,7 @@ Void SNWObjectBase::InitObjectInfo()
 	info->AnimationStep = 0;
 	info->Enable = false;
 	info->Visible = false;
-	info->Weight = false;
+	info->Weight = true;
 	info->State = SNWObjectStateIdle;
 	info->PrevState = SNWObjectStateNum;	// いずれの状態とも一致しない値としておく
 	info->FrontDir = SNWorldDirS;
@@ -59,6 +59,9 @@ Void SNWObjectBase::InitObjectInfo()
 	info->Acceleration.X = 0;
 	info->Acceleration.Y = 0;
 	info->Acceleration.Z = 0;
+	info->PhysicsAcc.X = 0;
+	info->PhysicsAcc.Y = 0;
+	info->PhysicsAcc.Z = 0;
 	info->Speed.X = 0;
 	info->Speed.Y = 0;
 	info->Speed.Z = 0;
@@ -129,9 +132,6 @@ Void SNWObjectBase::Update()
 	// オブジェクトのアニメ更新
 	UpdateAnimation();
 
-	// 速度更新
-	UpdateSpeed();
-
 	return;
 }
 
@@ -151,15 +151,34 @@ Void SNWObjectBase::EventFunc(SNWObjectEventParam* param)
 	case SNWObjectEventJump:
 		EventFuncJump(param);
 		break;
+	case SNWObjectEventJumpEnd:
+		EventFuncJumpEnd(param);
+		break;
 	}
 }
 
 // パラメータなし
 Void SNWObjectBase::EventFuncStop(SNWObjectEventParam* param)
 {
-	// 状態を設定
-	Info.PrevState = Info.State;
-	Info.State = SNWObjectStateIdle;
+	switch (Info.State)
+	{
+	case SNWObjectStateIdle:
+	case SNWObjectStateWalk:
+	case SNWObjectStateJog:
+		// 状態を設定
+		Info.PrevState = Info.State;
+		Info.State = SNWObjectStateIdle;
+		break;
+	case SNWObjectStateWait:
+	case SNWObjectStateJump:
+	case SNWObjectStateAttack:
+	case SNWObjectStateKnockback:
+	case SNWObjectStateSpell:
+	case SNWObjectStateAction:
+	case SNWObjectStateFlying:
+	case SNWObjectStateFall:
+		break;
+	}
 
 	// 目標速度に0をセット
 	Info.Acceleration.X = 0.0f;
@@ -174,9 +193,23 @@ Void SNWObjectBase::EventFuncWalk(SNWObjectEventParam* param)
 	SNWorldDir dir = (SNWorldDir)param->Param1;
 	Int8 angle = (Int8)param->Param2;
 
-	// 状態を設定
-	Info.PrevState = Info.State;
-	Info.State = SNWObjectStateWalk;
+	switch (Info.State)
+	{
+	case SNWObjectStateIdle:
+	case SNWObjectStateWalk:
+	case SNWObjectStateJog:
+	case SNWObjectStateWait:
+		SetState(SNWObjectStateWalk);
+		break;
+	case SNWObjectStateJump:
+	case SNWObjectStateAttack:
+	case SNWObjectStateKnockback:
+	case SNWObjectStateSpell:
+	case SNWObjectStateAction:
+	case SNWObjectStateFlying:
+	case SNWObjectStateFall:
+		break;
+	}
 
 	// 向きを設定
 	Info.FrontDir = dir;
@@ -194,9 +227,23 @@ Void SNWObjectBase::EventFuncJog(SNWObjectEventParam* param)
 	SNWorldDir dir = (SNWorldDir)param->Param1;
 	Int8 angle = (Int8)param->Param2;
 
-	// 状態を設定
-	Info.PrevState = Info.State;
-	Info.State = SNWObjectStateJog;
+	switch (Info.State)
+	{
+	case SNWObjectStateIdle:
+	case SNWObjectStateWalk:
+	case SNWObjectStateJog:
+	case SNWObjectStateWait:
+		SetState(SNWObjectStateJog);
+		break;
+	case SNWObjectStateJump:
+	case SNWObjectStateAttack:
+	case SNWObjectStateKnockback:
+	case SNWObjectStateSpell:
+	case SNWObjectStateAction:
+	case SNWObjectStateFlying:
+	case SNWObjectStateFall:
+		break;
+	}
 
 	// 向きを設定
 	Info.FrontDir = dir;
@@ -211,33 +258,71 @@ Void SNWObjectBase::EventFuncJog(SNWObjectEventParam* param)
 
 Void SNWObjectBase::EventFuncJump(SNWObjectEventParam* param)
 {
-	SNWorldDir dir = (SNWorldDir)param->Param1;
-	Int8 angle = (Int8)param->Param2;
-
-	// 状態を設定
-	Info.PrevState = Info.State;
-	Info.State = SNWObjectStateJump;
+	switch (Info.State)
+	{
+	case SNWObjectStateIdle:
+	case SNWObjectStateWalk:
+	case SNWObjectStateJog:
+	case SNWObjectStateWait:
+		SetState(SNWObjectStateJump);
+		break;
+	case SNWObjectStateJump:
+	case SNWObjectStateAttack:
+	case SNWObjectStateKnockback:
+	case SNWObjectStateSpell:
+	case SNWObjectStateAction:
+	case SNWObjectStateFlying:
+	case SNWObjectStateFall:
+		break;
+	}
 
 	// 目標速度をセット
 	Info.Acceleration.Z = (SNWObjectchip::Data[Info.Code].SpeedJump * SNSystemConfig::FPS) / 1000.0f;
+	Info.Weight = false;
 
 	return;
 }
+
+
+Void SNWObjectBase::EventFuncJumpEnd(SNWObjectEventParam* param)
+{
+	// 重力影響を戻す
+	Info.Weight = true;
+
+	return;
+}
+
 
 Void SNWObjectBase::UpdateState()
 {
 	// フィードバック情報の確認
 
-
-	// Jumpの加速度クリア
-	Info.Acceleration.Z = 0;
-
-	// 落下速度ありならFall
-
-
-	// Fallから落下速度なしになったらIdle
-
-
+	switch (Info.State)
+	{
+	case SNWObjectStateIdle:
+	case SNWObjectStateWalk:
+	case SNWObjectStateJog:
+	case SNWObjectStateWait:
+	case SNWObjectStateJump:
+		// 落下速度ありならFall
+		if (Info.Speed.Z < 0.0f)
+		{
+			SetState(SNWObjectStateFall);
+		}
+		break;
+	case SNWObjectStateAttack:
+	case SNWObjectStateKnockback:
+	case SNWObjectStateSpell:
+	case SNWObjectStateAction:
+	case SNWObjectStateFlying:
+	case SNWObjectStateFall:
+		// Fall中に落下速度=0になったらIdle
+		if (Info.Speed.Z == 0.0f)
+		{
+			SetState(SNWObjectStateIdle);
+		}
+		break;
+	}
 
 	return;
 }
@@ -280,13 +365,15 @@ Void SNWObjectBase::UpdateAnimation()
 	return;
 }
 
-Void SNWObjectBase::UpdateSpeed()
+Void SNWObjectBase::SetState(SNWObjectState state)
 {
-	// 目標速度から現在速度を計算する
-	Info.Speed.X += (Info.Acceleration.X - Info.Speed.X);
-	Info.Speed.Y += (Info.Acceleration.Y - Info.Speed.Y);
-	Info.Speed.Z += (Info.Acceleration.Z - Info.Speed.Z);
+	Info.PrevState = Info.State;
+	Info.State = state;
 
 	return;
 }
+
+
+
+
 

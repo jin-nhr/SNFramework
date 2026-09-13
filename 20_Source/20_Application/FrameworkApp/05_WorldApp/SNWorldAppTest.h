@@ -31,5 +31,7 @@ private:
 	SNGUITextEx	txtX;
 	SNGUITextEx txtY;
 	SNGUITextEx txtZ;
+
+	SNSoftTimer JumpTimer;
 };
 

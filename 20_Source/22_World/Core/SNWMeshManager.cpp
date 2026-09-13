@@ -186,30 +186,34 @@ Void SNWMeshManager::RegisterNearbyObject(SNWNearbySpace* space)
 			{
 				mesh_info = &MeshInfo[MeshRef[mesh_z][mesh_dir]];
 
-				// ブロックデータロック
-				mesh_data = mesh_info->Ground.GetBlock();
-				block_num = mesh_data->BlockNum;
-
-				// メッシュ内オブジェクトを参照
-				for (cnt = 0; cnt < block_num; cnt++)
+				// リード中は参照しない
+				if (mesh_info->State != SNWMeshStateRead)
 				{
-					cell_pos.X = mesh_data->Block[cnt].X;
-					cell_pos.Y = mesh_data->Block[cnt].Y;
-					cell_pos.Z = mesh_data->Block[cnt].Z;
+					// ブロックデータロック
+					mesh_data = mesh_info->Ground.GetBlock();
+					block_num = mesh_data->BlockNum;
 
-					// グローバル座標変換
-					CvtGlobalPos(&cell_pos, mesh_dir, mesh_z, &glb_pos);
-
-					// 周辺空間内のオブジェクトかチェック
-					if (space->CollisionCellVSSpace(&glb_pos))
+					// メッシュ内オブジェクトを参照
+					for (cnt = 0; cnt < block_num; cnt++)
 					{
-						// オブジェクト登録
-						space->RegisterGroundData(&glb_pos, mesh_data->Block[cnt].Code);
-					}
-				}
+						cell_pos.X = mesh_data->Block[cnt].X;
+						cell_pos.Y = mesh_data->Block[cnt].Y;
+						cell_pos.Z = mesh_data->Block[cnt].Z;
 
-				// ブロックデータ解放
-				mesh_info->Ground.ReleaseBlock();
+						// グローバル座標変換
+						CvtGlobalPos(&cell_pos, mesh_dir, mesh_z, &glb_pos);
+
+						// 周辺空間内のオブジェクトかチェック
+						if (space->CollisionCellVSSpace(&glb_pos))
+						{
+							// オブジェクト登録
+							space->RegisterGroundData(&glb_pos, mesh_data->Block[cnt].Code);
+						}
+					}
+
+					// ブロックデータ解放
+					mesh_info->Ground.ReleaseBlock();
+				}
 			}
 		}
 	}
@@ -477,7 +481,6 @@ Void SNWMeshManager::LoadMesh()
 					CvtIDToPos(&mesh_info->ID, &mesh_info->MeshPos);
 
 					mesh_info->Ground.SetMeshID((Int32)mesh_info->ID.X, (Int32)mesh_info->ID.Y, (Int32)mesh_info->ID.Z);
-
 					// ロード指示
 					mesh_info->Ground.LoadMesh();
 					mesh_info->State = SNWMeshStateRead;

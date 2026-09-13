@@ -84,6 +84,8 @@ Boolean SNWorldAppTest::OnGamePad1()
 	SNWorldDir dir;
 	Boolean dir_input = false;
 
+	static Boolean bsts = false;
+
 	// 左上
 	if (pd->DPadLeftPress() && pd->DPadUpPress())
 	{
@@ -161,9 +163,29 @@ Boolean SNWorldAppTest::OnGamePad1()
 	}
 
 	// ジャンプ？
-	if (pd->BPress())
+	if (pd->BPush())
 	{
+		bsts = true;
+		JumpTimer.Start(100);
 		SNWorld::GetPCObject()->Jump();
+	}
+	else if (pd->BRelease())
+	{
+		bsts = false;
+		SNWorld::GetPCObject()->JumpEnd();
+	}
+	else if (JumpTimer.IsTimeout())
+	{
+		bsts = false;
+		SNWorld::GetPCObject()->JumpEnd();
+	}
+	else if (pd->BPress() && bsts)
+	{
+
+	}
+	else
+	{
+		bsts = false;
 	}
 
 	// 表示変更操作
@@ -230,9 +252,9 @@ Void SNWorldAppTest::OnPreDraw()
 
 	WorldView.GetViewPos(&pos);
 
-	txtX.SetValue((Int64)pos.X);
-	txtY.SetValue((Int64)pos.Y);
-	txtZ.SetValue((Int64)pos.Z);
+	txtX.SetValue((Int64)SNMath::FloorToInt(pos.X));
+	txtY.SetValue((Int64)SNMath::FloorToInt(pos.Y));
+	txtZ.SetValue((Int64)SNMath::FloorToInt(pos.Z));
 
 	WorldView.PreDraw();
 	Win.PreDraw();

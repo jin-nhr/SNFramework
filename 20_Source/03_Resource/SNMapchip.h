@@ -159,7 +159,6 @@ public:
 		Float32			MoveScale;
 		Float32			JumpScale;
 		Float32			FallScale;
-		Float32			FlyScale;
 	};
 
 	// マップチップコード
@@ -193,29 +192,29 @@ public:
 	// マップチップデータ
 	static constexpr SNMapchipData Data[SNMapchipNum] =
 	{
-		//	[0]		[1]		[2]		[3]		Visible	Collision	Light	Shadow	MoveScale	JumpScale	FallScale	FlyScale
-		{	0x0000,	0x0000,	0x0000,	0x0000,	false,	false,		false,	false,	1.0f,		0.0f,		1.0f,		1.0f,	},		// Blank
-		{	0x0020,	0x0020,	0x0020,	0x0020,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Green
-		{	0x0021,	0x0021,	0x0021,	0x0021,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// LightGreen
-		{	0x0022,	0x0022,	0x0022,	0x0022,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// DeepGreen
-		{	0x0023,	0x0023,	0x0023,	0x0023,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Sakura
-		{	0x0024,	0x0024,	0x0024,	0x0024,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Ishou
-		{	0x0025,	0x0025,	0x0025,	0x0025,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Kaede
-		{	0x0026,	0x0026,	0x0026,	0x0026,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// DeadLeaf
-		{	0x0030,	0x0031,	0x0032,	0x0033,	true,	false,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Sea
-		{	0x0034,	0x0035,	0x0036,	0x0037,	true,	false,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// DeepSea
-		{	0x0038,	0x0039,	0x003A,	0x003B,	true,	false,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Magma
-		{	0x003C,	0x003D,	0x003E,	0x003F,	true,	false,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// PoisonSwamp
-		{	0x0040,	0x0040,	0x0040,	0x0040,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Dirt
-		{	0x0041,	0x0041,	0x0041,	0x0041,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// RedDirt
-		{	0x0042,	0x0042,	0x0042,	0x0042,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// BlackDirt
-		{	0x0043,	0x0043,	0x0043,	0x0043,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Sand
-		{	0x0044,	0x0044,	0x0044,	0x0044,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Snow
-		{	0x0045,	0x0045,	0x0045,	0x0045,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// Stone
-		{	0x0050,	0x0050,	0x0050,	0x0050,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// RedBrick1
-		{	0x0051,	0x0051,	0x0051,	0x0051,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// RedBrick2
-		{	0x0052,	0x0052,	0x0052,	0x0052,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// WhiteBrick1
-		{	0x0053,	0x0053,	0x0053,	0x0053,	true,	true,		false,	true,	1.0f,		1.0f,		0.0f,		0.0f,	},		// WhiteBrick2
+		//	[0]		[1]		[2]		[3]		Visible	Collision	Light	Shadow	MoveScale	JumpScale	FallScale	
+		{	0x0000,	0x0000,	0x0000,	0x0000,	false,	false,		false,	false,	0.05f,		0.0f,		1.0f,		},		// Blank
+		{	0x0020,	0x0020,	0x0020,	0x0020,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// Green
+		{	0x0021,	0x0021,	0x0021,	0x0021,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// LightGreen
+		{	0x0022,	0x0022,	0x0022,	0x0022,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// DeepGreen
+		{	0x0023,	0x0023,	0x0023,	0x0023,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// Sakura
+		{	0x0024,	0x0024,	0x0024,	0x0024,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// Ishou
+		{	0x0025,	0x0025,	0x0025,	0x0025,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// Kaede
+		{	0x0026,	0x0026,	0x0026,	0x0026,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// DeadLeaf
+		{	0x0030,	0x0031,	0x0032,	0x0033,	true,	false,		false,	true,	0.20f,		0.4f,		0.2f,		},		// Sea
+		{	0x0034,	0x0035,	0x0036,	0x0037,	true,	false,		false,	true,	0.20f,		0.4f,		0.2f,		},		// DeepSea
+		{	0x0038,	0x0039,	0x003A,	0x003B,	true,	false,		false,	true,	0.20f,		0.4f,		0.2f,		},		// Magma
+		{	0x003C,	0x003D,	0x003E,	0x003F,	true,	false,		false,	true,	0.20f,		0.4f,		0.2f,		},		// PoisonSwamp
+		{	0x0040,	0x0040,	0x0040,	0x0040,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// Dirt
+		{	0x0041,	0x0041,	0x0041,	0x0041,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// RedDirt
+		{	0x0042,	0x0042,	0x0042,	0x0042,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// BlackDirt
+		{	0x0043,	0x0043,	0x0043,	0x0043,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// Sand
+		{	0x0044,	0x0044,	0x0044,	0x0044,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// Snow
+		{	0x0045,	0x0045,	0x0045,	0x0045,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// Stone
+		{	0x0050,	0x0050,	0x0050,	0x0050,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// RedBrick1
+		{	0x0051,	0x0051,	0x0051,	0x0051,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// RedBrick2
+		{	0x0052,	0x0052,	0x0052,	0x0052,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// WhiteBrick1
+		{	0x0053,	0x0053,	0x0053,	0x0053,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// WhiteBrick2
 	};
 		
 			

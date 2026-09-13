@@ -154,3 +154,18 @@ Void SNWActObject::Jump()
 
 	return;
 }
+
+// JumpEnd
+Void SNWActObject::JumpEnd()
+{
+	SNWObjectEventParam param = { 0 };
+
+	if (Object != nullptr)
+	{
+		param.Event = SNWObjectEventJumpEnd;
+		Object->Notify(&param);
+	}
+
+	return;
+}
+

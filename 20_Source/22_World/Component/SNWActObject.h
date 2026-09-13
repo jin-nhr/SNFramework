@@ -3,6 +3,12 @@
 #include "SNWObjectBase.h"
 #include "SNWObjectchip.h"
 
+// 動的オブジェクト
+
+// オブジェクト実体はObjectBaseであり
+// 動的なObjectBaseへのI/Fを提供するのがActObjectである
+// そのためActObject自身はデータを持たない
+
 class SNWActObject
 {
 public:
@@ -44,6 +50,9 @@ public:
 
     // Jump
     virtual Void Jump();
+
+    // Jump End
+    virtual Void JumpEnd();
 
 
 private:
