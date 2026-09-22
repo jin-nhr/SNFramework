@@ -3,6 +3,7 @@
 #include "SNApplication.h"
 #include "SNKeyboard.h"
 #include "SNSystemConfig.h"
+#include "SNGraphicsDevice.h"
 
 // デバッグアプリ
 
@@ -99,7 +100,7 @@ Void SNDebugApp::OnCycle()
 		txtProcFPS.SetValue(SNApplication::GetProcFPS());
 		txtSkip.SetValue(SNApplication::GetSkipFrame());
 		txtProcTime.SetValue(SNApplication::GetProcTime());
-		txtDrawCnt.SetValue(0);
+		txtDrawCnt.SetValue(SNGraphicsDevice::D3DDrawCommandNum);
 		txtDrawPix.SetValue(0);
 
 		// ESCが押されたらデバッグ表示の反転

@@ -5,6 +5,7 @@
 #include "SNThread.h"
 #include "SNList.h"
 #include "SNCriticalSection.h"
+#include "SNSystemConfig.h"
 
 // 地形メッシュ
 
@@ -62,6 +63,9 @@ public:
 	// Code書き込み
 	virtual Void SetCode(Int32 x, Int32 y, Int32 z, SNMapchip::SNMapchipCode code);
 
+	// Code書き込み実行
+	virtual Void RunSetCode();
+
 	// ファイルアクセス中？
 	virtual Boolean IsProc();
 
@@ -90,7 +94,8 @@ private:
 	Int32 MeshY;
 	Int32 MeshZ;
 
-	SNWGroundBlockData SetCodeInfo;
+	SNWGroundBlockData SetCodeInfo[SNSystemConfig::WorldNearbySpaceSizeH * SNSystemConfig::WorldNearbySpaceSizeH * SNSystemConfig::WorldNearbySpaceSizeV];
+	Int32 SetCodeInfoNum;
 
 	SNMemory BlockList;
 };

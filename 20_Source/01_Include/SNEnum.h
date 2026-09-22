@@ -753,7 +753,6 @@ enum SNWObjectState
     SNWObjectStateIdle,
     SNWObjectStateWalk,
     SNWObjectStateJog,
-    SNWObjectStateWait,
     SNWObjectStateJump,
     SNWObjectStateAttack,
     SNWObjectStateKnockback,
@@ -784,3 +783,5 @@ enum SNWTimeZone
     SNWTimeZoneNight,
     SNWTimeZoneNum,
 };
+
+

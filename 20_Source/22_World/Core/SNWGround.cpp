@@ -4,6 +4,7 @@
 #include "SNSystemConfig.h"
 #include "SNWindowsAPI.h"
 #include "SNAutoResource.h"
+#include "SNWNearbySpace.h"
 
 SNWGround::SNWGround()
 {
@@ -12,7 +13,8 @@ SNWGround::SNWGround()
 	MeshY = 0;
 	MeshZ = 0;
 
-	SetCodeInfo = {0};
+	ZeroMemory(SetCodeInfo, sizeof(SetCodeInfo));
+	SetCodeInfoNum = 0;
 
 	State = SNWMeshStateIdle;
 
@@ -117,15 +119,25 @@ Void SNWGround::SetCode(Int32 x, Int32 y, Int32 z, SNMapchip::SNMapchipCode code
 {
 	if (!IsProc())
 	{
-		State = SNWMeshStateSetCode;
+		SetCodeInfo[SetCodeInfoNum].X = (UInt16)x;
+		SetCodeInfo[SetCodeInfoNum].Y = (UInt16)y;
+		SetCodeInfo[SetCodeInfoNum].Z = (UInt16)z;
+		SetCodeInfo[SetCodeInfoNum].Code = (UInt16)code;
+		SetCodeInfoNum++;
+	}
 
-		SetCodeInfo.X = (UInt16)x;
-		SetCodeInfo.Y = (UInt16)y;
-		SetCodeInfo.Z = (UInt16)z;
-		SetCodeInfo.Code = (UInt16)code;
+	return;
+}
 
-		// スレッド実行
-		SNThread::Run();
+Void SNWGround::RunSetCode()
+{
+	if (!IsProc())
+	{
+		if (SetCodeInfoNum > 0)
+		{
+			State = SNWMeshStateSetCode;
+			SNThread::Run();
+		}
 	}
 
 	return;
@@ -247,50 +259,56 @@ Void SNWGround::SetCodeAsync()
 	SNWGroundFileData* data_adr = (SNWGroundFileData*)BlockList.GetAddress();
 
 
-	for (cnt = 0; cnt < data_adr->BlockNum; cnt++)
+	while (SetCodeInfoNum > 0)
 	{
-		// 同一座標のデータあり
-		if ((data_adr->Block[cnt].X) == (SetCodeInfo.X) &&
-			(data_adr->Block[cnt].Y) == (SetCodeInfo.Y) &&
-			(data_adr->Block[cnt].Z) == (SetCodeInfo.Z))
+
+		for (cnt = 0; cnt < data_adr->BlockNum; cnt++)
 		{
-			break;
-		}
-	}
-
-
-	{
-		SNAutoResource res(&CS);
-
-		// 同一座標のブロックなし
-		if (cnt >= data_adr->BlockNum)
-		{
-			// Blankは登録しない
-			if (SetCodeInfo.Code != SNMapchip::SNMapchipBlank)
+			// 同一座標のデータあり
+			if ((data_adr->Block[cnt].X) == (SetCodeInfo[SetCodeInfoNum - 1].X) &&
+				(data_adr->Block[cnt].Y) == (SetCodeInfo[SetCodeInfoNum - 1].Y) &&
+				(data_adr->Block[cnt].Z) == (SetCodeInfo[SetCodeInfoNum - 1].Z))
 			{
-				if (data_adr->BlockNum < SNGroundBlockDataSize - 1)
+				break;
+			}
+		}
+
+
+		{
+			SNAutoResource res(&CS);
+
+			// 同一座標のブロックなし
+			if (cnt >= data_adr->BlockNum)
+			{
+				// Blankは登録しない
+				if (SetCodeInfo[SetCodeInfoNum - 1].Code != SNMapchip::SNMapchipBlank)
 				{
-					data_adr->Block[cnt] = SetCodeInfo;
-					data_adr->BlockNum++;
+					if (data_adr->BlockNum < SNGroundBlockDataSize - 1)
+					{
+						data_adr->Block[cnt] = SetCodeInfo[SetCodeInfoNum - 1];
+						data_adr->BlockNum++;
+					}
+				}
+			}
+
+			// 同一座標のブロック発見
+			else
+			{
+				// コードがBlank=削除のときは最終データを持ってくる
+				if (SetCodeInfo[SetCodeInfoNum - 1].Code == SNMapchip::SNMapchipBlank)
+				{
+					data_adr->Block[cnt] = data_adr->Block[data_adr->BlockNum - 1];
+					data_adr->BlockNum--;
+				}
+				else
+				{
+					// コードを上書きする
+					data_adr->Block[cnt] = SetCodeInfo[SetCodeInfoNum - 1];
 				}
 			}
 		}
 
-		// 同一座標のブロック発見
-		else
-		{
-			// コードがBlank=削除のときは最終データを持ってくる
-			if (SetCodeInfo.Code == SNMapchip::SNMapchipBlank)
-			{
-				data_adr->Block[cnt] = data_adr->Block[data_adr->BlockNum - 1];
-				data_adr->BlockNum--;
-			}
-			else
-			{
-				// コードを上書きする
-				data_adr->Block[cnt] = SetCodeInfo;
-			}
-		}
+		SetCodeInfoNum--;
 	}
 
 	return;

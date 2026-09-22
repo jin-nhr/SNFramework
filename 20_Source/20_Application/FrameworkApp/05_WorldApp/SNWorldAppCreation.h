@@ -1,11 +1,13 @@
 #pragma once
 #include "SNFrameworkInternal.h"
 #include "SNWorldAppBase.h"
+#include "SNWNearbySpace.h"
 
 class SNWorldAppCreation : public SNWorldAppBase
 {
 public:
 	static constexpr Int32 MapchipListView = 4;
+	static constexpr Int32 FocusAcc = 3;
 public:
 	SNWorldAppCreation();
 	virtual ~SNWorldAppCreation();
@@ -26,6 +28,9 @@ public:
 
 	virtual Void OnDraw();
 
+protected:
+	virtual Void WriteBlock();
+
 private:
 	SNGUIWindow Win;
 	SNGUITextEx	txtX;
@@ -34,5 +39,11 @@ private:
 	SNGUIWindow WinBlock;
 
 	UInt16 SelectBlock;
+
+
+	Boolean RangeMode;
+	Boolean CopiedFlag;
+	UInt16 CopySpace[SNSystemConfig::WorldNearbySpaceSizeV][SNSystemConfig::WorldNearbySpaceSizeH][SNSystemConfig::WorldNearbySpaceSizeH];
+	UInt16 WorkSpace[SNSystemConfig::WorldNearbySpaceSizeV][SNSystemConfig::WorldNearbySpaceSizeH][SNSystemConfig::WorldNearbySpaceSizeH];
 };
 

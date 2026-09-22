@@ -173,10 +173,10 @@ private:
 		SNGamePadAxis2Down,			// リストダウン(縮小)
 		SNGamePadAxis1Up,			// 左スティック左
 		SNGamePadAxis1Down,			// 左スティック右
-		SNGamePadAxis5Up,			// 右スティック上
-		SNGamePadAxis5Down,			// 右スティック下
-		SNGamePadAxis4Up,			// 右スティック左
-		SNGamePadAxis4Down,			// 右スティック右
+		SNGamePadAxis4Up,			// 右スティック上
+		SNGamePadAxis4Down,			// 右スティック下
+		SNGamePadAxis5Up,			// 右スティック左
+		SNGamePadAxis5Down,			// 右スティック右
 
 
 		// 仮想パッド2

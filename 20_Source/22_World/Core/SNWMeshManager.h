@@ -45,7 +45,9 @@ public:
 	virtual Void Update(SNWorldPos* pos);
 
 	// 地形書き込み
-	virtual Void Write(SNMapchip::SNMapchipCode code);
+	virtual Void Write(SNWorldPos* pos, SNMapchip::SNMapchipCode code);
+
+	virtual Void RunWrite();
 
 	// 周辺空間へのオブジェクト登録
 	virtual Void RegisterNearbyObject(SNWNearbySpace* space);

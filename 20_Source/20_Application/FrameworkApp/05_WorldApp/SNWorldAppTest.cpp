@@ -83,60 +83,102 @@ Boolean SNWorldAppTest::OnGamePad1()
 	SNVGamePadNStyle* pd = SNInput::RefN1();
 	SNWorldDir dir;
 	Boolean dir_input = false;
-
 	static Boolean bsts = false;
 
+	// 操作説明
+	if (pd->SelectPush())
+	{
+		// 操作説明表示要求
+	}
+
+	// 手前ブロック透過設定Down
+	if (pd->L1Push() || pd->L1Repeat())
+	{
+		WorldView.DownTransparentFrontGround();
+	}
+
+	// 手前ブロック透過設定Up
+	if (pd->R1Push() || pd->R1Repeat())
+	{
+		WorldView.UpTransparentFrontGround();
+	}
+
+	// 拡大
+	if (pd->RStkUpPush() || pd->RStkUpRepeat())
+	{
+		WorldView.UpViewScale();
+	}
+
+	// 縮小
+	if (pd->RStkDownPush() || pd->RStkDownRepeat())
+	{
+		WorldView.DownViewScale();
+	}
+
+	// 左回転
+	if (pd->RStkLeftPush() || pd->RStkLeftRepeat())
+	{
+		WorldView.RotateLViewDir();
+	}
+
+	// 右回転
+	if (pd->RStkRightPush() || pd->RStkRightRepeat())
+	{
+		WorldView.RotateRViewDir();
+	}
+
+
 	// 左上
-	if (pd->DPadLeftPress() && pd->DPadUpPress())
+	if (pd->LStkLeftPress() && pd->LStkUpPress())
 	{
 		dir = WorldView.UpLeftToAngle();
 		dir_input = true;
 	}
 
 	// 右上
-	else if (pd->DPadRightPress() && pd->DPadUpPress())
+	else if (pd->LStkRightPress() && pd->LStkUpPress())
 	{
 		dir = WorldView.UpRightToAngle();
 		dir_input = true;
 	}
 
 	// 左下
-	else if (pd->DPadLeftPress() && pd->DPadDownPress())
+	else if (pd->LStkLeftPress() && pd->LStkDownPress())
 	{
 		dir = WorldView.DownLeftToAngle();
 		dir_input = true;
 	}
 
 	// 右下
-	else if (pd->DPadRightPress() && pd->DPadDownPress())
+	else if (pd->LStkRightPress() && pd->LStkDownPress())
 	{
 		dir = WorldView.DownRightToAngle();
 		dir_input = true;
 	}
 
 	// 上
-	else if (pd->DPadUpPress())
+	else if (pd->LStkUpPress())
 	{
 		dir = WorldView.UpToAngle();
 		dir_input = true;
 	}
 
 	// 下
-	else if (pd->DPadDownPress())
+	else if (pd->LStkDownPress())
 	{
 		dir = WorldView.DownToAngle();
 		dir_input = true;
 	}
 
 	// 左
-	else if (pd->DPadLeftPress())
+	else if (pd->LStkLeftPress())
 	{
 		dir = WorldView.LeftToAngle();
 		dir_input = true;
 	}
 
 	// 右
-	else if (pd->DPadRightPress())
+	else if (pd->LStkRightPress())
 	{
 		dir = WorldView.RightToAngle();
 		dir_input = true;
@@ -188,35 +230,7 @@ Boolean SNWorldAppTest::OnGamePad1()
 		bsts = false;
 	}
 
-	// 表示変更操作
 
-	// 拡大
-	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadListUp][SNVirtualGamePadEventPush]) ||
-		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadListUp][SNVirtualGamePadEventRepeat]))
-	{
-		WorldView.UpViewScale();
-	}
-
-	// 縮小
-	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadListDown][SNVirtualGamePadEventPush]) ||
-		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadListDown][SNVirtualGamePadEventRepeat]))
-	{
-		WorldView.DownViewScale();
-	}
-
-	// 右回転
-	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPageNext][SNVirtualGamePadEventPush]) ||
-		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPageNext][SNVirtualGamePadEventRepeat]))
-	{
-		WorldView.RotateLViewDir();
-	}
-
-	// 左回転
-	if ((SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPagePrev][SNVirtualGamePadEventPush]) ||
-		(SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadPagePrev][SNVirtualGamePadEventRepeat]))
-	{
-		WorldView.RotateRViewDir();
-	}
 
 	return ret;
 }

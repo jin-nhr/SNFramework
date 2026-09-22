@@ -75,7 +75,9 @@ public:
 	static Void MoveCurrentPos(SNWorldPos* pos);
 
 	// 地形書き込み
-	static Void WriteGroundData(SNMapchip::SNMapchipCode code);
+	static Void WriteGroundData(SNWorldPos* pos, SNMapchip::SNMapchipCode code);
+
+	static Void FlushGroundData();
 
 	// オブジェクトリスト取得
 	static SNWNearbySpace* GetNearbySpace();

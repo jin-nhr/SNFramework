@@ -193,7 +193,7 @@ public:
 	static constexpr SNMapchipData Data[SNMapchipNum] =
 	{
 		//	[0]		[1]		[2]		[3]		Visible	Collision	Light	Shadow	MoveScale	JumpScale	FallScale	
-		{	0x0000,	0x0000,	0x0000,	0x0000,	false,	false,		false,	false,	0.05f,		0.0f,		1.0f,		},		// Blank
+		{	0x0000,	0x0000,	0x0000,	0x0000,	false,	false,		false,	false,	0.10f,		0.0f,		1.0f,		},		// Blank
 		{	0x0020,	0x0020,	0x0020,	0x0020,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// Green
 		{	0x0021,	0x0021,	0x0021,	0x0021,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// LightGreen
 		{	0x0022,	0x0022,	0x0022,	0x0022,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// DeepGreen

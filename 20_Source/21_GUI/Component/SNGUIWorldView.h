@@ -8,6 +8,13 @@
 class SNGUIWorldView : public SNScene
 {
 public:
+	enum SNGUIWorldViewFrontTransparentType
+	{
+		SNGUIWorldViewFrontTransparentTypeOff,
+		SNGUIWorldViewFrontTransparentTypeLow,
+		SNGUIWorldViewFrontTransparentTypeHigh,
+	};
+
 	static constexpr SNGraphicsResID BGRes[SNWTimeZoneNum] =
 	{
 		SNGraphicsResBG1,
@@ -16,7 +23,15 @@ public:
 		SNGraphicsResBG4,
 	};
 
-	static const UInt8 TimeZoneAlpha = 40;
+	static constexpr UInt8 TimeZoneAlpha = 40;
+
+	static constexpr Float32 TransGainOff = 1.00f;
+	static constexpr Float32 TransGainLow = 0.20f;
+	static constexpr Float32 TransGainHigh = 0.00f;
+
+	static constexpr UInt8 TransRangeMinZ = 1;
+	static constexpr Int32 TransViewRange = 128;
+
 
 public:
 	// コンストラクタ
@@ -29,6 +44,8 @@ public:
 
 	virtual Void MoveViewPos(SNWorldPos* pos);
 
+	virtual Void SaveFocusRangeStart();
+
 	virtual Void SetViewScale(Float32 scale);
 
 	virtual Void UpViewScale();
@@ -36,6 +53,8 @@ public:
 	virtual Void DownViewScale();
 
 	virtual Void GetViewPos(SNWorldPos* pos);
+
+	virtual Void GetRangeStartPos(SNWorldPos* pos);
 
 	virtual Void SetViewDir(SNWorldDir dir);
 
@@ -61,6 +80,9 @@ public:
 
 	virtual Void SetFocusVisible(Boolean visible);
 
+	virtual Void UpTransparentFrontGround();
+	virtual Void DownTransparentFrontGround();
+
 protected:
 	virtual Void OnInitialize();
 	virtual Void OnTerminate();
@@ -83,6 +105,15 @@ protected:
 	virtual Void DrawGroundShadow(SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
 	virtual Void DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, SNWObjectchip::SNWActState obj_state, SNPoint* draw_base);
 
+	// マップチップ描画座標計算
+	virtual Void CalcMapchipDrawPos(SNWNearbyObject* obj, SNPoint* draw_base, SNPoint* out);
+
+	// 手前描画物の透過率判定
+	virtual Float32 JudgeFrontTransparent(SNWNearbyObject* obj, SNRect* dst_rect);
+
+	// フォーカス登録処理
+	virtual Void RegisterFocus();
+
 	// ソート処理用オブジェクト比較
 	static Boolean CompareDrawObjectN(Void* a, Void* b);
 	static Boolean CompareDrawObjectNE(Void* a, Void* b);
@@ -93,13 +124,15 @@ protected:
 	static Boolean CompareDrawObjectW(Void* a, Void* b);
 	static Boolean CompareDrawObjectNW(Void* a, Void* b);
 
-
 private:
 	SNWorldPos TargetPos;
+	SNWorldPos RangeStart;
 	Float32 ViewScale;
 	Boolean FocusVisible;
 	
 	SNWorldDir ViewDir;
 
 	SNBitmap WorkSurface;
+	SNSize WorkSurfaceSize;
+	SNGUIWorldViewFrontTransparentType TransparentFrontGround;
 };

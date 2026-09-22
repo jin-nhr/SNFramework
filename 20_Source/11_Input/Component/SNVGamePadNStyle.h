@@ -131,11 +131,11 @@ public:
 	virtual Boolean LStkUpRelease();
 
 	// L Stick Down
-	virtual Boolean LStkDownpPush();
-	virtual Boolean LStkDownpPress();
-	virtual Boolean LStkDownpRepeat();
-	virtual Boolean LStkDownpLong();
-	virtual Boolean LStkDownpRelease();
+	virtual Boolean LStkDownPush();
+	virtual Boolean LStkDownPress();
+	virtual Boolean LStkDownRepeat();
+	virtual Boolean LStkDownLong();
+	virtual Boolean LStkDownRelease();
 
 	// L Stick left
 	virtual Boolean LStkLeftPush();
@@ -159,11 +159,11 @@ public:
 	virtual Boolean RStkUpRelease();
 
 	// R Stick Down
-	virtual Boolean RStkDownpPush();
-	virtual Boolean RStkDownpPress();
-	virtual Boolean RStkDownpRepeat();
-	virtual Boolean RStkDownpLong();
-	virtual Boolean RStkDownpRelease();
+	virtual Boolean RStkDownPush();
+	virtual Boolean RStkDownPress();
+	virtual Boolean RStkDownRepeat();
+	virtual Boolean RStkDownLong();
+	virtual Boolean RStkDownRelease();
 
 	// R Stick left
 	virtual Boolean RStkLeftPush();

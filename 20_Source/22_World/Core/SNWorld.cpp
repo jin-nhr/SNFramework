@@ -183,9 +183,16 @@ Void SNWorld::MoveCurrentPos(SNWorldPos* pos)
 }
 
 // ínå`èëÇ´çûÇ›
-Void SNWorld::WriteGroundData(SNMapchip::SNMapchipCode code)
+Void SNWorld::WriteGroundData(SNWorldPos* pos, SNMapchip::SNMapchipCode code)
 {
-	MeshManager.Write(code);
+	MeshManager.Write(pos, code);
+
+	return;
+}
+
+Void SNWorld::FlushGroundData()
+{
+	MeshManager.RunWrite();
 
 	return;
 }

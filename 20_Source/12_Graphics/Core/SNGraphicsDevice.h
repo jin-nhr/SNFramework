@@ -156,7 +156,7 @@ public:
 		Float32 MulA;
 	};
 
-	static constexpr Int64 D3DDrawCommandMax = 32767;
+	static constexpr Int64 D3DDrawCommandMax = 256 * 1024;
 
 	static Handle Device;
 	static Handle DeviceContext;

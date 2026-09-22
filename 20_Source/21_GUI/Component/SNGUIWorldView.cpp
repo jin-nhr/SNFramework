@@ -11,11 +11,17 @@ SNGUIWorldView::SNGUIWorldView()
 {
 	TargetPos = { 0 };
 
+	RangeStart = TargetPos;
+
 	ViewScale = SNWViewScaleNormal;
 
 	ViewDir = SNWorldDirN;
 
 	FocusVisible = false;
+
+	TransparentFrontGround = SNGUIWorldViewFrontTransparentTypeLow;
+
+	WorkSurfaceSize = {0};
 
 	return;
 }
@@ -39,6 +45,14 @@ Void SNGUIWorldView::MoveViewPos(SNWorldPos* pos)
 	TargetPos.X += pos->X;
 	TargetPos.Y += pos->Y;
 	TargetPos.Z += pos->Z;
+	return;
+}
+
+Void SNGUIWorldView::SaveFocusRangeStart()
+{
+	// 現在位置を範囲開始にセット
+	RangeStart = TargetPos;
+
 	return;
 }
 
@@ -92,6 +106,13 @@ Void SNGUIWorldView::GetViewPos(SNWorldPos* pos)
 	return;
 }
 
+Void SNGUIWorldView::GetRangeStartPos(SNWorldPos* pos)
+{
+	*pos = RangeStart;
+
+	return;
+}
+
 // 初期化
 Void SNGUIWorldView::OnInitialize()
 {
@@ -105,6 +126,8 @@ Void SNGUIWorldView::OnInitialize()
 	size.Height = (Int32)(rect.Height / SNWViewScaleMin);
 
 	SNGraphicsDevice::CreateBitmap(&WorkSurface, &size);
+
+	WorkSurface.GetSize(&WorkSurfaceSize);
 
 	return;
 }
@@ -151,7 +174,7 @@ Void SNGUIWorldView::OnPreDraw()
 	// 表示設定の場合、フォーカスを登録する
 	if (FocusVisible)
 	{
-		SNWorld::GetNearbySpace()->RegisterFocus(&TargetPos);
+		RegisterFocus();
 	}
 
 	SortObject();
@@ -223,7 +246,7 @@ Void SNGUIWorldView::DrawWrokSurface()
 	// 描画基点を計算
 	// 中心ブロックの左上までのずれを補正し
 	// 周辺空間左上低までのオフセットを計算/加算する
-	WorkSurface.GetSize(&size);
+	size = WorkSurfaceSize;
 	draw_base.X = (Int32)(size.Width / 2
 		- SNMapchip::MapchipCenterOffset[ViewDir].X
 		+ (SNMapchip::MapchipStrideX[ViewDir].X * scr_offset.X
@@ -265,7 +288,7 @@ Void SNGUIWorldView::OnDraw()
 	SNRect bg_rect;
 
 	dst_rect = CalcGlobalRect();
-	WorkSurface.GetSize(&size);
+	size = WorkSurfaceSize;
 	bg_bmp->GetSize(&bg_size);
 	bg_rect.PointX = 0;
 	bg_rect.PointY = 0;
@@ -430,6 +453,19 @@ Void SNGUIWorldView::SetFocusVisible(Boolean visible)
 	return;
 }
 
+Void SNGUIWorldView::UpTransparentFrontGround()
+{
+	TransparentFrontGround = (SNGUIWorldViewFrontTransparentType)SNMath::Increment(TransparentFrontGround, (Int32)SNGUIWorldViewFrontTransparentTypeOff, (Int32)SNGUIWorldViewFrontTransparentTypeHigh);
+
+	return;
+}
+
+Void SNGUIWorldView::DownTransparentFrontGround()
+{
+	TransparentFrontGround = (SNGUIWorldViewFrontTransparentType)SNMath::Decrement(TransparentFrontGround, (Int32)SNGUIWorldViewFrontTransparentTypeOff, (Int32)SNGUIWorldViewFrontTransparentTypeHigh);
+
+	return;
+}
 
 // 周辺オブジェクト描画
 Void SNGUIWorldView::DrawNearbyObject(SNWNearbyObject* obj, SNPoint* draw_base)
@@ -650,31 +686,31 @@ Void SNGUIWorldView::DrawNearbyObjectFocus(SNWNearbyObject* obj, SNPoint* draw_b
 
 Void SNGUIWorldView::DrawGround(SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base)
 {
+	SNPoint pos;
 	SNRect src_rect;
 	SNRect dst_rect;
+	Float32 a_gain = 0.0f;
 
 	// チップ側の矩形取得
 	SNMapchip::CodeToRect(code, ViewDir, &src_rect);
 
-	// 描画座標計算
-	dst_rect.PointX = (Int32)(draw_base->X
-		+ (SNMapchip::MapchipStrideX[ViewDir].X * obj->Pos.X
-			+ SNMapchip::MapchipStrideY[ViewDir].X * obj->Pos.Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].X * obj->Pos.Z));
-	dst_rect.PointY = (Int32)(draw_base->Y
-		+ (SNMapchip::MapchipStrideX[ViewDir].Y * obj->Pos.X
-			+ SNMapchip::MapchipStrideY[ViewDir].Y * obj->Pos.Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].Y * obj->Pos.Z));
+	// チップの描画先座標計算
+	CalcMapchipDrawPos(obj, draw_base, &pos);
 
+	dst_rect.PointX = pos.X;
+	dst_rect.PointY = pos.Y;
 	dst_rect.Width = src_rect.Width;
 	dst_rect.Height = src_rect.Height;
+
+	// 手前ブロック透過h判定
+	a_gain = JudgeFrontTransparent(obj, &dst_rect);
 
 	// マップチップ本体を描画
 	SNGraphicsDevice::DrawImage(
 		&dst_rect,
 		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource[SNMapchip::CodeToResID(code)]),
 		&src_rect,
-		SNAlphaMax);
+		(UInt8)(SNAlphaMax * a_gain));
 
 	return;
 }
@@ -682,62 +718,62 @@ Void SNGUIWorldView::DrawGround(SNWNearbyObject* obj, UInt16 code, SNPoint* draw
 
 Void SNGUIWorldView::DrawGroundBorder(SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base)
 {
+	SNPoint pos;
 	SNRect src_rect;
 	SNRect dst_rect;
+	Float32 a_gain = 0.0f;
 
 	// チップ側の矩形取得
 	SNMapchip::CodeToRect(code, ViewDir, &src_rect);
 
-	// 描画座標計算
-	dst_rect.PointX = (Int32)(draw_base->X
-		+ (SNMapchip::MapchipStrideX[ViewDir].X * obj->Pos.X
-			+ SNMapchip::MapchipStrideY[ViewDir].X * obj->Pos.Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].X * obj->Pos.Z));
-	dst_rect.PointY = (Int32)(draw_base->Y
-		+ (SNMapchip::MapchipStrideX[ViewDir].Y * obj->Pos.X
-			+ SNMapchip::MapchipStrideY[ViewDir].Y * obj->Pos.Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].Y * obj->Pos.Z));
+	// チップの描画先座標計算
+	CalcMapchipDrawPos(obj, draw_base, &pos);
 
+	dst_rect.PointX = pos.X;
+	dst_rect.PointY = pos.Y;
 	dst_rect.Width = src_rect.Width;
 	dst_rect.Height = src_rect.Height;
+
+	// 手前ブロック透過h判定
+	a_gain = JudgeFrontTransparent(obj, &dst_rect);
 
 	// マップチップ本体を描画
 	SNGraphicsDevice::DrawImage(
 		&dst_rect,
 		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource[SNMapchip::CodeToResID(code)]),
 		&src_rect,
-		SNAlphaMax);
+		(UInt8)(SNAlphaMax * a_gain));
 
 	return;
 }
 
 Void SNGUIWorldView::DrawGroundShadow(SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base)
 {
+	SNPoint pos;
 	SNRect src_rect;
 	SNRect dst_rect;
+	Float32 a_gain = 0.0f;
 
 	// チップ側の矩形取得
 	SNMapchip::CodeToRect(code, ViewDir, &src_rect);
 
-	// 描画座標計算
-	dst_rect.PointX = (Int32)(draw_base->X
-		+ (SNMapchip::MapchipStrideX[ViewDir].X * obj->Pos.X
-			+ SNMapchip::MapchipStrideY[ViewDir].X * obj->Pos.Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].X * obj->Pos.Z));
-	dst_rect.PointY = (Int32)(draw_base->Y
-		+ (SNMapchip::MapchipStrideX[ViewDir].Y * obj->Pos.X
-			+ SNMapchip::MapchipStrideY[ViewDir].Y * obj->Pos.Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].Y * obj->Pos.Z));
+	// チップの描画先座標計算
+	CalcMapchipDrawPos(obj, draw_base, &pos);
 
+	dst_rect.PointX = pos.X;
+	dst_rect.PointY = pos.Y;
 	dst_rect.Width = src_rect.Width;
 	dst_rect.Height = src_rect.Height;
+
+	// 手前ブロック透過h判定
+	a_gain = JudgeFrontTransparent(obj, &dst_rect);
 
 	// マップチップ本体を描画
 	SNGraphicsDevice::DrawImage(
 		&dst_rect,
 		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource[SNMapchip::CodeToResID(code)]),
 		&src_rect,
-		SNAlphaMax);
+		(UInt8)(SNAlphaMax * a_gain));
 
 	return;
 }
@@ -745,35 +781,147 @@ Void SNGUIWorldView::DrawGroundShadow(SNWNearbyObject* obj, UInt16 code, SNPoint
 
 Void SNGUIWorldView::DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, SNWObjectchip::SNWActState act_state, SNPoint* draw_base)
 {
+	SNPoint pos;
 	SNRect src_rect;
 	SNRect dst_rect;
+	Float32 a_gain = 0.0f;
 
 	// チップ側の矩形取得
 	SNWObjectchip::CodeToRect(code, obj_dir, act_state, &src_rect);
 
-	// 描画座標計算
-	dst_rect.PointX = (Int32)(draw_base->X
-		+ (SNMapchip::MapchipStrideX[ViewDir].X * obj->Pos.X
-			+ SNMapchip::MapchipStrideY[ViewDir].X * obj->Pos.Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].X * obj->Pos.Z))
+	// チップの描画先座標計算
+	CalcMapchipDrawPos(obj, draw_base, &pos);
+
+	dst_rect.PointX = pos.X 
 		+ SNMapchip::MapchipBottomCenterOffset[ViewDir].X
 		- SNWObjectchip::WObjectCenterOffset[obj_dir].X;
-	dst_rect.PointY = (Int32)(draw_base->Y
-		+ (SNMapchip::MapchipStrideX[ViewDir].Y * obj->Pos.X
-			+ SNMapchip::MapchipStrideY[ViewDir].Y * obj->Pos.Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].Y * obj->Pos.Z))
+	dst_rect.PointY = pos.Y
 		+ SNMapchip::MapchipBottomCenterOffset[ViewDir].Y
 		- SNWObjectchip::WObjectCenterOffset[obj_dir].Y;
-
 	dst_rect.Width = src_rect.Width;
 	dst_rect.Height = src_rect.Height;
+
+	// 手前ブロック透過h判定
+	a_gain = JudgeFrontTransparent(obj, &dst_rect);
 
 	// マップチップ本体を描画
 	SNGraphicsDevice::DrawImage(
 		&dst_rect,
 		SNGraphicsResManager::GetResource(SNWObjectchip::ObjectchipResource[SNWObjectchip::CodeToResID(code)]),
 		&src_rect,
-		SNAlphaMax);
+		(UInt8)(SNAlphaMax * a_gain));
+
+	return;
+}
+
+
+Void SNGUIWorldView::CalcMapchipDrawPos(SNWNearbyObject* obj, SNPoint* draw_base, SNPoint* out)
+{
+	// 描画座標計算
+	out->X = (Int32)(draw_base->X
+		+ (SNMapchip::MapchipStrideX[ViewDir].X * obj->Pos.X
+			+ SNMapchip::MapchipStrideY[ViewDir].X * obj->Pos.Y
+			+ SNMapchip::MapchipStrideZ[ViewDir].X * obj->Pos.Z));
+	out->Y = (Int32)(draw_base->Y
+		+ (SNMapchip::MapchipStrideX[ViewDir].Y * obj->Pos.X
+			+ SNMapchip::MapchipStrideY[ViewDir].Y * obj->Pos.Y
+			+ SNMapchip::MapchipStrideZ[ViewDir].Y * obj->Pos.Z));
+	return;
+}
+
+Float32 SNGUIWorldView::JudgeFrontTransparent(SNWNearbyObject* obj, SNRect* dst_rect)
+{
+	Float32 ret = TransGainOff;
+	Int32 dx = 0;
+	Int32 dy = 0;
+	Int32 dist2 = 0;
+
+	dx = dst_rect->PointX - (WorkSurfaceSize.Width / 2);
+	dy = dst_rect->PointY - (WorkSurfaceSize.Height / 2);
+
+	dist2 = dx * dx + dy * dy;
+
+	// 高さが一定以上、かつ一定範囲内の場合は透過率を変更
+	if ((obj->Pos.Z > SNSystemConfig::WorldNearbySpaceSizeV + TransRangeMinZ) &&
+		(dist2 < TransViewRange * TransViewRange))
+	{
+		switch (TransparentFrontGround)
+		{
+		case SNGUIWorldViewFrontTransparentTypeOff:
+			ret = TransGainOff;
+			break;
+		case SNGUIWorldViewFrontTransparentTypeLow:
+			ret = TransGainLow;
+			break;
+		case SNGUIWorldViewFrontTransparentTypeHigh:
+			ret = TransGainHigh;
+			break;
+		}
+	}
+
+	return ret;
+}
+
+
+Void SNGUIWorldView::RegisterFocus()
+{
+	SNWorldPos range_st;
+	SNWorldPos range_ed;
+	SNWorldPos write_pos = { 0.0f };
+	Int32 from_x;
+	Int32 from_y;
+	Int32 from_z;
+	Int32 to_x;
+	Int32 to_y;
+	Int32 to_z;
+	Int32 step_x = 1;
+	Int32 step_y = 1;
+	Int32 step_z = 1;
+	Int32 pos_x = 0;
+	Int32 pos_y = 0;
+	Int32 pos_z = 0;
+
+	GetRangeStartPos(&range_st);
+	GetViewPos(&range_ed);
+
+	from_x = SNMath::FloorToInt(range_st.X);
+	from_y = SNMath::FloorToInt(range_st.Y);
+	from_z = SNMath::FloorToInt(range_st.Z);
+
+	to_x = SNMath::FloorToInt(range_ed.X);
+	to_y = SNMath::FloorToInt(range_ed.Y);
+	to_z = SNMath::FloorToInt(range_ed.Z);
+
+	if (to_x < from_x)
+	{
+		step_x = -1;
+	}
+	if (to_y < from_y)
+	{
+		step_y = -1;
+	}
+	if (to_z < from_z)
+	{
+		step_z = -1;
+	}
+
+	// 範囲ループ
+	for (pos_z = from_z; pos_z != (to_z + step_z); pos_z += step_z)
+	{
+		write_pos.Z = (Float32)pos_z;
+
+		for (pos_y = from_y; pos_y != (to_y + step_y); pos_y += step_y)
+		{
+			write_pos.Y = (Float32)pos_y;
+
+			for (pos_x = from_x; pos_x != (to_x + step_x); pos_x += step_x)
+			{
+				write_pos.X = (Float32)pos_x;
+
+				SNWorld::GetNearbySpace()->RegisterFocus(&write_pos);
+			}
+		}
+	}
 
 	return;
 }
@@ -916,3 +1064,4 @@ Boolean SNGUIWorldView::CompareDrawObjectNW(Void* a, Void* b)
 
 	return ret;
 }
+

@@ -148,19 +148,36 @@ Void SNWMeshManager::Update(SNWorldPos* pos)
 }
 
 // 地形書き込み
-Void SNWMeshManager::Write(SNMapchip::SNMapchipCode code)
+Void SNWMeshManager::Write(SNWorldPos* pos, SNMapchip::SNMapchipCode code)
 {
 	SNWorldDir dir;
 	SNWorldElevation z;
 	SNWorldPos lpos;
 
 	// メッシュ方位とローカル座標取得
-	if (CvtIDAndLocalPos(&CurrentPos, &dir, &z, &lpos))
+	if (CvtIDAndLocalPos(pos, &dir, &z, &lpos))
 	{
 		MeshInfo[MeshRef[z][dir]].Ground.SetCode((Int32)lpos.X, (Int32)lpos.Y, (Int32)lpos.Z, code);
 		MeshInfo[MeshRef[z][dir]].DirtyGround = true;
 	}
 
+	return;
+}
+
+// 地形書き込み実行
+Void SNWMeshManager::RunWrite()
+{
+	Int32 mesh_dir;
+	Int32 mesh_z;
+
+	// 全メッシュに対して書き込み実行 (メッシュ側で実行要否を判定)
+	for (mesh_z = 0; mesh_z < SNWorldElevationNum; mesh_z++)
+	{
+		for (mesh_dir = 0; mesh_dir < SNWorldDirNum; mesh_dir++)
+		{
+			MeshInfo[MeshRef[mesh_z][mesh_dir]].Ground.RunSetCode();
+		}
+	}
 	return;
 }
 

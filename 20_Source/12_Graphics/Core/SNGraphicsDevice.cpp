@@ -1005,29 +1005,39 @@ Void SNGraphicsDevice::DrawImageImp(SNRect* dst_rect, SNBitmap* src, SNRect* src
         D3DSourceBitmap = src;
     }
 
-    tile = &D3DDrawCommand[D3DDrawCommandNum];
+    if (D3DDrawCommandNum < D3DDrawCommandMax)
+    {
 
-    // 描画コマンドを追加設定する
-    tile->DstX = (Float32)dst_rect->PointX;
-    tile->DstY = (Float32)dst_rect->PointY;
-    tile->DstW = (Float32)dst_rect->Width;
-    tile->DstH = (Float32)dst_rect->Height;
+        tile = &D3DDrawCommand[D3DDrawCommandNum];
 
-    tile->SrcX = (Float32)src_rect->PointX;
-    tile->SrcY = (Float32)src_rect->PointY;
-    tile->SrcW = (Float32)src_rect->Width;
-    tile->SrcH = (Float32)src_rect->Height;
+        // 描画コマンドを追加設定する
+        tile->DstX = (Float32)dst_rect->PointX;
+        tile->DstY = (Float32)dst_rect->PointY;
+        tile->DstW = (Float32)dst_rect->Width;
+        tile->DstH = (Float32)dst_rect->Height;
 
-    tile->Alpha = (Float32)alpha / (Float32)SNAlphaMax;
-    tile->ScreenWidth = (Float32)D3DTargetSize.Width;
-    tile->ScreenHeight = (Float32)D3DTargetSize.Height;
+        tile->SrcX = (Float32)src_rect->PointX;
+        tile->SrcY = (Float32)src_rect->PointY;
+        tile->SrcW = (Float32)src_rect->Width;
+        tile->SrcH = (Float32)src_rect->Height;
 
-    tile->MulR = color->Red / 255.0f;
-    tile->MulG = color->Green / 255.0f;
-    tile->MulB = color->Blue / 255.0f;
-    tile->MulA = color->Alpha / 255.0f;
+        tile->Alpha = (Float32)alpha / (Float32)SNAlphaMax;
+        tile->ScreenWidth = (Float32)D3DTargetSize.Width;
+        tile->ScreenHeight = (Float32)D3DTargetSize.Height;
 
-    D3DDrawCommandNum++;
+        tile->MulR = color->Red / 255.0f;
+        tile->MulG = color->Green / 255.0f;
+        tile->MulB = color->Blue / 255.0f;
+        tile->MulA = color->Alpha / 255.0f;
+
+        D3DDrawCommandNum++;
+    }
+    else
+    {
+        // あさーと
+        tile = 0;
+        tile->DstX = 0;
+    }
 
     return;
 }

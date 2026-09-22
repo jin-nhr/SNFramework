@@ -164,7 +164,6 @@ public:
 			SNAnimationCodeWait,	// Idle
 			SNAnimationCodeWalk,	// Walk
 			SNAnimationCodeJog,		// Jog
-			SNAnimationCodeWait,	// Wait
 			SNAnimationCodeWait,	// Jump
 			SNAnimationCodeWait,	// Attack
 			SNAnimationCodeWait,	// Knockback
@@ -174,10 +173,10 @@ public:
 			SNAnimationCodeWait,	// Fall
 
 			// Speed (blk/sec) Å¶ 1ÉtÉåÅ[ÉÄÇ≈ÇÃà⁄ìÆãóó£ÇÕ1blkè„å¿Ç∆Ç∑ÇÈ (60fpsÇ»ÇÁ16.6Ç≠ÇÁÇ¢)
-			4.0f,			// Walk
-			8.0f,			// Jog
+			3.0f,			// Walk
+			4.5f,			// Jog
 			12.0f,			// Jump
-			8.0f			// Flying
+			4.5f			// Flying
 		},
 
 	};

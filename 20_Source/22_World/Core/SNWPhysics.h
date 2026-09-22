@@ -14,7 +14,7 @@ public:
 	static constexpr Float32 SNRefPos = 0.06f;
 	static constexpr Float32 SNMaxSpeed = 0.9f;
 	static constexpr Float32 SNMinSpeed = 0.01f;
-	static constexpr Float32 SNGravityGain = 1.1f;
+	static constexpr Float32 SNGravityGain = 1.0f;
 	static constexpr Float32 SNGroundBlockSize = 1.0f;
 
 	static constexpr Int32 SNPhysicsNearbyBlockMax = 49;

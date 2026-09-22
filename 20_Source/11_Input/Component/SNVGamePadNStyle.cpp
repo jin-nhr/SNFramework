@@ -392,23 +392,23 @@ Boolean SNVGamePadNStyle::LStkUpRelease()
 }
 
 // L Stick Down
-Boolean SNVGamePadNStyle::LStkDownpPush()
+Boolean SNVGamePadNStyle::LStkDownPush()
 {
 	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListDown][SNVirtualGamePadEventPush];
 }
-Boolean SNVGamePadNStyle::LStkDownpPress()
+Boolean SNVGamePadNStyle::LStkDownPress()
 {
 	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListDown][SNVirtualGamePadEventPress];
 }
-Boolean SNVGamePadNStyle::LStkDownpRepeat()
+Boolean SNVGamePadNStyle::LStkDownRepeat()
 {
 	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListDown][SNVirtualGamePadEventRepeat];
 }
-Boolean SNVGamePadNStyle::LStkDownpLong()
+Boolean SNVGamePadNStyle::LStkDownLong()
 {
 	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListDown][SNVirtualGamePadEventLongPress];
 }
-Boolean SNVGamePadNStyle::LStkDownpRelease()
+Boolean SNVGamePadNStyle::LStkDownRelease()
 {
 	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListDown][SNVirtualGamePadEventRelease];
 }
@@ -480,23 +480,23 @@ Boolean SNVGamePadNStyle::RStkUpRelease()
 }
 
 // R Stick Down
-Boolean SNVGamePadNStyle::RStkDownpPush()
+Boolean SNVGamePadNStyle::RStkDownPush()
 {
 	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkDown][SNVirtualGamePadEventPush];
 }
-Boolean SNVGamePadNStyle::RStkDownpPress()
+Boolean SNVGamePadNStyle::RStkDownPress()
 {
 	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkDown][SNVirtualGamePadEventPress];
 }
-Boolean SNVGamePadNStyle::RStkDownpRepeat()
+Boolean SNVGamePadNStyle::RStkDownRepeat()
 {
 	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkDown][SNVirtualGamePadEventRepeat];
 }
-Boolean SNVGamePadNStyle::RStkDownpLong()
+Boolean SNVGamePadNStyle::RStkDownLong()
 {
 	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkDown][SNVirtualGamePadEventLongPress];
 }
-Boolean SNVGamePadNStyle::RStkDownpRelease()
+Boolean SNVGamePadNStyle::RStkDownRelease()
 {
 	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkDown][SNVirtualGamePadEventRelease];
 }

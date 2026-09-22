@@ -169,7 +169,6 @@ Void SNWObjectBase::EventFuncStop(SNWObjectEventParam* param)
 		Info.PrevState = Info.State;
 		Info.State = SNWObjectStateIdle;
 		break;
-	case SNWObjectStateWait:
 	case SNWObjectStateJump:
 	case SNWObjectStateAttack:
 	case SNWObjectStateKnockback:
@@ -198,7 +197,6 @@ Void SNWObjectBase::EventFuncWalk(SNWObjectEventParam* param)
 	case SNWObjectStateIdle:
 	case SNWObjectStateWalk:
 	case SNWObjectStateJog:
-	case SNWObjectStateWait:
 		SetState(SNWObjectStateWalk);
 		break;
 	case SNWObjectStateJump:
@@ -232,7 +230,6 @@ Void SNWObjectBase::EventFuncJog(SNWObjectEventParam* param)
 	case SNWObjectStateIdle:
 	case SNWObjectStateWalk:
 	case SNWObjectStateJog:
-	case SNWObjectStateWait:
 		SetState(SNWObjectStateJog);
 		break;
 	case SNWObjectStateJump:
@@ -263,7 +260,6 @@ Void SNWObjectBase::EventFuncJump(SNWObjectEventParam* param)
 	case SNWObjectStateIdle:
 	case SNWObjectStateWalk:
 	case SNWObjectStateJog:
-	case SNWObjectStateWait:
 		SetState(SNWObjectStateJump);
 		break;
 	case SNWObjectStateJump:
@@ -302,7 +298,6 @@ Void SNWObjectBase::UpdateState()
 	case SNWObjectStateIdle:
 	case SNWObjectStateWalk:
 	case SNWObjectStateJog:
-	case SNWObjectStateWait:
 	case SNWObjectStateJump:
 		// —Ž‰º‘¬“x‚ ‚è‚È‚çFall
 		if (Info.Speed.Z < 0.0f)
