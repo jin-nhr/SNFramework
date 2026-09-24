@@ -43,26 +43,25 @@ Void SNWorldAppTest::OnTerminate()
 Void SNWorldAppTest::OnEntry()
 {
 	SNMusicPlayer::Play(SNMusicLayerLowPri, SNMusicResEnterWorld);
-
 	SNWorldAppBase::OnEntry();
 
 	WorldView.SetFocusVisible(false);
 
 	Win.Entry();
 
-Win.SetRect(784, 420, 160, 104);
-txtX.SetRect(16, 16, 128, 24);
-txtY.SetRect(16, 40, 128, 24);
-txtZ.SetRect(16, 64, 128, 24);
+	Win.SetRect(784, 420, 160, 104);
+	txtX.SetRect(16, 16, 128, 24);
+	txtY.SetRect(16, 40, 128, 24);
+	txtZ.SetRect(16, 64, 128, 24);
 
-txtX.SetText((String)L"X=%+06d");
-txtY.SetText((String)L"Y=%+06d");
-txtZ.SetText((String)L"Z=%+06d");
+	txtX.SetText((String)L"X=%+06d");
+	txtY.SetText((String)L"Y=%+06d");
+	txtZ.SetText((String)L"Z=%+06d");
 
-SNWorld::GetPCObject()->SetEnable(true);
-SNWorld::GetPCObject()->SetVisible(true);
+	SNWorld::GetPCObject()->SetEnable(true);
+	SNWorld::GetPCObject()->SetVisible(true);
 
-return;
+	return;
 }
 
 Void SNWorldAppTest::OnExit()

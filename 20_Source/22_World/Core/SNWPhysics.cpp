@@ -404,6 +404,7 @@ UInt16 SNWPhysics::GetFloorBlockCode()
 		if (dist2 > FloorBlockList[cnt].Dist2)
 		{
 			ret = (UInt16)(intptr_t)FloorBlockList[cnt].NearbyObj->UserData;
+			dist2 = FloorBlockList[cnt].Dist2;
 		}
 	}
 

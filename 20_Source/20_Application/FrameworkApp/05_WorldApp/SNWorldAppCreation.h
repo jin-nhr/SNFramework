@@ -29,7 +29,17 @@ public:
 	virtual Void OnDraw();
 
 protected:
-	virtual Void WriteBlock();
+	virtual Void WriteBlock(UInt16 code);
+
+	virtual Void RangeCopy();
+
+	virtual Void RangeCut();
+
+	virtual Void Paste();
+
+	virtual Void RotateL();
+
+	virtual Void RotateR();
 
 private:
 	SNGUIWindow Win;
@@ -42,8 +52,7 @@ private:
 
 
 	Boolean RangeMode;
-	Boolean CopiedFlag;
+	SNWorldPos CopySpaceSize;
 	UInt16 CopySpace[SNSystemConfig::WorldNearbySpaceSizeV][SNSystemConfig::WorldNearbySpaceSizeH][SNSystemConfig::WorldNearbySpaceSizeH];
-	UInt16 WorkSpace[SNSystemConfig::WorldNearbySpaceSizeV][SNSystemConfig::WorldNearbySpaceSizeH][SNSystemConfig::WorldNearbySpaceSizeH];
 };
 

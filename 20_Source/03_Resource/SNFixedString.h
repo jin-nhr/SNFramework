@@ -54,4 +54,11 @@ public:
 	static constexpr String MenuSetActiveObject = (String)L"どうてきオブジェクト";
 	static constexpr String MenuTestPlay = (String)L"テストプレイ";
 
+	static constexpr String MenuCopy = (String)L"コピー";
+	static constexpr String MenuCut = (String)L"きりとり";
+	static constexpr String MenuRotateL = (String)L"ひだりかいてん";
+	static constexpr String MenuRotateR = (String)L"みぎかいてん";
+	static constexpr String MenuDeselect = (String)L"せんたくかいじょ";
+
+
 };

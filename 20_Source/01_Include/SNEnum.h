@@ -46,8 +46,14 @@ enum SNEventResult
     SNEventResultEnterWorld,			// ワールド起動
     SNEventResultDspPreClose,           // 終了確認表示
     SNEventResultDspConfig,             // システム設定表示
+    SNEventResultDspCreationMenu,       // マップ作成メニュー表示
     SNEventResultMenuMapCreate,         // メニュー - マップ作成
     SNEventResultMenuTestPlay,          // メニュー - テストプレイ
+    SNEventResultMenuCopy,              // メニュー - コピー
+    SNEventResultMenuCut,               // メニュー - 切り取り
+    SNEventResultMenuRotateL,           // メニュー - 左回転
+    SNEventResultMenuRotateR,           // メニュー - 右回転
+    SNEventResultMenuDeselect,          // メニュー - 選択解除
     SNEventResultNum
 };
 

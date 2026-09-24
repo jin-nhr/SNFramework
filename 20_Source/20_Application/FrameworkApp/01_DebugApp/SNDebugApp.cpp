@@ -100,7 +100,7 @@ Void SNDebugApp::OnCycle()
 		txtProcFPS.SetValue(SNApplication::GetProcFPS());
 		txtSkip.SetValue(SNApplication::GetSkipFrame());
 		txtProcTime.SetValue(SNApplication::GetProcTime());
-		txtDrawCnt.SetValue(SNGraphicsDevice::D3DDrawCommandNum);
+		txtDrawCnt.SetValue(SNGraphicsDevice::D3DDrawCommandNumBackup);
 		txtDrawPix.SetValue(0);
 
 		// ESCが押されたらデバッグ表示の反転

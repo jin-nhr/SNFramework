@@ -257,17 +257,17 @@ Void SNWGround::SetCodeAsync()
 {
 	Int64 cnt;
 	SNWGroundFileData* data_adr = (SNWGroundFileData*)BlockList.GetAddress();
+	Int32 code_num = SetCodeInfoNum;
+	Int32 code_index = 0;
 
-
-	while (SetCodeInfoNum > 0)
+	while (code_num > 0)
 	{
-
 		for (cnt = 0; cnt < data_adr->BlockNum; cnt++)
 		{
 			// 同一座標のデータあり
-			if ((data_adr->Block[cnt].X) == (SetCodeInfo[SetCodeInfoNum - 1].X) &&
-				(data_adr->Block[cnt].Y) == (SetCodeInfo[SetCodeInfoNum - 1].Y) &&
-				(data_adr->Block[cnt].Z) == (SetCodeInfo[SetCodeInfoNum - 1].Z))
+			if ((data_adr->Block[cnt].X) == (SetCodeInfo[code_index].X) &&
+				(data_adr->Block[cnt].Y) == (SetCodeInfo[code_index].Y) &&
+				(data_adr->Block[cnt].Z) == (SetCodeInfo[code_index].Z))
 			{
 				break;
 			}
@@ -281,11 +281,11 @@ Void SNWGround::SetCodeAsync()
 			if (cnt >= data_adr->BlockNum)
 			{
 				// Blankは登録しない
-				if (SetCodeInfo[SetCodeInfoNum - 1].Code != SNMapchip::SNMapchipBlank)
+				if (SetCodeInfo[code_index].Code != SNMapchip::SNMapchipBlank)
 				{
 					if (data_adr->BlockNum < SNGroundBlockDataSize - 1)
 					{
-						data_adr->Block[cnt] = SetCodeInfo[SetCodeInfoNum - 1];
+						data_adr->Block[cnt] = SetCodeInfo[code_index];
 						data_adr->BlockNum++;
 					}
 				}
@@ -295,7 +295,7 @@ Void SNWGround::SetCodeAsync()
 			else
 			{
 				// コードがBlank=削除のときは最終データを持ってくる
-				if (SetCodeInfo[SetCodeInfoNum - 1].Code == SNMapchip::SNMapchipBlank)
+				if (SetCodeInfo[code_index].Code == SNMapchip::SNMapchipBlank)
 				{
 					data_adr->Block[cnt] = data_adr->Block[data_adr->BlockNum - 1];
 					data_adr->BlockNum--;
@@ -303,13 +303,16 @@ Void SNWGround::SetCodeAsync()
 				else
 				{
 					// コードを上書きする
-					data_adr->Block[cnt] = SetCodeInfo[SetCodeInfoNum - 1];
+					data_adr->Block[cnt] = SetCodeInfo[code_index];
 				}
 			}
 		}
 
-		SetCodeInfoNum--;
+		code_num--;
+		code_index++;
 	}
+
+	SetCodeInfoNum = 0;
 
 	return;
 }

@@ -467,6 +467,128 @@ Void SNGUIWorldView::DownTransparentFrontGround()
 	return;
 }
 
+Void SNGUIWorldView::CalcLeftTop(SNWorldPos* pos1, SNWorldPos* pos2, SNWorldPos* lt_pos)
+{
+	SNWorldPos lefttop;
+	SNSize size;
+	Int32 z;
+
+	// 座標系における左上点を算出
+	if (pos1->X < pos2->X)
+	{
+		lefttop.X = pos1->X;
+	}
+	else
+	{
+		lefttop.X = pos2->X;
+	}
+
+	if (pos1->Y < pos2->Y)
+	{
+		lefttop.Y = pos1->Y;
+	}
+	else
+	{
+		lefttop.Y = pos2->Y;
+	}
+
+	if (pos1->Z < pos2->Z)
+	{
+		lefttop.Z = pos1->Z;
+	}
+	else
+	{
+		lefttop.Z = pos2->Z;
+	}
+
+	size.Width = (Int32)SNMath::AbsF(pos1->X - pos2->X) + 1;
+	size.Height = (Int32)SNMath::AbsF(pos1->Y - pos2->Y) + 1;
+	z = (Int32)SNMath::AbsF(pos1->Z - pos2->Z) + 1;
+
+
+	// x, yは方位により補正
+	switch (GetViewDir())
+	{
+	// 左上、右下を選択
+	case SNWorldDirCenter:
+	case SNWorldDirN:
+	case SNWorldDirNE:
+		lt_pos->X = lefttop.X;
+		lt_pos->Y = lefttop.Y;
+		lt_pos->Z = lefttop.Z;
+		break;
+
+	// 右上、左下を選択
+	case SNWorldDirE:
+	case SNWorldDirSE:
+		lt_pos->X = lefttop.X;
+		lt_pos->Y = lefttop.Y + size.Height - 1;
+		lt_pos->Z = lefttop.Z;
+		break;
+
+	// 右下、左上を選択
+	case SNWorldDirS:
+	case SNWorldDirSW:
+		lt_pos->X = lefttop.X + size.Width - 1;
+		lt_pos->Y = lefttop.Y + size.Height - 1;
+		lt_pos->Z = lefttop.Z;
+		break;
+
+	// 左下、右上を選択
+	case SNWorldDirW:
+	case SNWorldDirNW:
+		lt_pos->X = lefttop.X + size.Width - 1;
+		lt_pos->Y = lefttop.Y;
+		lt_pos->Z = lefttop.Z;
+		break;
+	}
+
+	return;
+}
+
+Void SNGUIWorldView::CalcoRightBottom(SNWorldPos* lt_pos, SNWorldPos* size, SNWorldPos* rb_pos)
+{
+	// x, yは方位により補正
+	switch (GetViewDir())
+	{
+		// 左上、右下を選択
+	case SNWorldDirCenter:
+	case SNWorldDirN:
+	case SNWorldDirNE:
+		rb_pos->X = lt_pos->X + (size->X - 1);
+		rb_pos->Y = lt_pos->Y + (size->Y - 1);
+		rb_pos->Z = lt_pos->Z + (size->Z - 1);
+		break;
+
+		// 右上、左下を選択
+	case SNWorldDirE:
+	case SNWorldDirSE:
+		rb_pos->X = lt_pos->X + (size->X - 1);
+		rb_pos->Y = lt_pos->Y - (size->Y - 1);
+		rb_pos->Z = lt_pos->Z + (size->Z - 1);
+		break;
+
+		// 右下、左上を選択
+	case SNWorldDirS:
+	case SNWorldDirSW:
+		rb_pos->X = lt_pos->X - (size->X - 1);
+		rb_pos->Y = lt_pos->Y - (size->Y - 1);
+		rb_pos->Z = lt_pos->Z + (size->Z - 1);
+		break;
+
+		// 左下、右上を選択
+	case SNWorldDirW:
+	case SNWorldDirNW:
+		rb_pos->X = lt_pos->X - (size->X - 1);
+		rb_pos->Y = lt_pos->Y + (size->Y - 1);
+		rb_pos->Z = lt_pos->Z + (size->Z - 1);
+		break;
+	}
+	return;
+}
+
+
+
 // 周辺オブジェクト描画
 Void SNGUIWorldView::DrawNearbyObject(SNWNearbyObject* obj, SNPoint* draw_base)
 {

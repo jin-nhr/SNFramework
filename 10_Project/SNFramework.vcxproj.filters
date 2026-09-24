@@ -540,6 +540,9 @@
     <ClInclude Include="..\20_Source\12_Graphics\Core\SND3DWorldShaderVS.h">
       <Filter>20_Source\12_Graphics\Core</Filter>
     </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppCreationMenu.h">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\20_Source\02_System\Component\SNAutoResource.cpp">
@@ -895,6 +898,9 @@
     </ClCompile>
     <ClCompile Include="..\20_Source\22_World\Core\SNWPhysics.cpp">
       <Filter>22_World\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppCreationMenu.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

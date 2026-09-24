@@ -39,10 +39,8 @@ Void SNWorldAppCreation::OnInitialize()
 
 	RangeMode = false;
 
-	CopiedFlag = false;
-
+	CopySpaceSize = { 0 };
 	ZeroMemory(CopySpace, sizeof(CopySpace));
-	ZeroMemory(WorkSpace, sizeof(WorkSpace));
 
 	return;
 }
@@ -86,6 +84,7 @@ Void SNWorldAppCreation::OnEntry()
 	SNWorld::GetPCObject()->SetVisible(false);
 
 	RangeMode = false;
+	WorldView.SaveFocusRangeStart();
 
 	return;
 }
@@ -112,14 +111,8 @@ Boolean SNWorldAppCreation::OnGamePad1()
 		// 操作説明表示要求
 	}
 
-	// 手前ブロック透過設定Down
+	// 手前ブロック透過設定
 	if (pd->L1Push() || pd->L1Repeat())
-	{
-		WorldView.DownTransparentFrontGround();
-	}
-
-	// 手前ブロック透過設定Up
-	if (pd->R1Push() || pd->R1Repeat())
 	{
 		WorldView.UpTransparentFrontGround();
 	}
@@ -187,11 +180,31 @@ Boolean SNWorldAppCreation::OnGamePad1()
 		WorldView.SaveFocusRangeStart();
 	}
 
+	// ペースト
+	if (pd->R2Push())
+	{
+		Paste();
+		// コマンド実行
+		SNWorld::FlushGroundData();
+
+		RangeMode = false;
+		WorldView.SaveFocusRangeStart();
+	}
+
+	// ブロック削除
+	if (pd->R1Push() || pd->R1Repeat())
+	{
+		WriteBlock(SNMapchip::SNMapchipBlank);
+
+		SNWorld::FlushGroundData();
+	}
 
 	// ブロック配置
 	if (pd->APush() || pd->ARepeat())
 	{
-		WriteBlock();
+		WriteBlock(SelectBlock);
+
+		SNWorld::FlushGroundData();
 	}
 
 	// 範囲選択モード切替
@@ -200,7 +213,7 @@ Boolean SNWorldAppCreation::OnGamePad1()
 		if (RangeMode)
 		{
 			// 範囲選択モード中はメニュー表示
-			RangeMode = false;	// 仮で範囲モード解除★
+			SNEvent::EventResult[SNEventResultDspCreationMenu] = true;
 		}
 
 		else
@@ -246,6 +259,42 @@ Boolean SNWorldAppCreation::OnInternalEvent()
 		TransCode = SNTransitionCode0;
 		ret = true;
 	}
+
+	if (SNEvent::InternalEvent[SNEventResultMenuCopy])
+	{
+		RangeCopy();
+		RangeMode = false;
+		WorldView.SaveFocusRangeStart();
+		ret = true;
+	}
+
+	if (SNEvent::InternalEvent[SNEventResultMenuCut])
+	{
+		RangeCut();
+		RangeMode = false;
+		WorldView.SaveFocusRangeStart();
+		ret = true;
+	}
+
+	if (SNEvent::InternalEvent[SNEventResultMenuRotateL])
+	{
+		RotateL();
+		ret = true;
+	}
+
+	if (SNEvent::InternalEvent[SNEventResultMenuRotateR])
+	{
+		RotateR();
+		ret = true;
+	}
+
+	if (SNEvent::InternalEvent[SNEventResultMenuDeselect])
+	{
+		RangeMode = false;
+		WorldView.SaveFocusRangeStart();
+		ret = true;
+	}
+
 
 	return ret;
 }
@@ -351,7 +400,7 @@ Void SNWorldAppCreation::OnDraw()
 }
 
 
-Void SNWorldAppCreation::WriteBlock()
+Void SNWorldAppCreation::WriteBlock(UInt16 code)
 {
 	SNWorldPos range_st;
 	SNWorldPos range_ed;
@@ -406,11 +455,408 @@ Void SNWorldAppCreation::WriteBlock()
 			{
 				write_pos.X = (Float32)pos_x;
 
-				SNWorld::WriteGroundData(&write_pos, (SNMapchip::SNMapchipCode)SelectBlock);
+				SNWorld::WriteGroundData(&write_pos, (SNMapchip::SNMapchipCode)code);
 			}
 		}
 	}
 
+	return;
+}
+
+Void SNWorldAppCreation::RangeCopy()
+{
+	SNWNearbySpace* space = SNWorld::GetNearbySpace();
+	SNWNearbyObject* obj = nullptr;
+	SNWorldPos st;
+	SNWorldPos ed;
+	SNWorldPos* nearby_o;
+
+	Int32 st_x;
+	Int32 st_y;
+	Int32 st_z;
+	Int32 num_x;
+	Int32 num_y;
+	Int32 num_z;
+	Int32 cnt_x;
+	Int32 cnt_y;
+	Int32 cnt_z;
+
+	// 選択範囲取得
+	WorldView.GetRangeStartPos(&st);
+	WorldView.GetViewPos(&ed);
+	nearby_o = space->GetBasePos();
+
+	// 開始座標、ブロック数を計算
+	if (st.X <= ed.X)
+	{
+		st_x = SNMath::FloorToInt(st.X);
+		num_x = SNMath::FloorToInt(ed.X) - st_x + 1;
+	}
+	else
+	{
+		st_x = SNMath::FloorToInt(ed.X);
+		num_x = SNMath::FloorToInt(st.X) - st_x + 1;
+	}
+
+	if (st.Y <= ed.Y)
+	{
+		st_y = SNMath::FloorToInt(st.Y);
+		num_y = SNMath::FloorToInt(ed.Y) - st_y + 1;
+	}
+	else
+	{
+		st_y = SNMath::FloorToInt(ed.Y);
+		num_y = SNMath::FloorToInt(st.Y) - st_y + 1;
+	}
+
+	if (st.Z <= ed.Z)
+	{
+		st_z = SNMath::FloorToInt(st.Z);
+		num_z = SNMath::FloorToInt(ed.Z) - st_z + 1;
+	}
+	else
+	{
+		st_z = SNMath::FloorToInt(ed.Z);
+		num_z = SNMath::FloorToInt(st.Z) - st_z + 1;
+	}
+
+	// 周辺オブジェクト用座標に変換
+	st_x -= SNMath::FloorToInt(nearby_o->X);
+	st_y -= SNMath::FloorToInt(nearby_o->Y);
+	st_z -= SNMath::FloorToInt(nearby_o->Z);
+
+
+	// Z, Y, X軸ループし構造をバッファに保存する
+	for (cnt_z = 0; cnt_z < num_z; cnt_z++)
+	{
+		for (cnt_y = 0; cnt_y < num_y; cnt_y++)
+		{
+			for (cnt_x = 0; cnt_x < num_x; cnt_x++)
+			{
+				obj = space->RefObjectG(st_x + cnt_x, st_y + cnt_y, st_z + cnt_z);
+				if (obj != nullptr)
+				{
+					CopySpace[cnt_z][cnt_y][cnt_x] = (UInt16)(intptr_t)obj->UserData;
+				}
+				else
+				{
+					CopySpace[cnt_z][cnt_y][cnt_x] = (UInt16)SNMapchip::SNMapchipBlank;
+				}
+			}
+		}
+	}
+
+	// サイズをセット
+	CopySpaceSize.X = (Float32)num_x;
+	CopySpaceSize.Y = (Float32)num_y;
+	CopySpaceSize.Z = (Float32)num_z;
+
+	return;
+}
+
+Void SNWorldAppCreation::RangeCut()
+{
+	// コピー
+	RangeCopy();
+
+	// 削除
+	WriteBlock(SNMapchip::SNMapchipBlank);
+
+	SNWorld::FlushGroundData();
+
+	return;
+}
+
+Void SNWorldAppCreation::Paste()
+{
+	SNWNearbySpace* space = SNWorld::GetNearbySpace();
+	SNWorldPos st;
+	SNWorldPos set_pos;
+	SNWorldDir view_dir = WorldView.GetViewDir();
+
+	Int32 st_x;
+	Int32 st_y;
+	Int32 st_z;
+	Int32 num_x = SNMath::FloorToInt(CopySpaceSize.X);
+	Int32 num_y = SNMath::FloorToInt(CopySpaceSize.Y);
+	Int32 num_z = SNMath::FloorToInt(CopySpaceSize.Z);
+	Int32 cnt_x;
+	Int32 cnt_y;
+	Int32 cnt_z;
+
+	// フォーカス位置取得
+	WorldView.GetViewPos(&st);
+
+	st_x = SNMath::FloorToInt(st.X);
+	st_y = SNMath::FloorToInt(st.Y);
+	st_z = SNMath::FloorToInt(st.Z);
+	
+
+	// Z, Y, X軸ループし、Blank以外をワールドに書き込む
+	for (cnt_z = 0; cnt_z < num_z; cnt_z++)
+	{
+		for (cnt_y = 0; cnt_y < num_y; cnt_y++)
+		{
+			for (cnt_x = 0; cnt_x < num_x; cnt_x++)
+			{
+				if (CopySpace[cnt_z][cnt_y][cnt_x] != SNMapchip::SNMapchipBlank)
+				{
+					set_pos.Z = (Float32)(st_z + cnt_z);
+
+					switch (view_dir)
+					{
+					case SNWorldDirCenter:
+					case SNWorldDirN:
+					case SNWorldDirNE:
+						set_pos.Y = (Float32)(st_y + cnt_y);
+						set_pos.X = (Float32)(st_x + cnt_x);
+						break;
+
+					case SNWorldDirE:
+					case SNWorldDirSE:
+						set_pos.Y = (Float32)(st_y + cnt_y - (num_y - 1));
+						set_pos.X = (Float32)(st_x + cnt_x);
+						break;
+
+					case SNWorldDirS:
+					case SNWorldDirSW:
+						set_pos.Y = (Float32)(st_y + cnt_y - (num_y - 1));
+						set_pos.X = (Float32)(st_x + cnt_x - (num_x - 1));
+						break;
+
+					case SNWorldDirW:
+					case SNWorldDirNW:
+						set_pos.Y = (Float32)(st_y + cnt_y);
+						set_pos.X = (Float32)(st_x + cnt_x - (num_x - 1));
+						break;
+					}
+
+					SNWorld::WriteGroundData(&set_pos, (SNMapchip::SNMapchipCode)CopySpace[cnt_z][cnt_y][cnt_x]);
+				}
+			}
+		}
+	}
+
+	return;
+}
+
+Void SNWorldAppCreation::RotateL()
+{
+	SNWNearbySpace* space = SNWorld::GetNearbySpace();
+	SNWNearbyObject* obj = nullptr;
+	SNWorldPos st;
+	SNWorldPos ed;
+	SNWorldPos* nearby_o;
+
+	SNWorldPos lt_pos;
+	SNWorldPos rb_pos;
+
+	Int32 st_x;
+	Int32 st_y;
+	Int32 st_z;
+	Int32 num_x;
+	Int32 num_y;
+	Int32 num_z;
+	Int32 cnt_x;
+	Int32 cnt_y;
+	Int32 cnt_z;
+
+	// 選択範囲取得
+	WorldView.GetRangeStartPos(&st);
+	WorldView.GetViewPos(&ed);
+	nearby_o = space->GetBasePos();
+
+	// 開始座標、ブロック数を計算
+	if (st.X <= ed.X)
+	{
+		st_x = SNMath::FloorToInt(st.X);
+		num_x = SNMath::FloorToInt(ed.X) - st_x + 1;
+	}
+	else
+	{
+		st_x = SNMath::FloorToInt(ed.X);
+		num_x = SNMath::FloorToInt(st.X) - st_x + 1;
+	}
+
+	if (st.Y <= ed.Y)
+	{
+		st_y = SNMath::FloorToInt(st.Y);
+		num_y = SNMath::FloorToInt(ed.Y) - st_y + 1;
+	}
+	else
+	{
+		st_y = SNMath::FloorToInt(ed.Y);
+		num_y = SNMath::FloorToInt(st.Y) - st_y + 1;
+	}
+
+	if (st.Z <= ed.Z)
+	{
+		st_z = SNMath::FloorToInt(st.Z);
+		num_z = SNMath::FloorToInt(ed.Z) - st_z + 1;
+	}
+	else
+	{
+		st_z = SNMath::FloorToInt(ed.Z);
+		num_z = SNMath::FloorToInt(st.Z) - st_z + 1;
+	}
+
+	// 周辺オブジェクト用座標に変換
+	st_x -= SNMath::FloorToInt(nearby_o->X);
+	st_y -= SNMath::FloorToInt(nearby_o->Y);
+	st_z -= SNMath::FloorToInt(nearby_o->Z);
+
+
+	// Z, Y, X軸ループし構造をバッファに保存する
+	for (cnt_z = 0; cnt_z < num_z; cnt_z++)
+	{
+		for (cnt_y = 0; cnt_y < num_y; cnt_y++)
+		{
+			for (cnt_x = 0; cnt_x < num_x; cnt_x++)
+			{
+				obj = space->RefObjectG(st_x + cnt_x, st_y + cnt_y, st_z + cnt_z);
+				if (obj != nullptr)
+				{
+					CopySpace[cnt_z][num_x - cnt_x - 1][cnt_y] = (UInt16)(intptr_t)obj->UserData;
+				}
+				else
+				{
+					CopySpace[cnt_z][num_x - cnt_x - 1][cnt_y] = (UInt16)SNMapchip::SNMapchipBlank;
+				}
+			}
+		}
+	}
+
+	// サイズをセット (回転によりxとyが入れ替わる)
+	CopySpaceSize.X = (Float32)num_y;
+	CopySpaceSize.Y = (Float32)num_x;
+	CopySpaceSize.Z = (Float32)num_z;
+
+	// 削除
+	WriteBlock(SNMapchip::SNMapchipBlank);
+
+	// 回転にあわせてフォーカス補正
+	WorldView.CalcLeftTop(&st, &ed, &lt_pos);
+	WorldView.CalcoRightBottom(&lt_pos, &CopySpaceSize, &rb_pos);
+
+	WorldView.SetViewPos(&rb_pos);
+	WorldView.SaveFocusRangeStart();
+	WorldView.SetViewPos(&lt_pos);
+
+	// 貼り付け
+	Paste();
+
+	// コマンド実行
+	SNWorld::FlushGroundData();
+
+	return;
+}
+
+Void SNWorldAppCreation::RotateR()
+{
+	SNWNearbySpace* space = SNWorld::GetNearbySpace();
+	SNWNearbyObject* obj = nullptr;
+	SNWorldPos st;
+	SNWorldPos ed;
+	SNWorldPos* nearby_o;
+
+	SNWorldPos lt_pos;
+	SNWorldPos rb_pos;
+
+	Int32 st_x;
+	Int32 st_y;
+	Int32 st_z;
+	Int32 num_x;
+	Int32 num_y;
+	Int32 num_z;
+	Int32 cnt_x;
+	Int32 cnt_y;
+	Int32 cnt_z;
+
+	// 選択範囲取得
+	WorldView.GetRangeStartPos(&st);
+	WorldView.GetViewPos(&ed);
+	nearby_o = space->GetBasePos();
+
+	// 開始座標、ブロック数を計算
+	if (st.X <= ed.X)
+	{
+		st_x = SNMath::FloorToInt(st.X);
+		num_x = SNMath::FloorToInt(ed.X) - st_x + 1;
+	}
+	else
+	{
+		st_x = SNMath::FloorToInt(ed.X);
+		num_x = SNMath::FloorToInt(st.X) - st_x + 1;
+	}
+
+	if (st.Y <= ed.Y)
+	{
+		st_y = SNMath::FloorToInt(st.Y);
+		num_y = SNMath::FloorToInt(ed.Y) - st_y + 1;
+	}
+	else
+	{
+		st_y = SNMath::FloorToInt(ed.Y);
+		num_y = SNMath::FloorToInt(st.Y) - st_y + 1;
+	}
+
+	if (st.Z <= ed.Z)
+	{
+		st_z = SNMath::FloorToInt(st.Z);
+		num_z = SNMath::FloorToInt(ed.Z) - st_z + 1;
+	}
+	else
+	{
+		st_z = SNMath::FloorToInt(ed.Z);
+		num_z = SNMath::FloorToInt(st.Z) - st_z + 1;
+	}
+
+	// 周辺オブジェクト用座標に変換
+	st_x -= SNMath::FloorToInt(nearby_o->X);
+	st_y -= SNMath::FloorToInt(nearby_o->Y);
+	st_z -= SNMath::FloorToInt(nearby_o->Z);
+
+
+	// Z, Y, X軸ループし構造をバッファに保存する
+	for (cnt_z = 0; cnt_z < num_z; cnt_z++)
+	{
+		for (cnt_y = 0; cnt_y < num_y; cnt_y++)
+		{
+			for (cnt_x = 0; cnt_x < num_x; cnt_x++)
+			{
+				obj = space->RefObjectG(st_x + cnt_x, st_y + cnt_y, st_z + cnt_z);
+				if (obj != nullptr)
+				{
+					CopySpace[cnt_z][cnt_x][num_y - cnt_y - 1] = (UInt16)(intptr_t)obj->UserData;
+				}
+				else
+				{
+					CopySpace[cnt_z][cnt_x][num_y - cnt_y - 1] = (UInt16)SNMapchip::SNMapchipBlank;
+				}
+			}
+		}
+	}
+
+	// サイズをセット (回転によりxとyが入れ替わる)
+	CopySpaceSize.X = (Float32)num_y;
+	CopySpaceSize.Y = (Float32)num_x;
+	CopySpaceSize.Z = (Float32)num_z;
+
+	// 削除
+	WriteBlock(SNMapchip::SNMapchipBlank);
+
+	// 回転にあわせてフォーカス補正
+	WorldView.CalcLeftTop(&st, &ed, &lt_pos);
+	WorldView.CalcoRightBottom(&lt_pos, &CopySpaceSize, &rb_pos);
+
+	WorldView.SetViewPos(&rb_pos);
+	WorldView.SaveFocusRangeStart();
+	WorldView.SetViewPos(&lt_pos);
+
+	// 貼り付け
+	Paste();
+
+	// コマンド実行
 	SNWorld::FlushGroundData();
 
 	return;

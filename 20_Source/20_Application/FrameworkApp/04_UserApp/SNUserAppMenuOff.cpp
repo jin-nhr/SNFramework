@@ -29,3 +29,20 @@ Boolean SNUserAppMenuOff::OnGamePad1()
 
 	return ret;
 }
+
+Boolean SNUserAppMenuOff::OnInternalEvent()
+{
+	Boolean ret = false;
+
+	if (SNEvent::InternalEvent[SNEventResultDspCreationMenu])
+	{
+		SNFocus::CallbackPushButton();
+
+		TransCode = SNTransitionCode1;
+
+		ret = true;
+	}
+
+
+	return ret;
+}

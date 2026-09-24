@@ -83,6 +83,9 @@ public:
 	virtual Void UpTransparentFrontGround();
 	virtual Void DownTransparentFrontGround();
 
+	virtual Void CalcLeftTop(SNWorldPos* pos1, SNWorldPos* pos2, SNWorldPos* lt_pos);
+	virtual Void CalcoRightBottom(SNWorldPos* lt_pos, SNWorldPos* size, SNWorldPos* rb_pos);
+
 protected:
 	virtual Void OnInitialize();
 	virtual Void OnTerminate();

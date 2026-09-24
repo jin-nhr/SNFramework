@@ -10,9 +10,9 @@
 class SNWPhysics
 {
 public:
-	static constexpr Float32 SNReversPos = 0.05f;
-	static constexpr Float32 SNRefPos = 0.06f;
-	static constexpr Float32 SNMaxSpeed = 0.9f;
+	static constexpr Float32 SNReversPos = 0.02f;
+	static constexpr Float32 SNRefPos = 0.03f;
+	static constexpr Float32 SNMaxSpeed = 0.90f;
 	static constexpr Float32 SNMinSpeed = 0.01f;
 	static constexpr Float32 SNGravityGain = 1.0f;
 	static constexpr Float32 SNGroundBlockSize = 1.0f;

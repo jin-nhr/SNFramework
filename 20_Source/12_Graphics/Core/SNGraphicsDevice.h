@@ -187,4 +187,5 @@ public:
 	static SNSize D3DTargetSize;
 	static SNTile D3DDrawCommand[D3DDrawCommandMax];
 	static UInt32 D3DDrawCommandNum;
+	static UInt32 D3DDrawCommandNumBackup;
 };
