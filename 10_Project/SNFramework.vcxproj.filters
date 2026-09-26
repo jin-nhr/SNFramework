@@ -279,9 +279,6 @@
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNBitmap.h">
       <Filter>20_Source\12_Graphics\Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_Source\12_Graphics\Component\SNBitmapFont.h">
-      <Filter>20_Source\12_Graphics\Component</Filter>
-    </ClInclude>
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNDIBPixel.h">
       <Filter>20_Source\12_Graphics\Component</Filter>
     </ClInclude>
@@ -537,6 +534,9 @@
     <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppCreationMenu.h">
       <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
     </ClInclude>
+    <ClInclude Include="..\20_Source\12_Graphics\Component\SNBitmapFont.h">
+      <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\20_Source\02_System\Component\SNAutoResource.cpp">
@@ -654,9 +654,6 @@
       <Filter>20_Source\11_Input\Core</Filter>
     </ClCompile>
     <ClCompile Include="..\20_Source\12_Graphics\Component\SNBitmap.cpp">
-      <Filter>20_Source\12_Graphics\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_Source\12_Graphics\Component\SNBitmapFont.cpp">
       <Filter>20_Source\12_Graphics\Component</Filter>
     </ClCompile>
     <ClCompile Include="..\20_Source\12_Graphics\Component\SNDIBPixel.cpp">
@@ -890,6 +887,9 @@
     <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppCreationMenu.cpp">
       <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
     </ClCompile>
+    <ClCompile Include="..\20_Source\12_Graphics\Component\SNBitmapFont.cpp">
+      <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\20_Source\03_Resource\Resource.rc">
@@ -917,5 +917,10 @@
     <FxCompile Include="..\20_Source\12_Graphics\Core\SND3DWorldShaderVS.hlsl">
       <Filter>20_Source\12_Graphics\Core</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\20_Source\03_Resource\Resource.aps">
+      <Filter>20_Source\03_Resource</Filter>
+    </None>
   </ItemGroup>
 </Project>

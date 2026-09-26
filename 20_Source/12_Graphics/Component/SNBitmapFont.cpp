@@ -15,7 +15,7 @@
 // 初期化処理
 Void SNBitmapFont::Initialize()
 {
-	SNGraphicsResManager::AccessGet(SNGraphicsResSystemFont);
+	SNGraphicsResManager::AccessGet(SNGraphicsResGUI);
 
 	return;
 }
@@ -23,37 +23,13 @@ Void SNBitmapFont::Initialize()
 // 拡張機能初期化
 Void SNBitmapFont::InitializeExtraFunc()
 {
-	SNGraphicsResManager::AccessGet(SNGraphicsResExFont01);
-	SNGraphicsResManager::AccessGet(SNGraphicsResExFont02);
-	SNGraphicsResManager::AccessGet(SNGraphicsResExFont03);
-	SNGraphicsResManager::AccessGet(SNGraphicsResExFont04);
-	SNGraphicsResManager::AccessGet(SNGraphicsResExFont05);
-	SNGraphicsResManager::AccessGet(SNGraphicsResExFont06);
-	SNGraphicsResManager::AccessGet(SNGraphicsResExFont07);
-	SNGraphicsResManager::AccessGet(SNGraphicsResExFont08);
-	SNGraphicsResManager::AccessGet(SNGraphicsResExFont09);
-	SNGraphicsResManager::AccessGet(SNGraphicsResExFont10);
-	SNGraphicsResManager::AccessGet(SNGraphicsResExFont11);
-
 	return;
 }
 
 // 終了処理
 Void SNBitmapFont::Terminate()
 {
-	SNGraphicsResManager::AccessRelease(SNGraphicsResSystemFont);
-	SNGraphicsResManager::AccessRelease(SNGraphicsResExFont01);
-	SNGraphicsResManager::AccessRelease(SNGraphicsResExFont02);
-	SNGraphicsResManager::AccessRelease(SNGraphicsResExFont03);
-	SNGraphicsResManager::AccessRelease(SNGraphicsResExFont04);
-	SNGraphicsResManager::AccessRelease(SNGraphicsResExFont05);
-	SNGraphicsResManager::AccessRelease(SNGraphicsResExFont06);
-	SNGraphicsResManager::AccessRelease(SNGraphicsResExFont07);
-	SNGraphicsResManager::AccessRelease(SNGraphicsResExFont08);
-	SNGraphicsResManager::AccessRelease(SNGraphicsResExFont09);
-	SNGraphicsResManager::AccessRelease(SNGraphicsResExFont10);
-	SNGraphicsResManager::AccessRelease(SNGraphicsResExFont11);
-
+	SNGraphicsResManager::AccessRelease(SNGraphicsResGUI);
 	return;
 }
 
@@ -64,22 +40,7 @@ Void SNBitmapFont::DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len, SN
 	SNPoint pt;
 	SNRect dst_rect;
 	SNRect src_rect;
-	UInt8 page;
-	SNBitmap* font_surface[] =
-	{
-		SNGraphicsResManager::GetResource(SNGraphicsResSystemFont),
-		SNGraphicsResManager::GetResource(SNGraphicsResExFont01),
-		SNGraphicsResManager::GetResource(SNGraphicsResExFont02),
-		SNGraphicsResManager::GetResource(SNGraphicsResExFont03),
-		SNGraphicsResManager::GetResource(SNGraphicsResExFont04),
-		SNGraphicsResManager::GetResource(SNGraphicsResExFont05),
-		SNGraphicsResManager::GetResource(SNGraphicsResExFont06),
-		SNGraphicsResManager::GetResource(SNGraphicsResExFont07),
-		SNGraphicsResManager::GetResource(SNGraphicsResExFont08),
-		SNGraphicsResManager::GetResource(SNGraphicsResExFont09),
-		SNGraphicsResManager::GetResource(SNGraphicsResExFont10),
-		SNGraphicsResManager::GetResource(SNGraphicsResExFont11),
-	};
+	SNBitmap* font_surface = SNGraphicsResManager::GetResource(SNGraphicsResGUI);
 
 	dst_rect.PointX = x;
 	dst_rect.PointY = y;
@@ -96,10 +57,8 @@ Void SNBitmapFont::DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len, SN
 		src_rect.PointX = pt.X;
 		src_rect.PointY = pt.Y;
 
-		page = GetBMCharPage(str[cnt]);
-
 		// 描画
-		SNGraphicsDevice::DrawImage(&dst_rect, font_surface[page], &src_rect, SNAlphaMax, color);
+		SNGraphicsDevice::DrawImage(&dst_rect, font_surface, &src_rect, SNAlphaMax, color);
 
 		// 1文字分描画位置をずらす
 		dst_rect.PointX += BMCharWidth;
@@ -160,9 +119,18 @@ SNPoint SNBitmapFont::GetBMCharPoint(BMChar bmch)
 {
 	SNPoint pnt;
 	UInt32 code = GetBMCharCode(bmch);
+	UInt32 page = GetBMCharPage(bmch);
 
-	pnt.X = (code % BMCharBlockNumX) * BMCharWidth;
-	pnt.Y = (code / BMCharBlockNumX) * BMCharHeight;
+	// ビットマップフォントベース座標
+	static constexpr UInt32 BMCharBaseX = 0;
+	static constexpr UInt32 BMCharBaseY = 1664;
+
+	// ページオフセット
+	static constexpr UInt32 BMCharPageOffsetX = 256;
+	static constexpr UInt32 BMCharPageOffsetY = 0;
+
+	pnt.X = BMCharBaseX + (code % BMCharBlockNumX) * BMCharWidth + BMCharPageOffsetX * page;
+	pnt.Y = BMCharBaseY + (code / BMCharBlockNumX) * BMCharHeight + BMCharPageOffsetY * page;
 
 	return pnt;
 }

@@ -50,6 +50,14 @@ public:
 	static constexpr UInt32 BMCharBlockNumX = 16;
 	static constexpr UInt32 BMCharBlockNumY = 16;
 
+	// ビットマップフォントベース座標
+	static constexpr UInt32 BMCharBaseX = 0;
+	static constexpr UInt32 BMCharBaseY = 1664;
+
+	// ページオフセット
+	static constexpr UInt32 BMCharPageOffsetX = 256;
+	static constexpr UInt32 BMCharPageOffsetY = 0;
+
 private:
 
 };

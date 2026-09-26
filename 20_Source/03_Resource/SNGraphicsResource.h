@@ -12,8 +12,9 @@ enum SNGraphicsResID
 
 	SNGraphicsResSystemFont = SNGraphicsResStartupTop,
 	SNGraphicsResSystemBlack,
+	SNGraphicsResGUI,
 
-	SNGraphicsResStartupEnd = SNGraphicsResSystemBlack,
+	SNGraphicsResStartupEnd = SNGraphicsResGUI,
 	// -----------------------------------------------
 
 	// -----------------------------------------------
@@ -67,6 +68,7 @@ public:
 		// 起動リソース
 		(String)L"システムフォント.png", 
 		(String)L"BGBK.png",
+		(String)L"GUI.png",
 		// -----------------------------------------------
 		
 		// -----------------------------------------------
