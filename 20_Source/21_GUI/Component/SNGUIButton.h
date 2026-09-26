@@ -46,8 +46,6 @@ protected:
 	// フォーカス描画
 	virtual Void DrawFocus();
 
-	virtual Void ButtonTiling(SNGraphicsResID res_id, const SNPoint* offset);
-
 	// ステータス判定
 	virtual SNGUIDef::ButtonBlockStatus JudgeStatus();
 

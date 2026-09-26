@@ -84,6 +84,9 @@ public:
 
 	// ブロック構成はボタン準拠
 
+	static constexpr UInt32 GUIFocusBaseX = 0;
+	static constexpr UInt32 GUIFocusBaseY = 48;
+
 	enum ButtonFocusStatus
 	{
 		FocusStatusNoFocus,
@@ -91,6 +94,20 @@ public:
 		FocusnStatusPush,
 		FocusnStatusNum
 	};
+
+	static constexpr SNPoint GUIFocusBlockDef[GUIBlockNum] =
+	{
+		{ GUIFocusBaseX,                                       GUIFocusBaseY                                }, // 左上
+		{ GUIFocusBaseX + SNSystemConfig::GUIBlockSize,        GUIFocusBaseY                                }, // 上
+		{ GUIFocusBaseX + SNSystemConfig::GUIBlockSize * 2,    GUIFocusBaseY                                }, // 右上
+		{ GUIFocusBaseX,                                       GUIFocusBaseY + SNSystemConfig::GUIBlockSize     }, // 左
+		{ GUIFocusBaseX + SNSystemConfig::GUIBlockSize,        GUIFocusBaseY + SNSystemConfig::GUIBlockSize     }, // 中央
+		{ GUIFocusBaseX + SNSystemConfig::GUIBlockSize * 2,    GUIFocusBaseY + SNSystemConfig::GUIBlockSize     }, // 右
+		{ GUIFocusBaseX,                                       GUIFocusBaseY + SNSystemConfig::GUIBlockSize * 2 }, // 左下
+		{ GUIFocusBaseX + SNSystemConfig::GUIBlockSize,		   GUIFocusBaseY + SNSystemConfig::GUIBlockSize * 2 }, // 下
+		{ GUIFocusBaseX + SNSystemConfig::GUIBlockSize * 2,    GUIFocusBaseY + SNSystemConfig::GUIBlockSize * 2 }  // 右下
+	};
+
 
 	static constexpr SNPoint FocusBlockOffset[FocusnStatusNum] =
 	{
@@ -129,6 +146,8 @@ public:
 	////////////////////////////////////////////////////////////////////////////////
 	// ボタン関連
 
+	static constexpr UInt32 GUIButtonBaseX = 48;
+	static constexpr UInt32 GUIButtonBaseY = 0;
 
 	enum ButtonBlockStatus
 	{
@@ -143,15 +162,15 @@ public:
 
 	static constexpr SNPoint GUIButtonBlockDef[GUIBlockNum] =
 	{
-		{ 0,                                       0                                }, // 左上
-		{ SNSystemConfig::GUIBlockSize,            0                                }, // 上
-		{ SNSystemConfig::GUIBlockSize * 2,        0                                }, // 右上
-		{ 0,                                       SNSystemConfig::GUIBlockSize     }, // 左
-		{ SNSystemConfig::GUIBlockSize,            SNSystemConfig::GUIBlockSize     }, // 中央
-		{ SNSystemConfig::GUIBlockSize * 2,        SNSystemConfig::GUIBlockSize     }, // 右
-		{ 0,                                       SNSystemConfig::GUIBlockSize * 2 }, // 左下
-		{ SNSystemConfig::GUIBlockSize,			   SNSystemConfig::GUIBlockSize * 2 }, // 下
-		{ SNSystemConfig::GUIBlockSize * 2,        SNSystemConfig::GUIBlockSize * 2 }  // 右下
+		{ GUIButtonBaseX,                                       GUIButtonBaseY                                }, // 左上
+		{ GUIButtonBaseX + SNSystemConfig::GUIBlockSize,        GUIButtonBaseY                                }, // 上
+		{ GUIButtonBaseX + SNSystemConfig::GUIBlockSize * 2,    GUIButtonBaseY                                }, // 右上
+		{ GUIButtonBaseX,                                       GUIButtonBaseY + SNSystemConfig::GUIBlockSize     }, // 左
+		{ GUIButtonBaseX + SNSystemConfig::GUIBlockSize,        GUIButtonBaseY + SNSystemConfig::GUIBlockSize     }, // 中央
+		{ GUIButtonBaseX + SNSystemConfig::GUIBlockSize * 2,    GUIButtonBaseY + SNSystemConfig::GUIBlockSize     }, // 右
+		{ GUIButtonBaseX,                                       GUIButtonBaseY + SNSystemConfig::GUIBlockSize * 2 }, // 左下
+		{ GUIButtonBaseX + SNSystemConfig::GUIBlockSize,		GUIButtonBaseY + SNSystemConfig::GUIBlockSize * 2 }, // 下
+		{ GUIButtonBaseX + SNSystemConfig::GUIBlockSize * 2,    GUIButtonBaseY + SNSystemConfig::GUIBlockSize * 2 }  // 右下
 	};
 
 

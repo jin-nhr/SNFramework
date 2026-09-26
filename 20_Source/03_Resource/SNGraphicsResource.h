@@ -20,10 +20,8 @@ enum SNGraphicsResID
 	SNGraphicsResSystemTop,
 	SNGraphicsResStartLogo1 = SNGraphicsResSystemTop,
 	SNGraphicsResStartLogo2,
-	SNGraphicsResButton,
-	SNGraphicsResFocus,
 
-	SNGraphicsResSystemEnd = SNGraphicsResFocus,
+	SNGraphicsResSystemEnd = SNGraphicsResStartLogo2,
 	// -----------------------------------------------
 
 	// -----------------------------------------------
@@ -58,8 +56,6 @@ public:
 		// システムリソース
 		(String)L"起動ロゴ1.png",
 		(String)L"起動ロゴ2.png",
-		(String)L"ボタン.png",
-		(String)L"フォーカス.png",
 		// -----------------------------------------------
 
 		// -----------------------------------------------
