@@ -59,8 +59,8 @@ public:
 	// 背景定義
 	
 	// ベース座標
-	static constexpr UInt32 GUIBGBaseX = 0;
-	static constexpr UInt32 GUIBGBaseY = 1384;
+	static constexpr UInt32 GUIBGBaseX = 1;
+	static constexpr UInt32 GUIBGBaseY = 1385;
 
 	// 背景パターン
 	enum GUIBGPattern
@@ -74,7 +74,7 @@ public:
 
 	// サイズ
 	static constexpr UInt32 GUIBGWidth = 2;
-	static constexpr UInt32 GUIBGHeight = 256;
+	static constexpr UInt32 GUIBGHeight = 254;
 
 
 

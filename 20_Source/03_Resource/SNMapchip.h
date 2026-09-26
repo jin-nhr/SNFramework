@@ -7,12 +7,25 @@ class SNMapchip
 public:
 	// マップチップリソース
 	static constexpr SNGraphicsResID MapchipResource = SNGraphicsResWorld;
+	static constexpr SNGraphicsResID MapBGResource = SNGraphicsResWorld;
 
 	static constexpr UInt32 MapchipBaseX = 0;
 	static constexpr UInt32 MapchipBaseY = 0;
 
 	static constexpr UInt32 MapchipOffsetX = 0;
 	static constexpr UInt32 MapchipOffsetY = 384;
+
+	static constexpr UInt32 MapBGBaseX = 5;
+	static constexpr UInt32 MapBGBaseY = 1537;
+
+	static constexpr UInt32 MapBGOffsetX = 4;
+	static constexpr UInt32 MapBGOffsetY = 0;
+
+	static constexpr UInt32 MapBGWidth = 2;
+	static constexpr UInt32 MapBGHeight = 254;
+
+
+
 
 	static constexpr Int32 MapchipAnimeStep = 4;
 

@@ -283,17 +283,17 @@ Void SNGUIWorldView::OnDraw()
 	SNRect dst_rect;
 	SNRect src_rect;
 	SNSize size;
-	SNBitmap* bg_bmp = SNGraphicsResManager::GetResource(BGRes[SNWorld::GetTimeZone()]);
+	SNBitmap* bg_bmp = SNGraphicsResManager::GetResource(SNMapchip::MapBGResource);
 	SNSize bg_size;
 	SNRect bg_rect;
 
 	dst_rect = CalcGlobalRect();
 	size = WorkSurfaceSize;
 	bg_bmp->GetSize(&bg_size);
-	bg_rect.PointX = 0;
-	bg_rect.PointY = 0;
-	bg_rect.Width = bg_size.Width;
-	bg_rect.Height = bg_size.Height;
+	bg_rect.PointX = SNMapchip::MapBGBaseX + SNMapchip::MapBGOffsetX * SNWorld::GetTimeZone();
+	bg_rect.PointY = SNMapchip::MapBGBaseY + SNMapchip::MapBGOffsetY * SNWorld::GetTimeZone();
+	bg_rect.Width = SNMapchip::MapBGWidth;
+	bg_rect.Height = SNMapchip::MapBGHeight;
 	SNGraphicsDevice::DrawImage(&dst_rect, bg_bmp, &bg_rect, SNAlphaMax);
 
 	src_rect.Width = (Int32)(dst_rect.Width / ViewScale);
