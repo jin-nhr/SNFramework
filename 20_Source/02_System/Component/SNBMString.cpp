@@ -1,6 +1,7 @@
 #include "SNBMString.h"
 #include "SNBitmapFont.h"
 #include "SNWindowsAPI.h"
+#include "SNGUIDef.h"
 
 // ビットマップフォント文字列クラス
 
@@ -223,8 +224,8 @@ SNSize SNBMString::GetStringImageSize()
 {
 	SNSize size;
 
-	size.Width = Length * SNBitmapFont::BMCharWidth;
-	size.Height = SNBitmapFont::BMCharHeight;
+	size.Width = Length * SNGUIDef::BMCharWidth;
+	size.Height = SNGUIDef::BMCharHeight;
 
 	return size;
 }

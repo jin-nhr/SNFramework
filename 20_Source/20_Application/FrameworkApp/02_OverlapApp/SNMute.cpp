@@ -4,6 +4,7 @@
 #include "SNMath.h"
 #include "SNGraphicsDevice.h"
 #include "SNGraphicsResManager.h"
+#include "SNGUIDef.h"
 
 SNBitmap SNMute::Surface;
 Boolean SNMute::NowMuteSts = false;
@@ -87,7 +88,7 @@ Void SNMute::OnEntry()
 	SNRect dst_rect;
 	SNRect src_rect;
 	SNSize size;
-	SNBitmap* src_bmp = SNGraphicsResManager::GetResource(SNGraphicsResSystemBlack);
+	SNBitmap* src_bmp = SNGraphicsResManager::GetResource(SNGraphicsResGUI);
 
 	src_bmp->GetSize(&size);
 
@@ -96,10 +97,10 @@ Void SNMute::OnEntry()
 	dst_rect.Width = SNSystemConfig::ScreenWidth;
 	dst_rect.Height = SNSystemConfig::ScreenHeight;
 
-	src_rect.PointX = 0;
-	src_rect.PointY = 0;
-	src_rect.Width = size.Width;
-	src_rect.Height = size.Height;
+	src_rect.PointX = SNGUIDef::GUIBGBaseX + SNGUIDef::GUIBGOffsetX * SNGUIDef::GUIBGPatternBlack;
+	src_rect.PointY = SNGUIDef::GUIBGBaseY + SNGUIDef::GUIBGOffsetY * SNGUIDef::GUIBGPatternBlack;
+	src_rect.Width = SNGUIDef::GUIBGWidth;
+	src_rect.Height = SNGUIDef::GUIBGHeight;
 
 	// èâä˙ê›íË
 	SNGraphicsDevice::Begin(&Surface);

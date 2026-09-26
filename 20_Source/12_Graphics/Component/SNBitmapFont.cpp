@@ -5,6 +5,7 @@
 #include "SNConfig.h"
 #include "SNGraphics.h"
 #include "SNGraphicsResManager.h"
+#include "SNGUIDef.h"
 
 // コード定義
 #include "SNBMCharTable.h"
@@ -44,10 +45,10 @@ Void SNBitmapFont::DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len, SN
 
 	dst_rect.PointX = x;
 	dst_rect.PointY = y;
-	dst_rect.Width = BMCharWidth;
-	dst_rect.Height = BMCharHeight;
-	src_rect.Width = BMCharWidth;
-	src_rect.Height = BMCharHeight;
+	dst_rect.Width = SNGUIDef::BMCharWidth;
+	dst_rect.Height = SNGUIDef::BMCharHeight;
+	src_rect.Width = SNGUIDef::BMCharWidth;
+	src_rect.Height = SNGUIDef::BMCharHeight;
 
 	for (cnt = 0; cnt < len; cnt++)
 	{
@@ -61,7 +62,7 @@ Void SNBitmapFont::DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len, SN
 		SNGraphicsDevice::DrawImage(&dst_rect, font_surface, &src_rect, SNAlphaMax, color);
 
 		// 1文字分描画位置をずらす
-		dst_rect.PointX += BMCharWidth;
+		dst_rect.PointX += SNGUIDef::BMCharWidth;
 	}
 
 	return;
@@ -121,16 +122,8 @@ SNPoint SNBitmapFont::GetBMCharPoint(BMChar bmch)
 	UInt32 code = GetBMCharCode(bmch);
 	UInt32 page = GetBMCharPage(bmch);
 
-	// ビットマップフォントベース座標
-	static constexpr UInt32 BMCharBaseX = 0;
-	static constexpr UInt32 BMCharBaseY = 1664;
-
-	// ページオフセット
-	static constexpr UInt32 BMCharPageOffsetX = 256;
-	static constexpr UInt32 BMCharPageOffsetY = 0;
-
-	pnt.X = BMCharBaseX + (code % BMCharBlockNumX) * BMCharWidth + BMCharPageOffsetX * page;
-	pnt.Y = BMCharBaseY + (code / BMCharBlockNumX) * BMCharHeight + BMCharPageOffsetY * page;
+	pnt.X = SNGUIDef::BMCharBaseX + (code % SNGUIDef::BMCharBlockNumX) * SNGUIDef::BMCharWidth + SNGUIDef::BMCharPageOffsetX * page;
+	pnt.Y = SNGUIDef::BMCharBaseY + (code / SNGUIDef::BMCharBlockNumX) * SNGUIDef::BMCharHeight + SNGUIDef::BMCharPageOffsetY * page;
 
 	return pnt;
 }

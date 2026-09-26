@@ -4,6 +4,7 @@
 #include "SNKeyboard.h"
 #include "SNSystemConfig.h"
 #include "SNGraphicsDevice.h"
+#include "SNGUIDef.h"
 
 // デバッグアプリ
 
@@ -50,15 +51,15 @@ Void SNDebugApp::OnInitialize()
 	y = 0;
 
 	txtSysInfoTitle.Move(0, y);
-	y += SNBitmapFont::BMCharHeight;
+	y += SNGUIDef::BMCharHeight;
 	txtFPS.Move(0, y);
-	y += SNBitmapFont::BMCharHeight;
+	y += SNGUIDef::BMCharHeight;
 	txtProcFPS.Move(0, y);
-	y += SNBitmapFont::BMCharHeight;
+	y += SNGUIDef::BMCharHeight;
 	txtSkip.Move(0, y);
-	y += SNBitmapFont::BMCharHeight;
+	y += SNGUIDef::BMCharHeight;
 	txtProcTime.Move(0, y);
-	y += SNBitmapFont::BMCharHeight;
+	y += SNGUIDef::BMCharHeight;
 
 	return;
 }

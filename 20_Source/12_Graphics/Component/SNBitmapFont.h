@@ -39,25 +39,6 @@ public:
 	// ビットマップフォントコード取得
 	static UInt8 GetBMCharCode(BMChar bmch);
 
-	// ビットマップフォントテーブル数
-	static constexpr UInt32 BMCharTableNum = 256;
-
-	// ビットマップフォント幅/高さ
-	static constexpr UInt32 BMCharWidth = 16;
-	static constexpr UInt32 BMCharHeight = 24;
-
-	// ビットマップフォント縦横ブロック数
-	static constexpr UInt32 BMCharBlockNumX = 16;
-	static constexpr UInt32 BMCharBlockNumY = 16;
-
-	// ビットマップフォントベース座標
-	static constexpr UInt32 BMCharBaseX = 0;
-	static constexpr UInt32 BMCharBaseY = 1664;
-
-	// ページオフセット
-	static constexpr UInt32 BMCharPageOffsetX = 256;
-	static constexpr UInt32 BMCharPageOffsetY = 0;
-
 private:
 
 };

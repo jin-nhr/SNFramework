@@ -1,6 +1,6 @@
 #pragma once
 #include "SNFrameworkInternal.h"
-
+#include "SNSystemConfig.h"
 
 class SNGUIDef
 {
@@ -44,6 +44,54 @@ public:
 
 	static constexpr GUIFontColor FontColorSystem = FontColorLight;
 	static constexpr GUIFontColor FontColorNormal = FontColorDark;
+
+
+	////////////////////////////////////////////////////////////////////////////////
+	// ビットマップフォント定義
+
+	// ビットマップフォントテーブル数
+	static constexpr UInt32 BMCharTableNum = 256;
+
+	// ビットマップフォント幅/高さ
+	static constexpr UInt32 BMCharWidth = 16;
+	static constexpr UInt32 BMCharHeight = 24;
+
+	// ビットマップフォント縦横ブロック数
+	static constexpr UInt32 BMCharBlockNumX = 16;
+	static constexpr UInt32 BMCharBlockNumY = 16;
+
+	// ビットマップフォントベース座標
+	static constexpr UInt32 BMCharBaseX = 0;
+	static constexpr UInt32 BMCharBaseY = 1664;
+
+	// ページオフセット
+	static constexpr UInt32 BMCharPageOffsetX = 256;
+	static constexpr UInt32 BMCharPageOffsetY = 0;
+
+
+	////////////////////////////////////////////////////////////////////////////////
+	// 背景定義
+	
+	// ベース座標
+	static constexpr UInt32 GUIBGBaseX = 0;
+	static constexpr UInt32 GUIBGBaseY = 1384;
+
+	// 背景パターン
+	enum GUIBGPattern
+	{
+		GUIBGPatternBlack,
+	};
+
+	// パターン毎のオフセット
+	static constexpr UInt32 GUIBGOffsetX = 4;
+	static constexpr UInt32 GUIBGOffsetY = 0;
+
+	// サイズ
+	static constexpr UInt32 GUIBGWidth = 2;
+	static constexpr UInt32 GUIBGHeight = 256;
+
+
+
 
 	////////////////////////////////////////////////////////////////////////////////
 	// フォーカス関連
@@ -101,7 +149,7 @@ public:
 	static constexpr SNPoint ButtonCaptionOffset =
 	{
 		SNSystemConfig::GUIBlockSize / 2,
-		(SNBitmapFont::BMCharHeight - SNSystemConfig::GUIBlockSize) / 2
+		(BMCharHeight - SNSystemConfig::GUIBlockSize) / 2
 	};
 
 	static constexpr GUIFontColor ButtonCaptionColor[ButtonStatusNum] =

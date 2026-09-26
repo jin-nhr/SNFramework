@@ -11,9 +11,8 @@ enum SNGraphicsResID
 	SNGraphicsResStartupTop,
 
 	SNGraphicsResGUI = SNGraphicsResStartupTop,
-	SNGraphicsResSystemBlack,
 
-	SNGraphicsResStartupEnd = SNGraphicsResSystemBlack,
+	SNGraphicsResStartupEnd = SNGraphicsResGUI,
 	// -----------------------------------------------
 
 	// -----------------------------------------------
@@ -54,7 +53,6 @@ public:
 		// -----------------------------------------------
 		// 起動リソース
 		(String)L"GUI.png",
-		(String)L"BGBK.png",
 		// -----------------------------------------------
 		
 		// -----------------------------------------------
