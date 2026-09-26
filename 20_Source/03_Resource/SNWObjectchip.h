@@ -5,15 +5,15 @@
 class SNWObjectchip
 {
 public:
-	static constexpr SNGraphicsResID ObjectchipResource[] =
-	{
-		SNGraphicsResChara1,
-	};
 
+	static constexpr SNGraphicsResID ObjectchipResource = SNGraphicsResWorld;
+
+	static constexpr UInt32 WObjectBaseX = 256;
+	static constexpr UInt32 WObjectBaseY = 0;
 
 	// ブロック数
 	static constexpr UInt32 WObjectBlockNumX = 8;
-	static constexpr UInt32 WObjectBlockNumY = 1;
+	static constexpr UInt32 WObjectBlockNumY = 4;
 	static constexpr UInt32 WObjectBlockNum = WObjectBlockNumX * WObjectBlockNumY;
 
 	// ブロックサイズ
@@ -185,8 +185,8 @@ public:
 	{
 		UInt16 tmp_code = (code & WObjectchipCodeMask);
 
-		out_rect->PointX = (tmp_code / WObjectBlockNumY) * WObjectBlockSizeX + WObjectOffset[dir].PointX + WObjectOffset[dir].Width * state;
-		out_rect->PointY = (tmp_code % WObjectBlockNumY) * WObjectBlockSizeY + WObjectOffset[dir].PointY;
+		out_rect->PointX = WObjectBaseX + (tmp_code / WObjectBlockNumY) * WObjectBlockSizeX + WObjectOffset[dir].PointX + WObjectOffset[dir].Width * state;
+		out_rect->PointY = WObjectBaseY + (tmp_code % WObjectBlockNumY) * WObjectBlockSizeY + WObjectOffset[dir].PointY;
 		out_rect->Width  = WObjectOffset[dir].Width;
 		out_rect->Height = WObjectOffset[dir].Height;
 		

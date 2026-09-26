@@ -15,14 +15,6 @@ public:
 		SNGUIWorldViewFrontTransparentTypeHigh,
 	};
 
-	static constexpr SNGraphicsResID BGRes[SNWTimeZoneNum] =
-	{
-		SNGraphicsResBG1,
-		SNGraphicsResBG2,
-		SNGraphicsResBG3,
-		SNGraphicsResBG4,
-	};
-
 	static constexpr UInt8 TimeZoneAlpha = 40;
 
 	static constexpr Float32 TransGainOff = 1.00f;

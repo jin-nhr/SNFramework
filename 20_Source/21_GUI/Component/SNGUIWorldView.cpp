@@ -929,7 +929,7 @@ Void SNGUIWorldView::DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorld
 	// マップチップ本体を描画
 	SNGraphicsDevice::DrawImage(
 		&dst_rect,
-		SNGraphicsResManager::GetResource(SNWObjectchip::ObjectchipResource[SNWObjectchip::CodeToResID(code)]),
+		SNGraphicsResManager::GetResource(SNWObjectchip::ObjectchipResource),
 		&src_rect,
 		(UInt8)(SNAlphaMax * a_gain));
 
