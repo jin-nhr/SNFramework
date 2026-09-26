@@ -741,6 +741,7 @@ Void SNWorldAppCreation::RotateL()
 	WorldView.SetViewPos(&rb_pos);
 	WorldView.SaveFocusRangeStart();
 	WorldView.SetViewPos(&lt_pos);
+	SNWorld::SetCurrentPos(&lt_pos);
 
 	// “\‚è•t‚¯
 	Paste();
@@ -852,6 +853,7 @@ Void SNWorldAppCreation::RotateR()
 	WorldView.SetViewPos(&rb_pos);
 	WorldView.SaveFocusRangeStart();
 	WorldView.SetViewPos(&lt_pos);
+	SNWorld::SetCurrentPos(&lt_pos);
 
 	// “\‚è•t‚¯
 	Paste();

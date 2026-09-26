@@ -261,6 +261,9 @@ Void SNWObjectBase::EventFuncJump(SNWObjectEventParam* param)
 	case SNWObjectStateWalk:
 	case SNWObjectStateJog:
 		SetState(SNWObjectStateJump);
+		// 目標速度をセット
+		Info.Acceleration.Z = (SNWObjectchip::Data[Info.Code].SpeedJump * SNSystemConfig::FPS) / 1000.0f;
+		Info.Weight = false;
 		break;
 	case SNWObjectStateJump:
 	case SNWObjectStateAttack:
@@ -271,10 +274,6 @@ Void SNWObjectBase::EventFuncJump(SNWObjectEventParam* param)
 	case SNWObjectStateFall:
 		break;
 	}
-
-	// 目標速度をセット
-	Info.Acceleration.Z = (SNWObjectchip::Data[Info.Code].SpeedJump * SNSystemConfig::FPS) / 1000.0f;
-	Info.Weight = false;
 
 	return;
 }
