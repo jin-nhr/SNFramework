@@ -261,15 +261,13 @@ Void SNWorldAppTest::OnPreDraw()
 {
 	SNWorldPos pos;
 
-	SNWorldAppBase::OnPreDraw();
-
 	WorldView.GetViewPos(&pos);
 
 	txtX.SetValue((Int64)SNMath::FloorToInt(pos.X));
 	txtY.SetValue((Int64)SNMath::FloorToInt(pos.Y));
 	txtZ.SetValue((Int64)SNMath::FloorToInt(pos.Z));
 
-	WorldView.PreDraw();
+	SNWorldAppBase::OnPreDraw();
 	Win.PreDraw();
 
 	return;

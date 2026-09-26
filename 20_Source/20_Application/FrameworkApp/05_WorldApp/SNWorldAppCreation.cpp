@@ -303,15 +303,13 @@ Void SNWorldAppCreation::OnPreDraw()
 {
 	SNWorldPos pos;
 
-	SNWorldAppBase::OnPreDraw();
-
 	WorldView.GetViewPos(&pos);
 
 	txtX.SetValue((Int64)pos.X);
 	txtY.SetValue((Int64)pos.Y);
 	txtZ.SetValue((Int64)pos.Z);
 
-	WorldView.PreDraw();
+	SNWorldAppBase::OnPreDraw();
 	Win.PreDraw();
 
 	return;
