@@ -22,20 +22,6 @@ public:
 		GUIBlockNum
 	};
 
-	static constexpr SNPoint GUIBlockDef[GUIBlockNum] =
-	{
-		{ 0,                                       0                                }, // 左上
-		{ SNSystemConfig::GUIBlockSize,            0                                }, // 上
-		{ SNSystemConfig::GUIBlockSize * 2,        0                                }, // 右上
-		{ 0,                                       SNSystemConfig::GUIBlockSize     }, // 左
-		{ SNSystemConfig::GUIBlockSize,            SNSystemConfig::GUIBlockSize     }, // 中央
-		{ SNSystemConfig::GUIBlockSize * 2,        SNSystemConfig::GUIBlockSize     }, // 右
-		{ 0,                                       SNSystemConfig::GUIBlockSize * 2 }, // 左下
-		{ SNSystemConfig::GUIBlockSize,			   SNSystemConfig::GUIBlockSize * 2 }, // 下
-		{ SNSystemConfig::GUIBlockSize * 2,        SNSystemConfig::GUIBlockSize * 2 }  // 右下
-	};
-
-
 	static constexpr SNColor FontColor[FontColorNum] =
 	{
 		{ 224, 208, 192, 255 },
@@ -116,9 +102,27 @@ public:
 
 	////////////////////////////////////////////////////////////////////////////////
 	// ウインドウ関連
+
+	static constexpr UInt32 GUIWindowBaseX = 0;
+	static constexpr UInt32 GUIWindowBaseY = 0;
+
+
 	static constexpr SNPoint WindowBlockOffset[1] =
 	{
 		{ 0,                                       0                                }
+	};
+
+	static constexpr SNPoint GUIWindowBlockDef[GUIBlockNum] =
+	{
+		{ GUIWindowBaseX,                                       GUIWindowBaseY                                }, // 左上
+		{ GUIWindowBaseX + SNSystemConfig::GUIBlockSize,        GUIWindowBaseY                                }, // 上
+		{ GUIWindowBaseX + SNSystemConfig::GUIBlockSize * 2,    GUIWindowBaseY                                }, // 右上
+		{ GUIWindowBaseX,                                       GUIWindowBaseY + SNSystemConfig::GUIBlockSize     }, // 左
+		{ GUIWindowBaseX + SNSystemConfig::GUIBlockSize,        GUIWindowBaseY + SNSystemConfig::GUIBlockSize     }, // 中央
+		{ GUIWindowBaseX + SNSystemConfig::GUIBlockSize * 2,    GUIWindowBaseY + SNSystemConfig::GUIBlockSize     }, // 右
+		{ GUIWindowBaseX,                                       GUIWindowBaseY + SNSystemConfig::GUIBlockSize * 2 }, // 左下
+		{ GUIWindowBaseX + SNSystemConfig::GUIBlockSize,		GUIWindowBaseY + SNSystemConfig::GUIBlockSize * 2 }, // 下
+		{ GUIWindowBaseX + SNSystemConfig::GUIBlockSize * 2,    GUIWindowBaseY + SNSystemConfig::GUIBlockSize * 2 }  // 右下
 	};
 
 
@@ -134,6 +138,20 @@ public:
 		ButtonStatusPush,
 		ButtonStatusSelected,
 		ButtonStatusNum
+	};
+
+
+	static constexpr SNPoint GUIButtonBlockDef[GUIBlockNum] =
+	{
+		{ 0,                                       0                                }, // 左上
+		{ SNSystemConfig::GUIBlockSize,            0                                }, // 上
+		{ SNSystemConfig::GUIBlockSize * 2,        0                                }, // 右上
+		{ 0,                                       SNSystemConfig::GUIBlockSize     }, // 左
+		{ SNSystemConfig::GUIBlockSize,            SNSystemConfig::GUIBlockSize     }, // 中央
+		{ SNSystemConfig::GUIBlockSize * 2,        SNSystemConfig::GUIBlockSize     }, // 右
+		{ 0,                                       SNSystemConfig::GUIBlockSize * 2 }, // 左下
+		{ SNSystemConfig::GUIBlockSize,			   SNSystemConfig::GUIBlockSize * 2 }, // 下
+		{ SNSystemConfig::GUIBlockSize * 2,        SNSystemConfig::GUIBlockSize * 2 }  // 右下
 	};
 
 

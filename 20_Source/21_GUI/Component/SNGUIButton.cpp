@@ -99,7 +99,7 @@ Void SNGUIButton::ButtonTiling(SNGraphicsResID res_id, const SNPoint* offset)
 {
     SNRect rect = CalcGlobalRect();
 
-    SNGUI::Tiling9(&rect, res_id, SNGUIDef::GUIBlockDef, offset);
+    SNGUI::Tiling9(&rect, res_id, SNGUIDef::GUIButtonBlockDef, offset);
 
     return;
 }

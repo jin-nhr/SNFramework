@@ -22,14 +22,14 @@ SNGUIWindow::~SNGUIWindow()
 // èâä˙âª
 Void SNGUIWindow::OnInitialize()
 {
-	SNGraphicsResManager::AccessGet(SNGraphicsResWindow);
+	SNGraphicsResManager::AccessGet(SNGraphicsResGUI);
 	return;
 }
 
 // èIóπèàóù
 Void SNGUIWindow::OnTerminate()
 {
-	SNGraphicsResManager::AccessRelease(SNGraphicsResWindow);
+	SNGraphicsResManager::AccessRelease(SNGraphicsResGUI);
 	return;
 }
 
@@ -38,7 +38,7 @@ Void SNGUIWindow::OnDraw()
 {
 	SNRect rect = CalcGlobalRect();
 
-	SNGUI::Tiling9(&rect, SNGraphicsResWindow, SNGUIDef::GUIBlockDef, &SNGUIDef::WindowBlockOffset[0]);
+	SNGUI::Tiling9(&rect, SNGraphicsResGUI, SNGUIDef::GUIWindowBlockDef, &SNGUIDef::WindowBlockOffset[0]);
 
 	return;
 }
