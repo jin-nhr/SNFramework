@@ -1,11 +1,10 @@
 #pragma once
 #include "SNFrameworkInternal.h"
 #include "SNScene.h"
-#include "SNGUISystemText.h"
-#include "SNList.h"
+#include "SNBMString.h"
 
 // テキスト
-class SNGUIText : public virtual SNGUISystemText
+class SNGUIText : public virtual SNScene
 {
 public:
 	// コンストラクタ
@@ -14,18 +13,28 @@ public:
 	// デストラクタ
 	virtual ~SNGUIText();
 
+	// テキスト設定
+	virtual Void SetText(String text);
+
+	// テキスト設定
+	virtual Void SetText(SNBMString* text);
+
 	// 色
 	SNColor Color;
 
 protected:
-	virtual Void OnEntry();
+	// 初期化
+	virtual Void OnInitialize();
 
-	virtual Void OnExit();
+	// 終了処理
+	virtual Void OnTerminate();
 
 	// 描画前処理
 	virtual Void OnPreDraw();
 
 	// 描画処理
 	virtual Void OnDraw();
+
+	SNBMString Text;	// テキスト (自前で領域確保)
 };
 

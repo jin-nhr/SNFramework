@@ -1,7 +1,7 @@
 #pragma once
 #include "SNFrameworkInternal.h"
 #include "SNLayerController.h"
-#include "SNGUISystemTextEx.h"
+#include "SNGUITextEx.h"
 #include "SNTimerSequencer.h"
 
 // システムアプリ スタートアップ
@@ -56,9 +56,9 @@ protected:
 	virtual SNPhaseResult SeqResLoad(Int32 phase_idx, Int32 call_count);
 
 private:
-	SNGUISystemTextEx txtLine1;
-	SNGUISystemTextEx txtLine2;
-	SNGUISystemTextEx txtLine3;
+	SNGUITextEx txtLine1;
+	SNGUITextEx txtLine2;
+	SNGUITextEx txtLine3;
 	SNTimerSequencer	  TimerSeqDisp;		// 表示用タイマシーケンサ
 	SNTimerSequencer  TimerSeqResLoad;	// リソースロード用シーケンサ
 };

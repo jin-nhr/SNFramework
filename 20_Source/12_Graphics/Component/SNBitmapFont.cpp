@@ -58,15 +58,7 @@ Void SNBitmapFont::Terminate()
 }
 
 // •¶Žš—ñ•`‰æ
-Void SNBitmapFont::DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len)
-{
-	SNColor color = { 255, 255, 255, 255 };
-	DrawSystemTextImp(x, y, str, len, &color);
-
-	return;
-}
-
-Void SNBitmapFont::DrawSystemTextImp(Int32 x, Int32 y, BMString str, UInt32 len, SNColor* color)
+Void SNBitmapFont::DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len, SNColor* color)
 {
 	UInt32 cnt;
 	SNPoint pt;
@@ -112,14 +104,6 @@ Void SNBitmapFont::DrawSystemTextImp(Int32 x, Int32 y, BMString str, UInt32 len,
 		// 1•¶Žš•ª•`‰æˆÊ’u‚ð‚¸‚ç‚·
 		dst_rect.PointX += BMCharWidth;
 	}
-
-	return;
-}
-
-// Šg’£ƒeƒLƒXƒg•`‰æ
-Void SNBitmapFont::DrawExtraText(Int32 x, Int32 y, SNColor* color, BMString str, UInt32 len)
-{
-	DrawSystemTextImp(x, y, str, len, color);
 
 	return;
 }

@@ -30,8 +30,6 @@ Void SNDebugApp::OnInitialize()
 	cntSysInfo.SetScene(&txtProcFPS);
 	cntSysInfo.SetScene(&txtSkip);
 	cntSysInfo.SetScene(&txtProcTime);
-	cntSysInfo.SetScene(&txtDrawCnt);
-	cntSysInfo.SetScene(&txtDrawPix);
 	
 	cntSysInfo.Initialize();
 
@@ -41,8 +39,12 @@ Void SNDebugApp::OnInitialize()
 	txtProcFPS.SetText((String)L"ProcFPS = %d");
 	txtSkip.SetText((String)L"Skip = %d");
 	txtProcTime.SetText((String)L"ProcTime = %d[ms]");
-	txtDrawCnt.SetText((String)L"DrawImageCount = %d");
-	txtDrawPix.SetText((String)L"DrawPixelCount = %d[MPix]");
+
+	txtSysInfoTitle.Color = SNGUIDef::FontColor[SNGUIDef::FontColorSystem];
+	txtFPS.Color = SNGUIDef::FontColor[SNGUIDef::FontColorSystem];
+	txtProcFPS.Color = SNGUIDef::FontColor[SNGUIDef::FontColorSystem];
+	txtSkip.Color = SNGUIDef::FontColor[SNGUIDef::FontColorSystem];
+	txtProcTime.Color = SNGUIDef::FontColor[SNGUIDef::FontColorSystem];
 
 	// システム情報の座標設定
 	y = 0;
@@ -57,10 +59,7 @@ Void SNDebugApp::OnInitialize()
 	y += SNBitmapFont::BMCharHeight;
 	txtProcTime.Move(0, y);
 	y += SNBitmapFont::BMCharHeight;
-	txtDrawCnt.Move(0, y);
-	y += SNBitmapFont::BMCharHeight;
-	txtDrawPix.Move(0, y);
-	y += SNBitmapFont::BMCharHeight;
+
 	return;
 }
 
@@ -100,8 +99,7 @@ Void SNDebugApp::OnCycle()
 		txtProcFPS.SetValue(SNApplication::GetProcFPS());
 		txtSkip.SetValue(SNApplication::GetSkipFrame());
 		txtProcTime.SetValue(SNApplication::GetProcTime());
-		txtDrawCnt.SetValue(SNGraphicsDevice::D3DDrawCommandNumBackup);
-		txtDrawPix.SetValue(0);
+
 
 		// ESCが押されたらデバッグ表示の反転
 		// デバッグアプリはイベントに関係なく直接キー状態を見る

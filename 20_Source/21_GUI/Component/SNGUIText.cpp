@@ -11,7 +11,6 @@ SNGUIText::SNGUIText()
 	// 変数初期化
 	Color = SNGUIDef::FontColor[SNGUIDef::FontColorNormal];
 
-
 	return;
 }
 
@@ -21,13 +20,56 @@ SNGUIText::~SNGUIText()
 	return;
 }
 
-Void SNGUIText::OnEntry()
+
+// テキスト設定
+Void SNGUIText::SetText(String text)
 {
+	SNSize size;
+
+	// Stringに文字列設定
+	Text.SetString(text);
+
+	// 文字列サイズ取得
+	size = Text.GetStringImageSize();
+
+	// 自身のサイズを変更
+	Resize(size.Width, size.Height);
+
 	return;
 }
 
-Void SNGUIText::OnExit()
+// テキスト設定
+Void SNGUIText::SetText(SNBMString* text)
 {
+	SNSize size;
+
+	// Stringに文字列設定
+	Text.SetString(text->GetString(), text->GetLength());
+
+	// 文字列サイズ取得
+	size = Text.GetStringImageSize();
+
+	// 自身のサイズを変更
+	Resize(size.Width, size.Height);
+
+	return;
+}
+
+// 初期化
+Void SNGUIText::OnInitialize()
+{
+	// 固定長でメモリ確保しておく
+	Text.PreAllocate(SNSystemConfig::GUITextLabelLength);
+
+	// 各種初期設定
+
+	return;
+}
+
+// 終了処理
+Void SNGUIText::OnTerminate()
+{
+	Text.Clear();
 	return;
 }
 
@@ -42,9 +84,15 @@ Void SNGUIText::OnDraw()
 {
 	SNRect rect = CalcGlobalRect();
 
-	// カラーマトリクス変換
-	SNBitmapFont::DrawExtraText(rect.PointX, rect.PointY, &Color, Text.GetString(), Text.GetLength());
-
+	// 文字描画
+	SNBitmapFont::DrawSystemText(
+		rect.PointX,
+		rect.PointY,
+		Text.GetString(),
+		Text.GetLength(),
+		&Color);
 
 	return;
 }
+
+

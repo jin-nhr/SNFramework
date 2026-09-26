@@ -28,6 +28,8 @@ Void SNSysAppError::OnInitialize()
 
 	txtLine1.SetText(SNFixedString::Startup5);
 
+	txtLine1.Color = SNGUIDef::FontColor[SNGUIDef::FontColorSystem];
+
 	SetSceneNum(1);
 	SetScene(&txtLine1);
 

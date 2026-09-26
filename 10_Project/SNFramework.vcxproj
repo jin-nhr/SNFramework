@@ -137,8 +137,6 @@
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIButton.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIWorldView.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIPicture.h" />
-    <ClInclude Include="..\20_Source\21_GUI\Component\SNGUISystemText.h" />
-    <ClInclude Include="..\20_Source\21_GUI\Component\SNGUISystemTextEx.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIText.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUITextEx.h" />
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIWindow.h" />
@@ -258,8 +256,6 @@
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIButton.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIWorldView.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIPicture.cpp" />
-    <ClCompile Include="..\20_Source\21_GUI\Component\SNGUISystemText.cpp" />
-    <ClCompile Include="..\20_Source\21_GUI\Component\SNGUISystemTextEx.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIText.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUITextEx.cpp" />
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIWindow.cpp" />

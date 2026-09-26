@@ -432,12 +432,6 @@
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIPicture.h">
       <Filter>20_Source\21_GUI\Component</Filter>
     </ClInclude>
-    <ClInclude Include="..\20_Source\21_GUI\Component\SNGUISystemText.h">
-      <Filter>20_Source\21_GUI\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="..\20_Source\21_GUI\Component\SNGUISystemTextEx.h">
-      <Filter>20_Source\21_GUI\Component</Filter>
-    </ClInclude>
     <ClInclude Include="..\20_Source\21_GUI\Component\SNGUIText.h">
       <Filter>20_Source\21_GUI\Component</Filter>
     </ClInclude>
@@ -807,12 +801,6 @@
       <Filter>20_Source\21_GUI\Component</Filter>
     </ClCompile>
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIPicture.cpp">
-      <Filter>20_Source\21_GUI\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_Source\21_GUI\Component\SNGUISystemText.cpp">
-      <Filter>20_Source\21_GUI\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="..\20_Source\21_GUI\Component\SNGUISystemTextEx.cpp">
       <Filter>20_Source\21_GUI\Component</Filter>
     </ClCompile>
     <ClCompile Include="..\20_Source\21_GUI\Component\SNGUIText.cpp">

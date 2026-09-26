@@ -42,6 +42,7 @@ public:
 		{  64,  32,  16, 255,}
 	};
 
+	static constexpr GUIFontColor FontColorSystem = FontColorLight;
 	static constexpr GUIFontColor FontColorNormal = FontColorDark;
 
 	////////////////////////////////////////////////////////////////////////////////

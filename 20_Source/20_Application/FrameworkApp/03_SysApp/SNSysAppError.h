@@ -1,7 +1,7 @@
 #pragma once
 #include "SNFrameworkInternal.h"
 #include "SNLayerController.h"
-#include "SNGUISystemTextEx.h"
+#include "SNGUITextEx.h"
 #include "SNTimerSequencer.h"
 
 // システムアプリ エラー画面
@@ -50,7 +50,7 @@ protected:
 
 
 private:
-	SNGUISystemText   txtLine1;
+	SNGUIText   txtLine1;
 	SNTimerSequencer	  TimerSeqDisp;		// 表示用タイマシーケンサ
 };
 

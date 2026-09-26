@@ -39,7 +39,6 @@ SNSize SNGraphicsDevice::D3DTargetSize;
 
 SNGraphicsDevice::SNTile SNGraphicsDevice::D3DDrawCommand[D3DDrawCommandMax];
 UInt32 SNGraphicsDevice::D3DDrawCommandNum = 0;
-UInt32 SNGraphicsDevice::D3DDrawCommandNumBackup = 0;
 
 Void SNGraphicsDevice::Initialize()
 {
@@ -863,8 +862,6 @@ Void SNGraphicsDevice::Flip(SNRect* rect)
 
     ((IDXGISwapChain*)SwapChain)->Present(wait_vsync, 0);
 
-    D3DDrawCommandNumBackup = 0;
-
     return;
 }
 
@@ -968,7 +965,6 @@ Void SNGraphicsDevice::Begin(SNBitmap* target)
     D3DSourceBitmap = nullptr;
 
     D3DDrawCommandNum = 0;
-    D3DDrawCommandNumBackup = 0;
 
     return;
 }
@@ -1091,7 +1087,6 @@ Void SNGraphicsDevice::FlushD3DDrawCommand()
         // •`‰æ‚ÌŽÀs
         d3d_ctx->DrawIndexedInstanced(6, D3DDrawCommandNum, 0, 0, 0);
 
-        D3DDrawCommandNumBackup += D3DDrawCommandNum;
         D3DDrawCommandNum = 0;
     }
 

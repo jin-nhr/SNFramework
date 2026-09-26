@@ -2,7 +2,7 @@
 #include "SNFrameworkInternal.h"
 #include "SNScene.h"
 #include "SNLayerController.h"
-#include "SNGUISystemTextEx.h"
+#include "SNGUITextEx.h"
 
 // デバッグアプリ
 // 遷移コードなし
@@ -43,13 +43,11 @@ protected:
 	virtual Void OnPostDraw();
 
 private:
-	SNLayerController cntSysInfo;		// システム情報コンテナ
-	SNGUISystemText   txtSysInfoTitle;	// システム情報タイトル表示
-	SNGUISystemTextEx txtFPS;			// PFS表示
-	SNGUISystemTextEx txtProcFPS;		// 処理FPS
-	SNGUISystemTextEx txtSkip;			// フレームスキップ
-	SNGUISystemTextEx txtProcTime;		// 処理時間表示
-	SNGUISystemTextEx txtDrawCnt;		// DrawImage回数
-	SNGUISystemTextEx txtDrawPix;		// 描画Pixel数
+	SNLayerController cntSysInfo;	// システム情報コンテナ
+	SNGUIText   txtSysInfoTitle;	// システム情報タイトル表示
+	SNGUITextEx txtFPS;				// PFS表示
+	SNGUITextEx txtProcFPS;			// 処理FPS
+	SNGUITextEx txtSkip;			// フレームスキップ
+	SNGUITextEx txtProcTime;		// 処理時間表示
 };
 

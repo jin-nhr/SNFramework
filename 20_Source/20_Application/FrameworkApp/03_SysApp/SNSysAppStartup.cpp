@@ -40,6 +40,9 @@ Void SNSysAppStartup::OnInitialize()
 	SetScene(&txtLine2);
 	SetScene(&txtLine3);
 
+	txtLine1.Color = SNGUIDef::FontColor[SNGUIDef::FontColorSystem];
+	txtLine2.Color = SNGUIDef::FontColor[SNGUIDef::FontColorSystem];
+	txtLine3.Color = SNGUIDef::FontColor[SNGUIDef::FontColorSystem];
 
 	// 表示用シーケンサ設定
 	TimerSeqDisp.Initialize(this, SeqChDisp, 5);
