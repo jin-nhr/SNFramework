@@ -830,7 +830,7 @@ Void SNGUIWorldView::DrawGround(SNWNearbyObject* obj, UInt16 code, SNPoint* draw
 	// マップチップ本体を描画
 	SNGraphicsDevice::DrawImage(
 		&dst_rect,
-		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource[SNMapchip::CodeToResID(code)]),
+		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource),
 		&src_rect,
 		(UInt8)(SNAlphaMax * a_gain));
 
@@ -862,7 +862,7 @@ Void SNGUIWorldView::DrawGroundBorder(SNWNearbyObject* obj, UInt16 code, SNPoint
 	// マップチップ本体を描画
 	SNGraphicsDevice::DrawImage(
 		&dst_rect,
-		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource[SNMapchip::CodeToResID(code)]),
+		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource),
 		&src_rect,
 		(UInt8)(SNAlphaMax * a_gain));
 
@@ -893,7 +893,7 @@ Void SNGUIWorldView::DrawGroundShadow(SNWNearbyObject* obj, UInt16 code, SNPoint
 	// マップチップ本体を描画
 	SNGraphicsDevice::DrawImage(
 		&dst_rect,
-		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource[SNMapchip::CodeToResID(code)]),
+		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource),
 		&src_rect,
 		(UInt8)(SNAlphaMax * a_gain));
 

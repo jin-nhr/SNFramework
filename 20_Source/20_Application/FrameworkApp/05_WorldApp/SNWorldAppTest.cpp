@@ -277,7 +277,6 @@ Void SNWorldAppTest::OnPreDraw()
 
 Void SNWorldAppTest::OnDraw()
 {
-	SNBitmap* bmp = SNGraphicsResManager::GetResource(SNGraphicsResMapchip1);
 	SNWorldDir dir = WorldView.GetViewDir();
 	SNWorldShadowDir shadow_dir = SNWorldShadowDirR;
 

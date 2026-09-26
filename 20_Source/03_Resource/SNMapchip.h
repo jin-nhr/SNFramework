@@ -6,10 +6,13 @@ class SNMapchip
 {
 public:
 	// マップチップリソース
-	static constexpr SNGraphicsResID MapchipResource[] =
-	{
-		SNGraphicsResMapchip1,
-	};
+	static constexpr SNGraphicsResID MapchipResource = SNGraphicsResWorld;
+
+	static constexpr UInt32 MapchipBaseX = 0;
+	static constexpr UInt32 MapchipBaseY = 0;
+
+	static constexpr UInt32 MapchipOffsetX = 0;
+	static constexpr UInt32 MapchipOffsetY = 384;
 
 	static constexpr Int32 MapchipAnimeStep = 4;
 
@@ -220,10 +223,11 @@ public:
 			
 	static inline Void CodeToRect(UInt16 code, Int32 dir, SNRect* out_rect)
 	{
+		UInt16 res_id = CodeToResID(code);
 		UInt16 tmp_code = (code & SNMapchipCodeMask);
 
-		out_rect->PointX = (tmp_code / MapchipBlockNumY) * MapchipBlockSizeX + MapchipOffset[dir].PointX;
-		out_rect->PointY = (tmp_code % MapchipBlockNumY) * MapchipBlockSizeY + MapchipOffset[dir].PointY;
+		out_rect->PointX = MapchipBaseX + (tmp_code / MapchipBlockNumY) * MapchipBlockSizeX + MapchipOffset[dir].PointX + MapchipOffsetX * res_id;
+		out_rect->PointY = MapchipBaseX + (tmp_code % MapchipBlockNumY) * MapchipBlockSizeY + MapchipOffset[dir].PointY + MapchipOffsetY * res_id;
 		out_rect->Width  = MapchipOffset[dir].Width;
 		out_rect->Height = MapchipOffset[dir].Height;
 		

@@ -29,11 +29,11 @@ enum SNGraphicsResID
 	SNGraphicsResAppTop,
 
 	SNGraphicsResAppTitle = SNGraphicsResAppTop,
+	SNGraphicsResWorld,
 	SNGraphicsResBG1,
 	SNGraphicsResBG2,
 	SNGraphicsResBG3,
 	SNGraphicsResBG4,
-	SNGraphicsResMapchip1,
 	SNGraphicsResChara1,
 
 	SNGraphicsResAppEnd = SNGraphicsResChara1,
@@ -61,11 +61,11 @@ public:
 		// -----------------------------------------------
 		// アプリケーションリソース
 		(String)L"湖とお城.png",
+		(String)L"World.png",
 		(String)L"BG1.png",
 		(String)L"BG2.png",
 		(String)L"BG3.png",
 		(String)L"BG4.png",
-		(String)L"マップチップ1.png",
 		(String)L"キャラクター1.png",
 		// -----------------------------------------------
 	};

@@ -319,7 +319,7 @@ Void SNWorldAppCreation::OnPreDraw()
 
 Void SNWorldAppCreation::OnDraw()
 {
-	SNBitmap* bmp = SNGraphicsResManager::GetResource(SNGraphicsResMapchip1);
+	SNBitmap* bmp = SNGraphicsResManager::GetResource(SNMapchip::MapchipResource);
 	SNRect win_rect;
 	SNRect dst_rect;
 	SNRect dst_tmp;
