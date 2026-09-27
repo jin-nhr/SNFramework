@@ -257,7 +257,7 @@ Void SNWorldAppTest::OnCycle()
 	WorldView.GetViewPos(&vpos);
 	vpos.X = pos->X;
 	vpos.Y = pos->Y;
-	vpos.Z += (pos->Z - vpos.Z) * 0.1;	// ƒJƒƒ‰‚ÍZ²‚ğ’x‰„‚³‚¹‚é
+	vpos.Z += (pos->Z - vpos.Z) * 0.1f;	// ƒJƒƒ‰‚ÍZ²‚ğ’x‰„‚³‚¹‚é
 
 	WorldView.SetViewPos(&vpos);
 	SNWorld::SetCurrentPos(pos);
