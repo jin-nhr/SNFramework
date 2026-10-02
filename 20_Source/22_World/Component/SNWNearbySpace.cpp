@@ -69,6 +69,7 @@ Void SNWNearbySpace::RegisterGroundData(SNWorldPos* glb_pos, UInt16 code)
 		obj_ptr->Pos.Z = glb_pos->Z - BasePos.Z;
 
 		obj_ptr->UserData = (Void*)code;
+		obj_ptr->Effect = 0;
 
 		// リスト登録
 		it = ObjectList.InsertLast();
@@ -120,34 +121,14 @@ Void SNWNearbySpace::RegisterGObjectData(SNWObjectBase* obj)
 	return;
 }
 
-// 地形エフェクト登録
-// エフェクトは当たり判定不要なので周辺空間に登録不要(というか地形と重複するので登録不可)
-Void SNWNearbySpace::RegisterGroundEffect(SNWorldPos* local_pos, UInt64 effect)
+
+Void SNWNearbySpace::RegisterGroundEffectToSpace(SNWNearbyObject* obj_ptr, UInt64 effect)
 {
-	SNListContainer* it = nullptr;
-	SNWNearbyObject* obj_ptr = nullptr;
+	obj_ptr->Effect = effect;
 
-	if (ObjectNum < SNWNearbyObjectNum)
-	{
-		// オブジェクト設定
-		obj_ptr = &Object[ObjectNum];
-		ObjectNum++;
-
-		obj_ptr->Type = SNWNearbyObjectTypeEffectGround;
-
-		// ローカル座標設定
-		obj_ptr->Pos.X = local_pos->X;
-		obj_ptr->Pos.Y = local_pos->Y;
-		obj_ptr->Pos.Z = local_pos->Z;
-
-		obj_ptr->UserData = (Void*)effect;
-
-		// リスト登録
-		it = ObjectList.InsertLast();
-		it->UserData = (Void*)obj_ptr;
-	}
 	return;
 }
+
 
 // フォーカス登録
 Void SNWNearbySpace::RegisterFocus(SNWorldPos* glb_pos)

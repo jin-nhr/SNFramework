@@ -20,7 +20,6 @@ enum SNWNearbyObjectType
 	SNWNearbyObjectTypeUnknown,
 	SNWNearbyObjectTypeActiveObject,	// 動的オブジェクト
 	SNWNearbyObjectTypeGround,			// 地形
-	SNWNearbyObjectTypeEffectGround,	// 地形エフェクト
 	SNWNearbyObjectTypeFocus,			// フォーカス
 	SNWNearbyObjectTypeNum
 };
@@ -31,6 +30,7 @@ struct SNWNearbyObject
 	SNWNearbyObjectType Type;
 	SNWorldPos          Pos;
 	Void*               UserData;	// 種別に応じたデータをセットする
+	UInt64              Effect;
 };
 
 // SNWNearbyObjectTypeGround
@@ -103,8 +103,8 @@ public:
 	// オブジェクト登録
 	virtual Void RegisterGObjectData(SNWObjectBase* obj);
 
-	// 地形エフェクト登録
-	virtual Void RegisterGroundEffect(SNWorldPos* local_pos, UInt64 effect);
+	// 地形エフェクト登録(周辺空間)
+	virtual Void RegisterGroundEffectToSpace(SNWNearbyObject* obj_ptr, UInt64 effect);
 
 	virtual Void RegisterFocus(SNWorldPos* local_pos);
 

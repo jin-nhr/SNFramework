@@ -596,8 +596,6 @@ Void SNGUIWorldView::DrawNearbyObject(SNWNearbyObject* obj, SNPoint* draw_base)
 	{
 	case SNWNearbyObjectTypeGround:
 		DrawNearbyObjectGround(obj, draw_base);
-		break;
-	case SNWNearbyObjectTypeEffectGround:
 		DrawNearbyObjectEffectGround(obj, draw_base);
 		break;
 	case SNWNearbyObjectTypeActiveObject:
@@ -627,7 +625,7 @@ Void SNGUIWorldView::DrawNearbyObjectGround(SNWNearbyObject* obj, SNPoint* draw_
 
 Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNWNearbyObject* obj, SNPoint* draw_base)
 {
-	UInt64 effect_flg = (UInt64)(intptr_t)obj->UserData;
+	UInt64 effect_flg = (UInt64)(intptr_t)obj->Effect;
 	UInt16 code;
 
 	static constexpr UInt64 glight_mask[SNWorldDirNum][4] =

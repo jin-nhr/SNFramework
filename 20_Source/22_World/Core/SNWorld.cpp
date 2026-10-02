@@ -28,9 +28,6 @@ SNWPhysics SNWorld::Physics;
 SNWorldWorker SNWorld::Worker[WorkerThreadNum];
 Int64 SNWorld::WorkerInfo[WorkerThreadNum + 1][WorkerInfoNum];
 
-SNGroundEffectInfo SNWorld::GroundEffectInfo[WorkerThreadNum + 1][GroundEffectInfoMax];
-Int64 SNWorld::GroundEffectInfoNum[WorkerThreadNum + 1];
-
 
 // 初期化
 Void SNWorld::Initialize()
@@ -73,8 +70,6 @@ Void SNWorld::Initialize()
 		{
 			WorkerInfo[cnt][cnt2] = 0;
 		}
-
-		GroundEffectInfoNum[cnt] = 0;
 	}
 
 	return;
@@ -275,7 +270,6 @@ Void SNWorld::RegisterNearbyEffect()
 {
 	UInt32 obj_num = (UInt32)NearbySpace.GetObjectNum();
 	UInt32 cnt;
-	Int64 effect_cnt;
 	UInt32 start_step = (obj_num / ParallelProcNum) + (Int64)((obj_num % ParallelProcNum) != 0);
 	UInt32 start = 0;
 	Boolean run = true;
@@ -283,7 +277,6 @@ Void SNWorld::RegisterNearbyEffect()
 	for (cnt = 0; cnt < WorkerThreadNum; cnt++)
 	{
 		// ワーカー用の情報セット
-		GroundEffectInfoNum[cnt] = 0;
 		WorkerInfo[cnt][0] = start;
 		WorkerInfo[cnt][1] = SNMath::SelectMin(obj_num, start_step);
 		obj_num -= start_step;
@@ -296,7 +289,6 @@ Void SNWorld::RegisterNearbyEffect()
 		Worker[cnt].Run();
 	}
 
-	GroundEffectInfoNum[cnt] = 0;
 	WorkerInfo[cnt][0] = start;
 	WorkerInfo[cnt][1] = SNMath::SelectMin(obj_num, start_step);
 
@@ -312,18 +304,6 @@ Void SNWorld::RegisterNearbyEffect()
 		for (cnt = 0; cnt < WorkerThreadNum; cnt++)
 		{
 			run |= (!Worker[cnt].IsComplete);
-		}
-	}
-
-	// ワーカー＋メインを参照
-	for (cnt = 0; cnt < ParallelProcNum; cnt++)
-	{
-		for (effect_cnt = 0; effect_cnt < GroundEffectInfoNum[cnt]; effect_cnt++)
-		{
-			// エフェクトを登録する
-			NearbySpace.RegisterGroundEffect(
-				(SNWorldPos*)& GroundEffectInfo[cnt][effect_cnt].Pos,
-				GroundEffectInfo[cnt][effect_cnt].Effect);
 		}
 	}
 
@@ -448,14 +428,8 @@ Void SNWorld::RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr)
 		}
 	}
 
-	if (effect_flg != 0)
-	{
-		GroundEffectInfo[id][GroundEffectInfoNum[id]].Pos.X = obj_ptr->Pos.X;
-		GroundEffectInfo[id][GroundEffectInfoNum[id]].Pos.Y = obj_ptr->Pos.Y;
-		GroundEffectInfo[id][GroundEffectInfoNum[id]].Pos.Z = obj_ptr->Pos.Z;
-		GroundEffectInfo[id][GroundEffectInfoNum[id]].Effect = effect_flg;
-		GroundEffectInfoNum[id]++;
-	}
+	// 周辺空間へエフェクト登録
+	NearbySpace.RegisterGroundEffectToSpace(obj_ptr, effect_flg);
 
 	return;
 }

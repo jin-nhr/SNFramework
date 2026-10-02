@@ -157,7 +157,4 @@ private:
 
 	static SNWorldWorker Worker[WorkerThreadNum];
 	static Int64 WorkerInfo[ParallelProcNum][WorkerInfoNum];
-	static SNGroundEffectInfo GroundEffectInfo[ParallelProcNum][GroundEffectInfoMax];
-	static Int64 GroundEffectInfoNum[ParallelProcNum];
-
 };
