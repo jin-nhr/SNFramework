@@ -6,8 +6,8 @@ SNWNearbySpace::SNWNearbySpace()
 {
 	TimeStamp = 0;
 	BasePos = {0};
-	ZeroMemory(Object, sizeof(Object));
-	ZeroMemory(NearbySpace, sizeof(NearbySpace));
+	ZeroMemory((Void*)Object, sizeof(Object));
+	ZeroMemory((Void*)NearbySpace, sizeof(NearbySpace));
 	ObjectNum = 0;
 
 	return;
@@ -136,7 +136,9 @@ Void SNWNearbySpace::RegisterGroundEffect(SNWorldPos* local_pos, UInt64 effect)
 		obj_ptr->Type = SNWNearbyObjectTypeEffectGround;
 
 		// ƒ[ƒJƒ‹À•WÝ’è
-		obj_ptr->Pos = *local_pos;
+		obj_ptr->Pos.X = local_pos->X;
+		obj_ptr->Pos.Y = local_pos->Y;
+		obj_ptr->Pos.Z = local_pos->Z;
 
 		obj_ptr->UserData = (Void*)effect;
 

@@ -1,0 +1,1 @@
+copy Graphics\*.png ..\..\90_Build\Debug\Graphics\

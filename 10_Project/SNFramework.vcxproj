@@ -144,6 +144,7 @@
     <ClInclude Include="..\20_Source\22_World\Component\SNWNearbySpace.h" />
     <ClInclude Include="..\20_Source\22_World\Component\SNWObjectBase.h" />
     <ClInclude Include="..\20_Source\22_World\Component\SNWActObject.h" />
+    <ClInclude Include="..\20_Source\22_World\Component\SNWorldWorker.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWGlobalObject.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWMeshManager.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWGround.h" />
@@ -263,6 +264,7 @@
     <ClCompile Include="..\20_Source\22_World\Component\SNWNearbySpace.cpp" />
     <ClCompile Include="..\20_Source\22_World\Component\SNWObjectBase.cpp" />
     <ClCompile Include="..\20_Source\22_World\Component\SNWActObject.cpp" />
+    <ClCompile Include="..\20_Source\22_World\Component\SNWorldWorker.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWGlobalObject.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWMeshManager.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWGround.cpp" />

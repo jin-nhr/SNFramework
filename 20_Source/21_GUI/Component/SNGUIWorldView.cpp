@@ -775,13 +775,14 @@ Void SNGUIWorldView::DrawNearbyObjectActiveObject(SNWNearbyObject* obj, SNPoint*
 {
 	SNWObjectBase* obj_ptr = (SNWObjectBase*)obj->UserData;
 
-	SNWObjectchip::SNWActState act_state = obj_ptr->GetActState();
+	UInt8 act_state = obj_ptr->GetActState();
+	UInt8 anm_step = obj_ptr->GetAnimeStep();
 	SNWorldDir obj_dir = obj_ptr->CalcDir(ViewDir);
 
 	UInt16 code = obj_ptr->GetCode();
 
 	// 描画
-	DrawActiveObject(obj, code, obj_dir, act_state, draw_base);
+	DrawActiveObject(obj, obj_ptr->GetCode(), obj_dir, act_state, anm_step, draw_base);
 
 	return;
 }
@@ -901,7 +902,7 @@ Void SNGUIWorldView::DrawGroundShadow(SNWNearbyObject* obj, UInt16 code, SNPoint
 }
 
 
-Void SNGUIWorldView::DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, SNWObjectchip::SNWActState act_state, SNPoint* draw_base)
+Void SNGUIWorldView::DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, UInt8 act_state, UInt8 anm_step, SNPoint* draw_base)
 {
 	SNPoint pos;
 	SNRect src_rect;
@@ -909,17 +910,17 @@ Void SNGUIWorldView::DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorld
 	Float32 a_gain = 0.0f;
 
 	// チップ側の矩形取得
-	SNWObjectchip::CodeToRect(code, obj_dir, act_state, &src_rect);
+	SNWObjectchip::CodeToRect(code, obj_dir, act_state, anm_step, &src_rect);
 
 	// チップの描画先座標計算
 	CalcMapchipDrawPos(obj, draw_base, &pos);
 
 	dst_rect.PointX = pos.X 
 		+ SNMapchip::MapchipBottomCenterOffset[ViewDir].X
-		- SNWObjectchip::WObjectCenterOffset[obj_dir].X;
+		- SNWObjectchip::Data[code].imgCenterOffset.X;
 	dst_rect.PointY = pos.Y
 		+ SNMapchip::MapchipBottomCenterOffset[ViewDir].Y
-		- SNWObjectchip::WObjectCenterOffset[obj_dir].Y;
+		- SNWObjectchip::Data[code].imgCenterOffset.Y;
 	dst_rect.Width = src_rect.Width;
 	dst_rect.Height = src_rect.Height;
 
@@ -1049,8 +1050,6 @@ Void SNGUIWorldView::RegisterFocus()
 }
 
 
-// ソート用比較関数
-// true:aを選択、false:bを選択
 Boolean SNGUIWorldView::CompareDrawObjectN(Void* a, Void* b)
 {
 	Boolean ret = false;

@@ -313,12 +313,12 @@ Int32 SNWPhysics::GetNearbyBlockCenter(SNWObjectInfo* info, SNPhysicsNearbyBlock
 		info->Pos.Y - Space->GetBasePos()->Y,
 		info->Pos.Z - Space->GetBasePos()->Z
 	};
-	Float32 from_x = pos.X + SNGroundBlockSize / 2.0f - (SNWObjectchip::Data[info->Code].SizeH / 2.0f);
-	Float32 to_x = pos.X + SNGroundBlockSize / 2.0f + (SNWObjectchip::Data[info->Code].SizeH / 2.0f);
-	Float32 from_y = pos.Y + SNGroundBlockSize / 2.0f - (SNWObjectchip::Data[info->Code].SizeH / 2.0f);
-	Float32 to_y = pos.Y + SNGroundBlockSize / 2.0f + (SNWObjectchip::Data[info->Code].SizeH / 2.0f);
+	Float32 from_x = pos.X + SNGroundBlockSize / 2.0f - (SNWObjectchip::Data[info->Code].SizeX / 2.0f);
+	Float32 to_x = pos.X + SNGroundBlockSize / 2.0f + (SNWObjectchip::Data[info->Code].SizeX / 2.0f);
+	Float32 from_y = pos.Y + SNGroundBlockSize / 2.0f - (SNWObjectchip::Data[info->Code].SizeY / 2.0f);
+	Float32 to_y = pos.Y + SNGroundBlockSize / 2.0f + (SNWObjectchip::Data[info->Code].SizeY / 2.0f);
 	Float32 from_z = pos.Z;
-	Float32 to_z = pos.Z + SNWObjectchip::Data[info->Code].SizeV;
+	Float32 to_z = pos.Z + SNWObjectchip::Data[info->Code].SizeZ;
 
 	return GetNearbyBlockFace(info, blocklist, from_x, to_x, from_y, to_y, from_z, to_z);
 }
@@ -332,12 +332,12 @@ Int32 SNWPhysics::GetNearbyBlockFloor(SNWObjectInfo* info, SNPhysicsNearbyBlockI
 		info->Pos.Y - Space->GetBasePos()->Y,
 		info->Pos.Z - Space->GetBasePos()->Z
 	};
-	Float32 from_x = pos.X + SNGroundBlockSize / 2.0f - (SNWObjectchip::Data[info->Code].SizeH / 2.0f);
-	Float32 to_x = pos.X + SNGroundBlockSize / 2.0f + (SNWObjectchip::Data[info->Code].SizeH / 2.0f);
-	Float32 from_y = pos.Y + SNGroundBlockSize / 2.0f - (SNWObjectchip::Data[info->Code].SizeH / 2.0f);
-	Float32 to_y = pos.Y + SNGroundBlockSize / 2.0f + (SNWObjectchip::Data[info->Code].SizeH / 2.0f);
+	Float32 from_x = pos.X + SNGroundBlockSize / 2.0f - (SNWObjectchip::Data[info->Code].SizeX / 2.0f);
+	Float32 to_x = pos.X + SNGroundBlockSize / 2.0f + (SNWObjectchip::Data[info->Code].SizeX / 2.0f);
+	Float32 from_y = pos.Y + SNGroundBlockSize / 2.0f - (SNWObjectchip::Data[info->Code].SizeY / 2.0f);
+	Float32 to_y = pos.Y + SNGroundBlockSize / 2.0f + (SNWObjectchip::Data[info->Code].SizeY / 2.0f);
 	Float32 from_z = pos.Z;
-	Float32 to_z = pos.Z + SNWObjectchip::Data[info->Code].SizeV;
+	Float32 to_z = pos.Z + SNWObjectchip::Data[info->Code].SizeZ;
 
 	return GetNearbyBlockFace(info, blocklist, from_x, to_x, from_y, to_y, from_z - SNRefPos, from_z - SNRefPos);
 }

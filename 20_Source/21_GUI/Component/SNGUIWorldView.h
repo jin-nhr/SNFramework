@@ -25,6 +25,20 @@ public:
 	static constexpr Int32 TransViewRange = 128;
 
 
+	static constexpr SNPoint ViewProj[SNWorldDirNum] =
+	{
+		{  0,  1 },
+		{  0,  1 }, // N
+		{  1,  1 }, // NE
+		{  1,  0 }, // E
+		{  1, -1 }, // SE
+		{  0, -1 }, // S
+		{ -1, -1 }, // SW
+		{ -1,  0 }, // W
+		{ -1,  1 }, // NW
+	};
+
+
 public:
 	// コンストラクタ
 	SNGUIWorldView();
@@ -98,7 +112,7 @@ protected:
 	virtual Void DrawGround(SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
 	virtual Void DrawGroundBorder(SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
 	virtual Void DrawGroundShadow(SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base);
-	virtual Void DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, SNWObjectchip::SNWActState obj_state, SNPoint* draw_base);
+	virtual Void DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, UInt8 act_state, UInt8 anm_step, SNPoint* draw_base);
 
 	// マップチップ描画座標計算
 	virtual Void CalcMapchipDrawPos(SNWNearbyObject* obj, SNPoint* draw_base, SNPoint* out);
@@ -110,6 +124,7 @@ protected:
 	virtual Void RegisterFocus();
 
 	// ソート処理用オブジェクト比較
+	static Boolean CompareDrawObject(SNWorldDir dir, Void* a, Void* b);
 	static Boolean CompareDrawObjectN(Void* a, Void* b);
 	static Boolean CompareDrawObjectNE(Void* a, Void* b);
 	static Boolean CompareDrawObjectE(Void* a, Void* b);

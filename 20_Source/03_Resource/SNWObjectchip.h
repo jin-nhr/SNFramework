@@ -11,62 +11,12 @@ public:
 	static constexpr UInt32 WObjectBaseX = 256;
 	static constexpr UInt32 WObjectBaseY = 0;
 
-	// ブロック数
-	static constexpr UInt32 WObjectBlockNumX = 8;
-	static constexpr UInt32 WObjectBlockNumY = 4;
-	static constexpr UInt32 WObjectBlockNum = WObjectBlockNumX * WObjectBlockNumY;
-
-	// ブロックサイズ
-	static constexpr UInt32 WObjectBlockSizeX = 64 * 3;
-	static constexpr UInt32 WObjectBlockSizeY = 64 * 8;
-
-	static constexpr UInt32 WObjectchipCodeMask = 0x00FF;
-	static constexpr UInt32 WObjectchipResIDMask = 0xFF00;
-	static constexpr UInt32 WObjectchipResIDSihit = 8;
-
-	// アクション
-	enum SNWActState
-	{
-		SNActStateIdle,
-		SNActStateMove1,
-		SNActStateMove2,
-	};
-
-	// ブロックオフセット
-	static constexpr SNRect WObjectOffset[SNWorldDirNum] =
-	{
-		{ 0,  0, 64, 64 },	// Center
-		{ 0,  0, 64, 64 },	// N
-		{ 0, 64, 64, 64 },	// NE
-		{ 0,128, 64, 64 },	// E
-		{ 0,192, 64, 64 },	// SE
-		{ 0,256, 64, 64 },	// S
-		{ 0,320, 64, 64 },	// SW
-		{ 0,384, 64, 64 },	// W
-		{ 0,448, 64, 64 },	// NW
-	};
-
-
-	// 中心オフセット
-	static constexpr SNPoint WObjectCenterOffset[SNWorldDirNum] =
-	{
-		{32, 60 },	// Center
-		{32, 60 },	// N
-		{32, 60 },	// NE
-		{32, 60 },	// E
-		{32, 60 },	// SE
-		{32, 60 },	// S
-		{32, 60 },	// SW
-		{32, 60 },	// W
-		{32, 60 },	// NW
-	};
-
 	static constexpr Int32 AnimationStepNum = 8;	// 最大コマ数
 
 	// アニメーションステップ
 	struct SNWAnimationStep
 	{
-		SNWActState	State;		// 状態
+		UInt8	State;		// 表示列
 		Int32	Wait;		// 待ち時間(ms)
 	};
 
@@ -79,122 +29,190 @@ public:
 	};
 
 
-	enum SNAnimationCode
-	{
-		SNAnimationCodeWait,
-		SNAnimationCodeWalk,
-		SNAnimationCodeJog,
-		SNAnimationCodeNum
-	};
-
-
-	static constexpr SNWAnimationInfo AnimationInfo[SNAnimationCodeNum] =
-	{
-		// Wait
-		{
-			true, 1,
-			SNActStateIdle, 1,
-			SNActStateIdle,	0,
-			SNActStateIdle,	0,
-			SNActStateIdle,	0,
-			SNActStateIdle,	0,
-			SNActStateIdle,	0,
-			SNActStateIdle,	0,
-			SNActStateIdle,	0,
-		},
-
-		// Walk
-		{
-			true, 4,
-			SNActStateMove1, 300,
-			SNActStateIdle,  300,
-			SNActStateMove2, 300,
-			SNActStateIdle,  300,
-			SNActStateIdle,	 0,
-			SNActStateIdle,	 0,
-			SNActStateIdle,	 0,
-			SNActStateIdle,	 0,
-		},
-
-		// Jog
-		{
-			true, 4,
-			SNActStateMove1, 150,
-			SNActStateIdle,  150,
-			SNActStateMove2, 150,
-			SNActStateIdle,  150,
-			SNActStateIdle,	 0,
-			SNActStateIdle,	 0,
-			SNActStateIdle,	 0,
-			SNActStateIdle,	 0,
-		}
-	};
-
-
 	struct WObjectChipData
 	{
-		UInt16 Code;										// オブジェクトコード
-		Float32 SizeH;
-		Float32 SizeV;
-		SNAnimationCode AnimeCode[SNWObjectStateNum];		// アニメコード	
+		SNPoint ImgOffset;
+		SNSize  ImgSize;
+		SNPoint imgCenterOffset;
+		UInt16 imgDirOffset[SNWorldDirNum];
+
+		Float32 SizeX;
+		Float32 SizeY;
+		Float32 SizeZ;
+		SNWAnimationInfo AnimeCode[SNWObjectStateNum];		// アニメコード	
 		Float32 SpeedWalk;
 		Float32 SpeedJog;
 		Float32 SpeedJump;
 		Float32 SpeedFlying;
+		Float32 SpeedSwimming;
 	};
 
 
 	enum WObjectCode
 	{
-		WObjectCodeMaleOrg,
+		WObjectCodeBone,
 		WObjectCodeNum,
 	};
 
 	static constexpr WObjectChipData	Data[WObjectCodeNum] =
 	{
-		// WObjectCodeMaleOrg
+		// Bone
 		{
-			// Code
-			0x0000,
+			// Img offset
+			0, 0,
+
+			// img size
+			32, 32,
+
+			// center offset
+			15, 27,
+
+			// dir offset (c, n, ne, e, se, s, sw, w, nw)
+			0, 0, 32, 64, 96, 128, 160, 192, 224,
 
 			// Size
-			1, 4,
+			1, 1, 3,
 
 			// Animation
-			SNAnimationCodeWait,	// Idle
-			SNAnimationCodeWalk,	// Walk
-			SNAnimationCodeJog,		// Jog
-			SNAnimationCodeWait,	// Jump
-			SNAnimationCodeWait,	// Attack
-			SNAnimationCodeWait,	// Knockback
-			SNAnimationCodeWait,	// Spell
-			SNAnimationCodeWait,	// OtherAction
-			SNAnimationCodeWait,	// Flying
-			SNAnimationCodeWait,	// Fall
+			// Idle
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Walk
+			true, 8,
+			2, 100,
+			3, 100,
+			4, 100,
+			5, 100,
+			6, 100,
+			7, 100,
+			8, 100,
+			1, 100,
+
+			// Jog
+			true, 8,
+			2, 100,
+			3, 100,
+			4, 100,
+			5, 100,
+			6, 100,
+			7, 100,
+			8, 100,
+			1, 100,
+
+			// Jump
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Attack
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Knockback
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Spell
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// OtherAction
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Flying
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Fall
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Swimming
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
 
 			// Speed (blk/sec) ※ 1フレームでの移動距離は1blk上限とする (60fpsなら16.6くらい)
 			3.0f,			// Walk
-			4.5f,			// Jog
-			12.0f,			// Jump
-			4.5f			// Flying
+			5.0f,			// Jog
+			10.0f,			// Jump
+			5.0f,			// Flying
+			2.5f			// Swimming
 		},
 
 	};
 
-	static inline Void CodeToRect(UInt16 code, Int32 dir, SNWActState state, SNRect* out_rect)
+	static inline Void CodeToRect(UInt16 code, Int32 dir, UInt8 anm_state, UInt8 anm_step, SNRect* out_rect)
 	{
-		UInt16 tmp_code = (code & WObjectchipCodeMask);
+		out_rect->PointX = WObjectBaseX + Data[code].ImgOffset.X + Data[code].ImgSize.Width * (Data[code].AnimeCode[anm_state].StepInfo[anm_step].State);
+		out_rect->PointY = WObjectBaseY + Data[code].ImgOffset.Y + Data[code].imgDirOffset[dir];
+		out_rect->Width = Data[code].ImgSize.Width;
+		out_rect->Height = Data[code].ImgSize.Height;
 
-		out_rect->PointX = WObjectBaseX + (tmp_code / WObjectBlockNumY) * WObjectBlockSizeX + WObjectOffset[dir].PointX + WObjectOffset[dir].Width * state;
-		out_rect->PointY = WObjectBaseY + (tmp_code % WObjectBlockNumY) * WObjectBlockSizeY + WObjectOffset[dir].PointY;
-		out_rect->Width  = WObjectOffset[dir].Width;
-		out_rect->Height = WObjectOffset[dir].Height;
-		
 		return;
 	};
 
-	static inline UInt16 CodeToResID(UInt16 code)
-	{
-		return ((code & WObjectchipCodeMask) >> WObjectchipResIDSihit);
-	}
 };

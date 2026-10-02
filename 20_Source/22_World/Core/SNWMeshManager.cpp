@@ -239,6 +239,39 @@ Void SNWMeshManager::RegisterNearbyObject(SNWNearbySpace* space)
 	return;
 }
 
+Boolean SNWMeshManager::IsIdle()
+{
+	Boolean ret = true;
+	Int32 mesh_dir;
+	Int32 mesh_z;
+
+	SNWMeshInfo* mesh_info;
+
+	// アイドル以外があればfalseにして抜ける
+	// 全メッシュを走査
+	for (mesh_z = 0; mesh_z < SNWorldElevationNum; mesh_z++)
+	{
+		for (mesh_dir = 0; mesh_dir < SNWorldDirNum; mesh_dir++)
+		{
+			mesh_info = &MeshInfo[MeshRef[mesh_z][mesh_dir]];
+
+			if (mesh_info->State != SNWMeshStateIdle)
+			{
+				ret = false;
+				break;
+			}
+		}
+
+		if (ret == false)
+		{
+			break;
+		}
+	}
+
+
+	return ret;
+}
+
 // 座標→ID変換
 Void SNWMeshManager::CvtPosToID(SNWorldPos* cur_pos, SNWorldPos* out_id)
 {

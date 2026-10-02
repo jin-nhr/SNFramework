@@ -249,17 +249,10 @@ Boolean SNWorldAppTest::OnInternalEvent()
 
 Void SNWorldAppTest::OnCycle()
 {
-	
-	SNWorldPos vpos;
 	SNWorldPos* pos = &SNWorld::GetPCObject()->RefInfo()->Pos;
 
 	// PC座標をViewにセットする
-	WorldView.GetViewPos(&vpos);
-	vpos.X = pos->X;
-	vpos.Y = pos->Y;
-	vpos.Z += (pos->Z - vpos.Z) * 0.1f;	// カメラはZ軸を遅延させる
-
-	WorldView.SetViewPos(&vpos);
+	WorldView.SetViewPos(pos);
 	SNWorld::SetCurrentPos(pos);
 	return;
 }

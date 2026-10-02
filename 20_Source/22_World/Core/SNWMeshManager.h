@@ -52,6 +52,9 @@ public:
 	// 周辺空間へのオブジェクト登録
 	virtual Void RegisterNearbyObject(SNWNearbySpace* space);
 
+	// 全Meshの処理が完了しているか
+	virtual Boolean IsIdle();
+
 protected:
 	// 座標→ID変換
 	virtual Void CvtPosToID(SNWorldPos* cur_pos, SNWorldPos* out_id);

@@ -4,10 +4,17 @@
 #include "SNWMeshManager.h"
 #include "SNWActObject.h"
 #include "SNWPhysics.h"
-
+#include "SNWorldWorker.h"
+#include "SNCriticalSection.h"
 
 // ワールドクラス
 
+
+struct SNGroundEffectInfo
+{
+	SNWorldPos Pos;
+	UInt64 Effect;
+};
 
 
 class SNWorld
@@ -41,6 +48,12 @@ public:
 		127,		// W
 		95,			// NW
 	};
+
+	static constexpr Int8 WorkerThreadNum = 2;
+	static constexpr Int8 ParallelProcNum = WorkerThreadNum + 1; // Worker+Main
+	static constexpr Int8 WorkerInfoNum = 4;
+
+	static constexpr Int64 GroundEffectInfoMax = (SNWNearbyObjectNum / (WorkerThreadNum + 1)) + 1;
 
 public:
 	// 初期化
@@ -107,8 +120,10 @@ protected:
 	// エフェクト登録
 	static Void RegisterNearbyEffect();
 
+	static Void RegisterNearbyEffectImp(UInt32 id);
+
 	// 地形エフェクト処理
-	static Void RegisterNearbyEffectGround(SNWNearbyObject* obj_ptr);
+	static Void RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr);
 
 	// 地形の投影チェック
 	static Boolean JudgeGroundPShadow(Int32 x, Int32 y, Int32 z);
@@ -139,5 +154,10 @@ private:
 	static SNWActObject PCObject;
 
 	static SNWPhysics Physics;
+
+	static SNWorldWorker Worker[WorkerThreadNum];
+	static Int64 WorkerInfo[ParallelProcNum][WorkerInfoNum];
+	static SNGroundEffectInfo GroundEffectInfo[ParallelProcNum][GroundEffectInfoMax];
+	static Int64 GroundEffectInfoNum[ParallelProcNum];
 
 };

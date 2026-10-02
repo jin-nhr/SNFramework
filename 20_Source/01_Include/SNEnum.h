@@ -766,6 +766,7 @@ enum SNWObjectState
     SNWObjectStateAction,
     SNWObjectStateFlying,
     SNWObjectStateFall,
+    SNWObjectStateSwimming,
     SNWObjectStateNum,
 };
 

@@ -537,6 +537,9 @@
     <ClInclude Include="..\20_Source\12_Graphics\Component\SNBitmapFont.h">
       <Filter>20_Source\12_Graphics\Component</Filter>
     </ClInclude>
+    <ClInclude Include="..\20_Source\22_World\Component\SNWorldWorker.h">
+      <Filter>22_World\Component</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\20_Source\02_System\Component\SNAutoResource.cpp">
@@ -889,6 +892,9 @@
     </ClCompile>
     <ClCompile Include="..\20_Source\12_Graphics\Component\SNBitmapFont.cpp">
       <Filter>20_Source\12_Graphics\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\22_World\Component\SNWorldWorker.cpp">
+      <Filter>22_World\Component</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

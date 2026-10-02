@@ -2,7 +2,7 @@
 #include "SNSystemConfig.h"
 #include "SNWGlobalObject.h"
 #include "SNMath.h"
-
+#include "SNWindowsAPI.h"
 
 SNWorldPos SNWorld::CurrentPos = {0};
 SNWMeshManager SNWorld::MeshManager;
@@ -25,10 +25,19 @@ SNWActObject SNWorld::PCObject;
 
 SNWPhysics SNWorld::Physics;
 
+SNWorldWorker SNWorld::Worker[WorkerThreadNum];
+Int64 SNWorld::WorkerInfo[WorkerThreadNum + 1][WorkerInfoNum];
+
+SNGroundEffectInfo SNWorld::GroundEffectInfo[WorkerThreadNum + 1][GroundEffectInfoMax];
+Int64 SNWorld::GroundEffectInfoNum[WorkerThreadNum + 1];
+
 
 // 初期化
 Void SNWorld::Initialize()
 {
+	Int32 cnt;
+	Int32 cnt2;
+
 	CurrentPos = {0};
 	WorldCount = 0;
 	WorldTime = 0;
@@ -57,6 +66,16 @@ Void SNWorld::Initialize()
 	// 物理エンジン設定
 	Physics.SetSpace(&NearbySpace);
 	Physics.SetGlobalObject(&GlobalObject);
+
+	for (cnt = 0; cnt < WorkerThreadNum + 1; cnt++)
+	{
+		for (cnt2 = 0; cnt2 < WorkerInfoNum; cnt2++)
+		{
+			WorkerInfo[cnt][cnt2] = 0;
+		}
+
+		GroundEffectInfoNum[cnt] = 0;
+	}
 
 	return;
 }
@@ -254,20 +273,79 @@ SNWEasyLightDir SNWorld::RefEasyLightDir()
 // 周辺空間へのエフェクト登録
 Void SNWorld::RegisterNearbyEffect()
 {
+	UInt32 obj_num = (UInt32)NearbySpace.GetObjectNum();
+	UInt32 cnt;
+	Int64 effect_cnt;
+	UInt32 start_step = (obj_num / ParallelProcNum) + (Int64)((obj_num % ParallelProcNum) != 0);
+	UInt32 start = 0;
+	Boolean run = true;
+
+	for (cnt = 0; cnt < WorkerThreadNum; cnt++)
+	{
+		// ワーカー用の情報セット
+		GroundEffectInfoNum[cnt] = 0;
+		WorkerInfo[cnt][0] = start;
+		WorkerInfo[cnt][1] = SNMath::SelectMin(obj_num, start_step);
+		obj_num -= start_step;
+		start += start_step;
+
+		// 実行関数を登録/実行
+		Worker[cnt].ID = cnt;
+		Worker[cnt].WorkerFunc = RegisterNearbyEffectImp;
+		Worker[cnt].IsComplete = false;
+		Worker[cnt].Run();
+	}
+
+	GroundEffectInfoNum[cnt] = 0;
+	WorkerInfo[cnt][0] = start;
+	WorkerInfo[cnt][1] = SNMath::SelectMin(obj_num, start_step);
+
+	// 自分もワーカー処理
+	RegisterNearbyEffectImp(cnt);
+
+	// ワーカースレッドすべてが完了するまで待つ
+	while (run)
+	{
+		Sleep(0);
+
+		run = false;
+		for (cnt = 0; cnt < WorkerThreadNum; cnt++)
+		{
+			run |= (!Worker[cnt].IsComplete);
+		}
+	}
+
+	// ワーカー＋メインを参照
+	for (cnt = 0; cnt < ParallelProcNum; cnt++)
+	{
+		for (effect_cnt = 0; effect_cnt < GroundEffectInfoNum[cnt]; effect_cnt++)
+		{
+			// エフェクトを登録する
+			NearbySpace.RegisterGroundEffect(
+				(SNWorldPos*)& GroundEffectInfo[cnt][effect_cnt].Pos,
+				GroundEffectInfo[cnt][effect_cnt].Effect);
+		}
+	}
+
+	return;
+}
+
+// 周辺空間へのエフェクト登録
+Void SNWorld::RegisterNearbyEffectImp(UInt32 id)
+{
 	SNWNearbyObject* obj_ptr = nullptr;
-	UInt32 obj_num = NearbySpace.GetObjectNum();
 	Int64 cnt;
 
 	// 登録されたオブジェクトを走査
 
-	for (cnt = 0; cnt < obj_num; cnt++)
+	for (cnt = WorkerInfo[id][0]; cnt < WorkerInfo[id][0] + WorkerInfo[id][1]; cnt++)
 	{
 		obj_ptr = NearbySpace.RefObject((Int32)cnt);
 
 		switch (obj_ptr->Type)
 		{
 		case SNWNearbyObjectTypeGround:
-			RegisterNearbyEffectGround(obj_ptr);
+			RegisterNearbyEffectGround(id, obj_ptr);
 			break;
 		}
 	}
@@ -275,7 +353,9 @@ Void SNWorld::RegisterNearbyEffect()
 	return;
 }
 
-Void SNWorld::RegisterNearbyEffectGround(SNWNearbyObject* obj_ptr)
+
+
+Void SNWorld::RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr)
 {
 	Int32 x, y, z;
 	UInt64 effect_flg = 0;
@@ -370,8 +450,11 @@ Void SNWorld::RegisterNearbyEffectGround(SNWNearbyObject* obj_ptr)
 
 	if (effect_flg != 0)
 	{
-		// エフェクトを登録する
-		NearbySpace.RegisterGroundEffect(&obj_ptr->Pos, effect_flg);
+		GroundEffectInfo[id][GroundEffectInfoNum[id]].Pos.X = obj_ptr->Pos.X;
+		GroundEffectInfo[id][GroundEffectInfoNum[id]].Pos.Y = obj_ptr->Pos.Y;
+		GroundEffectInfo[id][GroundEffectInfoNum[id]].Pos.Z = obj_ptr->Pos.Z;
+		GroundEffectInfo[id][GroundEffectInfoNum[id]].Effect = effect_flg;
+		GroundEffectInfoNum[id]++;
 	}
 
 	return;

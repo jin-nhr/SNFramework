@@ -45,7 +45,7 @@ Void SNWObjectBase::InitObjectInfo()
 
 	info = &Info;
 
-	info->Code = SNWObjectchip::WObjectCodeMaleOrg;
+	info->Code = SNWObjectchip::WObjectCodeBone;
 	info->AnimationStep = 0;
 	info->Enable = false;
 	info->Visible = false;
@@ -72,17 +72,21 @@ Void SNWObjectBase::InitObjectInfo()
 // コード取得
 UInt16 SNWObjectBase::GetCode()
 {
-	return SNWObjectchip::Data[Info.Code].Code;
+	return Info.Code;
 }
 
 // アニメステート取得
-SNWObjectchip::SNWActState SNWObjectBase::GetActState()
+UInt8 SNWObjectBase::GetActState()
 {
-	SNWObjectchip::SNAnimationCode anm_code = SNWObjectchip::Data[Info.Code].AnimeCode[Info.State];
-	SNWObjectchip::SNWActState act_code = SNWObjectchip::AnimationInfo[anm_code].StepInfo[Info.AnimationStep].State;
-
-	return act_code;
+	return (UInt8)Info.State;
 }
+
+// アニメステップ取得
+UInt8 SNWObjectBase::GetAnimeStep()
+{
+	return (UInt8)Info.AnimationStep;
+}
+
 
 // 方向計算
 SNWorldDir SNWObjectBase::CalcDir(SNWorldDir base_dir)
@@ -324,14 +328,12 @@ Void SNWObjectBase::UpdateState()
 
 Void SNWObjectBase::UpdateAnimation()
 {
-	SNWObjectchip::SNAnimationCode anime_code = SNWObjectchip::Data[Info.Code].AnimeCode[Info.State];
-
 	if (Info.State != Info.PrevState)
 	{
 		Info.AnimationStep = 0;
 
 		// タイマ起動
-		Timer.Start((UInt16)SNWObjectchip::AnimationInfo[anime_code].StepInfo[Info.AnimationStep].Wait);
+		Timer.Start((UInt16)SNWObjectchip::Data[Info.Code].AnimeCode[Info.State].StepInfo[Info.AnimationStep].Wait);
 	}
 
 	else
@@ -340,19 +342,19 @@ Void SNWObjectBase::UpdateAnimation()
 		if (Timer.IsTimeout())
 		{
 			// Stepを進める
-			if (SNWObjectchip::AnimationInfo[anime_code].Loop)
+			if (SNWObjectchip::Data[Info.Code].AnimeCode[Info.State].Loop)
 			{
 				// ループあり
-				Info.AnimationStep = (UInt32)SNMath::Increment(Info.AnimationStep, 0, SNWObjectchip::AnimationInfo[anime_code].StepNum - 1);
+				Info.AnimationStep = (UInt32)SNMath::Increment(Info.AnimationStep, 0, SNWObjectchip::Data[Info.Code].AnimeCode[Info.State].StepNum - 1);
 			}
 			else
 			{
 				// ループなし
-				Info.AnimationStep = (UInt32)SNMath::Saturate(Info.AnimationStep + 1, 0, SNWObjectchip::AnimationInfo[anime_code].StepNum - 1);
+				Info.AnimationStep = (UInt32)SNMath::Saturate(Info.AnimationStep + 1, 0, SNWObjectchip::Data[Info.Code].AnimeCode[Info.State].StepNum - 1);
 			}
 
 			// タイマ起動
-			Timer.Start((UInt16)SNWObjectchip::AnimationInfo[anime_code].StepInfo[Info.AnimationStep].Wait);
+			Timer.Start((UInt16)SNWObjectchip::Data[Info.Code].AnimeCode[Info.State].StepInfo[Info.AnimationStep].Wait);
 		}
 	}
 

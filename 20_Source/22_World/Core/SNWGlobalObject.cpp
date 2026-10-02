@@ -99,7 +99,7 @@ Void SNWGlobalObject::InitFileData(SNWGlobalObjectFileData* obj_file)
 	{
 		info = &obj_file->Object[cnt];
 		
-		info->Code = SNWObjectchip::WObjectCodeMaleOrg;
+		info->Code = SNWObjectchip::WObjectCodeBone;
 		info->AnimationStep = 0;
 		info->Enable = false;
 		info->Visible = false;
