@@ -609,7 +609,7 @@ Void SNGUIWorldView::DrawNearbyObject(SNWNearbyObject* obj, SNPoint* draw_base)
 	return;
 }
 
-Void SNGUIWorldView::DrawNearbyObjectGround(SNWNearbyObject* obj, SNPoint* draw_base)
+Void SNGUIWorldView::DrawNearbyObjectGround(UInt32 id, SNWNearbyObject* obj, SNPoint* draw_base)
 {
 	UInt16 code;
 	UInt16 chip_code = (UInt16)(intptr_t)obj->UserData;
