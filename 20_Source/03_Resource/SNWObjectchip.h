@@ -65,7 +65,7 @@ public:
 			32, 32,
 
 			// center offset
-			15, 27,
+			16, 27,
 
 			// dir offset (c, n, ne, e, se, s, sw, w, nw)
 			0, 0, 32, 64, 96, 128, 160, 192, 224,

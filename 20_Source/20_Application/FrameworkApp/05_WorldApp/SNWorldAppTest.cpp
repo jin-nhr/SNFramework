@@ -249,23 +249,20 @@ Boolean SNWorldAppTest::OnInternalEvent()
 
 Void SNWorldAppTest::OnCycle()
 {
-	SNWorldPos* pos = &SNWorld::GetPCObject()->RefInfo()->Pos;
-
-	// PC座標をViewにセットする
-	WorldView.SetViewPos(pos);
-	SNWorld::SetCurrentPos(pos);
 	return;
 }
 
 Void SNWorldAppTest::OnPreDraw()
 {
-	SNWorldPos pos;
+	SNWorldPos* pos = &SNWorld::GetPCObject()->RefInfo()->Pos;
 
-	WorldView.GetViewPos(&pos);
+	// PC座標をViewにセットする
+	WorldView.SetViewPos(pos);
+	SNWorld::SetCurrentPos(pos);
 
-	txtX.SetValue((Int64)SNMath::FloorToInt(pos.X));
-	txtY.SetValue((Int64)SNMath::FloorToInt(pos.Y));
-	txtZ.SetValue((Int64)SNMath::FloorToInt(pos.Z));
+	txtX.SetValue((Int64)SNMath::FloorToInt(pos->X));
+	txtY.SetValue((Int64)SNMath::FloorToInt(pos->Y));
+	txtZ.SetValue((Int64)SNMath::FloorToInt(pos->Z));
 
 	SNWorldAppBase::OnPreDraw();
 	Win.PreDraw();

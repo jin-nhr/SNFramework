@@ -36,6 +36,9 @@ public:
 	// スレッド終了タイムアウト(msec)
 	static constexpr Int32 ThreadEndTimeout = 3000;
 
+	// 並行処理最大数
+	static constexpr Int32 ParallelProcMax = 4;
+
 	/////////////////////////////////////////////////////////////////
 	// リソース
 	static constexpr String GraphicPath = (const String)L"Graphics";

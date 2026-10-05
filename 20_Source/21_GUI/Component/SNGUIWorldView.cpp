@@ -604,12 +604,15 @@ Void SNGUIWorldView::DrawNearbyObject(SNWNearbyObject* obj, SNPoint* draw_base)
 	case SNWNearbyObjectTypeFocus:
 		DrawNearbyObjectFocus(obj, draw_base);
 		break;
+	case SNWNearbyObjectTypeObjectShadow:
+		DrawNearbyObjectShadow(obj, draw_base);
+		break;
 	}
 
 	return;
 }
 
-Void SNGUIWorldView::DrawNearbyObjectGround(UInt32 id, SNWNearbyObject* obj, SNPoint* draw_base)
+Void SNGUIWorldView::DrawNearbyObjectGround(SNWNearbyObject* obj, SNPoint* draw_base)
 {
 	UInt16 code;
 	UInt16 chip_code = (UInt16)(intptr_t)obj->UserData;
@@ -665,6 +668,19 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNWNearbyObject* obj, SNPoint*
 		{SNWNearbyEffectGroundBitPShadowL, SNWNearbyEffectGroundBitPShadowU },	// SW - S
 		{SNWNearbyEffectGroundBitPShadowL, 0 },	// W - W
 		{SNWNearbyEffectGroundBitPShadowB, SNWNearbyEffectGroundBitPShadowL },	// NW - W
+	};
+
+	static constexpr UInt64 pshadow_top_mask[SNWorldDirNum][4] =
+	{
+		SNWNearbyEffectGroundBitPShadowTUL, SNWNearbyEffectGroundBitPShadowTUR, SNWNearbyEffectGroundBitPShadowTBR, SNWNearbyEffectGroundBitPShadowTBL,	// center
+		SNWNearbyEffectGroundBitPShadowTUL, SNWNearbyEffectGroundBitPShadowTUR, SNWNearbyEffectGroundBitPShadowTBR, SNWNearbyEffectGroundBitPShadowTBL,	// N
+		SNWNearbyEffectGroundBitPShadowTUL, SNWNearbyEffectGroundBitPShadowTUR, SNWNearbyEffectGroundBitPShadowTBR, SNWNearbyEffectGroundBitPShadowTBL,	// NW
+		SNWNearbyEffectGroundBitPShadowTBL, SNWNearbyEffectGroundBitPShadowTUL, SNWNearbyEffectGroundBitPShadowTUR, SNWNearbyEffectGroundBitPShadowTBR,	// E
+		SNWNearbyEffectGroundBitPShadowTBL, SNWNearbyEffectGroundBitPShadowTUL, SNWNearbyEffectGroundBitPShadowTUR, SNWNearbyEffectGroundBitPShadowTBR,	// SE
+		SNWNearbyEffectGroundBitPShadowTBR, SNWNearbyEffectGroundBitPShadowTBL, SNWNearbyEffectGroundBitPShadowTUL, SNWNearbyEffectGroundBitPShadowTUR,	// S
+		SNWNearbyEffectGroundBitPShadowTBR, SNWNearbyEffectGroundBitPShadowTBL, SNWNearbyEffectGroundBitPShadowTUL, SNWNearbyEffectGroundBitPShadowTUR,	// SW
+		SNWNearbyEffectGroundBitPShadowTUR, SNWNearbyEffectGroundBitPShadowTBR, SNWNearbyEffectGroundBitPShadowTBL, SNWNearbyEffectGroundBitPShadowTUL,	// W
+		SNWNearbyEffectGroundBitPShadowTUR, SNWNearbyEffectGroundBitPShadowTBR, SNWNearbyEffectGroundBitPShadowTBL, SNWNearbyEffectGroundBitPShadowTUL,	// NW
 	};
 
 
@@ -759,10 +775,40 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNWNearbyObject* obj, SNPoint*
 		DrawGround(obj, code, draw_base);
 	}
 
-	if ((effect_flg & SNWNearbyEffectGroundBitPShadowT) != 0)
+	if ((effect_flg & SNWNearbyEffectGroundBitPShadowT) == SNWNearbyEffectGroundBitPShadowT)
 	{
-		code = SNMapchip::ShadowCode[SNWorldShaodwDirT];
+		code = SNMapchip::ShadowCode[SNWorldShadowDirT];
 		DrawGround(obj, code, draw_base);
+	}
+
+	else
+	{
+		// 上面全体の影ではないときは個別に描画する
+
+		if ((effect_flg & pshadow_top_mask[ViewDir][0]) != 0)
+		{
+			code = SNMapchip::ShadowCode[SNWorldShadowTUL];
+			DrawGround(obj, code, draw_base);
+		}
+
+		if ((effect_flg & pshadow_top_mask[ViewDir][1]) != 0)
+		{
+			code = SNMapchip::ShadowCode[SNWorldShadowTUR];
+			DrawGround(obj, code, draw_base);
+		}
+		
+		if ((effect_flg & pshadow_top_mask[ViewDir][2]) != 0)
+		{
+			code = SNMapchip::ShadowCode[SNWorldShadowTBR];
+			DrawGround(obj, code, draw_base);
+		}
+
+		if ((effect_flg & pshadow_top_mask[ViewDir][3]) != 0)
+		{
+			code = SNMapchip::ShadowCode[SNWorldShadowTBL];
+			DrawGround(obj, code, draw_base);
+		}
+
 	}
 
 	return;
@@ -805,70 +851,15 @@ Void SNGUIWorldView::DrawNearbyObjectFocus(SNWNearbyObject* obj, SNPoint* draw_b
 	return;
 }
 
+// オブジェクトの影描画
+Void SNGUIWorldView::DrawNearbyObjectShadow(SNWNearbyObject* obj, SNPoint* draw_base)
+{
+	DrawGround(obj, SNMapchip::ShadowCode[(Int32)(intptr_t)obj->UserData], draw_base);
+
+	return;
+}
+
 Void SNGUIWorldView::DrawGround(SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base)
-{
-	SNPoint pos;
-	SNRect src_rect;
-	SNRect dst_rect;
-	Float32 a_gain = 0.0f;
-
-	// チップ側の矩形取得
-	SNMapchip::CodeToRect(code, ViewDir, &src_rect);
-
-	// チップの描画先座標計算
-	CalcMapchipDrawPos(obj, draw_base, &pos);
-
-	dst_rect.PointX = pos.X;
-	dst_rect.PointY = pos.Y;
-	dst_rect.Width = src_rect.Width;
-	dst_rect.Height = src_rect.Height;
-
-	// 手前ブロック透過h判定
-	a_gain = JudgeFrontTransparent(obj, &dst_rect);
-
-	// マップチップ本体を描画
-	SNGraphicsDevice::DrawImage(
-		&dst_rect,
-		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource),
-		&src_rect,
-		(UInt8)(SNAlphaMax * a_gain));
-
-	return;
-}
-
-
-Void SNGUIWorldView::DrawGroundBorder(SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base)
-{
-	SNPoint pos;
-	SNRect src_rect;
-	SNRect dst_rect;
-	Float32 a_gain = 0.0f;
-
-	// チップ側の矩形取得
-	SNMapchip::CodeToRect(code, ViewDir, &src_rect);
-
-	// チップの描画先座標計算
-	CalcMapchipDrawPos(obj, draw_base, &pos);
-
-	dst_rect.PointX = pos.X;
-	dst_rect.PointY = pos.Y;
-	dst_rect.Width = src_rect.Width;
-	dst_rect.Height = src_rect.Height;
-
-	// 手前ブロック透過h判定
-	a_gain = JudgeFrontTransparent(obj, &dst_rect);
-
-	// マップチップ本体を描画
-	SNGraphicsDevice::DrawImage(
-		&dst_rect,
-		SNGraphicsResManager::GetResource(SNMapchip::MapchipResource),
-		&src_rect,
-		(UInt8)(SNAlphaMax * a_gain));
-
-	return;
-}
-
-Void SNGUIWorldView::DrawGroundShadow(SNWNearbyObject* obj, UInt16 code, SNPoint* draw_base)
 {
 	SNPoint pos;
 	SNRect src_rect;
@@ -911,8 +902,8 @@ Void SNGUIWorldView::DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorld
 	SNWObjectchip::CodeToRect(code, obj_dir, act_state, anm_step, &src_rect);
 
 	// チップの描画先座標計算
-	CalcMapchipDrawPos(obj, draw_base, &pos);
-
+	CalcObjectchipDrawPos(obj, draw_base, &pos);
+	//CalcMapchipDrawPos(obj, draw_base, &pos);
 	dst_rect.PointX = pos.X 
 		+ SNMapchip::MapchipBottomCenterOffset[ViewDir].X
 		- SNWObjectchip::Data[code].imgCenterOffset.X;
@@ -925,7 +916,7 @@ Void SNGUIWorldView::DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorld
 	// 手前ブロック透過h判定
 	a_gain = JudgeFrontTransparent(obj, &dst_rect);
 
-	// マップチップ本体を描画
+	// チップ本体を描画
 	SNGraphicsDevice::DrawImage(
 		&dst_rect,
 		SNGraphicsResManager::GetResource(SNWObjectchip::ObjectchipResource),
@@ -935,18 +926,40 @@ Void SNGUIWorldView::DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorld
 	return;
 }
 
-
 Void SNGUIWorldView::CalcMapchipDrawPos(SNWNearbyObject* obj, SNPoint* draw_base, SNPoint* out)
 {
+	SNWorldPos* pos = &obj->Pos;
 	// 描画座標計算
 	out->X = (Int32)(draw_base->X
-		+ (SNMapchip::MapchipStrideX[ViewDir].X * obj->Pos.X
-			+ SNMapchip::MapchipStrideY[ViewDir].X * obj->Pos.Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].X * obj->Pos.Z));
+		+ (SNMapchip::MapchipStrideX[ViewDir].X * pos->X
+			+ SNMapchip::MapchipStrideY[ViewDir].X * pos->Y
+			+ SNMapchip::MapchipStrideZ[ViewDir].X * pos->Z));
 	out->Y = (Int32)(draw_base->Y
-		+ (SNMapchip::MapchipStrideX[ViewDir].Y * obj->Pos.X
-			+ SNMapchip::MapchipStrideY[ViewDir].Y * obj->Pos.Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].Y * obj->Pos.Z));
+		+ (SNMapchip::MapchipStrideX[ViewDir].Y * pos->X
+			+ SNMapchip::MapchipStrideY[ViewDir].Y * pos->Y
+			+ SNMapchip::MapchipStrideZ[ViewDir].Y * pos->Z));
+	return;
+}
+
+
+Void SNGUIWorldView::CalcObjectchipDrawPos(SNWNearbyObject* obj, SNPoint* draw_base, SNPoint* out)
+{
+	SNWNearbySpace* space = SNWorld::GetNearbySpace();
+	SNWorldPos pos = *(SNWorldPos*)&((SNWObjectBase*)(obj->UserData))->RefInfo()->Pos;
+
+	pos.X -= space->GetBasePos()->X;
+	pos.Y -= space->GetBasePos()->Y;
+	pos.Z -= space->GetBasePos()->Z;
+
+	// 描画座標計算
+	out->X = (Int32)(draw_base->X
+		+ (SNMapchip::MapchipStrideX[ViewDir].X * pos.X
+			+ SNMapchip::MapchipStrideY[ViewDir].X * pos.Y
+			+ SNMapchip::MapchipStrideZ[ViewDir].X * pos.Z));
+	out->Y = (Int32)(draw_base->Y
+		+ (SNMapchip::MapchipStrideX[ViewDir].Y * pos.X
+			+ SNMapchip::MapchipStrideY[ViewDir].Y * pos.Y
+			+ SNMapchip::MapchipStrideZ[ViewDir].Y * pos.Z));
 	return;
 }
 

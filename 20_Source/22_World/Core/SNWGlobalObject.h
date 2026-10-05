@@ -61,6 +61,9 @@ public:
 	// ÉIÉuÉWÉFÉNÉgìoò^
 	virtual Void RegisterNearbyObject(SNWNearbySpace* space);
 
+	// âeìoò^
+	virtual Void RegisterShadow(SNWNearbySpace* space);
+
 private:
 	virtual Void UserMain();
 

@@ -17,15 +17,14 @@ Boolean SNWorld::Run = false;
 Boolean SNWorld::Suspend = false;
 SNWNearbySpace SNWorld::NearbySpace;	// 周辺空間
 
-SNWTimeZone SNWorld::TimeZone;
+Int32 SNWorld::TimeHour;
 SNWorldDir SNWorld::GlobalLight;
-SNWEasyLightDir SNWorld::EasyLight;
 
 SNWActObject SNWorld::PCObject;
 
 SNWPhysics SNWorld::Physics;
 
-SNWorldWorker SNWorld::Worker[WorkerThreadNum];
+SNWorkerThread SNWorld::Worker[WorkerThreadNum];
 Int64 SNWorld::WorkerInfo[WorkerThreadNum + 1][WorkerInfoNum];
 
 
@@ -41,9 +40,8 @@ Void SNWorld::Initialize()
 	Run = false;
 	Suspend = false;
 
-	TimeZone = SNWTimeZoneAfternoon;
-	GlobalLight = DefTimeZoneLight[TimeZone];
-	EasyLight = RefEasyLightDir();
+	TimeHour = 0;
+	GlobalLight = TimeToGlobalLight[TimeHour];
 
 	MeshManager.Initialize();
 	NearbySpace.Initialize();
@@ -122,7 +120,7 @@ Void SNWorld::Update()
 		WorldCount++;
 		NearbySpace.UpdateStart(&CurrentPos, WorldCount);
 
-		UpdateTimeZone();
+		UpdateWorldTime();
 
 		// 地形アニメカウンタ制御
 		if (GroundAnimeTimer.IsTimeout())
@@ -132,41 +130,26 @@ Void SNWorld::Update()
 		}
 
 		// 地形更新
-		UpdateGround();
+		MeshManager.Update(&CurrentPos);
 
 		// グローバルオブジェクト更新
-		UpdateGlobalObject();
+		GlobalObject.Update();
 
-		// エフェクト登録
-		RegisterNearbyEffect();
+		// 地形オブジェクト登録
+		MeshManager.RegisterNearbyObject(&NearbySpace);
+
+		// グローバルオブジェクト登録
+		GlobalObject.RegisterNearbyObject(&NearbySpace);
 
 		// 物理エンジン実行
 		Physics.Update();
+
+		// 地形エフェクト登録
+		RegisterGroundEffect();
+
+		// グローバルオブジェクトの影登録
+		GlobalObject.RegisterShadow(&NearbySpace);
 	}
-
-	return;
-}
-
-// 地形更新
-Void SNWorld::UpdateGround()
-{
-	// 地形更新
-	MeshManager.Update(&CurrentPos);
-
-	// 地形オブジェクト登録
-	MeshManager.RegisterNearbyObject(&NearbySpace);
-
-	return;
-}
-
-// グローバルオブジェクト更新
-Void SNWorld::UpdateGlobalObject()
-{
-	// グローバルオブジェクト更新
-	GlobalObject.Update();
-
-	// グローバルオブジェクト登録
-	GlobalObject.RegisterNearbyObject(&NearbySpace);
 
 	return;
 }
@@ -228,7 +211,7 @@ Int32 SNWorld::GetAGroundAnimeStep()
 
 SNWTimeZone SNWorld::GetTimeZone()
 {
-	return TimeZone;
+	return TimeToTimeZone[TimeHour];
 }
 
 Int8 SNWorld::DirToAngle(SNWorldDir dir)
@@ -236,37 +219,15 @@ Int8 SNWorld::DirToAngle(SNWorldDir dir)
 	return DirToAngleTable[dir];
 }
 
-SNWEasyLightDir SNWorld::RefEasyLightDir()
-{
-	SNWEasyLightDir ret = SNWEasyLightDirRight;
-
-
-	switch (GlobalLight)
-	{
-	case SNWorldDirN:
-	case SNWorldDirNE:
-		ret = SNWEasyLightDirUp;
-		break;
-	case SNWorldDirE:
-	case SNWorldDirSE:
-		ret = SNWEasyLightDirRight;
-		break;
-	case SNWorldDirS:
-	case SNWorldDirSW:
-		ret = SNWEasyLightDirBottom;
-		break;
-	case SNWorldDirW:
-	case SNWorldDirNW:
-		ret = SNWEasyLightDirLeft;
-		break;
-	}
-
-	return ret;
-}
-
-
 // 周辺空間へのエフェクト登録
 Void SNWorld::RegisterNearbyEffect()
+{
+
+
+	return;
+}
+
+Void SNWorld::RegisterGroundEffect()
 {
 	UInt32 obj_num = (UInt32)NearbySpace.GetObjectNum();
 	UInt32 cnt;
@@ -284,7 +245,7 @@ Void SNWorld::RegisterNearbyEffect()
 
 		// 実行関数を登録/実行
 		Worker[cnt].ID = cnt;
-		Worker[cnt].WorkerFunc = RegisterNearbyEffectImp;
+		Worker[cnt].WorkerFunc = RegisterGroundEffectImp;
 		Worker[cnt].IsComplete = false;
 		Worker[cnt].Run();
 	}
@@ -293,7 +254,7 @@ Void SNWorld::RegisterNearbyEffect()
 	WorkerInfo[cnt][1] = SNMath::SelectMin(obj_num, start_step);
 
 	// 自分もワーカー処理
-	RegisterNearbyEffectImp(cnt);
+	RegisterGroundEffectImp(cnt, nullptr);
 
 	// ワーカースレッドすべてが完了するまで待つ
 	while (run)
@@ -306,12 +267,10 @@ Void SNWorld::RegisterNearbyEffect()
 			run |= (!Worker[cnt].IsComplete);
 		}
 	}
-
-	return;
 }
 
 // 周辺空間へのエフェクト登録
-Void SNWorld::RegisterNearbyEffectImp(UInt32 id)
+Void SNWorld::RegisterGroundEffectImp(UInt32 id, Void* param)
 {
 	SNWNearbyObject* obj_ptr = nullptr;
 	Int64 cnt;
@@ -352,13 +311,23 @@ Void SNWorld::RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr)
 
 	Boolean exist_bottom;
 
+	Boolean ps_lt;
+	Boolean ps_lb;
+	Boolean ps_rt;
+	Boolean ps_rb;
 
-	static UInt64 gshadow[SNWEasyLightDirNum] =
+
+	static UInt64 gshadow[SNWorldDirNum] =
 	{
+		SNWNearbyEffectGroundBitGShadowB,
+		SNWNearbyEffectGroundBitGShadowB,
+		SNWNearbyEffectGroundBitGShadowB,
+		SNWNearbyEffectGroundBitGShadowL,
+		SNWNearbyEffectGroundBitGShadowL,
+		SNWNearbyEffectGroundBitGShadowU,
 		SNWNearbyEffectGroundBitGShadowU,
 		SNWNearbyEffectGroundBitGShadowR,
-		SNWNearbyEffectGroundBitGShadowB,
-		SNWNearbyEffectGroundBitGShadowL
+		SNWNearbyEffectGroundBitGShadowR,
 	};
 
 	x = (Int32)obj_ptr->Pos.X;
@@ -384,7 +353,7 @@ Void SNWorld::RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr)
 	if (!(exist_u && exist_r && exist_b && exist_l))
 	{
 		// グローバル光源の反映
-		effect_flg |= gshadow[EasyLight];
+		effect_flg |= gshadow[GlobalLight];
 
 		if (!exist_top)
 		{
@@ -416,15 +385,76 @@ Void SNWorld::RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr)
 	// 周囲と上に地形以外のセルがある
 	if (!(exist_u && exist_r && exist_b && exist_l && exist_top))
 	{
+		ps_lt = false;
+		ps_rt = false;
+		ps_lb = false;
+		ps_rb = false;
+
 		// 影を作る地形があるか調べる
-		if (JudgeGroundPShadow(x, y, z))
+		if (JudgeGroundPShadow(x, y, z, &ps_lt, &ps_rt, &ps_lb, &ps_rb))
 		{
 			// 投影情報をセット
-			effect_flg |= (exist_u || (EasyLight != SNWEasyLightDirBottom) ? 0 : SNWNearbyEffectGroundBitPShadowU);
-			effect_flg |= (exist_r || (EasyLight != SNWEasyLightDirLeft) ? 0 : SNWNearbyEffectGroundBitPShadowR);
-			effect_flg |= (exist_b || (EasyLight != SNWEasyLightDirUp) ? 0 : SNWNearbyEffectGroundBitPShadowB);
-			effect_flg |= (exist_l || (EasyLight != SNWEasyLightDirRight) ? 0 : SNWNearbyEffectGroundBitPShadowL);
+			effect_flg |= (exist_b || (GlobalLight != SNWorldDirS) ? 0 : SNWNearbyEffectGroundBitPShadowB);
+			effect_flg |= (exist_b || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitPShadowB);
+			effect_flg |= (exist_b || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitPShadowB);
+
+			effect_flg |= (exist_l || (GlobalLight != SNWorldDirW) ? 0 : SNWNearbyEffectGroundBitPShadowL);
+			effect_flg |= (exist_l || (GlobalLight != SNWorldDirNW) ? 0 : SNWNearbyEffectGroundBitPShadowL);
+			effect_flg |= (exist_l || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitPShadowL);
+
+			effect_flg |= (exist_u || (GlobalLight != SNWorldDirN) ? 0 : SNWNearbyEffectGroundBitPShadowU);
+			effect_flg |= (exist_u || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitPShadowU);
+			effect_flg |= (exist_u || (GlobalLight != SNWorldDirNW) ? 0 : SNWNearbyEffectGroundBitPShadowU);
+
+			effect_flg |= (exist_r || (GlobalLight != SNWorldDirE) ? 0 : SNWNearbyEffectGroundBitPShadowR);
+			effect_flg |= (exist_r || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitPShadowR);
+			effect_flg |= (exist_r || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitPShadowR);
+
 			effect_flg |= (exist_top ? 0 : SNWNearbyEffectGroundBitPShadowT);
+		}
+
+		else
+		{
+			if (ps_lt)
+			{
+				effect_flg |= (exist_l || (GlobalLight != SNWorldDirNW) ? 0 : SNWNearbyEffectGroundBitPShadowL);
+				effect_flg |= (exist_l || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitPShadowL);
+
+				effect_flg |= (exist_u || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitPShadowU);
+				effect_flg |= (exist_u || (GlobalLight != SNWorldDirNW) ? 0 : SNWNearbyEffectGroundBitPShadowU);
+
+				effect_flg |= (exist_top ? 0 : SNWNearbyEffectGroundBitPShadowTUL);
+			}
+			if (ps_rt)
+			{
+				effect_flg |= (exist_u || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitPShadowU);
+				effect_flg |= (exist_u || (GlobalLight != SNWorldDirNW) ? 0 : SNWNearbyEffectGroundBitPShadowU);
+
+				effect_flg |= (exist_r || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitPShadowR);
+				effect_flg |= (exist_r || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitPShadowR);
+
+				effect_flg |= (exist_top ? 0 : SNWNearbyEffectGroundBitPShadowTUR);
+			}
+			if (ps_lb)
+			{
+				effect_flg |= (exist_b || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitPShadowB);
+				effect_flg |= (exist_b || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitPShadowB);
+
+				effect_flg |= (exist_l || (GlobalLight != SNWorldDirNW) ? 0 : SNWNearbyEffectGroundBitPShadowL);
+				effect_flg |= (exist_l || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitPShadowL);
+
+				effect_flg |= (exist_top ? 0 : SNWNearbyEffectGroundBitPShadowTBL);
+			}
+			if (ps_rb)
+			{
+				effect_flg |= (exist_b || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitPShadowB);
+				effect_flg |= (exist_b || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitPShadowB);
+
+				effect_flg |= (exist_r || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitPShadowR);
+				effect_flg |= (exist_r || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitPShadowR);
+
+				effect_flg |= (exist_top ? 0 : SNWNearbyEffectGroundBitPShadowTBR);
+			}
 		}
 	}
 
@@ -434,36 +464,65 @@ Void SNWorld::RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr)
 	return;
 }
 
-Boolean SNWorld::JudgeGroundPShadow(Int32 x, Int32 y, Int32 z)
+Boolean SNWorld::JudgeGroundPShadow(Int32 x, Int32 y, Int32 z, Boolean* lt, Boolean* rt, Boolean* lb, Boolean* rb)
 {
 	Boolean ret = false;
 	Int32 step_x = 0;
 	Int32 step_y = 0;
-	Int32 step_z = 2;
 
 	Int32 ref_x = x;
 	Int32 ref_y = y;
 	Int32 ref_z = z;
 
-	Int32 srch_cnt = 0;
+	Int32 srch_cnt;
 
-	switch (EasyLight)
+	Int32 near_shadow_u = false;
+	Int32 near_shadow_r = false;
+	Int32 near_shadow_b = false;
+	Int32 near_shadow_l = false;
+
+	*lt = false;
+	*rt = false;
+	*lb = false;
+	*rb = false;
+
+	switch (GlobalLight)
 	{
-	case SNWEasyLightDirUp:
-		step_x = 0;
-		step_y = 1;
-		break;
-	case SNWEasyLightDirRight:
-		step_x = -1;
-		step_y = 0;
-		break;
-	case SNWEasyLightDirBottom:
+	case SNWorldDirN:
 		step_x = 0;
 		step_y = -1;
 		break;
-	case SNWEasyLightDirLeft:
+	case SNWorldDirNE:
+		step_x = 1;
+		step_y = -1;
+		break;
+	case SNWorldDirE:
 		step_x = 1;
 		step_y = 0;
+		break;
+	case SNWorldDirSE:
+		step_x = 1;
+		step_y = 1;
+		break;
+	case SNWorldDirS:
+		step_x = 0;
+		step_y = 1;
+		break;
+	case SNWorldDirSW:
+		step_x = -1;
+		step_y = 1;
+		break;
+	case SNWorldDirW:
+		step_x = -1;
+		step_y = 0;
+		break;
+	case SNWorldDirNW:
+		step_x = -1;
+		step_y = -1;
+		break;
+	default:
+		step_x = 0;
+		step_y = -1;
 		break;
 	}
 
@@ -484,34 +543,96 @@ Boolean SNWorld::JudgeGroundPShadow(Int32 x, Int32 y, Int32 z)
 		while (NearbySpace.RefSpace(ref_x, ref_y, ref_z) &&
 			   (SNSystemConfig::GroundPShadowSearchRange >= srch_cnt))
 		{
-			ret = NearbySpace.IsBlocked(ref_x, ref_y, ref_z, SNWNearbyObjectTypeGround);
-			ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
+			ret = false;
+
+			switch (GlobalLight)
+			{
+			case SNWorldDirN:
+			case SNWorldDirS:
+			case SNWorldDirE:
+			case SNWorldDirW:
+				ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z, SNWNearbyObjectTypeGround);
+				ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
+				ref_x += step_x;
+				ref_y += step_y;
+				ref_z += 2;
+				break;
+			case SNWorldDirNE:
+			case SNWorldDirSE:
+			case SNWorldDirSW:
+			case SNWorldDirNW:
+				ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z, SNWNearbyObjectTypeGround);
+				ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
+				ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 2, SNWNearbyObjectTypeGround);
+				near_shadow_u |= NearbySpace.IsBlocked(ref_x, ref_y - 1, ref_z, SNWNearbyObjectTypeGround);
+				near_shadow_u |= NearbySpace.IsBlocked(ref_x, ref_y - 1, ref_z + 1, SNWNearbyObjectTypeGround);
+				near_shadow_u |= NearbySpace.IsBlocked(ref_x, ref_y - 1, ref_z + 2, SNWNearbyObjectTypeGround);
+				near_shadow_r |= NearbySpace.IsBlocked(ref_x + 1, ref_y, ref_z, SNWNearbyObjectTypeGround);
+				near_shadow_r |= NearbySpace.IsBlocked(ref_x + 1, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
+				near_shadow_r |= NearbySpace.IsBlocked(ref_x + 1, ref_y, ref_z + 2, SNWNearbyObjectTypeGround);
+				near_shadow_b |= NearbySpace.IsBlocked(ref_x, ref_y + 1, ref_z, SNWNearbyObjectTypeGround);
+				near_shadow_b |= NearbySpace.IsBlocked(ref_x, ref_y + 1, ref_z + 1, SNWNearbyObjectTypeGround);
+				near_shadow_b |= NearbySpace.IsBlocked(ref_x, ref_y + 1, ref_z + 2, SNWNearbyObjectTypeGround);
+				near_shadow_l |= NearbySpace.IsBlocked(ref_x - 1, ref_y, ref_z, SNWNearbyObjectTypeGround);
+				near_shadow_l |= NearbySpace.IsBlocked(ref_x - 1, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
+				near_shadow_l |= NearbySpace.IsBlocked(ref_x - 1, ref_y, ref_z + 2, SNWNearbyObjectTypeGround);
+				ref_x += step_x;
+				ref_y += step_y;
+				ref_z += 3;
+				break;
+			}
 
 			if (ret)
 			{
 				break;
 			}
 
-			ref_x += step_x;
-			ref_y += step_y;
-			ref_z += step_z;
-
 			srch_cnt++;
+		}
+	}
+
+	if (!ret)
+	{
+		switch (GlobalLight)
+		{
+		case SNWorldDirNE:
+			near_shadow_u |= NearbySpace.IsBlocked(x, y - 1, z + 1, SNWNearbyObjectTypeGround);
+			near_shadow_r |= NearbySpace.IsBlocked(x + 1, y, z + 1, SNWNearbyObjectTypeGround);
+			*lt = near_shadow_l && near_shadow_u;
+			*rb = near_shadow_r && near_shadow_b;
+			break;
+		case SNWorldDirSE:
+			near_shadow_r |= NearbySpace.IsBlocked(x + 1, y, z + 1, SNWNearbyObjectTypeGround);
+			near_shadow_b |= NearbySpace.IsBlocked(x, y + 1, z + 1, SNWNearbyObjectTypeGround);
+			*rt = near_shadow_r && near_shadow_u;
+			*lb = near_shadow_l && near_shadow_b;
+			break;
+		case SNWorldDirSW:
+			near_shadow_b |= NearbySpace.IsBlocked(x, y + 1, z + 1, SNWNearbyObjectTypeGround);
+			near_shadow_l |= NearbySpace.IsBlocked(x - 1, y, z + 1, SNWNearbyObjectTypeGround);
+			*lt = near_shadow_l && near_shadow_u;
+			*rb = near_shadow_r && near_shadow_b;
+			break;
+		case SNWorldDirNW:
+			near_shadow_u |= NearbySpace.IsBlocked(x, y - 1, z + 1, SNWNearbyObjectTypeGround);
+			near_shadow_l |= NearbySpace.IsBlocked(x - 1, y, z + 1, SNWNearbyObjectTypeGround);
+			*rt = near_shadow_r && near_shadow_u;
+			*lb = near_shadow_l && near_shadow_b;
+			break;
 		}
 	}
 
 	return ret;
 }
 
-Void SNWorld::UpdateTimeZone()
+Void SNWorld::UpdateWorldTime()
 {
-	WorldTime++;
+	WorldTime += 10;
 
-	if ((DefTimeZone[TimeZone] * SNSystemConfig::FPS / 1000) <= WorldTime)
+	if ((SNWTimeHour * SNSystemConfig::FPS / 1000) <= WorldTime)
 	{
-		TimeZone = (SNWTimeZone)SNMath::Increment(TimeZone, 0, SNWTimeZoneNum - 1);
-		GlobalLight = DefTimeZoneLight[TimeZone];
-		EasyLight = RefEasyLightDir();
+		TimeHour = (Int32)SNMath::Increment(TimeHour, 0, SNWTimeStepNum - 1);
+		GlobalLight = TimeToGlobalLight[TimeHour];
 		WorldTime = 0;
 	}
 

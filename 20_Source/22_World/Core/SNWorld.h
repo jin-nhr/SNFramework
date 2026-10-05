@@ -4,7 +4,7 @@
 #include "SNWMeshManager.h"
 #include "SNWActObject.h"
 #include "SNWPhysics.h"
-#include "SNWorldWorker.h"
+#include "SNWorkerThread.h"
 #include "SNCriticalSection.h"
 
 // ワールドクラス
@@ -20,20 +20,60 @@ struct SNGroundEffectInfo
 class SNWorld
 {
 public:
-	static constexpr UInt32 DefTimeZone[SNWTimeZoneNum] =
+	static constexpr SNWorldDir TimeToGlobalLight[SNWTimeStepNum] =
 	{
-		10000,
-		10000,
-		10000,
-		10000,
-	};
-
-	static constexpr SNWorldDir DefTimeZoneLight[SNWTimeZoneNum] =
-	{
-		SNWorldDirW,
+		SNWorldDirN,
+		SNWorldDirN,
+		SNWorldDirN,
 		SNWorldDirN,
 		SNWorldDirE,
+		SNWorldDirE,
+		SNWorldDirE,
+		SNWorldDirE,
+		SNWorldDirE,
+		SNWorldDirE,
 		SNWorldDirS,
+		SNWorldDirS,
+		SNWorldDirS,
+		SNWorldDirS,
+		SNWorldDirS,
+		SNWorldDirS,
+		SNWorldDirW,
+		SNWorldDirW,
+		SNWorldDirW,
+		SNWorldDirW,
+		SNWorldDirW,
+		SNWorldDirW,
+		SNWorldDirN,
+		SNWorldDirN,
+	};
+
+	static constexpr SNWTimeZone TimeToTimeZone[SNWTimeStepNum] =
+	{
+		SNWTimeZoneNight,
+		SNWTimeZoneNight,
+		SNWTimeZoneNight,
+		SNWTimeZoneNight,
+		SNWTimeZoneNight,
+		SNWTimeZoneMorning,
+		SNWTimeZoneMorning,
+		SNWTimeZoneMorning,
+		SNWTimeZoneMorning,
+		SNWTimeZoneMorning,
+		SNWTimeZoneAfternoon,
+		SNWTimeZoneAfternoon,
+		SNWTimeZoneAfternoon,
+		SNWTimeZoneAfternoon,
+		SNWTimeZoneAfternoon,
+		SNWTimeZoneAfternoon,
+		SNWTimeZoneAfternoon,
+		SNWTimeZoneEvening,
+		SNWTimeZoneEvening,
+		SNWTimeZoneEvening,
+		SNWTimeZoneNight,
+		SNWTimeZoneNight,
+		SNWTimeZoneNight,
+		SNWTimeZoneNight,
 	};
 
 	static constexpr Int8 DirToAngleTable[SNWorldDirNum] =
@@ -49,9 +89,9 @@ public:
 		95,			// NW
 	};
 
-	static constexpr Int8 WorkerThreadNum = 2;
-	static constexpr Int8 ParallelProcNum = WorkerThreadNum + 1; // Worker+Main
-	static constexpr Int8 WorkerInfoNum = 4;
+	static constexpr Int8 ParallelProcNum = SNSystemConfig::ParallelProcMax;
+	static constexpr Int8 WorkerThreadNum = ParallelProcNum - 1;
+	static constexpr Int8 WorkerInfoNum = 2;
 
 	static constexpr Int64 GroundEffectInfoMax = (SNWNearbyObjectNum / (WorkerThreadNum + 1)) + 1;
 
@@ -95,41 +135,34 @@ public:
 	// オブジェクトリスト取得
 	static SNWNearbySpace* GetNearbySpace();
 
-	// 簡易光源方向取得
-	static SNWEasyLightDir RefEasyLightDir();
-
 	// グローバルオブジェクト取得
 	static SNWGlobalObject* GetGlobalObject();
 
 	// アニメステップ取得
 	static Int32 GetAGroundAnimeStep();
 
-	// タイムゾーン取得
+	// 時間取得
 	static SNWTimeZone GetTimeZone();
 
 	// 方向→角度変換
 	static Int8 DirToAngle(SNWorldDir dir);
 
 protected:
-	// 地形更新
-	static Void UpdateGround();
-
-	// オブジェクト更新
-	static Void UpdateGlobalObject();
-
 	// エフェクト登録
 	static Void RegisterNearbyEffect();
 
-	static Void RegisterNearbyEffectImp(UInt32 id);
+	static Void RegisterGroundEffect();
+
+	static Void RegisterGroundEffectImp(UInt32 id, Void* param);
 
 	// 地形エフェクト処理
 	static Void RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr);
 
 	// 地形の投影チェック
-	static Boolean JudgeGroundPShadow(Int32 x, Int32 y, Int32 z);
+	static Boolean JudgeGroundPShadow(Int32 x, Int32 y, Int32 z, Boolean* lt, Boolean* rt, Boolean* lb, Boolean* rb);
 
-	// タイムゾーン更新
-	static Void UpdateTimeZone();
+	// ワールドタイム更新
+	static Void UpdateWorldTime();
 
 
 private:
@@ -147,14 +180,13 @@ private:
 	
 	static SNWNearbySpace NearbySpace;	// 周辺空間
 
-	static SNWTimeZone TimeZone;	// タイムゾーン
-	static SNWorldDir GlobalLight;	// グローバル光源の方向(光の進む方向)
-	static SNWEasyLightDir EasyLight;	// 簡易光源方向
+	static Int32 TimeHour;	// j時間
+	static SNWorldDir GlobalLight;	// グローバル光源の位置
 
 	static SNWActObject PCObject;
 
 	static SNWPhysics Physics;
 
-	static SNWorldWorker Worker[WorkerThreadNum];
+	static SNWorkerThread Worker[WorkerThreadNum];
 	static Int64 WorkerInfo[ParallelProcNum][WorkerInfoNum];
 };

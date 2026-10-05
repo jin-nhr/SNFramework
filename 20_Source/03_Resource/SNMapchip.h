@@ -146,10 +146,14 @@ public:
 		MapchipBlockNumY + 0x0004,
 		MapchipBlockNumY + 0x0005,
 		MapchipBlockNumY + 0x0006,
-
+		0x0004,
+		0x0005,
+		0x0006,
+		0x0007,
+		0x0008,
 	};
 
-	// 境界　ブロック
+	// 境界ブロック
 	static constexpr UInt16 BorderCode[SNWorldGroundBorderDirNum] =
 	{
 		0x0000,

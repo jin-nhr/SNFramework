@@ -4,16 +4,17 @@
 
 // ワールドワーカースレッド
 
-typedef Void(*SNWorldWorkerFunc)(UInt32 id);
+typedef Void(*SNWorkerThreadFunc)(UInt32 id, Void* param);
 
-class SNWorldWorker : public SNThread
+class SNWorkerThread : public SNThread
 {
 public:
-	SNWorldWorker();
-	virtual ~SNWorldWorker();
+	SNWorkerThread();
+	virtual ~SNWorkerThread();
 
-	SNWorldWorkerFunc WorkerFunc;
+	SNWorkerThreadFunc WorkerFunc;
 	UInt32 ID;
+	Void* Param;
 	volatile Boolean IsComplete;
 
 private:

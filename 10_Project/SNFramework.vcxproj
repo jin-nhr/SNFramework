@@ -34,6 +34,7 @@
     <ClInclude Include="..\20_Source\02_System\Component\SNString.h" />
     <ClInclude Include="..\20_Source\02_System\Component\SNSystemTimer.h" />
     <ClInclude Include="..\20_Source\02_System\Component\SNThread.h" />
+    <ClInclude Include="..\20_Source\02_System\Component\SNWorkerThread.h" />
     <ClInclude Include="..\20_Source\02_System\Core\SNSystem.h" />
     <ClInclude Include="..\20_Source\02_System\Core\SNTargetVersion.h" />
     <ClInclude Include="..\20_Source\02_System\Core\SNWindow.h" />
@@ -144,7 +145,6 @@
     <ClInclude Include="..\20_Source\22_World\Component\SNWNearbySpace.h" />
     <ClInclude Include="..\20_Source\22_World\Component\SNWObjectBase.h" />
     <ClInclude Include="..\20_Source\22_World\Component\SNWActObject.h" />
-    <ClInclude Include="..\20_Source\22_World\Component\SNWorldWorker.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWGlobalObject.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWMeshManager.h" />
     <ClInclude Include="..\20_Source\22_World\Core\SNWGround.h" />
@@ -169,6 +169,7 @@
     <ClCompile Include="..\20_Source\02_System\Component\SNString.cpp" />
     <ClCompile Include="..\20_Source\02_System\Component\SNSystemTimer.cpp" />
     <ClCompile Include="..\20_Source\02_System\Component\SNThread.cpp" />
+    <ClCompile Include="..\20_Source\02_System\Component\SNWorkerThread.cpp" />
     <ClCompile Include="..\20_Source\02_System\Core\SNEntryPoint.cpp" />
     <ClCompile Include="..\20_Source\02_System\Core\SNSystem.cpp" />
     <ClCompile Include="..\20_Source\02_System\Core\SNWindow.cpp" />
@@ -264,7 +265,6 @@
     <ClCompile Include="..\20_Source\22_World\Component\SNWNearbySpace.cpp" />
     <ClCompile Include="..\20_Source\22_World\Component\SNWObjectBase.cpp" />
     <ClCompile Include="..\20_Source\22_World\Component\SNWActObject.cpp" />
-    <ClCompile Include="..\20_Source\22_World\Component\SNWorldWorker.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWGlobalObject.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWMeshManager.cpp" />
     <ClCompile Include="..\20_Source\22_World\Core\SNWGround.cpp" />
@@ -369,6 +369,9 @@
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <Optimization>Disabled</Optimization>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -391,6 +394,7 @@
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

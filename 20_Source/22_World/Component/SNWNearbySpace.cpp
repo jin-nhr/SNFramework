@@ -158,6 +158,77 @@ Void SNWNearbySpace::RegisterFocus(SNWorldPos* glb_pos)
 	return;
 }
 
+// 床面検索
+Void SNWNearbySpace::SearchFloorPos(SNWorldPos* center_pos, SNWorldPos* out_pos)
+{
+	// 中心座標が乗っている床面を検索
+	Int32 x = SNMath::FloorToInt(center_pos->X - BasePos.X);
+	Int32 y = SNMath::FloorToInt(center_pos->Y - BasePos.Y);
+	Int32 z = SNMath::FloorToInt(center_pos->Z - BasePos.Z) - 1;
+	SNWNearbySpaceCell* cell;
+	SNWNearbyObject* obj_ptr;
+	SNWObjectBase* base_ptr;
+	Int32 cnt = 0;
+
+	cell = RefSpace(x, y, z);
+
+	while (RefSpace(x, y, z) && (cnt < SNSystemConfig::GroundPShadowSearchRange))
+	{
+		if (IsBlocked(x, y, z, SNWNearbyObjectTypeGround))
+		{
+			out_pos->X = (Float32)x;
+			out_pos->Y = (Float32)y;
+			out_pos->Z = (Float32)z;
+			break;
+		}
+
+		// オブジェクト検索の方法は別途見当が必要かも
+		else if (IsBlocked(x, y, z, SNWNearbyObjectTypeActiveObject))
+		{
+			obj_ptr = RefObjectO(x, y, z);
+			base_ptr = (SNWObjectBase*)obj_ptr->UserData;
+			out_pos->X = (Float32)x;
+			out_pos->Y = (Float32)y;
+			out_pos->Z = (Float32)(z + SNWObjectchip::Data[base_ptr->GetCode()].SizeZ);
+			break;
+		}
+
+		z--;
+		cnt++;
+	}
+
+	return;
+}
+
+// グローバルオブジェクトの影登録
+Void SNWNearbySpace::RegisterGObjectShadow(SNWObjectBase* obj, SNWorldPos* floor_pos)
+{
+	SNListContainer* it = nullptr;
+	SNWNearbyObject* obj_ptr = nullptr;
+
+	if (ObjectNum < SNWNearbyObjectNum)
+	{
+		// オブジェクト設定
+		obj_ptr = &Object[ObjectNum];
+		ObjectNum++;
+
+		obj_ptr->Type = SNWNearbyObjectTypeObjectShadow;
+
+		// ローカル座標に変換
+		obj_ptr->Pos.X = obj->RefInfo()->Pos.X - BasePos.X;
+		obj_ptr->Pos.Y = obj->RefInfo()->Pos.Y - BasePos.Y;
+		obj_ptr->Pos.Z = floor_pos->Z + 1;
+
+		obj_ptr->UserData = (Void*)SNWorldShadowObject1;
+
+		// リスト登録
+		it = ObjectList.InsertLast();
+		it->UserData = (Void*)obj_ptr;
+	}
+
+	return;
+}
+
 // 起点座標取得
 SNWorldPos* SNWNearbySpace::GetBasePos()
 {
@@ -199,6 +270,21 @@ SNWNearbyObject* SNWNearbySpace::RefObjectG(Int32 x, Int32 y, Int32 z)
 
 	return ret;
 }
+
+SNWNearbyObject* SNWNearbySpace::RefObjectO(Int32 x, Int32 y, Int32 z)
+{
+	SNWNearbyObject* ret = nullptr;
+	SNWNearbySpaceCell* cell;
+
+	cell = RefSpace(x, y, z);
+	if ((cell != nullptr) && (cell->ObjectO != nullptr) && (cell->TimeStampG == TimeStamp))
+	{
+		ret = cell->ObjectO;
+	}
+
+	return ret;
+}
+
 
 // 周辺空間アクセス
 SNWNearbySpaceCell* SNWNearbySpace::RefSpace(Int32 x, Int32 y, Int32 z)

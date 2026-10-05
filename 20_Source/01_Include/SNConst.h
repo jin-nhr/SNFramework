@@ -45,6 +45,13 @@ constexpr UInt8 SNSoundVolMax = 100;
 //////////////////////////////////////////////////////
 // ワールド関連
 
+// ワールド時間
+constexpr Int32 SNWTimeStepNum = 24;
+
+constexpr Int32 SNWTimeMin = 1000;
+constexpr Int32 SNWTimeHour = SNWTimeMin * 60;
+constexpr Int32 SNWTimeDay = SNWTimeHour * SNWTimeStepNum;
+
 // カメラスケール
 constexpr Float32 SNWViewScaleMin = 0.25f;
 constexpr Float32 SNWViewScaleMax = 8.0f;

@@ -18,6 +18,7 @@ constexpr UInt32 SNWNearbySpaceSizeZ = SNSystemConfig::WorldNearbySpaceSizeV * 2
 enum SNWNearbyObjectType
 {
 	SNWNearbyObjectTypeUnknown,
+	SNWNearbyObjectTypeObjectShadow,	// オブジェクトの影
 	SNWNearbyObjectTypeActiveObject,	// 動的オブジェクト
 	SNWNearbyObjectTypeGround,			// 地形
 	SNWNearbyObjectTypeFocus,			// フォーカス
@@ -35,8 +36,6 @@ struct SNWNearbyObject
 
 // SNWNearbyObjectTypeGround
 // - UInt16 地形Code
-
-// SNWNearbyObjectTypeEffectGround
 // - UInt64 Effect関連Bit
 enum SNWNearbyEffectGroundBit
 {
@@ -51,7 +50,12 @@ enum SNWNearbyEffectGroundBit
 	SNWNearbyEffectGroundBitPShadowR = 0x00000020,
 	SNWNearbyEffectGroundBitPShadowB = 0x00000040,
 	SNWNearbyEffectGroundBitPShadowL = 0x00000080,
-	SNWNearbyEffectGroundBitPShadowT = 0x00000100,
+	SNWNearbyEffectGroundBitPShadowT = 0x00000F00,
+
+	SNWNearbyEffectGroundBitPShadowTUR = 0x00000100,
+	SNWNearbyEffectGroundBitPShadowTBR = 0x00000200,
+	SNWNearbyEffectGroundBitPShadowTBL = 0x00000400,
+	SNWNearbyEffectGroundBitPShadowTUL = 0x00000800,
 
 	// 段差境界
 	SNWNearbyEffectGroundBitBorderU = 0x00001000,
@@ -108,6 +112,12 @@ public:
 
 	virtual Void RegisterFocus(SNWorldPos* local_pos);
 
+	// 床面検索
+	virtual Void SearchFloorPos(SNWorldPos* center_pos, SNWorldPos* out_pos);
+
+	// グローバルオブジェクトの影登録
+	virtual Void RegisterGObjectShadow(SNWObjectBase* obj, SNWorldPos* floor_pos);
+
 	// 起点座標取得
 	virtual SNWorldPos* GetBasePos();
 
@@ -123,6 +133,7 @@ public:
 	// オブジェクトアクセス
 	virtual SNWNearbyObject* RefObject(Int32 index);
 	virtual SNWNearbyObject* RefObjectG(Int32 x, Int32 y, Int32 z);
+	virtual SNWNearbyObject* RefObjectO(Int32 x, Int32 y, Int32 z);
 
 	// 周辺空間アクセス
 	virtual SNWNearbySpaceCell* RefSpace(Int32 x, Int32 y, Int32 z);

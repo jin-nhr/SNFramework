@@ -196,6 +196,40 @@ Void SNWGlobalObject::RegisterNearbyObject(SNWNearbySpace* space)
 	return;
 }
 
+Void SNWGlobalObject::RegisterShadow(SNWNearbySpace* space)
+{
+	Int32 cnt;
+	SNWObjectInfo* obj_info;
+	SNWorldPos center_pos;
+	SNWorldPos floor_pos;
+
+	for (cnt = 0; cnt < SNWGlobalObjectNum; cnt++)
+	{
+		obj_info = ObjectArray[cnt].RefInfo();
+
+		// 有効オブジェクト
+		if (obj_info->Enable)
+		{
+			// 周辺空間内のオブジェクトかチェック
+			if (space->CollisionCellVSSpace(&obj_info->Pos))
+			{
+				// 左上低面の座標のため半コマずらす
+				center_pos.X = obj_info->Pos.X + 0.5f;
+				center_pos.Y = obj_info->Pos.Y + 0.5f;
+				center_pos.Z = obj_info->Pos.Z;
+
+				// 床面検索
+				space->SearchFloorPos(&center_pos, &floor_pos);
+
+				// オブジェクト登録
+				space->RegisterGObjectShadow(&ObjectArray[cnt], &floor_pos);
+			}
+		}
+	}
+
+	return;
+}
+
 
 Void SNWGlobalObject::UserMain()
 {

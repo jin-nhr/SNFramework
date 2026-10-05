@@ -8,7 +8,7 @@
 #include "SND3DShaderVS.h"
 #include "SND3DWorldShaderPS.h"
 #include "SND3DWorldShaderVS.h"
-#include "SNApplication.h"
+#include "SNMath.h"
 
 Handle SNGraphicsDevice::Device = nullptr;
 Handle SNGraphicsDevice::DeviceContext = nullptr;

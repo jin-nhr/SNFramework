@@ -713,9 +713,14 @@ enum SNWorldShadowDir
     SNWorldShadowDirB,
     SNWorldShadowDirL,
     SNWorldShadowDirU,
-    SNWorldShaodwDirT,
+    SNWorldShadowDirT,
     SNWorldShadowSideR,
     SNWorldShadowSideL,
+    SNWorldShadowTUL,
+    SNWorldShadowTUR,
+    SNWorldShadowTBR,
+    SNWorldShadowTBL,
+    SNWorldShadowObject1,
     SNWorldShadowDirNum 
 };
 
@@ -732,16 +737,6 @@ enum SNWorldGroundBorderDir
     SNWorldGroundBorderSideL,
     SNWorldGroundBorderBottom,
     SNWorldGroundBorderDirNum,
-};
-
-// ä»à’åıåπï˚å¸
-enum SNWEasyLightDir
-{
-    SNWEasyLightDirUp,
-    SNWEasyLightDirRight,
-    SNWEasyLightDirBottom,
-    SNWEasyLightDirLeft,
-    SNWEasyLightDirNum
 };
 
 // ÉÅÉbÉVÉÖèÛë‘
@@ -790,5 +785,6 @@ enum SNWTimeZone
     SNWTimeZoneNight,
     SNWTimeZoneNum,
 };
+
 
 
