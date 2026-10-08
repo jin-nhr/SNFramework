@@ -236,8 +236,9 @@ Void SNWNearbySpace::RegisterGObjectShadow(SNWObjectBase* obj, SNWorldPos* floor
 		// ローカル座標に変換
 		obj_ptr->Pos.X = obj->RefInfo()->Pos.X - BasePos.X;
 		obj_ptr->Pos.Y = obj->RefInfo()->Pos.Y - BasePos.Y;
-//		obj_ptr->Pos.Z = SNMath::FloorToInt(floor_pos->Z + 1);
 
+		// 影が微妙に上下してしまうのを防ぐため
+		// オブジェクトが地面から一定以上はなれたときだけ地面側の高さを採用する
 		if (SNMath::AbsF((floor_pos->Z + 1) - obj->RefInfo()->Pos.Z - -BasePos.Z) < 0.5f)
 		{
 			obj_ptr->Pos.Z = obj->RefInfo()->Pos.Z - BasePos.Z;

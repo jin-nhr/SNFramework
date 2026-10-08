@@ -10,15 +10,11 @@ SNWPhysics::SNWPhysics()
 	GlobalObject = nullptr;
 
 	FloorBlockNum = 0;
-	FloorBlockCode = 0;
-	CenterBlockNum = 0;
 
 	for (cnt = 0; cnt < SNPhysicsNearbyBlockMax; cnt++)
 	{
 		FloorBlockList[cnt].NearbyObj = nullptr;
 		FloorBlockList[cnt].Dist2 = 0x7FFFFFFF;
-		CenterBlockList[cnt].NearbyObj = nullptr;
-		CenterBlockList[cnt].Dist2 = 0x7FFFFFFF;
 	}
 
 	return;
@@ -38,15 +34,11 @@ Void SNWPhysics::Initialize()
 	GlobalObject = nullptr;
 
 	FloorBlockNum = 0;
-	FloorBlockCode = 0;
-	CenterBlockNum = 0;
 
 	for (cnt = 0; cnt < SNPhysicsNearbyBlockMax; cnt++)
 	{
 		FloorBlockList[cnt].NearbyObj = nullptr;
 		FloorBlockList[cnt].Dist2 = 0x7FFFFFFF;
-		CenterBlockList[cnt].NearbyObj = nullptr;
-		CenterBlockList[cnt].Dist2 = 0x7FFFFFFF;
 	}
 
 	return;
@@ -153,7 +145,6 @@ Void SNWPhysics::UpdateObjectSpeed(SNWObjectInfo* info)
 // オブジェクトの座標更新
 Void SNWPhysics::UpdateObjectPos(SNWObjectInfo* info)
 {
-	SNWObjectInfo obj_info = *info;
 	SNWorldPos pos;
 	Int32 from_x;
 	Int32 from_y;
@@ -161,12 +152,18 @@ Void SNWPhysics::UpdateObjectPos(SNWObjectInfo* info)
 	Int32 to_x;
 	Int32 to_y;
 	Int32 to_z;
+
+	Int32 dx;
+	Int32 dy;
+	Int32 dz;
+
+	SNWObjectInfo obj_info = *info;
 	Boolean col = false;
 
-	SNWObjectInfo z_test_obj;
-	SNPhysicsNearbyBlockInfo z_test_list[SNPhysicsNearbyBlockMax];
-	Int32 z_test_num;
-	Boolean z_test_col;
+	SNWObjectInfo obj_tmp;
+	SNWObjectInfo obj_x;
+	SNWObjectInfo obj_y;
+	SNWObjectInfo obj_z;
 
 	SNWNearbyObject* nearby_obj;
 	SNWorldPos gpos;
@@ -200,121 +197,217 @@ Void SNWPhysics::UpdateObjectPos(SNWObjectInfo* info)
 	to_y = SNMath::FloorToInt(pos.Y);
 	to_z = SNMath::FloorToInt(pos.Z);
 
-	// 移動先の重複ブロック取得
-	CenterBlockNum = GetNearbyBlockCenter(&obj_info, CenterBlockList);
+	dx = to_x - from_x;
+	dy = to_y - from_y;
+	dz = to_z - from_z;
 
 	// 移動先の侵入可否判定
-	col = NearbyBlockCollision(CenterBlockNum, CenterBlockList);
+	col = ColTest(&obj_info);
 
-	// Z移動なしの場合はZ+1をテストする
-	if ((from_z == to_z) && col)
+	// 衝突あり
+	if (col)
 	{
-		if (obj_info.Speed.Z == 0)
+		// 自動1段登りテスト
+		if (dz == 0)
 		{
-			z_test_obj = obj_info;
-			z_test_obj.Pos.Z += 1;
-			z_test_num = GetNearbyBlockCenter(&z_test_obj, z_test_list);
-			z_test_col = NearbyBlockCollision(z_test_num, z_test_list);
-			if (!z_test_col)
+			obj_tmp = obj_info;
+
+			if (obj_tmp.Speed.Z == 0)
 			{
-				// 衝突なしならこの結果を採用
-				obj_info.Pos.Z += 1;
-				col = z_test_col;
+				obj_tmp.Pos.Z += 1;
+				col = ColTest(&obj_tmp);
+				if (!col)
+				{
+					obj_info = obj_tmp;
+				}
 			}
 		}
-	}
 
-	// X座標に変化あり
-	if (from_x != to_x)
-	{
-		// 侵入不可
-		if (col)
+		// X軸テスト
+		if (col && (dx != 0))
 		{
-			obj_info.Speed.X = 0;
+			obj_x = obj_info;
+
+			obj_x.Speed.X = 0;
 
 			// 正方向
-			if (from_x < to_x)
+			if (dx > 0)
 			{
-				obj_info.Pos.X = Space->GetBasePos()->X + to_x - SNReversPos;
+				obj_x.Pos.X = Space->GetBasePos()->X + to_x - SNReversPos;
 			}
 			// 負方向
 			else
 			{
-				obj_info.Pos.X = Space->GetBasePos()->X + from_x + SNReversPos;
+				obj_x.Pos.X = Space->GetBasePos()->X + from_x + SNReversPos;
 			}
-			to_x = from_x;
-			
-			// 侵入可否更新
-			CenterBlockNum = GetNearbyBlockCenter(&obj_info, CenterBlockList);
-			col = NearbyBlockCollision(CenterBlockNum, CenterBlockList);
+
+			col = ColTest(&obj_x);
+			if (!col)
+			{
+				obj_info = obj_x;
+			}
 		}
 
-	}
-
-	// Y座標に変化あり
-	if (from_y != to_y)
-	{
-		// 侵入不可
-		if (col)
+		// Y軸テスト
+		if (col && (dy != 0))
 		{
-			obj_info.Speed.Y = 0;
+			obj_y = obj_info;
+
+			obj_y.Speed.Y = 0;
 
 			// 正方向
-			if (from_y < to_y)
+			if (dy > 0)
 			{
-				obj_info.Pos.Y = Space->GetBasePos()->Y + to_y - SNReversPos;
+				obj_y.Pos.Y = Space->GetBasePos()->Y + to_y - SNReversPos;
 			}
 			// 負方向
 			else
 			{
-				obj_info.Pos.Y = Space->GetBasePos()->Y + from_y + SNReversPos;
+				obj_y.Pos.Y = Space->GetBasePos()->Y + from_y + SNReversPos;
 			}
-			to_y = from_y;
-		}
-	}
 
-	// Z座標に変化あり
-	if (from_z != to_z)
-	{
-		// 侵入不可
-		if (col)
-		{
-			obj_info.PhysicsAcc.Z = 0;
-			obj_info.Speed.Z = 0;
-			// 正方向
-			if (from_z < to_z)
+			col = ColTest(&obj_y);
+			if (!col)
 			{
-				obj_info.Pos.Z = Space->GetBasePos()->Z + to_z - SNReversPos;
+				obj_info = obj_y;
+			}
+		}
+
+		// X, Y軸テスト
+		if (col && (dx != 0) && (dy != 0))
+		{
+			obj_tmp = obj_info;
+
+			obj_tmp.Pos.X = obj_x.Pos.X;
+			obj_tmp.Speed.X = obj_x.Speed.X;
+
+			obj_tmp.Pos.Y = obj_y.Pos.Y;
+			obj_tmp.Speed.Y = obj_y.Speed.Y;
+
+			col = ColTest(&obj_tmp);
+			if (!col)
+			{
+				obj_info = obj_tmp;
+			}
+		}
+
+		// Z軸テスト
+		if (col && (dz != 0))
+		{
+			obj_z = obj_info;
+
+			obj_z.PhysicsAcc.Z = 0;
+			obj_z.Speed.Z = 0;
+			// 正方向
+			if (dz > 0)
+			{
+				obj_z.Pos.Z = Space->GetBasePos()->Z + to_z - SNReversPos;
 			}
 			// 負方向
 			else
 			{
-				obj_info.Pos.Z = Space->GetBasePos()->Z + from_z + SNReversPos;
+				obj_z.Pos.Z = Space->GetBasePos()->Z + from_z + SNReversPos;
 			}
-			to_z = from_z;
+			col = ColTest(&obj_z);
+			if (!col)
+			{
+				obj_info = obj_z;
+			}
+		}
 
-			// 侵入可否更新
-			CenterBlockNum = GetNearbyBlockCenter(&obj_info, CenterBlockList);
-			col = NearbyBlockCollision(CenterBlockNum, CenterBlockList);
+		// X, Z軸テスト
+		if (col && (dx != 0) && (dz != 0))
+		{
+			obj_tmp = obj_info;
+
+			obj_tmp.Pos.X = obj_x.Pos.X;
+			obj_tmp.Speed.X = obj_x.Speed.X;
+
+			obj_tmp.Pos.Z = obj_z.Pos.Z;
+			obj_tmp.PhysicsAcc.Z = 0;
+			obj_tmp.Speed.Z = 0;
+
+			col = ColTest(&obj_tmp);
+			if (!col)
+			{
+				obj_info = obj_tmp;
+			}
+		}
+
+		// Y, Z軸テスト
+		if (col && (dy != 0) && (dz != 0))
+		{
+			obj_tmp = obj_info;
+
+			obj_tmp.Pos.Y = obj_y.Pos.Y;
+			obj_tmp.Speed.Y = obj_y.Speed.Y;
+
+			obj_tmp.Pos.Z = obj_z.Pos.Z;
+			obj_tmp.PhysicsAcc.Z = 0;
+			obj_tmp.Speed.Z = 0;
+
+			col = ColTest(&obj_tmp);
+			if (!col)
+			{
+				obj_info = obj_tmp;
+			}
+		}
+
+		// X, Y, Z軸テスト
+		if (col && (dx != 0) && (dy != 0) && (dz != 0))
+		{
+			obj_tmp = obj_info;
+
+			obj_tmp.Pos.X = obj_x.Pos.X;
+			obj_tmp.Speed.X = obj_x.Speed.X;
+
+			obj_tmp.Pos.Y = obj_y.Pos.Y;
+			obj_tmp.Speed.Y = obj_y.Speed.Y;
+
+			obj_tmp.Pos.Z = obj_z.Pos.Z;
+			obj_tmp.PhysicsAcc.Z = obj_z.PhysicsAcc.Z;
+			obj_tmp.Speed.Z = obj_z.Speed.Z;
+
+			col = ColTest(&obj_tmp);
+			if (!col)
+			{
+				obj_info = obj_tmp;
+			}
 		}
 	}
 
-	// 更新した座標をセット
-	info->Pos = obj_info.Pos;
-	info->Speed = obj_info.Speed;
-	info->PhysicsAcc = obj_info.PhysicsAcc;
-
-	// 周辺空間オブジェクトの位置情報を更新
-	nearby_obj = Space->RefObjectO(from_x, from_y, from_z);
-	if (nearby_obj != nullptr)
+	// 衝突なし
+	if (!col)
 	{
-		gpos.X = obj_info.Pos.X - Space->GetBasePos()->X;
-		gpos.Y = obj_info.Pos.Y - Space->GetBasePos()->Y;
-		gpos.Z = obj_info.Pos.Z - Space->GetBasePos()->Z;
-		Space->UpdateObjectPos(nearby_obj, &gpos);
+		// 更新した座標をセット
+		info->Pos = obj_info.Pos;
+		info->Speed = obj_info.Speed;
+		info->PhysicsAcc = obj_info.PhysicsAcc;
+
+		// 周辺空間オブジェクトの位置情報を更新
+		nearby_obj = Space->RefObjectO(from_x, from_y, from_z);
+		if (nearby_obj != nullptr)
+		{
+			gpos.X = obj_info.Pos.X - Space->GetBasePos()->X;
+			gpos.Y = obj_info.Pos.Y - Space->GetBasePos()->Y;
+			gpos.Z = obj_info.Pos.Z - Space->GetBasePos()->Z;
+			Space->UpdateObjectPos(nearby_obj, &gpos);
+		}
 	}
 
 	return;
+}
+
+Boolean SNWPhysics::ColTest(SNWObjectInfo* obj)
+{
+	Boolean col = false;
+	Int32 test_num;
+	SNPhysicsNearbyBlockInfo test_list[SNPhysicsNearbyBlockMax];
+
+	test_num = GetNearbyBlockCenter(obj, test_list);
+	col = NearbyBlockCollision(test_num, test_list);
+
+	return col;
 }
 
 // オブジェクト重複ブロック取得

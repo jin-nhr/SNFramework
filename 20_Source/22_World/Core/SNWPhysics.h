@@ -65,6 +65,8 @@ protected:
 	// オブジェクトの座標更新
 	virtual Void UpdateObjectPos(SNWObjectInfo* info);
 
+	virtual Boolean ColTest(SNWObjectInfo* obj);
+
 	// オブジェクト重複ブロック取得
 	virtual Int32 GetNearbyBlockCenter(SNWObjectInfo* info, SNPhysicsNearbyBlockInfo* blocklist);
 
@@ -86,9 +88,4 @@ private:
 
 	Int32 FloorBlockNum;
 	SNPhysicsNearbyBlockInfo FloorBlockList[SNPhysicsNearbyBlockMax];
-	UInt16 FloorBlockCode;
-
-	Int32 CenterBlockNum;
-	SNPhysicsNearbyBlockInfo CenterBlockList[SNPhysicsNearbyBlockMax];
-
 };
