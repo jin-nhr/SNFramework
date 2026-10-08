@@ -29,9 +29,12 @@ enum SNWNearbyObjectType
 struct SNWNearbyObject
 {
 	SNWNearbyObjectType Type;
-	SNWorldPos          Pos;
+	SNWorldPos          Pos;		// セル登録位置
 	Void*               UserData;	// 種別に応じたデータをセットする
 	UInt64              Effect;
+	SNWorldPos			RealPos;	// 実際の位置情報
+	SNWorldPos			KeyPos;
+	SNWorldPos			Size;		// オブジェクトサイズ
 };
 
 // SNWNearbyObjectTypeGround
@@ -117,6 +120,9 @@ public:
 
 	// グローバルオブジェクトの影登録
 	virtual Void RegisterGObjectShadow(SNWObjectBase* obj, SNWorldPos* floor_pos);
+
+	// オブジェクトの位置情報更新
+	virtual Void UpdateObjectPos(SNWNearbyObject* obj_ptr, SNWorldPos* pos);
 
 	// 起点座標取得
 	virtual SNWorldPos* GetBasePos();

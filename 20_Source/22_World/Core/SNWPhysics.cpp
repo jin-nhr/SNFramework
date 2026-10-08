@@ -168,6 +168,9 @@ Void SNWPhysics::UpdateObjectPos(SNWObjectInfo* info)
 	Int32 z_test_num;
 	Boolean z_test_col;
 
+	SNWNearbyObject* nearby_obj;
+	SNWorldPos gpos;
+
 	// 移動前の周辺空間座標計算
 	pos =
 	{
@@ -300,6 +303,16 @@ Void SNWPhysics::UpdateObjectPos(SNWObjectInfo* info)
 	info->Pos = obj_info.Pos;
 	info->Speed = obj_info.Speed;
 	info->PhysicsAcc = obj_info.PhysicsAcc;
+
+	// 周辺空間オブジェクトの位置情報を更新
+	nearby_obj = Space->RefObjectO(from_x, from_y, from_z);
+	if (nearby_obj != nullptr)
+	{
+		gpos.X = obj_info.Pos.X - Space->GetBasePos()->X;
+		gpos.Y = obj_info.Pos.Y - Space->GetBasePos()->Y;
+		gpos.Z = obj_info.Pos.Z - Space->GetBasePos()->Z;
+		Space->UpdateObjectPos(nearby_obj, &gpos);
+	}
 
 	return;
 }

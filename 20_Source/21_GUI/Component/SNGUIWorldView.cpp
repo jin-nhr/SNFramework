@@ -238,7 +238,7 @@ Void SNGUIWorldView::DrawWrokSurface()
 	SNSize size;
 
 	// 描画の基点となる座標を求める
-	// カメラのターゲット座標と、空間座標(左上低)の差分を取る
+	// カメラのターゲット座標と、空間座標(左上底面)の差分を取る
 	scr_offset.X = SNWorld::GetNearbySpace()->GetBasePos()->X - TargetPos.X;
 	scr_offset.Y = SNWorld::GetNearbySpace()->GetBasePos()->Y - TargetPos.Y;
 	scr_offset.Z = SNWorld::GetNearbySpace()->GetBasePos()->Z - TargetPos.Z;
@@ -1081,16 +1081,43 @@ Boolean SNGUIWorldView::CompareDrawObjectN(Void* a, Void* b)
 Boolean SNGUIWorldView::CompareDrawObjectNE(Void* a, Void* b)
 {
 	Boolean ret = false;
-	SNWorldPos* ap = &((SNWNearbyObject*)a)->Pos;
-	SNWorldPos* bp = &((SNWNearbyObject*)b)->Pos;
-	SNWNearbyObjectType at = ((SNWNearbyObject*)a)->Type;
-	SNWNearbyObjectType bt = ((SNWNearbyObject*)b)->Type;
+	SNWNearbyObject* a_obj = (SNWNearbyObject*)a;
+	SNWNearbyObject* b_obj = (SNWNearbyObject*)b;
+	SNWorldPos* ap = &a_obj->KeyPos;
+	SNWorldPos* bp = &b_obj->KeyPos;;
+	SNWNearbyObjectType at = a_obj->Type;
+	SNWNearbyObjectType bt = b_obj->Type;
 
-	if ((ap->X + ap->Y) < (bp->X + bp->Y)) ret = true;
-	else if ((ap->X + ap->Y) > (bp->X + bp->Y)) ret = false;
-	else if (ap->Z < bp->Z) ret = true;
-	else if (ap->Z > bp->Z) ret = false;
-	else if (at < bt) ret = true;
+	Float32 axy = (ap->X + ap->Y);
+	Float32 bxy = (bp->X + bp->Y);
+
+	if (axy < bxy)
+	{
+		ret = true;
+	}
+
+	else if (axy > bxy)
+	{
+		ret = false;
+	}
+
+	// Z軸上でaが下
+	else if (ap->Z < bp->Z)
+	{
+		ret = true;
+	}
+
+	// Z軸上でbが下
+	else if (ap->Z > bp->Z)
+	{
+		ret = false;
+	}
+
+	// 種別の値が小さい
+	else if (at < bt)
+	{
+		ret = true;
+	}
 
 	return ret;
 }
@@ -1196,4 +1223,3 @@ Boolean SNGUIWorldView::CompareDrawObjectNW(Void* a, Void* b)
 
 	return ret;
 }
-
