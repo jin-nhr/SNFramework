@@ -24,8 +24,6 @@ struct SNUserConfigData
 	//--------------------------------------------
 	SNKeyCode	KeyboardMapping[SNVirtualGamePadButtonNum];	// キーボード入力マッピング
 	//--------------------------------------------
-	SNGamePadID GamePadSelect;	// ゲームパッド割り当て
-	//--------------------------------------------
 	SNGamePadButton	GamePadMapping[SNVirtualGamePadButtonNum];	// ゲームパッド入力マッピング
 	//--------------------------------------------
 	UInt32 CheckSum;				// チェックサム
@@ -93,7 +91,6 @@ private:
 		0,							// リザーブ
 		//--------------------------------------------
 		// キーボード入力マッピング
-		// 仮想パッド1
 		SNKeyCodeUp,				// 方向キー上
 		SNKeyCodeDown,			    // 方向キー下
 		SNKeyCodeLeft,				// 方向キー左
@@ -120,12 +117,7 @@ private:
 		SNKeyCodeY,					// 右スティック右
 
 		//--------------------------------------------
-		// パッド割り当て
-		SNGamePadID1,				// 仮想パッド1への割り当て
-		
-		//--------------------------------------------
 		// ゲームパッド入力マッピング
-		// 仮想パッド1
 		SNGamePadPOVUp,				// 方向キー上
 		SNGamePadPOVDown,			// 方向キー下
 		SNGamePadPOVLeft,			// 方向キー左

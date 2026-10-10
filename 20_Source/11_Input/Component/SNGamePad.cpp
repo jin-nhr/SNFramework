@@ -7,61 +7,58 @@
 // ゲームパッドクラス
 
 // ゲームパッド情報
-SNGamePadInfo SNGamePad::GamePadInfo[SNGamePadIDNum] = { 0 };
+SNGamePadInfo SNGamePad::GamePadInfo = { 0 };
 
 // ボタン状態
-Boolean SNGamePad::ButtonState[SNGamePadIDNum][SNGamePadButtonNum] = { 0 };
+Boolean SNGamePad::ButtonState[SNGamePadButtonNum] = { 0 };
 
 // 初期化
 Void SNGamePad::Initialize()
 {
-	OnInitialize(SNGamePadID1);
-	OnInitialize(SNGamePadID2);
+	OnInitialize();
 	return;
 }
 
 // 終了処理
 Void SNGamePad::Terminate()
 {
-	OnTerminate(SNGamePadID1);
-	OnTerminate(SNGamePadID2);
+	OnTerminate();
 	return;
 }
 
 // 更新
 Void SNGamePad::Update()
 {
-	OnUpdate(SNGamePadID1);
-	OnUpdate(SNGamePadID2);
+	OnUpdate();
 
 	return;
 }
 
 // 初期化
-Void SNGamePad::OnInitialize(UInt8 id)
+Void SNGamePad::OnInitialize()
 {
 	Int loop_cnt;
 
 	// デバイス情報更新
-	GamePadInfoUpdate(id);
+	GamePadInfoUpdate();
 
 	// ボタン状態初期化
 	for (loop_cnt = 0; loop_cnt < SNGamePadButtonNum; loop_cnt++)
 	{
-		ButtonState[id][loop_cnt] = false;
+		ButtonState[loop_cnt] = false;
 	}
 
 	return;
 }
 
 // 終了
-void SNGamePad::OnTerminate(UInt8 id)
+void SNGamePad::OnTerminate()
 {
 	return;
 }
 
 // 更新
-void SNGamePad::OnUpdate(UInt8 id)
+void SNGamePad::OnUpdate()
 {
 	JOYINFOEX joyinfo;
 	Boolean enable;
@@ -74,7 +71,7 @@ void SNGamePad::OnUpdate(UInt8 id)
 	joyinfo.dwFlags = JOY_RETURNALL;
 
 	// joyGetPosのリターンでパッドの有効/無効を判断
-	if (joyGetPosEx(GamePadInfo[id].ID, &joyinfo) == JOYERR_NOERROR)
+	if (joyGetPosEx(GamePadInfo.ID, &joyinfo) == JOYERR_NOERROR)
 	{
 		enable = true;
 	}
@@ -87,27 +84,27 @@ void SNGamePad::OnUpdate(UInt8 id)
 	if (enable)
 	{
 		// 無効→有効に切り替わった
-		if (!GamePadInfo[id].Enable)
+		if (!GamePadInfo.Enable)
 		{
 			// 情報更新
-			GamePadInfoUpdate(GamePadInfo[id].ID);
+			GamePadInfoUpdate();
 		}
 
 		////////////////////////////////////////////////////////////////////////////////
 		// ボタン入力状態の更新
 		// ボタンの押下状態はビット割り当てなので下位から順に1ビットずつチェック
 
-		button_max = (Int32)SNMath::SelectMin((Int64)button_max, (Int64)GamePadInfo[id].ButtonNum);
+		button_max = (Int32)SNMath::SelectMin((Int64)button_max, (Int64)GamePadInfo.ButtonNum);
 
 		for (loop_cnt = 0; loop_cnt < button_max; loop_cnt++)
 		{
 			if ((joyinfo.dwButtons & (0x00000001 << loop_cnt)) != 0)
 			{
-				ButtonState[id][SNGamePadButtonTop + loop_cnt] = true;
+				ButtonState[SNGamePadButtonTop + loop_cnt] = true;
 			}
 			else
 			{
-				ButtonState[id][SNGamePadButtonTop + loop_cnt] = false;
+				ButtonState[SNGamePadButtonTop + loop_cnt] = false;
 			}
 		}
 
@@ -125,23 +122,23 @@ void SNGamePad::OnUpdate(UInt8 id)
 		for (loop_cnt = 0; loop_cnt < SNGamePadAxisNum; loop_cnt++)
 		{
 			// Low側
-			if (axis_value[loop_cnt] < GamePadInfo[id].AxisInfo[loop_cnt].Low_Threshold)
+			if (axis_value[loop_cnt] < GamePadInfo.AxisInfo[loop_cnt].Low_Threshold)
 			{
-				ButtonState[id][SNGamePadAxisTop + (loop_cnt * 2)] = true;
+				ButtonState[SNGamePadAxisTop + (loop_cnt * 2)] = true;
 			}
 			else
 			{
-				ButtonState[id][SNGamePadAxisTop + (loop_cnt * 2)] = false;
+				ButtonState[SNGamePadAxisTop + (loop_cnt * 2)] = false;
 			}
 
 			// High側
-			if (axis_value[loop_cnt] > GamePadInfo[id].AxisInfo[loop_cnt].High_Threshold)
+			if (axis_value[loop_cnt] > GamePadInfo.AxisInfo[loop_cnt].High_Threshold)
 			{
-				ButtonState[id][SNGamePadAxisTop + (loop_cnt * 2) + 1] = true;
+				ButtonState[SNGamePadAxisTop + (loop_cnt * 2) + 1] = true;
 			}
 			else
 			{
-				ButtonState[id][SNGamePadAxisTop + (loop_cnt * 2) + 1] = false;
+				ButtonState[SNGamePadAxisTop + (loop_cnt * 2) + 1] = false;
 			}
 		}
 
@@ -154,28 +151,28 @@ void SNGamePad::OnUpdate(UInt8 id)
 		if (joyinfo.dwPOV <= 35900)
 		{
 			// 300度 - 60度
-			ButtonState[id][SNGamePadPOVUp] = ((30000 <= joyinfo.dwPOV) || (joyinfo.dwPOV <= 6000));
+			ButtonState[SNGamePadPOVUp] = ((30000 <= joyinfo.dwPOV) || (joyinfo.dwPOV <= 6000));
 
 
 			// 30度 - 150度
-			ButtonState[id][SNGamePadPOVRight] = ((3000 <= joyinfo.dwPOV) && (joyinfo.dwPOV <= 15000));
+			ButtonState[SNGamePadPOVRight] = ((3000 <= joyinfo.dwPOV) && (joyinfo.dwPOV <= 15000));
 
 
 			// 120度 - 240度
-			ButtonState[id][SNGamePadPOVDown] = ((12000 <= joyinfo.dwPOV) && (joyinfo.dwPOV <= 24000));
+			ButtonState[SNGamePadPOVDown] = ((12000 <= joyinfo.dwPOV) && (joyinfo.dwPOV <= 24000));
 
 
 			// 210度 - 330度
-			ButtonState[id][SNGamePadPOVLeft] = ((21000 <= joyinfo.dwPOV) && (joyinfo.dwPOV <= 33000));
+			ButtonState[SNGamePadPOVLeft] = ((21000 <= joyinfo.dwPOV) && (joyinfo.dwPOV <= 33000));
 
 		}
 		// 入力なし
 		else
 		{
-			ButtonState[id][SNGamePadPOVUp] = false;
-			ButtonState[id][SNGamePadPOVRight] = false;
-			ButtonState[id][SNGamePadPOVDown] = false;
-			ButtonState[id][SNGamePadPOVLeft] = false;
+			ButtonState[SNGamePadPOVUp] = false;
+			ButtonState[SNGamePadPOVRight] = false;
+			ButtonState[SNGamePadPOVDown] = false;
+			ButtonState[SNGamePadPOVLeft] = false;
 		}
 	}
 
@@ -183,15 +180,15 @@ void SNGamePad::OnUpdate(UInt8 id)
 	else
 	{
 		// 有効→無効に切り替わった
-		if (GamePadInfo[id].Enable)
+		if (GamePadInfo.Enable)
 		{
 			// 情報更新
-			GamePadInfoUpdate(GamePadInfo[id].ID);
+			GamePadInfoUpdate();
 
 			// ジョイパッド無効
 			for (loop_cnt = 0; loop_cnt < SNGamePadButtonNum; loop_cnt++)
 			{
-				ButtonState[id][loop_cnt] = false;
+				ButtonState[loop_cnt] = false;
 			}
 		}
 	}
@@ -200,7 +197,7 @@ void SNGamePad::OnUpdate(UInt8 id)
 }
 
 // ゲームパッド情報更新
-void SNGamePad::GamePadInfoUpdate(UInt8 id)
+void SNGamePad::GamePadInfoUpdate()
 {
 	JOYINFOEX joyinfo;
 	JOYCAPS joycaps;
@@ -208,66 +205,66 @@ void SNGamePad::GamePadInfoUpdate(UInt8 id)
 	UInt32 loop_cnt;
 
 	// ID保存
-	GamePadInfo[id].ID = id;
+	GamePadInfo.ID = SNGamePadID1;
 
 	// JOUINFOの設定
 	joyinfo.dwSize = sizeof(joyinfo);
 	joyinfo.dwFlags = JOY_RETURNALL;
 
 	// パッド情報取得
-	if ((joyGetPosEx(GamePadInfo[id].ID, &joyinfo) == JOYERR_NOERROR))
+	if ((joyGetPosEx(GamePadInfo.ID, &joyinfo) == JOYERR_NOERROR))
 	{
-		GamePadInfo[id].Enable = true;
+		GamePadInfo.Enable = true;
 	}
 	else
 	{
-		GamePadInfo[id].Enable = false;
+		GamePadInfo.Enable = false;
 	}
 
 	// パッド有効時のみ処理
-	if (GamePadInfo[id].Enable)
+	if (GamePadInfo.Enable)
 	{
 		// パッド性能取得
-		joyGetDevCaps(GamePadInfo[id].ID, &joycaps, sizeof(joycaps));
+		joyGetDevCaps(GamePadInfo.ID, &joycaps, sizeof(joycaps));
 
 		// ボタン数設定
-		GamePadInfo[id].ButtonNum = joycaps.wNumButtons;
+		GamePadInfo.ButtonNum = joycaps.wNumButtons;
 
 		// 軸情報更新
 		// X軸
-		GamePadInfo[id].AxisInfo[SNGamePadAxisX].Enable = (joycaps.wNumAxes >= 2);
-		GamePadInfo[id].AxisInfo[SNGamePadAxisX].High = joycaps.wXmax;
-		GamePadInfo[id].AxisInfo[SNGamePadAxisX].Low = joycaps.wXmin;
+		GamePadInfo.AxisInfo[SNGamePadAxisX].Enable = (joycaps.wNumAxes >= 2);
+		GamePadInfo.AxisInfo[SNGamePadAxisX].High = joycaps.wXmax;
+		GamePadInfo.AxisInfo[SNGamePadAxisX].Low = joycaps.wXmin;
 
 		// Y軸
-		GamePadInfo[id].AxisInfo[SNGamePadAxisY].Enable = (joycaps.wNumAxes >= 2);
-		GamePadInfo[id].AxisInfo[SNGamePadAxisY].High = joycaps.wYmax;
-		GamePadInfo[id].AxisInfo[SNGamePadAxisY].Low = joycaps.wYmin;
+		GamePadInfo.AxisInfo[SNGamePadAxisY].Enable = (joycaps.wNumAxes >= 2);
+		GamePadInfo.AxisInfo[SNGamePadAxisY].High = joycaps.wYmax;
+		GamePadInfo.AxisInfo[SNGamePadAxisY].Low = joycaps.wYmin;
 
 		// Z軸
-		GamePadInfo[id].AxisInfo[SNGamePadAxisZ].Enable = (joycaps.wCaps & JOYCAPS_HASZ);
-		GamePadInfo[id].AxisInfo[SNGamePadAxisZ].High = joycaps.wZmax;
-		GamePadInfo[id].AxisInfo[SNGamePadAxisZ].Low = joycaps.wZmin;
+		GamePadInfo.AxisInfo[SNGamePadAxisZ].Enable = (joycaps.wCaps & JOYCAPS_HASZ);
+		GamePadInfo.AxisInfo[SNGamePadAxisZ].High = joycaps.wZmax;
+		GamePadInfo.AxisInfo[SNGamePadAxisZ].Low = joycaps.wZmin;
 
 		// R軸
-		GamePadInfo[id].AxisInfo[SNGamePadAxisR].Enable = (joycaps.wCaps & JOYCAPS_HASR);
-		GamePadInfo[id].AxisInfo[SNGamePadAxisR].High = joycaps.wRmax;
-		GamePadInfo[id].AxisInfo[SNGamePadAxisR].Low = joycaps.wRmin;
+		GamePadInfo.AxisInfo[SNGamePadAxisR].Enable = (joycaps.wCaps & JOYCAPS_HASR);
+		GamePadInfo.AxisInfo[SNGamePadAxisR].High = joycaps.wRmax;
+		GamePadInfo.AxisInfo[SNGamePadAxisR].Low = joycaps.wRmin;
 
 		// U軸
-		GamePadInfo[id].AxisInfo[SNGamePadAxisU].Enable = (joycaps.wCaps & JOYCAPS_HASU);
-		GamePadInfo[id].AxisInfo[SNGamePadAxisU].High = joycaps.wUmax;
-		GamePadInfo[id].AxisInfo[SNGamePadAxisU].Low = joycaps.wUmin;
+		GamePadInfo.AxisInfo[SNGamePadAxisU].Enable = (joycaps.wCaps & JOYCAPS_HASU);
+		GamePadInfo.AxisInfo[SNGamePadAxisU].High = joycaps.wUmax;
+		GamePadInfo.AxisInfo[SNGamePadAxisU].Low = joycaps.wUmin;
 
 		// V軸
-		GamePadInfo[id].AxisInfo[SNGamePadAxisV].Enable = (joycaps.wCaps & JOYCAPS_HASV);
-		GamePadInfo[id].AxisInfo[SNGamePadAxisV].High = joycaps.wVmax;
-		GamePadInfo[id].AxisInfo[SNGamePadAxisV].Low = joycaps.wVmin;
+		GamePadInfo.AxisInfo[SNGamePadAxisV].Enable = (joycaps.wCaps & JOYCAPS_HASV);
+		GamePadInfo.AxisInfo[SNGamePadAxisV].High = joycaps.wVmax;
+		GamePadInfo.AxisInfo[SNGamePadAxisV].Low = joycaps.wVmin;
 
 		// 中央値、閾値計算
 		for (loop_cnt = 0; loop_cnt < SNGamePadAxisNum; loop_cnt++)
 		{
-			axis_info = &GamePadInfo[id].AxisInfo[loop_cnt];
+			axis_info = &GamePadInfo.AxisInfo[loop_cnt];
 
 			// 中央値
 			axis_info->Center = (axis_info->High + axis_info->Low) / 2;
@@ -283,12 +280,12 @@ void SNGamePad::GamePadInfoUpdate(UInt8 id)
 	else
 	{
 		// ボタン数0
-		GamePadInfo[id].ButtonNum = 0;
+		GamePadInfo.ButtonNum = 0;
 
 		// j軸情報初期化
 		for (loop_cnt = 0; loop_cnt < SNGamePadAxisNum; loop_cnt++)
 		{
-			axis_info = &GamePadInfo[id].AxisInfo[loop_cnt];
+			axis_info = &GamePadInfo.AxisInfo[loop_cnt];
 
 			axis_info->Enable = false;
 			axis_info->High = 0;

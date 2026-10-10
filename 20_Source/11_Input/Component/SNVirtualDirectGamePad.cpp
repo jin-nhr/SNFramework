@@ -1,14 +1,13 @@
 #include "SNVirtualDirectGamePad.h"
 #include "SNGamePad.h"
 
-Boolean* SNVirtualDirectGamePad::State[SNGamePadIDNum];
+Boolean* SNVirtualDirectGamePad::State;
 Boolean  SNVirtualDirectGamePad::Active;
 
 // 初期化
 Void SNVirtualDirectGamePad::Initialize()
 {
-	State[SNGamePadID1] = SNGamePad::ButtonState[SNGamePadID1];
-	State[SNGamePadID2] = SNGamePad::ButtonState[SNGamePadID2];
+	State = SNGamePad::ButtonState;
 
 	// デフォルト無効
 	Active = false;

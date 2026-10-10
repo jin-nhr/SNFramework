@@ -52,32 +52,29 @@ public:
 	static Void Update();
 	
 	// ゲームパッド情報
-	static SNGamePadInfo GamePadInfo[SNGamePadIDNum];
+	static SNGamePadInfo GamePadInfo;
 
 	// ボタン状態
-	static Boolean ButtonState[SNGamePadIDNum][SNGamePadButtonNum];
+	static Boolean ButtonState[SNGamePadButtonNum];
 
 private:
 	// 初期化処理
-	// パラメータ：ゲームパッドID
-	static Void OnInitialize(UInt8 id);
+	static Void OnInitialize();
 
 	// 終了処理
-	static Void OnTerminate(UInt8 id);
+	static Void OnTerminate();
 
 	// 更新処理
-	// パラメータ：ゲームパッドID
 	// Active状態とゲームパッド設定の有効状態を確認
 	// joyGetPosExでゲームパッドの有無、入力情報を取得
 	// 有効時：入力情報を更新する
 	// 無効時：デバイス情報更新処理後、入力情報を無効化
-	static Void OnUpdate(UInt8 id);
+	static Void OnUpdate();
 
 	// デバイス情報更新
-	// パラメータ：ゲームパッドID
 	// Active状態とゲームパッド設定の有効状態を確認
 	// joyGetPosExでゲームパッドの有無を確認
 	// 有効時：joyGetDevCapsでデバイス情報を取得し軸情報などを更新
 	// 無効時：軸情報などを無効設定
-	static Void GamePadInfoUpdate(UInt8 id);
+	static Void GamePadInfoUpdate();
 };

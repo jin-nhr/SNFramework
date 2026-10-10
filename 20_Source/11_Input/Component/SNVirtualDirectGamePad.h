@@ -20,7 +20,7 @@ public:
 
 	// 入力状態
 	// 参照方法はSNGamePad準拠
-	static Boolean* State[SNGamePadIDNum];
+	static Boolean* State;
 
 	static Boolean Active;		// 有効化フラグ
 private:

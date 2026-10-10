@@ -98,26 +98,18 @@ Void SNVirtualGamePad::UpdatePrevState()
 Void SNVirtualGamePad::UpdateButtonStateFromGamePad()
 {
 	Int32 loop_cnt_btn;
-	SNGamePadID pad_id;
 	SNGamePadButton btn_id;
 
-	// ゲームパッドの割り当てを参照
-	pad_id = SNUserConfig::Data.GamePadSelect;
-
-	// 割り当て有効
-	if (pad_id != SNGamePadIDNull)
+	// ボタン数ループ
+	for (loop_cnt_btn = SNVirtualGamePadTop; loop_cnt_btn < SNVirtualGamePadButtonNum; loop_cnt_btn++)
 	{
-		// ボタン数ループ
-		for (loop_cnt_btn = SNVirtualGamePadTop; loop_cnt_btn < SNVirtualGamePadButtonNum; loop_cnt_btn++)
-		{
-			// 実パッドのボタンID取得
-			btn_id = SNUserConfig::Data.GamePadMapping[loop_cnt_btn];
+		// 実パッドのボタンID取得
+		btn_id = SNUserConfig::Data.GamePadMapping[loop_cnt_btn];
 
-			// ボタン割り当て有効
-			if (btn_id != SNGamePadButtonNull)
-			{
-				ButtonState[loop_cnt_btn].State |= SNGamePad::ButtonState[pad_id][btn_id];
-			}
+		// ボタン割り当て有効
+		if (btn_id != SNGamePadButtonNull)
+		{
+			ButtonState[loop_cnt_btn].State |= SNGamePad::ButtonState[btn_id];
 		}
 	}
 	return;
