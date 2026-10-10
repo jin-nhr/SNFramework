@@ -12,8 +12,6 @@
 // 入力装置クラス
 
 
-SNVGamePadNStyle SNInput::GamePadN;
-
 // 初期化処理
 Void SNInput::Initialize()
 {
@@ -81,11 +79,6 @@ Void SNInput::Update()
 	return;
 }
 
-
-SNVGamePadNStyle* SNInput::RefN()
-{
-	return &GamePadN;
-}
 
 // 状態更新
 Void SNInput::UpdateState()

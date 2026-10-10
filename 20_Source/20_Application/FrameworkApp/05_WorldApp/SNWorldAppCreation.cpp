@@ -7,7 +7,6 @@
 #include "SNFocus.h"
 #include "SNGraphicsDevice.h"
 #include "SNInput.h"
-#include "SNVGamePadNStyle.h"
 #include "SNWindowsAPI.h"
 
 SNWorldAppCreation::SNWorldAppCreation()
@@ -103,70 +102,68 @@ Boolean SNWorldAppCreation::OnGamePad()
 	Boolean ret = true;
 	SNWorldPos current = { 0.0f, 0.0f, 0.0f };
 
-	SNVGamePadNStyle* pd = SNInput::RefN();
-
 	// 操作説明
-	if (pd->SelectPush())
+	if (SNVirtualGamePad::SelectPush())
 	{
 		// 操作説明表示要求
 	}
 
 	// 手前ブロック透過設定
-	if (pd->L1Push() || pd->L1Repeat())
+	if (SNVirtualGamePad::L1Push() || SNVirtualGamePad::L1Repeat())
 	{
 		WorldView.ChangeTransparentFrontGround();
 	}
 
 	// Z軸Up
-	if (pd->DPadUpPush() || pd->DPadUpRepeat())
+	if (SNVirtualGamePad::DPadUpPush() || SNVirtualGamePad::DPadUpRepeat())
 	{
 		current.Z = 1.0f;
 	}
 
 	// Z軸Down
-	if (pd->DPadDownPush() || pd->DPadDownRepeat())
+	if (SNVirtualGamePad::DPadDownPush() || SNVirtualGamePad::DPadDownRepeat())
 	{
 		current.Z = -1.0f;
 	}
 
 	// ブロック切替Left
-	if (pd->DPadLeftPush() || pd->DPadLeftRepeat())
+	if (SNVirtualGamePad::DPadLeftPush() || SNVirtualGamePad::DPadLeftRepeat())
 	{
 		SelectBlock = (UInt16)SNMath::Decrement(SelectBlock, SNMapchip::SNMapchipBlank, SNMapchip::SNMapchipNum - 1);
 	}
 
 	// ブロック切替Right
-	if (pd->DPadRightPush() || pd->DPadRightRepeat())
+	if (SNVirtualGamePad::DPadRightPush() || SNVirtualGamePad::DPadRightRepeat())
 	{
 		SelectBlock = (UInt16)SNMath::Increment(SelectBlock, SNMapchip::SNMapchipBlank, SNMapchip::SNMapchipNum - 1);
 
 	}
 
 	// フォーカスUp
-	if (pd->LStkUpPush() || pd->LStkUpRepeat())
+	if (SNVirtualGamePad::LStkUpPush() || SNVirtualGamePad::LStkUpRepeat())
 	{
 		WorldView.UpToWorldDirPos(&current.X, &current.Y);
 	}
 
 	// フォーカスDown
-	if (pd->LStkDownPush() || pd->LStkDownRepeat())
+	if (SNVirtualGamePad::LStkDownPush() || SNVirtualGamePad::LStkDownRepeat())
 	{
 		WorldView.DownToWorldDirPos(&current.X, &current.Y);
 	}
 
 	// フォーカスLeft
-	if (pd->LStkLeftPush() || pd->LStkLeftRepeat())
+	if (SNVirtualGamePad::LStkLeftPush() || SNVirtualGamePad::LStkLeftRepeat())
 	{
 		WorldView.LeftToWorldDirPos(&current.X, &current.Y);
 	}
 
 	// フォーカスRight
-	if (pd->LStkRightPush() || pd->LStkRightRepeat())
+	if (SNVirtualGamePad::LStkRightPush() || SNVirtualGamePad::LStkRightRepeat())
 	{
 		WorldView.RightToWorldDirPos(&current.X, &current.Y);
 	}
 
-	if (pd->YPress())
+	if (SNVirtualGamePad::YPress())
 	{
 		current.X = current.X * FocusAcc;
 		current.Y = current.Y * FocusAcc;
@@ -181,7 +178,7 @@ Boolean SNWorldAppCreation::OnGamePad()
 	}
 
 	// ペースト
-	if (pd->R2Push())
+	if (SNVirtualGamePad::R2Push())
 	{
 		Paste();
 		// コマンド実行
@@ -192,7 +189,7 @@ Boolean SNWorldAppCreation::OnGamePad()
 	}
 
 	// ブロック削除
-	if (pd->R1Push() || pd->R1Repeat())
+	if (SNVirtualGamePad::R1Push() || SNVirtualGamePad::R1Repeat())
 	{
 		WriteBlock(SNMapchip::SNMapchipBlank);
 
@@ -200,7 +197,7 @@ Boolean SNWorldAppCreation::OnGamePad()
 	}
 
 	// ブロック配置
-	if (pd->APush() || pd->ARepeat())
+	if (SNVirtualGamePad::APush() || SNVirtualGamePad::ARepeat())
 	{
 		WriteBlock(SelectBlock);
 
@@ -208,7 +205,7 @@ Boolean SNWorldAppCreation::OnGamePad()
 	}
 
 	// 範囲選択モード切替
-	if (pd->BPush())
+	if (SNVirtualGamePad::BPush())
 	{
 		if (RangeMode)
 		{
@@ -224,25 +221,25 @@ Boolean SNWorldAppCreation::OnGamePad()
 	}
 
 	// 拡大
-	if (pd->RStkUpPush() || pd->RStkUpRepeat())
+	if (SNVirtualGamePad::RStkUpPush() || SNVirtualGamePad::RStkUpRepeat())
 	{
 		WorldView.UpViewScale();
 	}
 
 	// 縮小
-	if (pd->RStkDownPush() || pd->RStkDownRepeat())
+	if (SNVirtualGamePad::RStkDownPush() || SNVirtualGamePad::RStkDownRepeat())
 	{
 		WorldView.DownViewScale();
 	}
 
 	// 左回転
-	if (pd->RStkLeftPush() || pd->RStkLeftRepeat())
+	if (SNVirtualGamePad::RStkLeftPush() || SNVirtualGamePad::RStkLeftRepeat())
 	{
 
 	}
 
 	// 右回転
-	if (pd->RStkRightPush() || pd->RStkRightRepeat())
+	if (SNVirtualGamePad::RStkRightPush() || SNVirtualGamePad::RStkRightRepeat())
 	{
 
 	}

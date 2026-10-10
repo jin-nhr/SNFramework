@@ -79,105 +79,104 @@ Void SNWorldAppTest::OnExit()
 Boolean SNWorldAppTest::OnGamePad()
 {
 	Boolean ret = true;
-	SNVGamePadNStyle* pd = SNInput::RefN();
 	SNWorldDir dir;
 	Boolean dir_input = false;
 	static Boolean bsts = false;
 
 	// 操作説明
-	if (pd->SelectPush())
+	if (SNVirtualGamePad::SelectPush())
 	{
 		// 操作説明表示要求
 	}
 
 	// 手前ブロック透過設定Down
-	if (pd->L1Push() || pd->L1Repeat())
+	if (SNVirtualGamePad::L1Push() || SNVirtualGamePad::L1Repeat())
 	{
 		WorldView.ChangeTransparentFrontGround();
 	}
 
 	// 手前ブロック透過設定Up
-	if (pd->R1Push() || pd->R1Repeat())
+	if (SNVirtualGamePad::R1Push() || SNVirtualGamePad::R1Repeat())
 	{
 
 	}
 
 	// 拡大
-	if (pd->RStkUpPush() || pd->RStkUpRepeat())
+	if (SNVirtualGamePad::RStkUpPush() || SNVirtualGamePad::RStkUpRepeat())
 	{
 		WorldView.UpViewScale();
 	}
 
 	// 縮小
-	if (pd->RStkDownPush() || pd->RStkDownRepeat())
+	if (SNVirtualGamePad::RStkDownPush() || SNVirtualGamePad::RStkDownRepeat())
 	{
 		WorldView.DownViewScale();
 	}
 
 	// 左回転
-	if (pd->RStkLeftPush() || pd->RStkLeftRepeat())
+	if (SNVirtualGamePad::RStkLeftPush() || SNVirtualGamePad::RStkLeftRepeat())
 	{
 
 	}
 
 	// 右回転
-	if (pd->RStkRightPush() || pd->RStkRightRepeat())
+	if (SNVirtualGamePad::RStkRightPush() || SNVirtualGamePad::RStkRightRepeat())
 	{
 
 	}
 
 
 	// 左上
-	if (pd->LStkLeftPress() && pd->LStkUpPress())
+	if (SNVirtualGamePad::LStkLeftPress() && SNVirtualGamePad::LStkUpPress())
 	{
 		dir = WorldView.UpLeftToAngle();
 		dir_input = true;
 	}
 
 	// 右上
-	else if (pd->LStkRightPress() && pd->LStkUpPress())
+	else if (SNVirtualGamePad::LStkRightPress() && SNVirtualGamePad::LStkUpPress())
 	{
 		dir = WorldView.UpRightToAngle();
 		dir_input = true;
 	}
 
 	// 左下
-	else if (pd->LStkLeftPress() && pd->LStkDownPress())
+	else if (SNVirtualGamePad::LStkLeftPress() && SNVirtualGamePad::LStkDownPress())
 	{
 		dir = WorldView.DownLeftToAngle();
 		dir_input = true;
 	}
 
 	// 右下
-	else if (pd->LStkRightPress() && pd->LStkDownPress())
+	else if (SNVirtualGamePad::LStkRightPress() && SNVirtualGamePad::LStkDownPress())
 	{
 		dir = WorldView.DownRightToAngle();
 		dir_input = true;
 	}
 
 	// 上
-	else if (pd->LStkUpPress())
+	else if (SNVirtualGamePad::LStkUpPress())
 	{
 		dir = WorldView.UpToAngle();
 		dir_input = true;
 	}
 
 	// 下
-	else if (pd->LStkDownPress())
+	else if (SNVirtualGamePad::LStkDownPress())
 	{
 		dir = WorldView.DownToAngle();
 		dir_input = true;
 	}
 
 	// 左
-	else if (pd->LStkLeftPress())
+	else if (SNVirtualGamePad::LStkLeftPress())
 	{
 		dir = WorldView.LeftToAngle();
 		dir_input = true;
 	}
 
 	// 右
-	else if (pd->LStkRightPress())
+	else if (SNVirtualGamePad::LStkRightPress())
 	{
 		dir = WorldView.RightToAngle();
 		dir_input = true;
@@ -187,7 +186,7 @@ Boolean SNWorldAppTest::OnGamePad()
 	if (dir_input)
 	{
 		// ダッシュ？
-		if (pd->YPress())
+		if (SNVirtualGamePad::YPress())
 		{
 			SNWorld::GetPCObject()->Jog(dir, SNWorld::DirToAngle(dir));
 		}
@@ -204,13 +203,13 @@ Boolean SNWorldAppTest::OnGamePad()
 	}
 
 	// ジャンプ？
-	if (pd->BPush())
+	if (SNVirtualGamePad::BPush())
 	{
 		bsts = true;
 		JumpTimer.Start(100);
 		SNWorld::GetPCObject()->Jump();
 	}
-	else if (pd->BRelease())
+	else if (SNVirtualGamePad::BRelease())
 	{
 		bsts = false;
 		SNWorld::GetPCObject()->JumpEnd();
@@ -220,7 +219,7 @@ Boolean SNWorldAppTest::OnGamePad()
 		bsts = false;
 		SNWorld::GetPCObject()->JumpEnd();
 	}
-	else if (pd->BPress() && bsts)
+	else if (SNVirtualGamePad::BPress() && bsts)
 	{
 
 	}

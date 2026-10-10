@@ -177,17 +177,17 @@ Boolean SNFocus::OnGamePad()
 	SNFocusGroup* target = GetTarget();
 	Boolean ret = false;
 
-	Boolean decide_push = SNVirtualGamePad::Event[SNVirtualGamePadDecide][SNVirtualGamePadEventPush];
-	Boolean cancel_push = SNVirtualGamePad::Event[SNVirtualGamePadCancel][SNVirtualGamePadEventPush];
+	Boolean decide_push = SNVirtualGamePad::APush();
+	Boolean cancel_push = SNVirtualGamePad::BPush();
 
-	Boolean up_push = SNVirtualGamePad::Event[SNVirtualGamePadUp][SNVirtualGamePadEventPush];
-	Boolean up_rpt  = SNVirtualGamePad::Event[SNVirtualGamePadUp][SNVirtualGamePadEventRepeat];
-	Boolean down_push = SNVirtualGamePad::Event[SNVirtualGamePadDown][SNVirtualGamePadEventPush];
-	Boolean down_rpt = SNVirtualGamePad::Event[SNVirtualGamePadDown][SNVirtualGamePadEventRepeat];
-	Boolean left_push = SNVirtualGamePad::Event[SNVirtualGamePadLeft][SNVirtualGamePadEventPush];
-	Boolean left_rpt = SNVirtualGamePad::Event[SNVirtualGamePadLeft][SNVirtualGamePadEventRepeat];
-	Boolean right_push = SNVirtualGamePad::Event[SNVirtualGamePadRight][SNVirtualGamePadEventPush];
-	Boolean right_rpt = SNVirtualGamePad::Event[SNVirtualGamePadRight][SNVirtualGamePadEventRepeat];
+	Boolean up_push = SNVirtualGamePad::DPadUpPush();
+	Boolean up_rpt = SNVirtualGamePad::DPadUpRepeat();
+	Boolean down_push = SNVirtualGamePad::DPadDownPush();
+	Boolean down_rpt = SNVirtualGamePad::DPadDownRepeat();
+	Boolean left_push = SNVirtualGamePad::DPadLeftPush();
+	Boolean left_rpt = SNVirtualGamePad::DPadLeftRepeat();
+	Boolean right_push = SNVirtualGamePad::DPadRightPush();
+	Boolean right_rpt = SNVirtualGamePad::DPadRightRepeat();
 	SNGUIButton* active_btn = nullptr;
 
 	if (!TimerSeq.IsProc())
