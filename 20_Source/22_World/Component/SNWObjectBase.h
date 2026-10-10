@@ -66,8 +66,8 @@ public:
     // アニメステップ取得
     virtual UInt8 GetAnimeStep();
 
-    // 方向計算
-    virtual SNWorldDir CalcDir(SNWorldDir base_dir);
+    // 方向取得
+    virtual SNWorldDir GetDir();
 
     virtual Void InitObjectInfo();
 

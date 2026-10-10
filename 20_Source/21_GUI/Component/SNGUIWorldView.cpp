@@ -15,8 +15,6 @@ SNGUIWorldView::SNGUIWorldView()
 
 	ViewScale = SNWViewScaleNormal;
 
-	ViewDir = SNWorldDirN;
-
 	FocusVisible = false;
 
 	TransparentFrontGround = SNGUIWorldViewFrontTransparentTypeLow;
@@ -139,36 +137,6 @@ Void SNGUIWorldView::OnTerminate()
 	return;
 }
 
-// View方向設定
-Void SNGUIWorldView::SetViewDir(SNWorldDir dir)
-{
-	ViewDir = dir;
-
-	return;
-}
-
-// View方向右回転
-Void SNGUIWorldView::RotateRViewDir()
-{
-	ViewDir = (SNWorldDir)SNMath::Increment(ViewDir, SNWorldDirN, SNWorldDirNW);
-
-	return;
-}
-
-// View方向左回転
-Void SNGUIWorldView::RotateLViewDir()
-{
-	ViewDir = (SNWorldDir)SNMath::Decrement(ViewDir, SNWorldDirN, SNWorldDirNW);
-
-	return;
-}
-
-// View方向取得
-SNWorldDir SNGUIWorldView::GetViewDir()
-{
-	return ViewDir;
-}
-
 Void SNGUIWorldView::OnPreDraw()
 {
 	// 表示設定の場合、フォーカスを登録する
@@ -189,40 +157,8 @@ Void SNGUIWorldView::SortObject()
 	SNList* list = SNWorld::GetNearbySpace()->GetList();
 	SNListCompareFunc func = nullptr;
 
-
-	switch (ViewDir)
-	{
-	case SNWorldDirN:
-		func = CompareDrawObjectN;
-		break;
-	case SNWorldDirNE:
-		func = CompareDrawObjectNE;
-		break;
-	case SNWorldDirE:
-		func = CompareDrawObjectE;
-		break;
-	case SNWorldDirSE:
-		func = CompareDrawObjectSE;
-		break;
-	case SNWorldDirS:
-		func = CompareDrawObjectS;
-		break;
-	case SNWorldDirSW:
-		func = CompareDrawObjectSW;
-		break;
-	case SNWorldDirW:
-		func = CompareDrawObjectW;
-		break;
-	case SNWorldDirNW:
-		func = CompareDrawObjectNW;
-		break;
-	default:
-		func = CompareDrawObjectN;
-		break;
-	}
-
 	// ソート実行
-	list->Sort(func);
+	list->Sort(CompareDrawObject);
 
 	return;
 }
@@ -248,16 +184,16 @@ Void SNGUIWorldView::DrawWrokSurface()
 	// 周辺空間左上低までのオフセットを計算/加算する
 	size = WorkSurfaceSize;
 	draw_base.X = (Int32)(size.Width / 2
-		- SNMapchip::MapchipCenterOffset[ViewDir].X
-		+ (SNMapchip::MapchipStrideX[ViewDir].X * scr_offset.X
-			+ SNMapchip::MapchipStrideY[ViewDir].X * scr_offset.Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].X * scr_offset.Z));
+		- SNMapchip::MapchipCenterOffset.X
+		+ (SNMapchip::MapchipStrideX.X * scr_offset.X
+			+ SNMapchip::MapchipStrideY.X * scr_offset.Y
+			+ SNMapchip::MapchipStrideZ.X * scr_offset.Z));
 
 	draw_base.Y = (Int32)(size.Height / 2
-		- SNMapchip::MapchipCenterOffset[ViewDir].Y
-		+ (SNMapchip::MapchipStrideX[ViewDir].Y * scr_offset.X
-			+ SNMapchip::MapchipStrideY[ViewDir].Y * scr_offset.Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].Y * scr_offset.Z));
+		- SNMapchip::MapchipCenterOffset.Y
+		+ (SNMapchip::MapchipStrideX.Y * scr_offset.X
+			+ SNMapchip::MapchipStrideY.Y * scr_offset.Y
+			+ SNMapchip::MapchipStrideZ.Y * scr_offset.Z));
 
 	SNGraphicsDevice::Begin(&WorkSurface);
 
@@ -294,6 +230,8 @@ Void SNGUIWorldView::OnDraw()
 	bg_rect.PointY = SNMapchip::MapBGBaseY + SNMapchip::MapBGOffsetY * SNWorld::GetTimeZone();
 	bg_rect.Width = SNMapchip::MapBGWidth;
 	bg_rect.Height = SNMapchip::MapBGHeight;
+
+	// 背景描画
 	SNGraphicsDevice::DrawImage(&dst_rect, bg_bmp, &bg_rect, SNAlphaMax);
 
 	src_rect.Width = (Int32)(dst_rect.Width / ViewScale);
@@ -301,8 +239,10 @@ Void SNGUIWorldView::OnDraw()
 	src_rect.PointX = (size.Width - src_rect.Width) / 2;
 	src_rect.PointY = (size.Height - src_rect.Height) / 2;
 
+	// ワールド描画
 	SNGraphicsDevice::DrawImage(&dst_rect, &WorkSurface, &src_rect, SNAlphaMax);
 
+	// 前景合成
 	SNGraphicsDevice::DrawImage(&dst_rect, bg_bmp, &bg_rect, TimeZoneAlpha);
 
 	return;
@@ -311,138 +251,62 @@ Void SNGUIWorldView::OnDraw()
 // Viewの方向 → ワールドの方位を求める
 SNWorldDir SNGUIWorldView::UpToAngle()
 {
-	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirN - 1)) % (SNWorldDirNum - 1)) + 1);
+	return SNWorldDirN;
 }
 SNWorldDir SNGUIWorldView::UpLeftToAngle()
 {
-	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirNW - 1)) % (SNWorldDirNum - 1)) + 1);
+	return SNWorldDirNW;
 }
 SNWorldDir SNGUIWorldView::UpRightToAngle()
 {
-	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirNE - 1)) % (SNWorldDirNum - 1)) + 1);
+	return SNWorldDirNE;
 }
 SNWorldDir SNGUIWorldView::DownToAngle()
 {
-	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirS - 1)) % (SNWorldDirNum - 1)) + 1);
+	return SNWorldDirS;
 }
 SNWorldDir SNGUIWorldView::DownLeftToAngle()
 {
-	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirSW - 1)) % (SNWorldDirNum - 1)) + 1);
+	return SNWorldDirSW;
 }
 SNWorldDir SNGUIWorldView::DownRightToAngle()
 {
-	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirSE - 1)) % (SNWorldDirNum - 1)) + 1);
+	return SNWorldDirSE;
 }
 SNWorldDir SNGUIWorldView::LeftToAngle()
 {
-	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirW - 1)) % (SNWorldDirNum - 1)) + 1);
+	return SNWorldDirW;
 }
 SNWorldDir SNGUIWorldView::RightToAngle()
 {
-	return (SNWorldDir)((((SNWorldDirNum - 1) - (ViewDir - 1) + (SNWorldDirE - 1)) % (SNWorldDirNum - 1)) + 1);
+	return SNWorldDirE;
 }
 
 // View上 → ワールドでの方位
 Void SNGUIWorldView::UpToWorldDirPos(Float32* x, Float32* y)
 {
-	switch (ViewDir)
-	{
-	case SNWorldDirCenter:
-	case SNWorldDirN:
-	case SNWorldDirNE:
-		*y -= 1;
-		break;
-	case SNWorldDirE:
-	case SNWorldDirSE:
-		*x -= 1;
-		break;
-	case SNWorldDirS:
-	case SNWorldDirSW:
-		*y += 1;
-		break;
-	case SNWorldDirW:
-	case SNWorldDirNW:
-		*x += 1;
-		break;
-	}
+	*y -= 1;
 	return;
 }
 
 // View↓ → ワールドでの方位
 Void SNGUIWorldView::DownToWorldDirPos(Float32* x, Float32* y)
 {
-	switch (ViewDir)
-	{
-	case SNWorldDirCenter:
-	case SNWorldDirN:
-	case SNWorldDirNE:
-		*y += 1;
-		break;
-	case SNWorldDirE:
-	case SNWorldDirSE:
-		*x += 1;
-		break;
-	case SNWorldDirS:
-	case SNWorldDirSW:
-		*y -= 1;
-		break;
-	case SNWorldDirW:
-	case SNWorldDirNW:
-		*x -= 1;
-		break;
-	}
+	*y += 1;
 	return;
 }
 
 // Views← → ワールドでの方位
 Void SNGUIWorldView::LeftToWorldDirPos(Float32* x, Float32* y)
 {
-	switch (ViewDir)
-	{
-	case SNWorldDirCenter:
-	case SNWorldDirN:
-	case SNWorldDirNE:
-		*x -= 1;
-		break;
-	case SNWorldDirE:
-	case SNWorldDirSE:
-		*y += 1;
-		break;
-	case SNWorldDirS:
-	case SNWorldDirSW:
-		*x += 1;
-		break;
-	case SNWorldDirW:
-	case SNWorldDirNW:
-		*y -= 1;
-		break;
-	}
+	*x -= 1;
 	return;
 }
 
 // Views→ → ワールドでの方位
 Void SNGUIWorldView::RightToWorldDirPos(Float32* x, Float32* y)
 {
-	switch (ViewDir)
-	{
-	case SNWorldDirCenter:
-	case SNWorldDirN:
-	case SNWorldDirNE:
-		*x += 1;
-		break;
-	case SNWorldDirE:
-	case SNWorldDirSE:
-		*y -= 1;
-		break;
-	case SNWorldDirS:
-	case SNWorldDirSW:
-		*x -= 1;
-		break;
-	case SNWorldDirW:
-	case SNWorldDirNW:
-		*y += 1;
-		break;
-	}
+	*x += 1;
 	return;
 }
 
@@ -453,16 +317,9 @@ Void SNGUIWorldView::SetFocusVisible(Boolean visible)
 	return;
 }
 
-Void SNGUIWorldView::UpTransparentFrontGround()
+Void SNGUIWorldView::ChangeTransparentFrontGround()
 {
 	TransparentFrontGround = (SNGUIWorldViewFrontTransparentType)SNMath::Increment(TransparentFrontGround, (Int32)SNGUIWorldViewFrontTransparentTypeOff, (Int32)SNGUIWorldViewFrontTransparentTypeHigh);
-
-	return;
-}
-
-Void SNGUIWorldView::DownTransparentFrontGround()
-{
-	TransparentFrontGround = (SNGUIWorldViewFrontTransparentType)SNMath::Decrement(TransparentFrontGround, (Int32)SNGUIWorldViewFrontTransparentTypeOff, (Int32)SNGUIWorldViewFrontTransparentTypeHigh);
 
 	return;
 }
@@ -505,85 +362,17 @@ Void SNGUIWorldView::CalcLeftTop(SNWorldPos* pos1, SNWorldPos* pos2, SNWorldPos*
 	size.Height = (Int32)SNMath::AbsF(pos1->Y - pos2->Y) + 1;
 	z = (Int32)SNMath::AbsF(pos1->Z - pos2->Z) + 1;
 
-
-	// x, yは方位により補正
-	switch (GetViewDir())
-	{
-	// 左上、右下を選択
-	case SNWorldDirCenter:
-	case SNWorldDirN:
-	case SNWorldDirNE:
-		lt_pos->X = lefttop.X;
-		lt_pos->Y = lefttop.Y;
-		lt_pos->Z = lefttop.Z;
-		break;
-
-	// 右上、左下を選択
-	case SNWorldDirE:
-	case SNWorldDirSE:
-		lt_pos->X = lefttop.X;
-		lt_pos->Y = lefttop.Y + size.Height - 1;
-		lt_pos->Z = lefttop.Z;
-		break;
-
-	// 右下、左上を選択
-	case SNWorldDirS:
-	case SNWorldDirSW:
-		lt_pos->X = lefttop.X + size.Width - 1;
-		lt_pos->Y = lefttop.Y + size.Height - 1;
-		lt_pos->Z = lefttop.Z;
-		break;
-
-	// 左下、右上を選択
-	case SNWorldDirW:
-	case SNWorldDirNW:
-		lt_pos->X = lefttop.X + size.Width - 1;
-		lt_pos->Y = lefttop.Y;
-		lt_pos->Z = lefttop.Z;
-		break;
-	}
-
+	lt_pos->X = lefttop.X;
+	lt_pos->Y = lefttop.Y;
+	lt_pos->Z = lefttop.Z;
 	return;
 }
 
 Void SNGUIWorldView::CalcoRightBottom(SNWorldPos* lt_pos, SNWorldPos* size, SNWorldPos* rb_pos)
 {
-	// x, yは方位により補正
-	switch (GetViewDir())
-	{
-		// 左上、右下を選択
-	case SNWorldDirCenter:
-	case SNWorldDirN:
-	case SNWorldDirNE:
-		rb_pos->X = lt_pos->X + (size->X - 1);
-		rb_pos->Y = lt_pos->Y + (size->Y - 1);
-		rb_pos->Z = lt_pos->Z + (size->Z - 1);
-		break;
-
-		// 右上、左下を選択
-	case SNWorldDirE:
-	case SNWorldDirSE:
-		rb_pos->X = lt_pos->X + (size->X - 1);
-		rb_pos->Y = lt_pos->Y - (size->Y - 1);
-		rb_pos->Z = lt_pos->Z + (size->Z - 1);
-		break;
-
-		// 右下、左上を選択
-	case SNWorldDirS:
-	case SNWorldDirSW:
-		rb_pos->X = lt_pos->X - (size->X - 1);
-		rb_pos->Y = lt_pos->Y - (size->Y - 1);
-		rb_pos->Z = lt_pos->Z + (size->Z - 1);
-		break;
-
-		// 左下、右上を選択
-	case SNWorldDirW:
-	case SNWorldDirNW:
-		rb_pos->X = lt_pos->X - (size->X - 1);
-		rb_pos->Y = lt_pos->Y + (size->Y - 1);
-		rb_pos->Z = lt_pos->Z + (size->Z - 1);
-		break;
-	}
+	rb_pos->X = lt_pos->X + (size->X - 1);
+	rb_pos->Y = lt_pos->Y + (size->Y - 1);
+	rb_pos->Z = lt_pos->Z + (size->Z - 1);
 	return;
 }
 
@@ -631,57 +420,31 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNWNearbyObject* obj, SNPoint*
 	UInt64 effect_flg = (UInt64)(intptr_t)obj->Effect;
 	UInt16 code;
 
-	static constexpr UInt64 glight_mask[SNWorldDirNum][4] =
-	{
-		{SNWNearbyEffectGroundBitGShadowU, SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowB, SNWNearbyEffectGroundBitGShadowL},	// center
-		{SNWNearbyEffectGroundBitGShadowU, SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowB, SNWNearbyEffectGroundBitGShadowL},	// N - N
-		{SNWNearbyEffectGroundBitGShadowU, SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowB, SNWNearbyEffectGroundBitGShadowL},	// NE - N
-		{SNWNearbyEffectGroundBitGShadowL, SNWNearbyEffectGroundBitGShadowU, SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowB},	// E - E
-		{SNWNearbyEffectGroundBitGShadowL, SNWNearbyEffectGroundBitGShadowU, SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowB},	// SE - E
-		{SNWNearbyEffectGroundBitGShadowB, SNWNearbyEffectGroundBitGShadowL, SNWNearbyEffectGroundBitGShadowU, SNWNearbyEffectGroundBitGShadowR},	// S - S
-		{SNWNearbyEffectGroundBitGShadowB, SNWNearbyEffectGroundBitGShadowL, SNWNearbyEffectGroundBitGShadowU, SNWNearbyEffectGroundBitGShadowR},	// SW - S
-		{SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowB, SNWNearbyEffectGroundBitGShadowL, SNWNearbyEffectGroundBitGShadowU},	// W - W
-		{SNWNearbyEffectGroundBitGShadowR, SNWNearbyEffectGroundBitGShadowB, SNWNearbyEffectGroundBitGShadowL, SNWNearbyEffectGroundBitGShadowU},	// NW - W
-	};
+	static constexpr UInt64 glight_mask[4] =
+		{ SNWNearbyEffectGroundBitGShadowU,
+		  SNWNearbyEffectGroundBitGShadowR,
+		  SNWNearbyEffectGroundBitGShadowB,
+		  SNWNearbyEffectGroundBitGShadowL };
 
-	static constexpr UInt64 border_mask[SNWorldDirNum][8] =
-	{
-		{SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderB, 0, SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderSideU,SNWNearbyEffectGroundBitBorderSideL,SNWNearbyEffectGroundBitBorderBottom},		// center
-		{SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderB, 0, SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderSideR,SNWNearbyEffectGroundBitBorderSideL,SNWNearbyEffectGroundBitBorderBottom},		// N - N
-		{SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderB, 0, SNWNearbyEffectGroundBitBorderSideU,SNWNearbyEffectGroundBitBorderSideL,SNWNearbyEffectGroundBitBorderBottom},		// NE - N
-		{SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderR, 0, SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderSideU,SNWNearbyEffectGroundBitBorderSideB,SNWNearbyEffectGroundBitBorderBottom},		// E - E
-		{SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderR, 0, SNWNearbyEffectGroundBitBorderSideL,SNWNearbyEffectGroundBitBorderSideB,SNWNearbyEffectGroundBitBorderBottom},		// SE - E
-		{SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderU, 0, SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderSideL,SNWNearbyEffectGroundBitBorderSideR,SNWNearbyEffectGroundBitBorderBottom},		// S - S
-		{SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderL, SNWNearbyEffectGroundBitBorderU, 0, SNWNearbyEffectGroundBitBorderSideB,SNWNearbyEffectGroundBitBorderSideR,SNWNearbyEffectGroundBitBorderBottom},		// SW - S
-		{SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderL, 0, SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderSideB,SNWNearbyEffectGroundBitBorderSideU,SNWNearbyEffectGroundBitBorderBottom},		// W - W
-		{SNWNearbyEffectGroundBitBorderR, SNWNearbyEffectGroundBitBorderU, SNWNearbyEffectGroundBitBorderB, SNWNearbyEffectGroundBitBorderL, 0, SNWNearbyEffectGroundBitBorderSideR,SNWNearbyEffectGroundBitBorderSideU,SNWNearbyEffectGroundBitBorderBottom},		// NW - W
-	};
+	static constexpr UInt64 border_mask[8] =
+		{ SNWNearbyEffectGroundBitBorderU,
+		  SNWNearbyEffectGroundBitBorderL,
+		  SNWNearbyEffectGroundBitBorderR,
+		  SNWNearbyEffectGroundBitBorderB,
+		  0,
+		  SNWNearbyEffectGroundBitBorderSideU,
+		  SNWNearbyEffectGroundBitBorderSideL,
+		  SNWNearbyEffectGroundBitBorderBottom };
 
-	static constexpr UInt64 pshadow_mask[SNWorldDirNum][2] =
-	{
-		{SNWNearbyEffectGroundBitPShadowB, 0 },	// center
-		{SNWNearbyEffectGroundBitPShadowB, 0 },	// N - N
-		{SNWNearbyEffectGroundBitPShadowR, SNWNearbyEffectGroundBitPShadowB },	// NE - N
-		{SNWNearbyEffectGroundBitPShadowR, 0 },	// E - E
-		{SNWNearbyEffectGroundBitPShadowU, SNWNearbyEffectGroundBitPShadowR },	// SE - E
-		{SNWNearbyEffectGroundBitPShadowU, 0 },	// S - S
-		{SNWNearbyEffectGroundBitPShadowL, SNWNearbyEffectGroundBitPShadowU },	// SW - S
-		{SNWNearbyEffectGroundBitPShadowL, 0 },	// W - W
-		{SNWNearbyEffectGroundBitPShadowB, SNWNearbyEffectGroundBitPShadowL },	// NW - W
-	};
+	static constexpr UInt64 pshadow_mask[2] =
+		{ SNWNearbyEffectGroundBitPShadowR,
+		  SNWNearbyEffectGroundBitPShadowB };
 
-	static constexpr UInt64 pshadow_top_mask[SNWorldDirNum][4] =
-	{
-		SNWNearbyEffectGroundBitPShadowTUL, SNWNearbyEffectGroundBitPShadowTUR, SNWNearbyEffectGroundBitPShadowTBR, SNWNearbyEffectGroundBitPShadowTBL,	// center
-		SNWNearbyEffectGroundBitPShadowTUL, SNWNearbyEffectGroundBitPShadowTUR, SNWNearbyEffectGroundBitPShadowTBR, SNWNearbyEffectGroundBitPShadowTBL,	// N
-		SNWNearbyEffectGroundBitPShadowTUL, SNWNearbyEffectGroundBitPShadowTUR, SNWNearbyEffectGroundBitPShadowTBR, SNWNearbyEffectGroundBitPShadowTBL,	// NW
-		SNWNearbyEffectGroundBitPShadowTBL, SNWNearbyEffectGroundBitPShadowTUL, SNWNearbyEffectGroundBitPShadowTUR, SNWNearbyEffectGroundBitPShadowTBR,	// E
-		SNWNearbyEffectGroundBitPShadowTBL, SNWNearbyEffectGroundBitPShadowTUL, SNWNearbyEffectGroundBitPShadowTUR, SNWNearbyEffectGroundBitPShadowTBR,	// SE
-		SNWNearbyEffectGroundBitPShadowTBR, SNWNearbyEffectGroundBitPShadowTBL, SNWNearbyEffectGroundBitPShadowTUL, SNWNearbyEffectGroundBitPShadowTUR,	// S
-		SNWNearbyEffectGroundBitPShadowTBR, SNWNearbyEffectGroundBitPShadowTBL, SNWNearbyEffectGroundBitPShadowTUL, SNWNearbyEffectGroundBitPShadowTUR,	// SW
-		SNWNearbyEffectGroundBitPShadowTUR, SNWNearbyEffectGroundBitPShadowTBR, SNWNearbyEffectGroundBitPShadowTBL, SNWNearbyEffectGroundBitPShadowTUL,	// W
-		SNWNearbyEffectGroundBitPShadowTUR, SNWNearbyEffectGroundBitPShadowTBR, SNWNearbyEffectGroundBitPShadowTBL, SNWNearbyEffectGroundBitPShadowTUL,	// NW
-	};
+	static constexpr UInt64 pshadow_top_mask[4] =
+		{ SNWNearbyEffectGroundBitPShadowTUL, 
+		  SNWNearbyEffectGroundBitPShadowTUR, 
+		  SNWNearbyEffectGroundBitPShadowTBR, 
+		  SNWNearbyEffectGroundBitPShadowTBL };
 
 
 	code = 0;
@@ -689,74 +452,72 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNWNearbyObject* obj, SNPoint*
 	//////////////////////////////////////////////////
 	// グローバル光源の影描画
 
-	if ((effect_flg & glight_mask[ViewDir][0]) != 0)
+	if ((effect_flg & glight_mask[0]) != 0)
 	{
 		code = SNMapchip::ShadowCode[SNWorldShadowDirU];
+		DrawGround(obj, code, draw_base);
 	}
-	else if ((effect_flg & glight_mask[ViewDir][1]) != 0)
+	else if ((effect_flg & glight_mask[1]) != 0)
 	{
 		code = SNMapchip::ShadowCode[SNWorldShadowDirR];
+		DrawGround(obj, code, draw_base);
 	}
-	else if ((effect_flg & glight_mask[ViewDir][2]) != 0)
+	else if ((effect_flg & glight_mask[2]) != 0)
 	{
 		code = SNMapchip::ShadowCode[SNWorldShadowDirB];
+		DrawGround(obj, code, draw_base);
 	}
-	else if ((effect_flg & glight_mask[ViewDir][3]) != 0)
+	else if ((effect_flg & glight_mask[3]) != 0)
 	{
 		code = SNMapchip::ShadowCode[SNWorldShadowDirL];
-	}
-
-	if (code != 0)
-	{
-		// 描画
 		DrawGround(obj, code, draw_base);
 	}
 
 
 	//////////////////////////////////////////////////
 	// 境界
-	if ((effect_flg & border_mask[ViewDir][0]) != 0)
+	if ((effect_flg & border_mask[0]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirR];
 		DrawGround(obj, code, draw_base);
 	}
-	if ((effect_flg & border_mask[ViewDir][1]) != 0)
+	if ((effect_flg & border_mask[1]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirL];
 		DrawGround(obj, code, draw_base);
 	}
 
-	if ((effect_flg & border_mask[ViewDir][2]) != 0)
+	if ((effect_flg & border_mask[2]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirRB];
 		DrawGround(obj, code, draw_base);
 	}
 
-	if ((effect_flg & border_mask[ViewDir][3]) != 0)
+	if ((effect_flg & border_mask[3]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirLB];
 		DrawGround(obj, code, draw_base);
 	}
 
-	if ((effect_flg & border_mask[ViewDir][4]) != 0)
+	if ((effect_flg & border_mask[4]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirT];
 		DrawGround(obj, code, draw_base);
 	}
 
-	if ((effect_flg & border_mask[ViewDir][5]) != 0)
+	if ((effect_flg & border_mask[5]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderSideR];
 		DrawGround(obj, code, draw_base);
 	}
 
-	if ((effect_flg & border_mask[ViewDir][6]) != 0)
+	if ((effect_flg & border_mask[6]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderSideL];
 		DrawGround(obj, code, draw_base);
 	}
 
-	if ((effect_flg & border_mask[ViewDir][7]) != 0)
+	if ((effect_flg & border_mask[7]) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderBottom];
 		DrawGround(obj, code, draw_base);
@@ -764,12 +525,12 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNWNearbyObject* obj, SNPoint*
 
 	//////////////////////////////////////////////////
 	// 投影
-	if ((effect_flg & pshadow_mask[ViewDir][0]) != 0)
+	if ((effect_flg & pshadow_mask[0]) != 0)
 	{
 		code = SNMapchip::ShadowCode[SNWorldShadowSideR];
 		DrawGround(obj, code, draw_base);
 	}
-	if ((effect_flg & pshadow_mask[ViewDir][1]) != 0)
+	if ((effect_flg & pshadow_mask[1]) != 0)
 	{
 		code = SNMapchip::ShadowCode[SNWorldShadowSideL];
 		DrawGround(obj, code, draw_base);
@@ -785,30 +546,29 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNWNearbyObject* obj, SNPoint*
 	{
 		// 上面全体の影ではないときは個別に描画する
 
-		if ((effect_flg & pshadow_top_mask[ViewDir][0]) != 0)
+		if ((effect_flg & pshadow_top_mask[0]) != 0)
 		{
 			code = SNMapchip::ShadowCode[SNWorldShadowTUL];
 			DrawGround(obj, code, draw_base);
 		}
 
-		if ((effect_flg & pshadow_top_mask[ViewDir][1]) != 0)
+		if ((effect_flg & pshadow_top_mask[1]) != 0)
 		{
 			code = SNMapchip::ShadowCode[SNWorldShadowTUR];
 			DrawGround(obj, code, draw_base);
 		}
 		
-		if ((effect_flg & pshadow_top_mask[ViewDir][2]) != 0)
+		if ((effect_flg & pshadow_top_mask[2]) != 0)
 		{
 			code = SNMapchip::ShadowCode[SNWorldShadowTBR];
 			DrawGround(obj, code, draw_base);
 		}
 
-		if ((effect_flg & pshadow_top_mask[ViewDir][3]) != 0)
+		if ((effect_flg & pshadow_top_mask[3]) != 0)
 		{
 			code = SNMapchip::ShadowCode[SNWorldShadowTBL];
 			DrawGround(obj, code, draw_base);
 		}
-
 	}
 
 	return;
@@ -821,7 +581,7 @@ Void SNGUIWorldView::DrawNearbyObjectActiveObject(SNWNearbyObject* obj, SNPoint*
 
 	UInt8 act_state = obj_ptr->GetActState();
 	UInt8 anm_step = obj_ptr->GetAnimeStep();
-	SNWorldDir obj_dir = obj_ptr->CalcDir(ViewDir);
+	SNWorldDir obj_dir = obj_ptr->GetDir();
 
 	UInt16 code = obj_ptr->GetCode();
 
@@ -867,7 +627,7 @@ Void SNGUIWorldView::DrawGround(SNWNearbyObject* obj, UInt16 code, SNPoint* draw
 	Float32 a_gain = 0.0f;
 
 	// チップ側の矩形取得
-	SNMapchip::CodeToRect(code, ViewDir, &src_rect);
+	SNMapchip::CodeToRect(code,&src_rect);
 
 	// チップの描画先座標計算
 	CalcMapchipDrawPos(obj, draw_base, &pos);
@@ -905,10 +665,10 @@ Void SNGUIWorldView::DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorld
 	CalcObjectchipDrawPos(obj, draw_base, &pos);
 	//CalcMapchipDrawPos(obj, draw_base, &pos);
 	dst_rect.PointX = pos.X 
-		+ SNMapchip::MapchipBottomCenterOffset[ViewDir].X
+		+ SNMapchip::MapchipBottomCenterOffset.X
 		- SNWObjectchip::Data[code].imgCenterOffset.X;
 	dst_rect.PointY = pos.Y
-		+ SNMapchip::MapchipBottomCenterOffset[ViewDir].Y
+		+ SNMapchip::MapchipBottomCenterOffset.Y
 		- SNWObjectchip::Data[code].imgCenterOffset.Y;
 	dst_rect.Width = src_rect.Width;
 	dst_rect.Height = src_rect.Height;
@@ -931,13 +691,13 @@ Void SNGUIWorldView::CalcMapchipDrawPos(SNWNearbyObject* obj, SNPoint* draw_base
 	SNWorldPos* pos = &obj->Pos;
 	// 描画座標計算
 	out->X = (Int32)(draw_base->X
-		+ (SNMapchip::MapchipStrideX[ViewDir].X * pos->X
-			+ SNMapchip::MapchipStrideY[ViewDir].X * pos->Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].X * pos->Z));
+		+ (SNMapchip::MapchipStrideX.X * pos->X
+			+ SNMapchip::MapchipStrideY.X * pos->Y
+			+ SNMapchip::MapchipStrideZ.X * pos->Z));
 	out->Y = (Int32)(draw_base->Y
-		+ (SNMapchip::MapchipStrideX[ViewDir].Y * pos->X
-			+ SNMapchip::MapchipStrideY[ViewDir].Y * pos->Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].Y * pos->Z));
+		+ (SNMapchip::MapchipStrideX.Y * pos->X
+			+ SNMapchip::MapchipStrideY.Y * pos->Y
+			+ SNMapchip::MapchipStrideZ.Y * pos->Z));
 	return;
 }
 
@@ -953,13 +713,13 @@ Void SNGUIWorldView::CalcObjectchipDrawPos(SNWNearbyObject* obj, SNPoint* draw_b
 
 	// 描画座標計算
 	out->X = (Int32)(draw_base->X
-		+ (SNMapchip::MapchipStrideX[ViewDir].X * pos.X
-			+ SNMapchip::MapchipStrideY[ViewDir].X * pos.Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].X * pos.Z));
+		+ (SNMapchip::MapchipStrideX.X * pos.X
+			+ SNMapchip::MapchipStrideY.X * pos.Y
+			+ SNMapchip::MapchipStrideZ.X * pos.Z));
 	out->Y = (Int32)(draw_base->Y
-		+ (SNMapchip::MapchipStrideX[ViewDir].Y * pos.X
-			+ SNMapchip::MapchipStrideY[ViewDir].Y * pos.Y
-			+ SNMapchip::MapchipStrideZ[ViewDir].Y * pos.Z));
+		+ (SNMapchip::MapchipStrideX.Y * pos.X
+			+ SNMapchip::MapchipStrideY.Y * pos.Y
+			+ SNMapchip::MapchipStrideZ.Y * pos.Z));
 	return;
 }
 
@@ -1060,25 +820,8 @@ Void SNGUIWorldView::RegisterFocus()
 	return;
 }
 
-
-Boolean SNGUIWorldView::CompareDrawObjectN(Void* a, Void* b)
-{
-	Boolean ret = false;
-	SNWorldPos* ap = &((SNWNearbyObject*)a)->Pos;
-	SNWorldPos* bp = &((SNWNearbyObject*)b)->Pos;
-	SNWNearbyObjectType at = ((SNWNearbyObject*)a)->Type;
-	SNWNearbyObjectType bt = ((SNWNearbyObject*)b)->Type;
-
-	if (ap->Y < bp->Y)	ret = true;
-	else if (ap->Y > bp->Y) ret = false;
-	else if (ap->Z < bp->Z) ret = true;
-	else if (ap->Z > bp->Z) ret = false;
-	else if (at < bt) ret = true;
-
-	return ret;
-}
-
-Boolean SNGUIWorldView::CompareDrawObjectNE(Void* a, Void* b)
+// ソート用比較関数
+Boolean SNGUIWorldView::CompareDrawObject(Void* a, Void* b)
 {
 	Boolean ret = false;
 	SNWNearbyObject* a_obj = (SNWNearbyObject*)a;
@@ -1118,108 +861,6 @@ Boolean SNGUIWorldView::CompareDrawObjectNE(Void* a, Void* b)
 	{
 		ret = true;
 	}
-
-	return ret;
-}
-
-Boolean SNGUIWorldView::CompareDrawObjectE(Void* a, Void* b)
-{
-	Boolean ret = false;
-	SNWorldPos* ap = &((SNWNearbyObject*)a)->Pos;
-	SNWorldPos* bp = &((SNWNearbyObject*)b)->Pos;
-	SNWNearbyObjectType at = ((SNWNearbyObject*)a)->Type;
-	SNWNearbyObjectType bt = ((SNWNearbyObject*)b)->Type;
-
-	if (ap->X < bp->X)	ret = true;
-	else if (ap->X > bp->X) ret = false;
-	else if (ap->Z < bp->Z) ret = true;
-	else if (ap->Z > bp->Z) ret = false;
-	else if (at < bt) ret = true;
-
-	return ret;
-}
-
-Boolean SNGUIWorldView::CompareDrawObjectSE(Void* a, Void* b)
-{
-	Boolean ret = false;
-	SNWorldPos* ap = &((SNWNearbyObject*)a)->Pos;
-	SNWorldPos* bp = &((SNWNearbyObject*)b)->Pos;
-	SNWNearbyObjectType at = ((SNWNearbyObject*)a)->Type;
-	SNWNearbyObjectType bt = ((SNWNearbyObject*)b)->Type;
-
-	if ((ap->X - ap->Y) < (bp->X - bp->Y)) ret = true;
-	else if ((ap->X - ap->Y) > (bp->X - bp->Y)) ret = false;
-	else if (ap->Z < bp->Z) ret = true;
-	else if (ap->Z > bp->Z) ret = false;
-	else if (at < bt) ret = true;
-
-	return ret;
-}
-
-Boolean SNGUIWorldView::CompareDrawObjectS(Void* a, Void* b)
-{
-	Boolean ret = false;
-	SNWorldPos* ap = &((SNWNearbyObject*)a)->Pos;
-	SNWorldPos* bp = &((SNWNearbyObject*)b)->Pos;
-	SNWNearbyObjectType at = ((SNWNearbyObject*)a)->Type;
-	SNWNearbyObjectType bt = ((SNWNearbyObject*)b)->Type;
-
-	if (ap->Y > bp->Y)	ret = true;
-	else if (ap->Y < bp->Y) ret = false;
-	else if (ap->Z < bp->Z) ret = true;
-	else if (ap->Z > bp->Z) ret = false;
-	else if (at < bt) ret = true;
-
-	return ret;
-}
-
-Boolean SNGUIWorldView::CompareDrawObjectSW(Void* a, Void* b)
-{
-	Boolean ret = false;
-	SNWorldPos* ap = &((SNWNearbyObject*)a)->Pos;
-	SNWorldPos* bp = &((SNWNearbyObject*)b)->Pos;
-	SNWNearbyObjectType at = ((SNWNearbyObject*)a)->Type;
-	SNWNearbyObjectType bt = ((SNWNearbyObject*)b)->Type;
-
-	if ((- ap->X - ap->Y) < (- bp->X - bp->Y)) ret = true;
-	else if ((- ap->X - ap->Y) > (- bp->X - bp->Y)) ret = false;
-	else if (ap->Z < bp->Z) ret = true;
-	else if (ap->Z > bp->Z) ret = false;
-	else if (at < bt) ret = true;
-
-	return ret;
-}
-
-Boolean SNGUIWorldView::CompareDrawObjectW(Void* a, Void* b)
-{
-	Boolean ret = false;
-	SNWorldPos* ap = &((SNWNearbyObject*)a)->Pos;
-	SNWorldPos* bp = &((SNWNearbyObject*)b)->Pos;
-	SNWNearbyObjectType at = ((SNWNearbyObject*)a)->Type;
-	SNWNearbyObjectType bt = ((SNWNearbyObject*)b)->Type;
-
-	if (ap->X > bp->X)	ret = true;
-	else if (ap->X < bp->X) ret = false;
-	else if (ap->Z < bp->Z) ret = true;
-	else if (ap->Z > bp->Z) ret = false;
-	else if (at < bt) ret = true;
-
-	return ret;
-}
-
-Boolean SNGUIWorldView::CompareDrawObjectNW(Void* a, Void* b)
-{
-	Boolean ret = false;
-	SNWorldPos* ap = &((SNWNearbyObject*)a)->Pos;
-	SNWorldPos* bp = &((SNWNearbyObject*)b)->Pos;
-	SNWNearbyObjectType at = ((SNWNearbyObject*)a)->Type;
-	SNWNearbyObjectType bt = ((SNWNearbyObject*)b)->Type;
-
-	if ((- ap->X + ap->Y) < (- bp->X + bp->Y)) ret = true;
-	else if ((- ap->X + ap->Y) > (- bp->X + bp->Y)) ret = false;
-	else if (ap->Z < bp->Z) ret = true;
-	else if (ap->Z > bp->Z) ret = false;
-	else if (at < bt) ret = true;
 
 	return ret;
 }

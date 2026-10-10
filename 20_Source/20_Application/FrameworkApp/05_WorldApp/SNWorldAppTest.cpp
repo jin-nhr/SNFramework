@@ -93,13 +93,13 @@ Boolean SNWorldAppTest::OnGamePad1()
 	// 手前ブロック透過設定Down
 	if (pd->L1Push() || pd->L1Repeat())
 	{
-		WorldView.DownTransparentFrontGround();
+		WorldView.ChangeTransparentFrontGround();
 	}
 
 	// 手前ブロック透過設定Up
 	if (pd->R1Push() || pd->R1Repeat())
 	{
-		WorldView.UpTransparentFrontGround();
+
 	}
 
 	// 拡大
@@ -117,13 +117,13 @@ Boolean SNWorldAppTest::OnGamePad1()
 	// 左回転
 	if (pd->RStkLeftPush() || pd->RStkLeftRepeat())
 	{
-		WorldView.RotateLViewDir();
+
 	}
 
 	// 右回転
 	if (pd->RStkRightPush() || pd->RStkRightRepeat())
 	{
-		WorldView.RotateRViewDir();
+
 	}
 
 
@@ -272,9 +272,6 @@ Void SNWorldAppTest::OnPreDraw()
 
 Void SNWorldAppTest::OnDraw()
 {
-	SNWorldDir dir = WorldView.GetViewDir();
-	SNWorldShadowDir shadow_dir = SNWorldShadowDirR;
-
 	SNWorldAppBase::OnDraw();
 
 	Win.Draw();

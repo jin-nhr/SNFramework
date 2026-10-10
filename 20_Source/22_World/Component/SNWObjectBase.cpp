@@ -89,9 +89,9 @@ UInt8 SNWObjectBase::GetAnimeStep()
 
 
 // •ûŒüŒvŽZ
-SNWorldDir SNWObjectBase::CalcDir(SNWorldDir base_dir)
+SNWorldDir SNWObjectBase::GetDir()
 {
-	return (SNWorldDir)(((Info.FrontDir - SNWorldDirN + SNWorldDirNW) + (base_dir - SNWorldDirN)) % (SNWorldDirNW) + SNWorldDirN);
+	return Info.FrontDir;
 
 }
 

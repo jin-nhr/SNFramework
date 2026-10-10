@@ -20,9 +20,6 @@ public:
 	// 値設定
 	virtual Void SetValue(Int64 value);
 
-	// 色
-	SNColor Color;
-
 protected:
 	// 初期化
 	virtual Void OnInitialize();
@@ -32,9 +29,6 @@ protected:
 
 	// 描画前処理
 	virtual Void OnPreDraw();
-
-	// 描画処理
-	virtual Void OnDraw();
 
 	SNString Format;	// フォーマット文字列
 	Int64    Value;		// 設定値

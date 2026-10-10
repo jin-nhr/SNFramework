@@ -4,6 +4,7 @@
 #include "SNBitmapFont.h"
 #include "SNGUI.h"
 #include "SNGUIDef.h"
+#include "SNMath.h"
 
 // コンストラクタ
 SNGUIText::SNGUIText()
@@ -91,6 +92,7 @@ Void SNGUIText::OnDraw()
 		Text.GetString(),
 		Text.GetLength(),
 		&Color);
+
 
 	return;
 }

@@ -47,14 +47,6 @@ public:
 
 	virtual Void GetRangeStartPos(SNWorldPos* pos);
 
-	virtual Void SetViewDir(SNWorldDir dir);
-
-	virtual Void RotateRViewDir();
-
-	virtual Void RotateLViewDir();
-
-	virtual SNWorldDir GetViewDir();
-
 	virtual SNWorldDir UpToAngle();
 	virtual SNWorldDir UpLeftToAngle();
 	virtual SNWorldDir UpRightToAngle();
@@ -71,8 +63,7 @@ public:
 
 	virtual Void SetFocusVisible(Boolean visible);
 
-	virtual Void UpTransparentFrontGround();
-	virtual Void DownTransparentFrontGround();
+	virtual Void ChangeTransparentFrontGround();
 
 	virtual Void CalcLeftTop(SNWorldPos* pos1, SNWorldPos* pos2, SNWorldPos* lt_pos);
 	virtual Void CalcoRightBottom(SNWorldPos* lt_pos, SNWorldPos* size, SNWorldPos* rb_pos);
@@ -109,14 +100,7 @@ protected:
 	virtual Void RegisterFocus();
 
 	// ソート処理用オブジェクト比較
-	static Boolean CompareDrawObjectN(Void* a, Void* b);
-	static Boolean CompareDrawObjectNE(Void* a, Void* b);
-	static Boolean CompareDrawObjectE(Void* a, Void* b);
-	static Boolean CompareDrawObjectSE(Void* a, Void* b);
-	static Boolean CompareDrawObjectS(Void* a, Void* b);
-	static Boolean CompareDrawObjectSW(Void* a, Void* b);
-	static Boolean CompareDrawObjectW(Void* a, Void* b);
-	static Boolean CompareDrawObjectNW(Void* a, Void* b);
+	static Boolean CompareDrawObject(Void* a, Void* b);
 
 private:
 	SNWorldPos TargetPos;
@@ -124,8 +108,6 @@ private:
 	Float32 ViewScale;
 	Boolean FocusVisible;
 	
-	SNWorldDir ViewDir;
-
 	SNBitmap WorkSurface;
 	SNSize WorkSurfaceSize;
 	SNGUIWorldViewFrontTransparentType TransparentFrontGround;

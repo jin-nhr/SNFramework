@@ -76,17 +76,18 @@ public:
 		SNWTimeZoneNight,
 	};
 
+	// ï˚à ÇÕNEå≈íËÇÃÇΩÇﬂç∂Ç…45ÅãåXÇ≠
 	static constexpr Int8 DirToAngleTable[SNWorldDirNum] =
 	{
 		0,			// Top
-		63,			// N
-		31,			// NE
-		0,			// E
-		-31,		// SE
-		-63,		// S
-		-95,		// SW,
-		127,		// W
-		95,			// NW
+		95,			// è„
+		63,			// âEè„
+		31,			// âE
+		0,			// âEâ∫
+		-31,		// â∫
+		-63,		// ç∂â∫
+		-95,		// ç∂
+		127,		// ç∂è„
 	};
 
 	static constexpr Int8 ParallelProcNum = SNSystemConfig::ParallelProcMax;

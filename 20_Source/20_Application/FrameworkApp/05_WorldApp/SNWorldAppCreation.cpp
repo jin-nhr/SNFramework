@@ -114,7 +114,7 @@ Boolean SNWorldAppCreation::OnGamePad1()
 	// 手前ブロック透過設定
 	if (pd->L1Push() || pd->L1Repeat())
 	{
-		WorldView.UpTransparentFrontGround();
+		WorldView.ChangeTransparentFrontGround();
 	}
 
 	// Z軸Up
@@ -238,13 +238,13 @@ Boolean SNWorldAppCreation::OnGamePad1()
 	// 左回転
 	if (pd->RStkLeftPush() || pd->RStkLeftRepeat())
 	{
-		WorldView.RotateLViewDir();
+
 	}
 
 	// 右回転
 	if (pd->RStkRightPush() || pd->RStkRightRepeat())
 	{
-		WorldView.RotateRViewDir();
+
 	}
 
 	return ret;
@@ -324,7 +324,6 @@ Void SNWorldAppCreation::OnDraw()
 	UInt16 code_tmp;
 	SNRect src_rect;
 	Int32 cnt;
-	SNWorldDir dir = WorldView.GetViewDir();
 	SNWorldShadowDir shadow_dir = SNWorldShadowDirR;
 
 	SNWorldAppBase::OnDraw();
@@ -335,7 +334,7 @@ Void SNWorldAppCreation::OnDraw()
 	// ウインドウに選択中のマップチップを描画する
 	win_rect = WinBlock.CalcGlobalRect();
 
-	SNMapchip::CodeToRect(SNMapchip::Data[SelectBlock].Code[0], dir, &src_rect);
+	SNMapchip::CodeToRect(SNMapchip::Data[SelectBlock].Code[0], &src_rect);
 
 	dst_rect.PointX = win_rect.PointX + (win_rect.Width - (src_rect.Width * 2)) / 2;
 	dst_rect.PointY = win_rect.PointY + (win_rect.Height - (src_rect.Height * 2)) / 2;
@@ -346,11 +345,11 @@ Void SNWorldAppCreation::OnDraw()
 	SNGraphicsDevice::DrawImage(&dst_rect, bmp, &src_rect, SNAlphaMax);
 
 	// 選択中ブロックに影を付加
-	SNMapchip::CodeToRect(SNMapchip::ShadowCode[shadow_dir], dir, &src_rect);
+	SNMapchip::CodeToRect(SNMapchip::ShadowCode[shadow_dir], &src_rect);
 	SNGraphicsDevice::DrawImage(&dst_rect, bmp, &src_rect, SNAlphaMax);
 
 	// フォーカス描画
-	SNMapchip::CodeToRect(SNMapchip::FocusCode, dir, &src_rect);
+	SNMapchip::CodeToRect(SNMapchip::FocusCode, &src_rect);
 	SNGraphicsDevice::DrawImage(&dst_rect, bmp, &src_rect, SNAlphaMax);
 
 
@@ -362,7 +361,7 @@ Void SNWorldAppCreation::OnDraw()
 	{
 		code_tmp = (UInt16)SNMath::Decrement(code_tmp, SNMapchip::SNMapchipBlank, SNMapchip::SNMapchipNum - 1);
 
-		SNMapchip::CodeToRect(SNMapchip::Data[code_tmp].Code[0], dir, &src_rect);
+		SNMapchip::CodeToRect(SNMapchip::Data[code_tmp].Code[0], &src_rect);
 
 		dst_tmp.PointX -= dst_tmp.Width;
 
@@ -370,7 +369,7 @@ Void SNWorldAppCreation::OnDraw()
 		SNGraphicsDevice::DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
 
 		// 選択中ブロックに影を付加
-		SNMapchip::CodeToRect(SNMapchip::ShadowCode[shadow_dir], dir, &src_rect);
+		SNMapchip::CodeToRect(SNMapchip::ShadowCode[shadow_dir], &src_rect);
 		SNGraphicsDevice::DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
 	}
 
@@ -382,7 +381,7 @@ Void SNWorldAppCreation::OnDraw()
 	{
 		code_tmp = (UInt16)SNMath::Increment(code_tmp, SNMapchip::SNMapchipBlank, SNMapchip::SNMapchipNum - 1);
 
-		SNMapchip::CodeToRect(SNMapchip::Data[code_tmp].Code[0], dir, &src_rect);
+		SNMapchip::CodeToRect(SNMapchip::Data[code_tmp].Code[0], &src_rect);
 
 		dst_tmp.PointX += dst_tmp.Width;
 
@@ -390,7 +389,7 @@ Void SNWorldAppCreation::OnDraw()
 		SNGraphicsDevice::DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
 
 		// 選択中ブロックに影を付加
-		SNMapchip::CodeToRect(SNMapchip::ShadowCode[shadow_dir], dir, &src_rect);
+		SNMapchip::CodeToRect(SNMapchip::ShadowCode[shadow_dir], &src_rect);
 		SNGraphicsDevice::DrawImage(&dst_tmp, bmp, &src_rect, SNAlphaMax);
 	}
 
@@ -570,7 +569,6 @@ Void SNWorldAppCreation::Paste()
 	SNWNearbySpace* space = SNWorld::GetNearbySpace();
 	SNWorldPos st;
 	SNWorldPos set_pos;
-	SNWorldDir view_dir = WorldView.GetViewDir();
 
 	Int32 st_x;
 	Int32 st_y;
@@ -600,34 +598,8 @@ Void SNWorldAppCreation::Paste()
 				if (CopySpace[cnt_z][cnt_y][cnt_x] != SNMapchip::SNMapchipBlank)
 				{
 					set_pos.Z = (Float32)(st_z + cnt_z);
-
-					switch (view_dir)
-					{
-					case SNWorldDirCenter:
-					case SNWorldDirN:
-					case SNWorldDirNE:
-						set_pos.Y = (Float32)(st_y + cnt_y);
-						set_pos.X = (Float32)(st_x + cnt_x);
-						break;
-
-					case SNWorldDirE:
-					case SNWorldDirSE:
-						set_pos.Y = (Float32)(st_y + cnt_y - (num_y - 1));
-						set_pos.X = (Float32)(st_x + cnt_x);
-						break;
-
-					case SNWorldDirS:
-					case SNWorldDirSW:
-						set_pos.Y = (Float32)(st_y + cnt_y - (num_y - 1));
-						set_pos.X = (Float32)(st_x + cnt_x - (num_x - 1));
-						break;
-
-					case SNWorldDirW:
-					case SNWorldDirNW:
-						set_pos.Y = (Float32)(st_y + cnt_y);
-						set_pos.X = (Float32)(st_x + cnt_x - (num_x - 1));
-						break;
-					}
+					set_pos.Y = (Float32)(st_y + cnt_y);
+					set_pos.X = (Float32)(st_x + cnt_x);
 
 					SNWorld::WriteGroundData(&set_pos, (SNMapchip::SNMapchipCode)CopySpace[cnt_z][cnt_y][cnt_x]);
 				}

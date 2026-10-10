@@ -15,14 +15,14 @@ public:
 	static constexpr UInt32 MapchipOffsetX = 0;
 	static constexpr UInt32 MapchipOffsetY = 384;
 
-	static constexpr UInt32 MapBGBaseX = 5;
-	static constexpr UInt32 MapBGBaseY = 1537;
+	static constexpr UInt32 MapBGBaseX = 4;
+	static constexpr UInt32 MapBGBaseY = 1536;
 
 	static constexpr UInt32 MapBGOffsetX = 4;
 	static constexpr UInt32 MapBGOffsetY = 0;
 
-	static constexpr UInt32 MapBGWidth = 2;
-	static constexpr UInt32 MapBGHeight = 254;
+	static constexpr UInt32 MapBGWidth = 0;
+	static constexpr UInt32 MapBGHeight = 256;
 
 
 
@@ -36,98 +36,29 @@ public:
 
 	// ブロックサイズ
 	static constexpr UInt32 MapchipBlockSizeX = 16;
-	static constexpr UInt32 MapchipBlockSizeY = 32;
+	static constexpr UInt32 MapchipBlockSizeY = 16;
 
 	static constexpr UInt32 SNMapchipCodeMask = 0x00FF;
 	static constexpr UInt32 SNMapchipResIDMask = 0xFF00;
 	static constexpr UInt32 SNMapchipResIDSihit = 8;
 
 	// ブロックオフセット
-	static constexpr SNRect MapchipOffset[SNWorldDirNum] =
-	{
-		{ 2,17, 12, 14 },	// Center
-		{ 2,17, 12, 14 },	// N
-		{ 0, 0, 16, 16 },	// NE
-		{ 2,17, 12, 14 },	// E
-		{ 0, 0, 16, 16 },	// SE
-		{ 2,17, 12, 14 },	// S
-		{ 0, 0, 16, 16 },	// SW
-		{ 2,17, 12, 14 },	// W
-		{ 0, 0, 16, 16 },	// NW
-	};
-
+	static constexpr SNRect MapchipOffset = { 0, 0, 16, 16 };
 
 	// 中心オフセット
-	static constexpr SNPoint MapchipCenterOffset[SNWorldDirNum] =
-	{
-		{ 6,  3 },	// Center
-		{ 6,  3 },	// N
-		{ 8,  4 },	// NE
-		{ 6,  3 },	// E
-		{ 8,  4 },	// SE
-		{ 6,  3 },	// S
-		{ 8,  4 },	// SW
-		{ 6,  3 },	// W
-		{ 8,  4 },	// NW
-	};
-
+	static constexpr SNPoint MapchipCenterOffset = { 8,  4 };
+	
 	// 底面中心オフセット
-	static constexpr SNPoint MapchipBottomCenterOffset[SNWorldDirNum] =
-	{
-		{ 6,  11 },	// Center
-		{ 6,  11 },	// N
-		{ 8,  12 },	// NE
-		{ 6,  11 },	// E
-		{ 8,  12 },	// SE
-		{ 6,  11 },	// S
-		{ 8,  12 },	// SW
-		{ 6,  11 },	// W
-		{ 8,  12 },	// NW
-	};
+	static constexpr SNPoint MapchipBottomCenterOffset = { 8,  12 };
 
 	// ストライドX
-	static constexpr SNPoint MapchipStrideX[SNWorldDirNum] =
-	{
-		{12,  0 },	// Center
-		{12,  0 },	// N
-		{ 8,  4 },	// NE
-		{ 0,  6 },	// E
-		{-8,  4 },	// SE
-		{-12, 0 },	// S
-		{-8, -4 },	// SW
-		{ 0, -6 },	// W
-		{ 8, -4 },	// NW
-	};
+	static constexpr SNPoint MapchipStrideX = { 8,  4 };
 
 	// ストライドY
-	static constexpr SNPoint MapchipStrideY[SNWorldDirNum] =
-	{
-		{ 0, 6 },	// Center
-		{ 0, 6 },	// N
-		{-8, 4 },	// NE
-		{-12,0 },	// E
-		{-8,-4 },	// SE
-		{ 0,-6 },	// S
-		{ 8,-4 },	// SW
-		{12, 0 },	// W
-		{ 8, 4 },	// NW
-	};
+	static constexpr SNPoint MapchipStrideY = { -8, 4 };
 
 	// ストライドZ
-	static constexpr SNPoint MapchipStrideZ[SNWorldDirNum] =
-	{
-		{ 0, -8 },	// Center
-		{ 0, -8 },	// N
-		{ 0, -8 },	// NE
-		{ 0, -8 },	// E
-		{ 0, -8 },	// SE
-		{ 0, -8 },	// S
-		{ 0, -8 },	// SW
-		{ 0, -8 },	// W
-		{ 0, -8 },	// NW
-	};
-
-
+	static constexpr SNPoint MapchipStrideZ = { 0, -8 };
 
 	// GUIブロック
 	static constexpr UInt16 FocusCode = 0x0001;		// フォーカス
@@ -238,15 +169,15 @@ public:
 	};
 		
 			
-	static inline Void CodeToRect(UInt16 code, Int32 dir, SNRect* out_rect)
+	static inline Void CodeToRect(UInt16 code, SNRect* out_rect)
 	{
 		UInt16 res_id = CodeToResID(code);
 		UInt16 tmp_code = (code & SNMapchipCodeMask);
 
-		out_rect->PointX = MapchipBaseX + (tmp_code / MapchipBlockNumY) * MapchipBlockSizeX + MapchipOffset[dir].PointX + MapchipOffsetX * res_id;
-		out_rect->PointY = MapchipBaseX + (tmp_code % MapchipBlockNumY) * MapchipBlockSizeY + MapchipOffset[dir].PointY + MapchipOffsetY * res_id;
-		out_rect->Width  = MapchipOffset[dir].Width;
-		out_rect->Height = MapchipOffset[dir].Height;
+		out_rect->PointX = MapchipBaseX + (tmp_code / MapchipBlockNumY) * MapchipBlockSizeX + MapchipOffset.PointX + MapchipOffsetX * res_id;
+		out_rect->PointY = MapchipBaseX + (tmp_code % MapchipBlockNumY) * MapchipBlockSizeY + MapchipOffset.PointY + MapchipOffsetY * res_id;
+		out_rect->Width  = MapchipOffset.Width;
+		out_rect->Height = MapchipOffset.Height;
 		
 		return;
 	};

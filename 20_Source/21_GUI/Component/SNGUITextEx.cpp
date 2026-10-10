@@ -4,6 +4,7 @@
 #include "SNBitmapFont.h"
 #include "SNGUI.h"
 #include "SNGUIDef.h"
+#include "SNMath.h"
 
 // コンストラクタ
 SNGUITextEx::SNGUITextEx()
@@ -11,8 +12,6 @@ SNGUITextEx::SNGUITextEx()
 	// 変数初期化
 	Value = 0;
 	Update = true;
-
-	Color = SNGUIDef::FontColor[SNGUIDef::FontColorNormal];
 
 	return;
 }
@@ -30,10 +29,10 @@ Void SNGUITextEx::SetText(String text)
 {
 	// 文字列設定
 	Format.SetString(text);
-
+	
 	// リサイズのために呼んでおく(Valueで横方向はズレるが)
 	SNGUIText::SetText(text);
-
+	
 	// 更新フラグセット
 	Update = true;
 
@@ -99,18 +98,6 @@ Void SNGUITextEx::OnPreDraw()
 		// 更新フラグクリア
 		Update = false;
 	}
-
-	return;
-}
-
-
-// 描画処理
-Void SNGUITextEx::OnDraw()
-{
-	SNRect rect = CalcGlobalRect();
-
-	// カラーマトリクス変換
-	SNBitmapFont::DrawSystemText(rect.PointX, rect.PointY, Text.GetString(), Text.GetLength(), &Color);
 
 	return;
 }
