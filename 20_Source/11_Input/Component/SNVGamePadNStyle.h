@@ -9,8 +9,6 @@ public:
 	SNVGamePadNStyle();
 	virtual ~SNVGamePadNStyle();
 
-	virtual Void SetID(SNVirtualGamePadID id);
-
 	// Dirè„
 	virtual Boolean DPadUpPush();
 	virtual Boolean DPadUpPress();
@@ -180,5 +178,5 @@ public:
 	virtual Boolean RStkRightRelease();
 
 private:
-	SNVirtualGamePadID ID;
+
 };

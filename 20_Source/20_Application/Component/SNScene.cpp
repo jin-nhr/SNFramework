@@ -104,11 +104,8 @@ Boolean SNScene::EventProc(SNEventType evt)
 	case SNEventTypeInternalEvent:
 		ret = OnInternalEvent();
 		break;
-	case SNEventTypeVirtualGamePad1:
-		ret = OnGamePad1();
-		break;
-	case SNEventTypeVirtualGamePad2:
-		ret = OnGamePad2();
+	case SNEventTypeVirtualGamePad:
+		ret = OnGamePad();
 		break;
 	case SNEventTypeVirtualPointing:
 		ret = OnPointingDevice();
@@ -320,13 +317,7 @@ Boolean SNScene::OnInternalEvent()
 }
 
 // ゲームパッド
-Boolean SNScene::OnGamePad1()
-{
-	return false;
-}
-
-// ゲームパッド
-Boolean SNScene::OnGamePad2()
+Boolean SNScene::OnGamePad()
 {
 	return false;
 }

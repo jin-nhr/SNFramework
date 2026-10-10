@@ -3,7 +3,6 @@
 
 SNVGamePadNStyle::SNVGamePadNStyle()
 {
-	ID = SNVirtualGamePadID1;
 	return;
 }
 SNVGamePadNStyle::~SNVGamePadNStyle()
@@ -11,537 +10,531 @@ SNVGamePadNStyle::~SNVGamePadNStyle()
 	return;
 }
 
-Void SNVGamePadNStyle::SetID(SNVirtualGamePadID id)
-{
-	ID = id;
-	return;
-}
-
 // Up
 Boolean SNVGamePadNStyle::DPadUpPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadUp][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadUp][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::DPadUpPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadUp][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadUp][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::DPadUpRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadUp][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadUp][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::DPadUpLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadUp][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadUp][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::DPadUpRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadUp][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadUp][SNVirtualGamePadEventRelease];
 }
 
 // Down
 Boolean SNVGamePadNStyle::DPadDownPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadDown][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadDown][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::DPadDownPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadDown][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadDown][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::DPadDownRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadDown][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadDown][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::DPadDownLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadDown][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadDown][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::DPadDownRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadDown][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadDown][SNVirtualGamePadEventRelease];
 }
 
 // Left
 Boolean SNVGamePadNStyle::DPadLeftPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLeft][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLeft][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::DPadLeftPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLeft][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLeft][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::DPadLeftRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLeft][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLeft][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::DPadLeftLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLeft][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLeft][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::DPadLeftRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLeft][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLeft][SNVirtualGamePadEventRelease];
 }
 
 // Right
 Boolean SNVGamePadNStyle::DPadRightPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRight][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRight][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::DPadRightPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRight][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRight][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::DPadRightRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRight][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRight][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::DPadRightLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRight][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRight][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::DPadRightRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRight][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRight][SNVirtualGamePadEventRelease];
 }
 
 // A
 Boolean SNVGamePadNStyle::APush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadDecide][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadDecide][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::APress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadDecide][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadDecide][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::ARepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadDecide][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadDecide][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::APadALong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadDecide][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadDecide][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::APadARelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadDecide][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadDecide][SNVirtualGamePadEventRelease];
 }
 
 // B
 Boolean SNVGamePadNStyle::BPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadCancel][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadCancel][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::BPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadCancel][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadCancel][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::BRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadCancel][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadCancel][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::BLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadCancel][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadCancel][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::BRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadCancel][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadCancel][SNVirtualGamePadEventRelease];
 }
 
 // X
 Boolean SNVGamePadNStyle::XPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadMenu][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadMenu][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::XPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadMenu][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadMenu][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::XRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadMenu][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadMenu][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::XLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadMenu][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadMenu][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::XRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadMenu][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadMenu][SNVirtualGamePadEventRelease];
 }
 
 // Y
 Boolean SNVGamePadNStyle::YPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadAction][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadAction][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::YPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadAction][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadAction][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::YRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadAction][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadAction][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::YLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadAction][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadAction][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::YRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadAction][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadAction][SNVirtualGamePadEventRelease];
 }
 
 // Select
 Boolean SNVGamePadNStyle::SelectPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadSelect][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadSelect][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::SelectPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadSelect][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadSelect][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::SelectRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadSelect][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadSelect][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::SelectLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadSelect][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadSelect][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::SelectRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadSelect][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadSelect][SNVirtualGamePadEventRelease];
 }
 
 // Start
 Boolean SNVGamePadNStyle::StartPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadStart][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadStart][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::StartPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadStart][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadStart][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::StartRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadStart][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadStart][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::StartLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadStart][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadStart][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::StartRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadStart][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadStart][SNVirtualGamePadEventRelease];
 }
 
 // L
 Boolean SNVGamePadNStyle::L1Push()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadPagePrev][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadPagePrev][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::L1Press()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadPagePrev][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadPagePrev][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::L1Repeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadPagePrev][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadPagePrev][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::L1Long()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadPagePrev][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadPagePrev][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::L1Release()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadPagePrev][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadPagePrev][SNVirtualGamePadEventRelease];
 }
 
 // R
 Boolean SNVGamePadNStyle::R1Push()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadPageNext][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadPageNext][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::R1Press()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadPageNext][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadPageNext][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::R1Repeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadPageNext][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadPageNext][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::R1Long()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadPageNext][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadPageNext][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::R1Release()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadPageNext][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadPageNext][SNVirtualGamePadEventRelease];
 }
 
 // L2
 Boolean SNVGamePadNStyle::L2Push()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadTriggerL][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadTriggerL][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::L2Press()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadTriggerL][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadTriggerL][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::L2Repeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadTriggerL][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadTriggerL][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::L2Long()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadTriggerL][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadTriggerL][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::L2Release()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadTriggerL][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadTriggerL][SNVirtualGamePadEventRelease];
 }
 
 // R2
 Boolean SNVGamePadNStyle::R2Push()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadTriggerR][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadTriggerR][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::R2Press()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadTriggerR][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadTriggerR][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::R2Repeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadTriggerR][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadTriggerR][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::R2Long()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadTriggerR][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadTriggerR][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::R2Release()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadTriggerR][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadTriggerR][SNVirtualGamePadEventRelease];
 }
 
 // L3
 Boolean SNVGamePadNStyle::L3Push()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadL3][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadL3][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::L3Press()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadL3][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadL3][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::L3Repeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadL3][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadL3][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::L3Long()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadL3][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadL3][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::L3Release()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadL3][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadL3][SNVirtualGamePadEventRelease];
 }
 
 // R3
 Boolean SNVGamePadNStyle::R3Push()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadR3][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadR3][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::R3Press()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadR3][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadR3][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::R3Repeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadR3][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadR3][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::R3Long()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadR3][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadR3][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::R3Release()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadR3][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadR3][SNVirtualGamePadEventRelease];
 }
 
 // L Stick Up
 Boolean SNVGamePadNStyle::LStkUpPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListUp][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadListUp][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::LStkUpPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListUp][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadListUp][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::LStkUpRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListUp][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadListUp][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::LStkUpLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListUp][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadListUp][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::LStkUpRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListUp][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadListUp][SNVirtualGamePadEventRelease];
 }
 
 // L Stick Down
 Boolean SNVGamePadNStyle::LStkDownPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListDown][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadListDown][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::LStkDownPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListDown][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadListDown][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::LStkDownRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListDown][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadListDown][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::LStkDownLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListDown][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadListDown][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::LStkDownRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadListDown][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadListDown][SNVirtualGamePadEventRelease];
 }
 
 // L Stick Left
 Boolean SNVGamePadNStyle::LStkLeftPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLStkLeft][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLStkLeft][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::LStkLeftPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLStkLeft][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLStkLeft][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::LStkLeftRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLStkLeft][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLStkLeft][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::LStkLeftLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLStkLeft][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLStkLeft][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::LStkLeftRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLStkLeft][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLStkLeft][SNVirtualGamePadEventRelease];
 }
 
 // L Stick Right
 Boolean SNVGamePadNStyle::LStkRightPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLStkRight][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLStkRight][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::LStkRightPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLStkRight][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLStkRight][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::LStkRightRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLStkRight][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLStkRight][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::LStkRightLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLStkRight][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLStkRight][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::LStkRightRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadLStkRight][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadLStkRight][SNVirtualGamePadEventRelease];
 }
 
 // R Stick Up
 Boolean SNVGamePadNStyle::RStkUpPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkUp][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkUp][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::RStkUpPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkUp][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkUp][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::RStkUpRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkUp][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkUp][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::RStkUpLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkUp][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkUp][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::RStkUpRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkUp][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkUp][SNVirtualGamePadEventRelease];
 }
 
 // R Stick Down
 Boolean SNVGamePadNStyle::RStkDownPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkDown][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkDown][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::RStkDownPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkDown][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkDown][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::RStkDownRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkDown][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkDown][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::RStkDownLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkDown][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkDown][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::RStkDownRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkDown][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkDown][SNVirtualGamePadEventRelease];
 }
 
 // R Stick Left
 Boolean SNVGamePadNStyle::RStkLeftPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkLeft][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkLeft][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::RStkLeftPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkLeft][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkLeft][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::RStkLeftRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkLeft][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkLeft][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::RStkLeftLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkLeft][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkLeft][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::RStkLeftRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkLeft][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkLeft][SNVirtualGamePadEventRelease];
 }
 
 // R Stick Right
 Boolean SNVGamePadNStyle::RStkRightPush()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkRight][SNVirtualGamePadEventPush];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkRight][SNVirtualGamePadEventPush];
 }
 Boolean SNVGamePadNStyle::RStkRightPress()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkRight][SNVirtualGamePadEventPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkRight][SNVirtualGamePadEventPress];
 }
 Boolean SNVGamePadNStyle::RStkRightRepeat()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkRight][SNVirtualGamePadEventRepeat];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkRight][SNVirtualGamePadEventRepeat];
 }
 Boolean SNVGamePadNStyle::RStkRightLong()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkRight][SNVirtualGamePadEventLongPress];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkRight][SNVirtualGamePadEventLongPress];
 }
 Boolean SNVGamePadNStyle::RStkRightRelease()
 {
-	return SNVirtualGamePad::Event[ID][SNVirtualGamePadRStkRight][SNVirtualGamePadEventRelease];
+	return SNVirtualGamePad::Event[SNVirtualGamePadRStkRight][SNVirtualGamePadEventRelease];
 }
 

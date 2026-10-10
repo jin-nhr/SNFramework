@@ -98,12 +98,12 @@ Void SNWorldAppCreation::OnExit()
 	return;
 }
 
-Boolean SNWorldAppCreation::OnGamePad1()
+Boolean SNWorldAppCreation::OnGamePad()
 {
 	Boolean ret = true;
 	SNWorldPos current = { 0.0f, 0.0f, 0.0f };
 
-	SNVGamePadNStyle* pd = SNInput::RefN1();
+	SNVGamePadNStyle* pd = SNInput::RefN();
 
 	// ‘€ìà–¾
 	if (pd->SelectPush())

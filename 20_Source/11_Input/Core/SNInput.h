@@ -43,8 +43,7 @@ public:
 	static Void Update();
 
 	// Nスタイル参照
-	static SNVGamePadNStyle* RefN1();
-	static SNVGamePadNStyle* RefN2();
+	static SNVGamePadNStyle* RefN();
 
 private:
 	// 状態更新
@@ -60,5 +59,5 @@ private:
 	static Void UpdateVirtualDevice();
 
 
-	static SNVGamePadNStyle GamePadN[SNVirtualGamePadIDNum];
+	static SNVGamePadNStyle GamePadN;
 };

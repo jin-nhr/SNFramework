@@ -40,7 +40,7 @@ public:
 
 	virtual Boolean OnPointingDevice();
 
-	virtual Boolean OnGamePad1();
+	virtual Boolean OnGamePad();
 
 	virtual Void OnCycle();
 

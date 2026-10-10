@@ -76,10 +76,10 @@ Void SNWorldAppTest::OnExit()
 	return;
 }
 
-Boolean SNWorldAppTest::OnGamePad1()
+Boolean SNWorldAppTest::OnGamePad()
 {
 	Boolean ret = true;
-	SNVGamePadNStyle* pd = SNInput::RefN1();
+	SNVGamePadNStyle* pd = SNInput::RefN();
 	SNWorldDir dir;
 	Boolean dir_input = false;
 	static Boolean bsts = false;

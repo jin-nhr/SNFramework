@@ -46,7 +46,7 @@ Void SNWorldAppBase::OnExit()
 	return;
 }
 
-Boolean SNWorldAppBase::OnGamePad1()
+Boolean SNWorldAppBase::OnGamePad()
 {
 	Boolean ret = false;
 

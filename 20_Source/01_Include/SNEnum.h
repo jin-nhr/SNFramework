@@ -29,8 +29,7 @@ enum SNEventType
 {
     SNEventTypeNotifyEvent,				// 通知イベント               (SNApplication)
     SNEventTypeInternalEvent,			// 内部イベント               (SNEvent)
-    SNEventTypeVirtualGamePad1,			// ゲームパッド1入力          (SNVirtualGamePad1)
-    SNEventTypeVirtualGamePad2,			// ゲームパッド2入力          (SNVirtualGamePad2)
+    SNEventTypeVirtualGamePad,			// ゲームパッド1入力          (SNVirtualGamePad1)
     SNEventTypeVirtualPointing,			// ポインティングデバイス入力 (SNVirtualPointingDevice)
     SNEventTypeVirtualDirectKeyboard,	// ダイレクトキーボード入力   (SNVirtualDirectKeyboard)
     SNEventTypeVirtualDirectGamePad,	// ダイレクトゲームパッド入力 (SNVritualDirectGamePad)
@@ -445,15 +444,6 @@ enum SNInputVirtualDeviceType
     SNInputVirtualTypeDirectKeyboard,   // 仮想ダイレクトキーボード
     SNInputVirtualTypeDirectGamePad,    // 仮想ダイレクトゲームパッド
     SNInputVirtualTypeNum
-};
-
-// 仮想ゲームパッドID
-enum SNVirtualGamePadID
-{
-    SNVirtualGamePadIDTop,
-    SNVirtualGamePadID1 = SNVirtualGamePadIDTop,
-    SNVirtualGamePadID2,
-    SNVirtualGamePadIDNum
 };
 
 // 仮想ゲームパッドボタン

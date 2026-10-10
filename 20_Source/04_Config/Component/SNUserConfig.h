@@ -22,11 +22,11 @@ struct SNUserConfigData
 	UInt8 SEVolume;				// SE音量
 	UInt8 Reserve2[1];			// リザーブ
 	//--------------------------------------------
-	SNKeyCode	KeyboardMapping[SNVirtualGamePadIDNum][SNVirtualGamePadButtonNum];	// キーボード入力マッピング
+	SNKeyCode	KeyboardMapping[SNVirtualGamePadButtonNum];	// キーボード入力マッピング
 	//--------------------------------------------
-	SNGamePadID GamePadSelect[SNVirtualGamePadIDNum];	// ゲームパッド割り当て
+	SNGamePadID GamePadSelect;	// ゲームパッド割り当て
 	//--------------------------------------------
-	SNGamePadButton	GamePadMapping[SNVirtualGamePadIDNum][SNVirtualGamePadButtonNum];	// ゲームパッド入力マッピング
+	SNGamePadButton	GamePadMapping[SNVirtualGamePadButtonNum];	// ゲームパッド入力マッピング
 	//--------------------------------------------
 	UInt32 CheckSum;				// チェックサム
 	//--------------------------------------------
@@ -119,36 +119,9 @@ private:
 		SNKeyCodeT,					// 右スティック左
 		SNKeyCodeY,					// 右スティック右
 
-		// 仮想パッド2
-		SNKeyCodeNull,				// 方向キー上
-		SNKeyCodeNull,			    // 方向キー下
-		SNKeyCodeNull,				// 方向キー左
-		SNKeyCodeNull,				// 方向キー右
-		SNKeyCodeNull,				// 決定(Aボタン)
-		SNKeyCodeNull,				// キャンセル(Bボタン)
-		SNKeyCodeNull,				// メニュー(Xボタン)
-		SNKeyCodeNull,				// アクション(Yボタン)
-		SNKeyCodeNull,				// スタート
-		SNKeyCodeNull,				// セレクト
-		SNKeyCodeNull,				// ページ戻し(Lボタン)
-		SNKeyCodeNull,				// ページ送り(Rボタン)
-		SNKeyCodeNull,				// Lトリガ(L2ボタン)
-		SNKeyCodeNull,				// Rトリガ(R2ボタン)
-		SNKeyCodeNull,				// L3
-		SNKeyCodeNull,				// R3
-		SNKeyCodeNull,				// リストアップ(拡大)
-		SNKeyCodeNull,				// リストダウン(縮小)
-		SNKeyCodeNull,				// 左スティック左
-		SNKeyCodeNull,				// 左スティック右
-		SNKeyCodeNull,				// 右スティック上
-		SNKeyCodeNull,				// 右スティック下
-		SNKeyCodeNull,				// 右スティック左
-		SNKeyCodeNull,				// 右スティック右
-		
 		//--------------------------------------------
 		// パッド割り当て
 		SNGamePadID1,				// 仮想パッド1への割り当て
-		SNGamePadID2,				// 仮想パッド2への割り当て
 		
 		//--------------------------------------------
 		// ゲームパッド入力マッピング
@@ -177,33 +150,6 @@ private:
 		SNGamePadAxis4Down,			// 右スティック下
 		SNGamePadAxis5Up,			// 右スティック左
 		SNGamePadAxis5Down,			// 右スティック右
-
-
-		// 仮想パッド2
-		SNGamePadButtonNull,			// 方向キー上
-		SNGamePadButtonNull,		    // 方向キー下
-		SNGamePadButtonNull,			// 方向キー左
-		SNGamePadButtonNull,			// 方向キー右
-		SNGamePadButtonNull,			// 決定(Aボタン)
-		SNGamePadButtonNull,			// キャンセル(Bボタン)
-		SNGamePadButtonNull,			// メニュー(Xボタン)
-		SNGamePadButtonNull,			// アクション(Yボタン)
-		SNGamePadButtonNull,			// スタート
-		SNGamePadButtonNull,			// セレクト
-		SNGamePadButtonNull,			// ページ戻し(Lボタン)
-		SNGamePadButtonNull,			// ページ送り(Rボタン)
-		SNGamePadButtonNull,			// Lトリガ(L2ボタン)
-		SNGamePadButtonNull,			// Rトリガ(R2ボタン)
-		SNGamePadButtonNull,			// L3
-		SNGamePadButtonNull,			// R3
-		SNGamePadButtonNull,			// リストアップ(拡大) 左スティック上
-		SNGamePadButtonNull,			// リストダウン(縮小) 左スティック下
-		SNGamePadButtonNull,			// 左スティック左
-		SNGamePadButtonNull,			// 左スティック右
-		SNGamePadButtonNull,			// 右スティック上
-		SNGamePadButtonNull,			// 右スティック下
-		SNGamePadButtonNull,			// 右スティック左
-		SNGamePadButtonNull,			// 右スティック右
 
 		//--------------------------------------------
 		0,							// チェックサム

@@ -102,7 +102,7 @@ Void SNSysAppTitle::OnExit()
 }
 
 
-Boolean SNSysAppTitle::OnGamePad1()
+Boolean SNSysAppTitle::OnGamePad()
 {
 	Boolean ret = false;
 

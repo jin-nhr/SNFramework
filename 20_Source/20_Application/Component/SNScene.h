@@ -99,11 +99,7 @@ protected:
 
 	// ゲームパッド
 	// リターン：true:イベント消費, false:イベント通貨
-	virtual Boolean OnGamePad1();
-
-	// ゲームパッド
-	// リターン：true:イベント消費, false:イベント通貨
-	virtual Boolean OnGamePad2();
+	virtual Boolean OnGamePad();
 
 	// ポインティングデバイス
 	// リターン：true:イベント消費, false:イベント通貨

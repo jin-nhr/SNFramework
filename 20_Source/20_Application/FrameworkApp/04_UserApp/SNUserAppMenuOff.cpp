@@ -13,10 +13,10 @@ SNUserAppMenuOff::~SNUserAppMenuOff()
 }
 
 
-Boolean SNUserAppMenuOff::OnGamePad1()
+Boolean SNUserAppMenuOff::OnGamePad()
 {
 	Boolean ret = false;
-	Boolean menu = SNVirtualGamePad::Event[SNVirtualGamePadID1][SNVirtualGamePadMenu][SNVirtualGamePadEventPush];
+	Boolean menu = SNVirtualGamePad::Event[SNVirtualGamePadMenu][SNVirtualGamePadEventPush];
 
 	if (menu)
 	{

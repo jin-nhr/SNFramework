@@ -81,15 +81,9 @@ Void SNEvent::Update()
 	{
 
 		// ゲームパッド1
-		if (SNVirtualGamePad::EventExist[SNVirtualGamePadID1])
+		if (SNVirtualGamePad::EventExist)
 		{
-			EventExist[SNEventTypeVirtualGamePad1] = true;
-		}
-
-		// ゲームパッド2
-		if (SNVirtualGamePad::EventExist[SNVirtualGamePadID2])
-		{
-			EventExist[SNEventTypeVirtualGamePad2] = true;
+			EventExist[SNEventTypeVirtualGamePad] = true;
 		}
 
 		// ポインティングデバイス

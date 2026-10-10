@@ -20,7 +20,7 @@ public:
 
 	virtual Void OnExit();
 
-	virtual Boolean OnGamePad1();
+	virtual Boolean OnGamePad();
 
 	virtual Boolean OnInternalEvent();
 

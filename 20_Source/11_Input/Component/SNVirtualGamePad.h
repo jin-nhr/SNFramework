@@ -26,10 +26,10 @@ public:
 	static Void Update();
 
 	// ボタンイベント
-	static Boolean Event[SNVirtualGamePadIDNum][SNVirtualGamePadButtonNum][SNVirtualGamePadEventNum];
+	static Boolean Event[SNVirtualGamePadButtonNum][SNVirtualGamePadEventNum];
 
 	// イベント有無
-	static Boolean EventExist[SNVirtualGamePadIDNum];
+	static Boolean EventExist;
 
 private:
 
@@ -53,9 +53,6 @@ private:
 	// ボタン状態をもとにボタンイベントを更新する
 	static Void UpdateButtonEvent();
 
-	// ボタンイベント更新(パッドID指定)
-	static Void UpdateEventPadID(SNVirtualGamePadID pad_id);
-
 	// ボタン状態
-	static SNVirtualGamePadButtonState ButtonState[SNVirtualGamePadIDNum][SNVirtualGamePadButtonNum];
+	static SNVirtualGamePadButtonState ButtonState[SNVirtualGamePadButtonNum];
 };
