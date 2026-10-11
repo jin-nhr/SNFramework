@@ -150,8 +150,39 @@ Void SNWorld::Update()
 		// グローバルオブジェクトの影登録
 		GlobalObject.RegisterShadow(&NearbySpace);
 	}
+	// サスペンド中
+	else if (Run && Suspend)
+	{
+		// 更新準備
+		WorldCount++;
+		NearbySpace.UpdateStart(&CurrentPos, WorldCount);
+
+		// 地形アニメカウンタ制御
+		if (GroundAnimeTimer.IsTimeout())
+		{
+			GroundAnimeTimer.Restart();
+			GroundAnimeStep = (Int32)SNMath::Increment(GroundAnimeStep, 0, SNMapchip::MapchipAnimeStep - 1);
+		}
+
+		// 地形更新
+		MeshManager.Update(&CurrentPos);
+	}
 
 	return;
+}
+
+Boolean SNWorld::IsReady()
+{
+	Boolean ret = false;
+
+	ret = MeshManager.IsIdle();
+
+	return ret;
+}
+
+Boolean SNWorld::IsSuspend()
+{
+	return Suspend;
 }
 
 

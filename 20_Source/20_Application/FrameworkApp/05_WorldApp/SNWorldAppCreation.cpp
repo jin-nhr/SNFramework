@@ -13,6 +13,10 @@ SNWorldAppCreation::SNWorldAppCreation()
 {
 	SelectBlock = 0;
 
+	RangeMode = false;
+	CopySpaceSize = {0, 0, 0};
+	ZeroMemory(CopySpace, sizeof(CopySpace));
+
 	return;
 }
 
@@ -108,12 +112,6 @@ Boolean SNWorldAppCreation::OnGamePad()
 		// 操作説明表示要求
 	}
 
-	// 手前ブロック透過設定
-	if (SNVirtualGamePad::L1Push() || SNVirtualGamePad::L1Repeat())
-	{
-		WorldView.ChangeTransparentFrontGround();
-	}
-
 	// Z軸Up
 	if (SNVirtualGamePad::DPadUpPush() || SNVirtualGamePad::DPadUpRepeat())
 	{
@@ -177,6 +175,25 @@ Boolean SNWorldAppCreation::OnGamePad()
 		WorldView.SaveFocusRangeStart();
 	}
 
+	// 手前ブロック透過設定
+	if (SNVirtualGamePad::L1Push() || SNVirtualGamePad::L1Repeat())
+	{
+		WorldView.ChangeTransparentFrontGround();
+	}
+
+	// ブロック削除
+	if (SNVirtualGamePad::R1Push() || SNVirtualGamePad::R1Repeat())
+	{
+		WriteBlock(SNMapchip::SNMapchipBlank);
+
+		SNWorld::FlushGroundData();
+	}
+
+	if (SNVirtualGamePad::L2Push() || SNVirtualGamePad::L2Repeat())
+	{
+		// 未割当
+	}
+
 	// ペースト
 	if (SNVirtualGamePad::R2Push())
 	{
@@ -186,14 +203,6 @@ Boolean SNWorldAppCreation::OnGamePad()
 
 		RangeMode = false;
 		WorldView.SaveFocusRangeStart();
-	}
-
-	// ブロック削除
-	if (SNVirtualGamePad::R1Push() || SNVirtualGamePad::R1Repeat())
-	{
-		WriteBlock(SNMapchip::SNMapchipBlank);
-
-		SNWorld::FlushGroundData();
 	}
 
 	// ブロック配置
@@ -232,16 +241,16 @@ Boolean SNWorldAppCreation::OnGamePad()
 		WorldView.DownViewScale();
 	}
 
-	// 左回転
+	// 右スティック左
 	if (SNVirtualGamePad::RStkLeftPush() || SNVirtualGamePad::RStkLeftRepeat())
 	{
-
+		// 未割当
 	}
 
-	// 右回転
+	// 右スティック右
 	if (SNVirtualGamePad::RStkRightPush() || SNVirtualGamePad::RStkRightRepeat())
 	{
-
+		// 未割当
 	}
 
 	return ret;

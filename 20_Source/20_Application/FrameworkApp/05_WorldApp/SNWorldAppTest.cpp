@@ -60,6 +60,7 @@ Void SNWorldAppTest::OnEntry()
 
 	SNWorld::GetPCObject()->SetEnable(true);
 	SNWorld::GetPCObject()->SetVisible(true);
+	SNWorld::Pause();
 
 	return;
 }
@@ -248,6 +249,15 @@ Boolean SNWorldAppTest::OnInternalEvent()
 
 Void SNWorldAppTest::OnCycle()
 {
+	// サスペンドの解除判定
+	if (SNWorld::IsSuspend)
+	{
+		if (SNWorld::IsReady())
+		{
+			SNWorld::Start();
+		}
+	}
+
 	return;
 }
 

@@ -115,6 +115,12 @@ public:
 	// 更新
 	static Void Update();
 
+	// 準備完了？
+	static Boolean IsReady();
+
+	// 一時停止状態？
+	static Boolean IsSuspend();
+
 
 	///////////////////////////////////////////////////////////////////
 	// ワールド操作系
