@@ -14,11 +14,10 @@ struct SNUserConfigData
 	//--------------------------------------------
 	Boolean FullScreen;			// 最大化設定
 	Boolean VSync;				// VSYNC設定
-	Boolean DrawFilter;			// 描画フィルタ
-	UInt8 Reserve[1];			// リザーブ
+	UInt8 Reserve[2];			// リザーブ
 	//--------------------------------------------
 	UInt8 MasterVolume;			// マスター音量
-	UInt8 BGMVolume;				// BGM音量
+	UInt8 BGMVolume;			// BGM音量
 	UInt8 SEVolume;				// SE音量
 	UInt8 Reserve2[1];			// リザーブ
 	//--------------------------------------------
@@ -82,8 +81,7 @@ private:
 		//--------------------------------------------
 		false,						// 最大化設定
 		true,						// VSYNC ON
-		true,						// 描画フィルタON
-		0,							// リザーブ
+		0, 0,						// リザーブ
 		//--------------------------------------------
 		100,							// マスター音量
 		100,							// BGM音量

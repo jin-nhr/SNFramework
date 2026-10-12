@@ -15,12 +15,12 @@ SNRect SNSysAppConfig::GUITextRect[GUITextNum] =
 	{20, 20, 240, 24},
 	{36, 60, 240, 24},
 	{36, 100, 240, 24},
-	{36, 140, 240, 24},
+//	{36, 140, 240, 24},
 	{36, 180, 240, 24},
 	{36, 220, 240, 24},
 	{36, 260, 240, 24},
 	{36, 300, 240, 24},
-	{36, 340, 240, 24},
+//	{36, 340, 240, 24},
 };
 
 SNRect SNSysAppConfig::GUITextExRect[GUITextExNum] =
@@ -36,8 +36,6 @@ SNRect SNSysAppConfig::GUIButtonRect[GUIButtonNum] =
 	{412, 56, 144, 32},
 	{260, 96, 144, 32},
 	{412, 96, 144, 32},
-	{260, 136, 144, 32},
-	{412, 136, 144, 32},
 	{260, 176, 56, 32},
 	{320, 176, 56, 32},
 	{440, 176, 56, 32},
@@ -52,8 +50,6 @@ SNRect SNSysAppConfig::GUIButtonRect[GUIButtonNum] =
 	{500, 256, 56, 32},
 	{260, 296, 144, 32},
 	{412, 296, 144, 32},
-	{260, 336, 144, 32},
-	{412, 336, 144, 32},
 	{260, 376, 296, 32},
 	{260, 416, 144, 32},
 	{412, 416, 144, 32},
@@ -64,12 +60,10 @@ String SNSysAppConfig::GUITextString[GUITextNum] =
 	 SNFixedString::ConfigTitle,
 	 SNFixedString::ConfigScrMode,
 	 SNFixedString::ConfigSYNC,
-	 SNFixedString::ConfigFilter,
 	 SNFixedString::ConfigMstVol,
 	 SNFixedString::ConfigBGMVol,
 	 SNFixedString::ConfigSEVol,
-	 SNFixedString::ConfigP1,
-	 SNFixedString::ConfigP2,
+	 SNFixedString::ConfigP,
 };
 
 String SNSysAppConfig::GUITextExString[GUITextExNum] =
@@ -85,8 +79,6 @@ String SNSysAppConfig::GUIButtonString[GUIButtonNum] =
 	SNFixedString::ConfigScrModeFull,
 	SNFixedString::ConfigOFF,
 	SNFixedString::ConfigON,
-	SNFixedString::ConfigOFF,
-	SNFixedString::ConfigON,
 	SNFixedString::ConfigVolDown10,
 	SNFixedString::ConfigVolDown1,
 	SNFixedString::ConfigVolUp1,
@@ -99,8 +91,6 @@ String SNSysAppConfig::GUIButtonString[GUIButtonNum] =
 	SNFixedString::ConfigVolDown1,
 	SNFixedString::ConfigVolUp1,
 	SNFixedString::ConfigVolUp10,
-	SNFixedString::ConfigPadMap,
-	SNFixedString::ConfigKeyboardMap,
 	SNFixedString::ConfigPadMap,
 	SNFixedString::ConfigKeyboardMap,
 	SNFixedString::ConfigInit,
@@ -238,10 +228,6 @@ Void SNSysAppConfig::UpdateState()
 	GUIButton[GUIButtonVSYNCOFF].Selected = !SNUserConfig::Data.VSync;
 	GUIButton[GUIButtonVSYNCON].Selected = SNUserConfig::Data.VSync;
 
-	// フィルタ
-	GUIButton[GUIButtonFilterOFF].Selected = !SNUserConfig::Data.DrawFilter;
-	GUIButton[GUIButtonFilterON].Selected = SNUserConfig::Data.DrawFilter;
-
 	// Master音量
 	GUITextEx[GUITextExMasterVolume].SetValue((UInt8)SNMath::Saturate(SNUserConfig::Data.MasterVolume, SNSoundVolMin, SNSoundVolMax));
 
@@ -278,18 +264,6 @@ Void SNSysAppConfig::ProcButton()
 	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonVSYNCON]))
 	{
 		SNUserConfig::Data.VSync = true;
-	}
-
-	// 描画フィルタ OFF
-	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonFilterOFF]))
-	{
-		SNUserConfig::Data.DrawFilter = false;
-	}
-
-	// 描画フィルタ ON
-	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonFilterON]))
-	{
-		SNUserConfig::Data.DrawFilter = true;
 	}
 
 	// マスター音量
@@ -347,22 +321,12 @@ Void SNSysAppConfig::ProcButton()
 	}
 
 	// P1 ゲームパッド
-	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonP1GamePad]))
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonGamePad]))
 	{
 		// パッド入力設定画面へ
 	}
 	// P1 キーボード
-	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonP1Keyboard]))
-	{
-		// キーボード入力設定画面へ
-	}
-	// P2 ゲームパッド
-	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonP2GamePad]))
-	{
-		// パッド入力設定画面へ
-	}
-	// P2 キーボード
-	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonP2Keyboard]))
+	else if (FocusGp.JudgeActDecide(&GUIButton[GUIButtonKeyboard]))
 	{
 		// キーボード入力設定画面へ
 	}

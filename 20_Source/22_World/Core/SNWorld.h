@@ -22,6 +22,33 @@ class SNWorld
 public:
 	static constexpr SNWorldDir TimeToGlobalLight[SNWTimeStepNum] =
 	{
+#if 0
+		// 8•ûŒü‰e•\Ž¦
+		SNWorldDirN,
+		SNWorldDirN,
+		SNWorldDirNE,
+		SNWorldDirNE,
+		SNWorldDirNE,
+		SNWorldDirE,
+		SNWorldDirE,
+		SNWorldDirE,
+		SNWorldDirSE,
+		SNWorldDirSE,
+		SNWorldDirSE,
+		SNWorldDirS,
+		SNWorldDirS,
+		SNWorldDirS,
+		SNWorldDirSW,
+		SNWorldDirSW,
+		SNWorldDirSW,
+		SNWorldDirW,
+		SNWorldDirW,
+		SNWorldDirW,
+		SNWorldDirNW,
+		SNWorldDirNW,
+		SNWorldDirNW,
+		SNWorldDirN,
+#else
 		SNWorldDirN,
 		SNWorldDirN,
 		SNWorldDirN,
@@ -46,6 +73,7 @@ public:
 		SNWorldDirW,
 		SNWorldDirN,
 		SNWorldDirN,
+#endif
 	};
 
 	static constexpr SNWTimeZone TimeToTimeZone[SNWTimeStepNum] =

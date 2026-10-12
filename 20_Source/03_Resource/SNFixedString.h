@@ -27,12 +27,10 @@ public:
 	static constexpr String ConfigTitle = (String)L"[システムせってい]";
 	static constexpr String ConfigScrMode = (String)L"がめんモード";
 	static constexpr String ConfigSYNC = (String)L"VSYNC";
-	static constexpr String ConfigFilter = (String)L"びょうがフィルタ";
 	static constexpr String ConfigMstVol = (String)L"マスターおんりょう";
 	static constexpr String ConfigBGMVol = (String)L"BGMおんりょう";
 	static constexpr String ConfigSEVol = (String)L"SEおんりょう";
-	static constexpr String ConfigP1 = (String)L"プレイヤー1にゅうりょく";
-	static constexpr String ConfigP2 = (String)L"プレイヤー2にゅうりょく";
+	static constexpr String ConfigP = (String)L"にゅうりょくせってい";
 
 	static constexpr String ConfigScrModeWin = (String)L"ウインドウ";
 	static constexpr String ConfigScrModeFull = (String)L"フルスクリーン";
@@ -42,8 +40,8 @@ public:
 	static constexpr String ConfigVolDown1 = (String)L"-1";
 	static constexpr String ConfigVolUp10 = (String)L"+10";
 	static constexpr String ConfigVolUp1 = (String)L"+1";
-	static constexpr String ConfigPadMap = (String)L"ゲームパッドわりあて";
-	static constexpr String ConfigKeyboardMap = (String)L"キーボードわりあて";
+	static constexpr String ConfigPadMap = (String)L"ゲームパッド";
+	static constexpr String ConfigKeyboardMap = (String)L"キーボード";
 	static constexpr String ConfigInit = (String)L"デフォルトせっていにもどす";
 	static constexpr String ConfigOK = (String)L"OK";
 	static constexpr String ConfigCancel = (String)L"キャンセル";
