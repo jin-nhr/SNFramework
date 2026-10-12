@@ -107,10 +107,10 @@ public:
 	static constexpr UInt32 KeyRepeatTime = 100;
 
 	// フリック移動量係数 (1/256)
-	static constexpr UInt32 FlickTraceGain = 218;
+	static constexpr Int32 FlickTraceGain = 140;
 
 	// フリック滑り量係数 (1/256)
-	static constexpr UInt32 FlickFadeGain = 234;
+	static constexpr Int32 FlickFadeGain = 224;
 
 
 	/////////////////////////////////////////////////////////////////

@@ -1,6 +1,7 @@
 #include "SNWorldAppCreation.h"
 #include "SNMusicPlayer.h"
 #include "SNVirtualGamePad.h"
+#include "SNVirtualPointingDevice.h"
 #include "SNWorld.h"
 #include "SNGraphicsResManager.h"
 #include "SNMath.h"
@@ -191,7 +192,8 @@ Boolean SNWorldAppCreation::OnGamePad()
 
 	if (SNVirtualGamePad::L2Push() || SNVirtualGamePad::L2Repeat())
 	{
-		// 未割当
+		// 範囲選択モード解除
+		RangeMode = false;
 	}
 
 	// ペースト
@@ -251,6 +253,67 @@ Boolean SNWorldAppCreation::OnGamePad()
 	if (SNVirtualGamePad::RStkRightPush() || SNVirtualGamePad::RStkRightRepeat())
 	{
 		// 未割当
+	}
+
+	return ret;
+}
+
+Boolean SNWorldAppCreation::OnPointingDevice()
+{
+	Boolean ret = true;
+	Float32 scale;
+	Float32 x;
+	Float32 y;
+	SNWorldPos pos;
+
+	// 拡大
+	if (SNVirtualPointingDevice::WheelUp())
+	{
+		WorldView.UpViewScale();
+	}
+
+	// 縮小
+	if (SNVirtualPointingDevice::WheelDown())
+	{
+		WorldView.DownViewScale();
+	}
+
+	// ドラッグ
+	if (SNVirtualPointingDevice::Drag())
+	{
+		scale = WorldView.GetViewScale();
+		WorldView.GetViewPos(&pos);
+		// カーソル移動と画面移動の方向は逆転させる
+		x = -1.0f * (Float32)SNVirtualPointingDevice::MoveDelta()->X;
+		y = -1.0f * (Float32)SNVirtualPointingDevice::MoveDelta()->Y;
+
+		pos.X += ((x / (SNMath::GetCos(-20) / (Float32)SNTrigFuncMax) / 16 +
+			       y / (SNMath::GetCos(43) / (Float32)SNTrigFuncMax) / 16) / scale);
+		pos.Y += ((x / (SNMath::GetCos(-107) / (Float32)SNTrigFuncMax) / 16 +
+			       y / (SNMath::GetCos(-43) / (Float32)SNTrigFuncMax) / 16) / scale);
+
+		WorldView.SetViewPos(&pos);
+		WorldView.SaveFocusRangeStart();
+		SNWorld::SetCurrentPos(&pos);
+	}
+
+	// フリック
+	if (SNVirtualPointingDevice::Flick())
+	{
+		scale = WorldView.GetViewScale();
+		WorldView.GetViewPos(&pos);
+		// カーソル移動と画面移動の方向は逆転させる
+		x = -1.0f * (Float32)SNVirtualPointingDevice::FlickVelocity()->X;
+		y = -1.0f * (Float32)SNVirtualPointingDevice::FlickVelocity()->Y;
+
+		pos.X += ((x / (SNMath::GetCos(-20) / (Float32)SNTrigFuncMax) / 16 +
+			y / (SNMath::GetCos(43) / (Float32)SNTrigFuncMax) / 16) / scale);
+		pos.Y += ((x / (SNMath::GetCos(-107) / (Float32)SNTrigFuncMax) / 16 +
+			y / (SNMath::GetCos(-43) / (Float32)SNTrigFuncMax) / 16) / scale);
+
+		WorldView.SetViewPos(&pos);
+		WorldView.SaveFocusRangeStart();
+		SNWorld::SetCurrentPos(&pos);
 	}
 
 	return ret;

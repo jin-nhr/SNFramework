@@ -114,9 +114,9 @@ Void SNWNearbySpace::RegisterGObjectData(SNWObjectBase* obj)
 		obj_ptr->Effect = 0;
 		obj_ptr->RealPos = obj_ptr->Pos;
 		obj_ptr->KeyPos = obj_ptr->Pos;
-		obj_ptr->Size.X = SNWObjectchip::Data[obj->GetCode()].SizeX;
-		obj_ptr->Size.Y = SNWObjectchip::Data[obj->GetCode()].SizeY;
-		obj_ptr->Size.Z = SNWObjectchip::Data[obj->GetCode()].SizeZ;
+		obj_ptr->Size.X = SNWObjectchip::Data[obj->GetCode()].SizeH;
+		obj_ptr->Size.Y = SNWObjectchip::Data[obj->GetCode()].SizeH;
+		obj_ptr->Size.Z = SNWObjectchip::Data[obj->GetCode()].SizeV;
 		obj_ptr->KeyPos.X = (Float32)SNMath::FloorToInt(obj_ptr->KeyPos.X + (0.5f + obj_ptr->Size.X / 2));
 		obj_ptr->KeyPos.Y = (Float32)SNMath::FloorToInt(obj_ptr->KeyPos.Y + (0.5f + obj_ptr->Size.Y / 2));
 
@@ -208,7 +208,7 @@ Void SNWNearbySpace::SearchFloorPos(SNWorldPos* center_pos, SNWorldPos* out_pos)
 			base_ptr = (SNWObjectBase*)obj_ptr->UserData;
 			out_pos->X = (Float32)x;
 			out_pos->Y = (Float32)y;
-			out_pos->Z = (Float32)(z + SNWObjectchip::Data[base_ptr->GetCode()].SizeZ);
+			out_pos->Z = (Float32)(z + SNWObjectchip::Data[base_ptr->GetCode()].SizeV);
 			break;
 		}
 
@@ -252,9 +252,9 @@ Void SNWNearbySpace::RegisterGObjectShadow(SNWObjectBase* obj, SNWorldPos* floor
 		obj_ptr->Effect = 0;
 		obj_ptr->RealPos = obj_ptr->Pos;
 		obj_ptr->KeyPos = obj_ptr->Pos;
-		obj_ptr->Size.X = SNWObjectchip::Data[obj->GetCode()].SizeX;
-		obj_ptr->Size.Y = SNWObjectchip::Data[obj->GetCode()].SizeY;
-		obj_ptr->Size.Z = SNWObjectchip::Data[obj->GetCode()].SizeZ;
+		obj_ptr->Size.X = SNWObjectchip::Data[obj->GetCode()].SizeH;
+		obj_ptr->Size.Y = SNWObjectchip::Data[obj->GetCode()].SizeH;
+		obj_ptr->Size.Z = SNWObjectchip::Data[obj->GetCode()].SizeV;
 		obj_ptr->KeyPos.X = (Float32)SNMath::FloorToInt(obj_ptr->KeyPos.X + (0.5f + obj_ptr->Size.X / 2));
 		obj_ptr->KeyPos.Y = (Float32)SNMath::FloorToInt(obj_ptr->KeyPos.Y + (0.5f + obj_ptr->Size.Y / 2));
 

@@ -150,9 +150,9 @@ Boolean SNFocus::OnPointingDevice()
 {
 	SNFocusGroup* target = GetTarget();
 	Boolean ret = false;
-	SNPoint pnt = SNVirtualPointingDevice::Info[SNVirtualPointingInfoCurrent];
-	Boolean pnt_push = SNVirtualPointingDevice::Event[SNVirtualPointingEventDecide];
-	Boolean cancel_push = SNVirtualPointingDevice::Event[SNVirtualPointingEventCancel];
+	SNPoint* pnt = SNVirtualPointingDevice::CurrentPos();
+	Boolean pnt_push = SNVirtualPointingDevice::Decide();
+	Boolean cancel_push = SNVirtualPointingDevice::Cancel();
 	SNGUIButton* active_btn = nullptr;
 	SNGUIButton* push_btn = nullptr;
 
@@ -161,11 +161,11 @@ Boolean SNFocus::OnPointingDevice()
 		if (target != nullptr)
 		{
 			active_btn = target->GetActiveButton();
-			target->MovePoint(&pnt);
+			target->MovePoint(pnt);
 
 			if (pnt_push)
 			{
-				target->PushPointingDecide(&pnt);
+				target->PushPointingDecide(pnt);
 
 				push_btn = target->GetActiveButton();
 				if (push_btn != nullptr)

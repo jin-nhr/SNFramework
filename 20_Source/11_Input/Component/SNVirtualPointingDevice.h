@@ -34,11 +34,25 @@ public:
 	// 更新処理
 	static Void Update();
 
-	static Boolean Event[SNVirtualPointingEventNum];	// ポインティングイベント
-	static SNPoint Info[SNVirtualPointingInfoNum];		// ポインティング情報
-
 	// イベント有無
 	static Boolean EventExist;
+
+
+	static Boolean Decide();
+	static Boolean Cancel();
+	static Boolean MidButton();
+	static Boolean WheelUp();
+	static Boolean WheelDown();
+	static Boolean Move();
+	static Boolean Drag();
+	static Boolean Drop();
+	static Boolean Flick();
+
+	static SNPoint* CurrentPos();
+	static SNPoint* DragStartPos();
+	static SNPoint* MoveDelta();
+	static SNPoint* FlickVelocity();
+
 
 private:
 
@@ -70,5 +84,8 @@ private:
 	static Void UpdateExBtn();
 
 	static Boolean State[SNVirtualPointingStateNum];		// ポインティング状態
+
+	static Boolean Event[SNVirtualPointingEventNum];	// ポインティングイベント
+	static SNPoint Info[SNVirtualPointingInfoNum];		// ポインティング情報
 
 };

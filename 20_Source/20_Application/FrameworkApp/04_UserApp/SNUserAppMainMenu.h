@@ -23,6 +23,9 @@ protected:
 
 	virtual Void OnExit();
 
+	virtual Boolean OnGamePad();
+	virtual Boolean OnPointingDevice();
+
 	virtual Void OnCycle();
 
 protected:

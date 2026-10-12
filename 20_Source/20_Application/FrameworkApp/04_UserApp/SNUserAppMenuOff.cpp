@@ -1,5 +1,6 @@
 #include "SNUserAppMenuOff.h"
 #include "SNVirtualGamePad.h"
+#include "SNVirtualPointingDevice.h"
 #include "SNFocus.h"
 
 SNUserAppMenuOff::SNUserAppMenuOff()
@@ -12,6 +13,21 @@ SNUserAppMenuOff::~SNUserAppMenuOff()
 	return;
 }
 
+Boolean SNUserAppMenuOff::OnPointingDevice()
+{
+	Boolean ret = false;
+
+	if (SNVirtualPointingDevice::MidButton())
+	{
+		SNFocus::CallbackPushButton();
+
+		TransCode = SNTransitionCode0;
+
+		ret = true;
+	}
+
+	return ret;
+}
 
 Boolean SNUserAppMenuOff::OnGamePad()
 {

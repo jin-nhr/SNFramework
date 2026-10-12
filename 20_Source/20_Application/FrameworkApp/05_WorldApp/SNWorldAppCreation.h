@@ -22,6 +22,8 @@ public:
 
 	virtual Boolean OnGamePad();
 
+	virtual Boolean OnPointingDevice();
+
 	virtual Boolean OnInternalEvent();
 
 	virtual Void OnPreDraw();

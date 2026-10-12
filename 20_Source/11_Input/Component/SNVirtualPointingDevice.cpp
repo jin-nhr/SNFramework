@@ -83,6 +83,61 @@ Void SNVirtualPointingDevice::Update()
 	return;
 }
 
+
+Boolean SNVirtualPointingDevice::Decide()
+{
+	return Event[SNVirtualPointingEventDecide];
+}
+Boolean SNVirtualPointingDevice::Cancel()
+{
+	return Event[SNVirtualPointingEventCancel];
+}
+Boolean SNVirtualPointingDevice::MidButton()
+{
+	return Event[SNVirtualPointingEventExBtn];
+}
+Boolean SNVirtualPointingDevice::WheelUp()
+{
+	return Event[SNVirtualPointingEventWheelUp];
+}
+Boolean SNVirtualPointingDevice::WheelDown()
+{
+	return Event[SNVirtualPointingEventWheelDown];
+}
+Boolean SNVirtualPointingDevice::Move()
+{
+	return Event[SNVirtualPointingEventMove];
+}
+Boolean SNVirtualPointingDevice::Drag()
+{
+	return Event[SNVirtualPointingEventDrag];
+}
+Boolean SNVirtualPointingDevice::Drop()
+{
+	return Event[SNVirtualPointingEventDrop];
+}
+Boolean SNVirtualPointingDevice::Flick()
+{
+	return Event[SNVirtualPointingEventFlick];
+}
+SNPoint* SNVirtualPointingDevice::CurrentPos()
+{
+	return &Info[SNVirtualPointingInfoCurrent];
+}
+SNPoint* SNVirtualPointingDevice::DragStartPos()
+{
+	return &Info[SNVirtualPointingInfoDragStart];
+}
+SNPoint* SNVirtualPointingDevice::MoveDelta()
+{
+	return &Info[SNVirtualPointingInfoDelta];
+}
+SNPoint* SNVirtualPointingDevice::FlickVelocity()
+{
+	return &Info[SNVirtualPointingInfoFlickVelocity];
+}
+
+
 // èÛë‘çXêVëOèàóù
 Void SNVirtualPointingDevice::UpdatePrevProc()
 {

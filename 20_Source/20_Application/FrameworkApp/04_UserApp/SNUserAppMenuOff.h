@@ -18,6 +18,7 @@ public:
 	virtual ~SNUserAppMenuOff();
 
 protected:
+	virtual Boolean OnPointingDevice();
 	virtual Boolean OnGamePad();
 	virtual Boolean OnInternalEvent();
 

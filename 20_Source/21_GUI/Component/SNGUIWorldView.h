@@ -63,6 +63,7 @@ public:
 	virtual Void SaveFocusRangeStart();
 
 	virtual Void SetViewScale(Float32 scale);
+	virtual Float32 GetViewScale();
 
 	virtual Void UpViewScale();
 

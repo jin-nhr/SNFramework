@@ -62,6 +62,11 @@ Void SNGUIWorldView::SetViewScale(Float32 scale)
 	return;
 }
 
+Float32 SNGUIWorldView::GetViewScale()
+{
+	return ViewScale;
+}
+
 // КgСе
 Void SNGUIWorldView::UpViewScale()
 {

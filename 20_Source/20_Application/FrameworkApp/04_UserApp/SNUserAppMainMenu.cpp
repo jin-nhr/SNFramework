@@ -1,6 +1,8 @@
 #include "SNUserAppMainMenu.h"
 #include "SNFixedString.h"
 #include "SNFocus.h"
+#include "SNVirtualGamePad.h"
+#include "SNVirtualPointingDevice.h"
 
 SNRect SNUserAppMainMenu::ButtonRect[SNMainMenuButtonNum] =
 {
@@ -74,6 +76,32 @@ Void SNUserAppMainMenu::OnExit()
 
 	return;
 }
+
+Boolean SNUserAppMainMenu::OnGamePad()
+{
+	Boolean ret = false;
+
+	if (SNVirtualGamePad::StartPush())
+	{
+		SNFocus::CallbackPushButton();
+		TransCode = SNTransitionCode3;
+	}
+
+	return ret;
+}
+Boolean SNUserAppMainMenu::OnPointingDevice()
+{
+	Boolean ret = false;
+
+	if (SNVirtualPointingDevice::MidButton())
+	{
+		SNFocus::CallbackPushButton();
+		TransCode = SNTransitionCode3;
+	}
+
+	return ret;
+}
+
 
 Void SNUserAppMainMenu::OnCycle()
 {

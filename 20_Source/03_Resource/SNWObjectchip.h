@@ -36,9 +36,8 @@ public:
 		SNPoint imgCenterOffset;
 		UInt16 imgDirOffset[SNWorldDirNum];
 
-		Float32 SizeX;
-		Float32 SizeY;
-		Float32 SizeZ;
+		Float32 SizeH;
+		Float32 SizeV;
 		SNWAnimationInfo AnimeCode[SNWObjectStateNum];		// アニメコード	
 		Float32 SpeedWalk;
 		Float32 SpeedJog;
@@ -71,7 +70,7 @@ public:
 			0, 0, 32, 64, 96, 128, 160, 192, 224,
 
 			// Size
-			1, 1, 3,
+			1, 3,
 
 			// Animation
 			// Idle
