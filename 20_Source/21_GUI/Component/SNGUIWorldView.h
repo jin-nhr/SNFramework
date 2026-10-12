@@ -11,7 +11,7 @@ public:
 	enum SNGUIWorldViewFrontTransparentType
 	{
 		SNGUIWorldViewFrontTransparentTypeOff,
-		SNGUIWorldViewFrontTransparentTypeNum = 9,
+		SNGUIWorldViewFrontTransparentTypeNum = 7,
 	};
 
 	static constexpr UInt8 TimeZoneAlpha = 40;
@@ -29,8 +29,6 @@ public:
 		0.20f,
 		0.20f,
 		0.20f,
-		0.20f,
-		0.00f,
 		0.00f,
 		0.00f,
 		0.00f,
@@ -42,11 +40,9 @@ public:
 		4,
 		2,
 		0,
-		-2,
 		4,
 		2,
 		0,
-		-2,
 	};
 
 public:
