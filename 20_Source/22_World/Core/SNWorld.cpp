@@ -164,8 +164,22 @@ Void SNWorld::Update()
 			GroundAnimeStep = (Int32)SNMath::Increment(GroundAnimeStep, 0, SNMapchip::MapchipAnimeStep - 1);
 		}
 
+		// サスペンド時は地形以外の更新はせず登録だけにする
+
 		// 地形更新
 		MeshManager.Update(&CurrentPos);
+
+		// 地形オブジェクト登録
+		MeshManager.RegisterNearbyObject(&NearbySpace);
+
+		// グローバルオブジェクト登録
+		GlobalObject.RegisterNearbyObject(&NearbySpace);
+
+		// 地形エフェクト登録
+		RegisterGroundEffect();
+
+		// グローバルオブジェクトの影登録
+		GlobalObject.RegisterShadow(&NearbySpace);
 	}
 
 	return;

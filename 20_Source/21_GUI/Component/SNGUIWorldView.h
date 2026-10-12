@@ -11,8 +11,7 @@ public:
 	enum SNGUIWorldViewFrontTransparentType
 	{
 		SNGUIWorldViewFrontTransparentTypeOff,
-		SNGUIWorldViewFrontTransparentTypeLow,
-		SNGUIWorldViewFrontTransparentTypeHigh,
+		SNGUIWorldViewFrontTransparentTypeNum = 9,
 	};
 
 	static constexpr UInt8 TimeZoneAlpha = 40;
@@ -23,6 +22,32 @@ public:
 
 	static constexpr UInt8 TransRangeMinZ = 1;
 	static constexpr Int32 TransViewRange = 128;
+
+	static constexpr Float32 FrontTransAlpha[SNGUIWorldViewFrontTransparentTypeNum] =
+	{
+		1.00f,
+		0.20f,
+		0.20f,
+		0.20f,
+		0.20f,
+		0.00f,
+		0.00f,
+		0.00f,
+		0.00f,
+	};
+
+	static constexpr Int32 FrontTransZ[SNGUIWorldViewFrontTransparentTypeNum] =
+	{
+		4,
+		4,
+		2,
+		0,
+		-2,
+		4,
+		2,
+		0,
+		-2,
+	};
 
 public:
 	// コンストラクタ

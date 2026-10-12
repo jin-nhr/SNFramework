@@ -17,7 +17,7 @@ SNGUIWorldView::SNGUIWorldView()
 
 	FocusVisible = false;
 
-	TransparentFrontGround = SNGUIWorldViewFrontTransparentTypeLow;
+	TransparentFrontGround = SNGUIWorldViewFrontTransparentTypeOff;
 
 	WorkSurfaceSize = {0};
 
@@ -319,7 +319,7 @@ Void SNGUIWorldView::SetFocusVisible(Boolean visible)
 
 Void SNGUIWorldView::ChangeTransparentFrontGround()
 {
-	TransparentFrontGround = (SNGUIWorldViewFrontTransparentType)SNMath::Increment(TransparentFrontGround, (Int32)SNGUIWorldViewFrontTransparentTypeOff, (Int32)SNGUIWorldViewFrontTransparentTypeHigh);
+	TransparentFrontGround = (SNGUIWorldViewFrontTransparentType)SNMath::Increment(TransparentFrontGround, (Int32)0, (Int32)SNGUIWorldViewFrontTransparentTypeNum - 1);
 
 	return;
 }
@@ -736,21 +736,10 @@ Float32 SNGUIWorldView::JudgeFrontTransparent(SNWNearbyObject* obj, SNRect* dst_
 	dist2 = dx * dx + dy * dy;
 
 	// ‚‚³‚ªˆê’èˆÈãA‚©‚Âˆê’è”ÍˆÍ“à‚Ìê‡‚Í“§‰ß—¦‚ð•ÏX
-	if ((obj->Pos.Z > SNSystemConfig::WorldNearbySpaceSizeV + TransRangeMinZ) &&
+	if ((obj->Pos.Z > SNSystemConfig::WorldNearbySpaceSizeV + TransRangeMinZ + FrontTransZ[TransparentFrontGround]) &&
 		(dist2 < TransViewRange * TransViewRange))
 	{
-		switch (TransparentFrontGround)
-		{
-		case SNGUIWorldViewFrontTransparentTypeOff:
-			ret = TransGainOff;
-			break;
-		case SNGUIWorldViewFrontTransparentTypeLow:
-			ret = TransGainLow;
-			break;
-		case SNGUIWorldViewFrontTransparentTypeHigh:
-			ret = TransGainHigh;
-			break;
-		}
+		ret = FrontTransAlpha[TransparentFrontGround];
 	}
 
 	return ret;

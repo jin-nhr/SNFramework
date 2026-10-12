@@ -31,6 +31,7 @@ private:
 	SNGUITextEx	txtX;
 	SNGUITextEx txtY;
 	SNGUITextEx txtZ;
+	Boolean WorldRunSts;
 
 	SNSoftTimer JumpTimer;
 };

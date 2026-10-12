@@ -47,5 +47,6 @@ public:
 	virtual SNPhaseResult PhaseStepFunc(Int32 ch, Int32 phase_idx, Int32 call_count);
 
 	SNTimerSequencer TimerSeq;
+	Boolean ActiveSts;
 };
 

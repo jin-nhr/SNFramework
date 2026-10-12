@@ -43,6 +43,8 @@ enum SNEventResult
     SNEventResultSysAppStartup,			// システムアプリ起動開始
     SNEventResultAppStartup,			// アプリ起動開始
     SNEventResultEnterWorld,			// ワールド起動
+    SNEventResultWorldSuspend,          // ワールドサスペンド
+    SNEventResultWorldRestart,          // ワールド再開
     SNEventResultDspPreClose,           // 終了確認表示
     SNEventResultDspConfig,             // システム設定表示
     SNEventResultDspCreationMenu,       // マップ作成メニュー表示

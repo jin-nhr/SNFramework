@@ -9,6 +9,8 @@
 
 SNWorldAppTest::SNWorldAppTest()
 {
+	WorldRunSts = false;
+
 	return;
 }
 
@@ -62,6 +64,8 @@ Void SNWorldAppTest::OnEntry()
 	SNWorld::GetPCObject()->SetVisible(true);
 	SNWorld::Pause();
 
+	WorldRunSts = true;
+
 	return;
 }
 
@@ -73,6 +77,8 @@ Void SNWorldAppTest::OnExit()
 
 	SNWorld::GetPCObject()->SetEnable(false);
 	SNWorld::GetPCObject()->SetVisible(false);
+
+	WorldRunSts = false;
 
 	return;
 }
@@ -244,17 +250,47 @@ Boolean SNWorldAppTest::OnInternalEvent()
 		ret = true;
 	}
 
+	// ワールドサスペンド
+	else if (SNEvent::InternalEvent[SNEventResultWorldSuspend])
+	{
+		WorldRunSts = false;
+		ret = true;
+	}
+
+	// ワールドリスタート
+	else if (SNEvent::InternalEvent[SNEventResultWorldRestart])
+	{
+		if (SNWorld::IsSuspend())
+		{
+			WorldRunSts = true;
+		}
+		ret = true;
+	}
+
 	return ret;
 }
 
 Void SNWorldAppTest::OnCycle()
 {
-	// サスペンドの解除判定
-	if (SNWorld::IsSuspend)
+	// ワールドのサスペンド制御
+	if (SNWorld::IsSuspend())
 	{
 		if (SNWorld::IsReady())
 		{
-			SNWorld::Start();
+			// ワールド再開
+			if (WorldRunSts)
+			{
+				SNWorld::Start();
+			}
+		}
+	}
+	else
+	{
+		// ワールド一時停止
+		if (!WorldRunSts)
+		{
+			SNWorld::GetPCObject()->Stop();
+			SNWorld::Pause();
 		}
 	}
 

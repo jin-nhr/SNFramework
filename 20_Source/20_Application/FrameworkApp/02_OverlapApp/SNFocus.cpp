@@ -68,6 +68,28 @@ Void SNFocus::OnCycle()
 		TimerSeq.Step();
 	}
 
+	// ìÆçÏíÜ
+	if (ActiveSts)
+	{
+		// ÉOÉãÅ[Évìoò^Ç»Çµ
+		if (!SysAppGroup && !UserAppGroup)
+		{
+			SNEvent::EventResult[SNEventResultWorldRestart] = true;
+			ActiveSts = false;
+		}
+	}
+
+	// îÒìÆçÏíÜ
+	else
+	{
+		// Ç¢Ç∏ÇÍÇ©ÇÃÉOÉãÅ[Évìoò^Ç†ÇË
+		if (SysAppGroup || UserAppGroup)
+		{
+			SNEvent::EventResult[SNEventResultWorldSuspend] = true;
+			ActiveSts = true;
+		}
+	}
+
 	return;
 }
 
@@ -96,6 +118,7 @@ Void SNFocus::ReleaseUserApp(SNFocusGroup* userapp)
 
 SNFocus::SNFocus()
 {
+	ActiveSts = false;
 	TimerSeq.Initialize(this, 0, 2);
 	TimerSeq.SetWait(0, SNSystemConfig::GUIButtonPushTime);
 	TimerSeq.SetWait(1, 0);
@@ -180,14 +203,14 @@ Boolean SNFocus::OnGamePad()
 	Boolean decide_push = SNVirtualGamePad::APush();
 	Boolean cancel_push = SNVirtualGamePad::BPush();
 
-	Boolean up_push = SNVirtualGamePad::DPadUpPush();
-	Boolean up_rpt = SNVirtualGamePad::DPadUpRepeat();
-	Boolean down_push = SNVirtualGamePad::DPadDownPush();
-	Boolean down_rpt = SNVirtualGamePad::DPadDownRepeat();
-	Boolean left_push = SNVirtualGamePad::DPadLeftPush();
-	Boolean left_rpt = SNVirtualGamePad::DPadLeftRepeat();
-	Boolean right_push = SNVirtualGamePad::DPadRightPush();
-	Boolean right_rpt = SNVirtualGamePad::DPadRightRepeat();
+	Boolean up_push = SNVirtualGamePad::DPadUpPush() | SNVirtualGamePad::LStkUpPush();
+	Boolean up_rpt = SNVirtualGamePad::DPadUpRepeat() | SNVirtualGamePad::LStkUpRepeat();
+	Boolean down_push = SNVirtualGamePad::DPadDownPush() | SNVirtualGamePad::LStkDownPush();
+	Boolean down_rpt = SNVirtualGamePad::DPadDownRepeat() | SNVirtualGamePad::LStkDownRepeat();
+	Boolean left_push = SNVirtualGamePad::DPadLeftPush() | SNVirtualGamePad::LStkLeftPush();
+	Boolean left_rpt = SNVirtualGamePad::DPadLeftRepeat() | SNVirtualGamePad::LStkLeftRepeat();
+	Boolean right_push = SNVirtualGamePad::DPadRightPush() | SNVirtualGamePad::LStkRightPush();
+	Boolean right_rpt = SNVirtualGamePad::DPadRightRepeat() | SNVirtualGamePad::LStkRightRepeat();
 	SNGUIButton* active_btn = nullptr;
 
 	if (!TimerSeq.IsProc())
