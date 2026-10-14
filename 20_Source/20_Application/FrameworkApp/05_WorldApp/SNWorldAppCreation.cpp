@@ -9,6 +9,7 @@
 #include "SNGraphicsDevice.h"
 #include "SNInput.h"
 #include "SNWindowsAPI.h"
+#include "SNUserAppJumpPos.h"
 
 SNWorldAppCreation::SNWorldAppCreation()
 {
@@ -139,25 +140,25 @@ Boolean SNWorldAppCreation::OnGamePad()
 	}
 
 	// フォーカスUp
-	if (SNVirtualGamePad::LStkUpPush() || SNVirtualGamePad::LStkUpRepeat())
+	if (SNVirtualGamePad::LStkUpPress())
 	{
 		WorldView.UpToWorldDirPos(&current.X, &current.Y);
 	}
 
 	// フォーカスDown
-	if (SNVirtualGamePad::LStkDownPush() || SNVirtualGamePad::LStkDownRepeat())
+	if (SNVirtualGamePad::LStkDownPress())
 	{
 		WorldView.DownToWorldDirPos(&current.X, &current.Y);
 	}
 
 	// フォーカスLeft
-	if (SNVirtualGamePad::LStkLeftPush() || SNVirtualGamePad::LStkLeftRepeat())
+	if (SNVirtualGamePad::LStkLeftPress())
 	{
 		WorldView.LeftToWorldDirPos(&current.X, &current.Y);
 	}
 
 	// フォーカスRight
-	if (SNVirtualGamePad::LStkRightPush() || SNVirtualGamePad::LStkRightRepeat())
+	if (SNVirtualGamePad::LStkRightPress())
 	{
 		WorldView.RightToWorldDirPos(&current.X, &current.Y);
 	}
@@ -364,6 +365,15 @@ Boolean SNWorldAppCreation::OnInternalEvent()
 		ret = true;
 	}
 
+	if (SNEvent::InternalEvent[SNEventResultMenuJumpPos])
+	{
+		RangeMode = false;
+		WorldView.SetViewPos(SNUserAppJumpPos::GetMoveToPos());
+		WorldView.SaveFocusRangeStart();
+		SNWorld::SetCurrentPos(SNUserAppJumpPos::GetMoveToPos());
+		SNWorld::Pause();
+		ret = true;
+	}
 
 	return ret;
 }

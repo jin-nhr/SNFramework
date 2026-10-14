@@ -55,6 +55,7 @@ enum SNEventResult
     SNEventResultMenuRotateL,           // メニュー - 左回転
     SNEventResultMenuRotateR,           // メニュー - 右回転
     SNEventResultMenuDeselect,          // メニュー - 選択解除
+    SNEventResultMenuJumpPos,           // メニュー - 座標ジャンプ
     SNEventResultNum
 };
 

@@ -8,6 +8,7 @@
 #include "SNUserAppMainMenu.h"
 #include "SNWorldAppCreation.h"
 #include "SNUserAppCreationMenu.h"
+#include "SNUserAppJumpPos.h"
 
 class SNUserApp : public SNStateController
 {
@@ -26,5 +27,6 @@ private:
 	SNUserAppMenuOff MenuOff;
 	SNUserAppMainMenu MainMenu;
 	SNUserAppCreationMenu CreationMenu;
+	SNUserAppJumpPos JumpPos;
 };
 

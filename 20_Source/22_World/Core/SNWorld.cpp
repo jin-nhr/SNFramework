@@ -214,6 +214,11 @@ Void SNWorld::SetCurrentPos(SNWorldPos* pos)
 	return;
 }
 
+SNWorldPos* SNWorld::GetCurrentPos()
+{
+	return &CurrentPos;
+}
+
 // ƒJƒŒƒ“ƒgÀ•WˆÚ“®
 Void SNWorld::MoveCurrentPos(SNWorldPos* pos)
 {

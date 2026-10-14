@@ -290,28 +290,28 @@ SNWorldDir SNGUIWorldView::RightToAngle()
 // View上 → ワールドでの方位
 Void SNGUIWorldView::UpToWorldDirPos(Float32* x, Float32* y)
 {
-	*y -= 1;
+	*y -= 0.2;
 	return;
 }
 
 // View↓ → ワールドでの方位
 Void SNGUIWorldView::DownToWorldDirPos(Float32* x, Float32* y)
 {
-	*y += 1;
+	*y += 0.2;
 	return;
 }
 
 // Views← → ワールドでの方位
 Void SNGUIWorldView::LeftToWorldDirPos(Float32* x, Float32* y)
 {
-	*x -= 1;
+	*x -= 0.2;
 	return;
 }
 
 // Views→ → ワールドでの方位
 Void SNGUIWorldView::RightToWorldDirPos(Float32* x, Float32* y)
 {
-	*x += 1;
+	*x += 0.2;
 	return;
 }
 

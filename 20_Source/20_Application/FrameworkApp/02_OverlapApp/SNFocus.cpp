@@ -191,6 +191,10 @@ Boolean SNFocus::OnPointingDevice()
 			ret = true;
 		}
 	}
+	else
+	{
+		ret = true;
+	}
 
 	return ret;
 }
@@ -264,6 +268,10 @@ Boolean SNFocus::OnGamePad()
 
 			ret = true;
 		}
+	}
+	else
+	{
+		ret = true;
 	}
 
 	return ret;

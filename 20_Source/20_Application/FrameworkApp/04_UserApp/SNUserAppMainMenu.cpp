@@ -18,9 +18,9 @@ SNRect SNUserAppMainMenu::ButtonRect[SNMainMenuButtonNum] =
 String SNUserAppMainMenu::ButtonCaption[SNMainMenuButtonNum] =
 {
 	SNFixedString::MenuCreateMap,
-	SNFixedString::MenuGroundPreset,
-	SNFixedString::MenuSetStaticObject,
-	SNFixedString::MenuSetActiveObject,
+	SNFixedString::MenuGroundObject,
+	SNFixedString::MenuReserve,
+	SNFixedString::MenuJumpPos,
 	SNFixedString::MenuTestPlay,
 	SNFixedString::TitleMenuConfig,
 	SNFixedString::TitleMenuExit,
@@ -77,31 +77,6 @@ Void SNUserAppMainMenu::OnExit()
 	return;
 }
 
-Boolean SNUserAppMainMenu::OnGamePad()
-{
-	Boolean ret = false;
-
-	if (SNVirtualGamePad::StartPush())
-	{
-		SNFocus::CallbackPushButton();
-		TransCode = SNTransitionCode3;
-	}
-
-	return ret;
-}
-Boolean SNUserAppMainMenu::OnPointingDevice()
-{
-	Boolean ret = false;
-
-	if (SNVirtualPointingDevice::MidButton())
-	{
-		SNFocus::CallbackPushButton();
-		TransCode = SNTransitionCode3;
-	}
-
-	return ret;
-}
-
 
 Void SNUserAppMainMenu::OnCycle()
 {
@@ -110,6 +85,12 @@ Void SNUserAppMainMenu::OnCycle()
 		SNEvent::EventResult[SNEventResultMenuMapCreate] = true;
 		SNFocus::CallbackPushButton();
 		TransCode = SNTransitionCode3;
+	}
+
+	else if (FocusGp.JudgeActDecide(&Button[SNMainMenuButtonJumpPos]))
+	{
+		SNFocus::CallbackPushButton();
+		TransCode = SNTransitionCode2;
 	}
 
 	else if (FocusGp.JudgeActDecide(&Button[SNMainMenuButtonTestPlay]))

@@ -23,18 +23,15 @@ protected:
 
 	virtual Void OnExit();
 
-	virtual Boolean OnGamePad();
-	virtual Boolean OnPointingDevice();
-
 	virtual Void OnCycle();
 
 protected:
 	enum SNMainMenuButton
 	{
 		SNMainMenuButtonMap,
-		SNMainMenuButtonPreset,
+		SNMainMenuButtonObject,
 		SNMainMenuButtonStaticObj,
-		SNMainMenuButtonActiveObj,
+		SNMainMenuButtonJumpPos,
 		SNMainMenuButtonTestPlay,
 		SNMainMenuButtonConfig,
 		SNMainMenuButtonExit,

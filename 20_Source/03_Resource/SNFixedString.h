@@ -47,9 +47,9 @@ public:
 	static constexpr String ConfigCancel = (String)L"キャンセル";
 
 	static constexpr String MenuCreateMap = (String)L"マップさくせい";
-	static constexpr String MenuGroundPreset = (String)L"ちけいプリセット";
-	static constexpr String MenuSetStaticObject = (String)L"せいてきオブジェクト";
-	static constexpr String MenuSetActiveObject = (String)L"どうてきオブジェクト";
+	static constexpr String MenuGroundObject = (String)L"オブジェクトはいち";
+	static constexpr String MenuReserve = (String)L"リザーブ";
+	static constexpr String MenuJumpPos = (String)L"ざひょうジャンプ";
 	static constexpr String MenuTestPlay = (String)L"テストプレイ";
 
 	static constexpr String MenuCopy = (String)L"コピー";
@@ -57,6 +57,10 @@ public:
 	static constexpr String MenuRotateL = (String)L"ひだりかいてん";
 	static constexpr String MenuRotateR = (String)L"みぎかいてん";
 	static constexpr String MenuDeselect = (String)L"せんたくかいじょ";
+
+	static constexpr String JumpPlus = (String)L"+";
+	static constexpr String JumpMinus = (String)L"-";
+
 
 
 };

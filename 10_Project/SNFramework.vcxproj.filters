@@ -537,6 +537,9 @@
     <ClInclude Include="..\20_Source\02_System\Component\SNWorkerThread.h">
       <Filter>20_Source\02_System\Component</Filter>
     </ClInclude>
+    <ClInclude Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppJumpPos.h">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\20_Source\02_System\Component\SNAutoResource.cpp">
@@ -889,6 +892,9 @@
     </ClCompile>
     <ClCompile Include="..\20_Source\02_System\Component\SNWorkerThread.cpp">
       <Filter>20_Source\02_System\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppJumpPos.cpp">
+      <Filter>20_Source\20_Application\FrameworkApp\04_UserApp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

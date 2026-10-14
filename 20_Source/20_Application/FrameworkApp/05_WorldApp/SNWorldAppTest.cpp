@@ -5,6 +5,7 @@
 #include "SNGraphicsResManager.h"
 #include "SNMath.h"
 #include "SNInput.h"
+#include "SNUserAppJumpPos.h"
 
 
 SNWorldAppTest::SNWorldAppTest()
@@ -264,6 +265,16 @@ Boolean SNWorldAppTest::OnInternalEvent()
 		{
 			WorldRunSts = true;
 		}
+		ret = true;
+	}
+
+	if (SNEvent::InternalEvent[SNEventResultMenuJumpPos])
+	{
+		SNWorld::GetPCObject()->SetPos(SNUserAppJumpPos::GetMoveToPos());
+		WorldView.SetViewPos(SNUserAppJumpPos::GetMoveToPos());
+		WorldView.SaveFocusRangeStart();
+		SNWorld::SetCurrentPos(SNUserAppJumpPos::GetMoveToPos());
+		SNWorld::Pause();
 		ret = true;
 	}
 

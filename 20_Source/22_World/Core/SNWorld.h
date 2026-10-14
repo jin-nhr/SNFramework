@@ -159,6 +159,9 @@ public:
 	// カレント座標設定
 	static Void SetCurrentPos(SNWorldPos* pos);
 
+	// カレント座標取得
+	static SNWorldPos* GetCurrentPos();
+
 	// カレント移動
 	static Void MoveCurrentPos(SNWorldPos* pos);
 
