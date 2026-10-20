@@ -103,7 +103,7 @@ Void SNWGlobalObject::InitFileData(SNWGlobalObjectFileData* obj_file)
 		info->AnimationStep = 0;
 		info->Enable = false;
 		info->Visible = false;
-		info->Weight = false;
+		info->Gravity = true;
 		info->State = SNWObjectStateIdle;
 		info->PrevState = SNWObjectStateNum;
 		info->FrontDir = SNWorldDirS;

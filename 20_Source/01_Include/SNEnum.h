@@ -766,6 +766,7 @@ enum SNWObjectEvent
     SNWObjectEventJog,
     SNWObjectEventJump,
     SNWObjectEventJumpEnd,
+    SNWObjectEventElevation,
     SNWObjectEventNum,
 };
 

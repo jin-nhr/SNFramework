@@ -46,11 +46,11 @@ Void SNWObjectBase::InitObjectInfo()
 	info = &Info;
 
 //	info->Code = SNWObjectchip::WObjectCodeBone;
-	info->Code = SNWObjectchip::WObjectCodeSlime;
+//	info->Code = SNWObjectchip::WObjectCodeSlime;
+	info->Code = SNWObjectchip::WObjectCodeBat;
 	info->AnimationStep = 0;
 	info->Enable = false;
 	info->Visible = false;
-	info->Weight = true;
 	info->State = SNWObjectStateIdle;
 	info->PrevState = SNWObjectStateNum;	// いずれの状態とも一致しない値としておく
 	info->FrontDir = SNWorldDirS;
@@ -171,6 +171,9 @@ Void SNWObjectBase::EventFunc(SNWObjectEventParam* param)
 	case SNWObjectEventJumpEnd:
 		EventFuncJumpEnd(param);
 		break;
+	case SNWObjectEventElevation:
+		EventFuncElevation(param);
+		break;
 	}
 }
 
@@ -214,23 +217,35 @@ Void SNWObjectBase::EventFuncWalk(SNWObjectEventParam* param)
 	case SNWObjectStateWalk:
 	case SNWObjectStateJog:
 		SetState(SNWObjectStateWalk);
+		// 目標速度をセット
+		Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedWalk * SNMath::GetCos(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f;
+		Info.Acceleration.Y = -1 * (SNWObjectchip::Data[Info.Code].SpeedWalk * SNMath::GetSin(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f; // 画面と三角関数はY軸で反転している
 		break;
 	case SNWObjectStateJump:
 	case SNWObjectStateAttack:
 	case SNWObjectStateKnockback:
 	case SNWObjectStateSpell:
 	case SNWObjectStateAction:
+		// 目標速度をセット
+		Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedWalk * SNMath::GetCos(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f;
+		Info.Acceleration.Y = -1 * (SNWObjectchip::Data[Info.Code].SpeedWalk * SNMath::GetSin(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f; // 画面と三角関数はY軸で反転している
+		break;
+
 	case SNWObjectStateFlying:
+		// 目標速度をセット
+		Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedFlying * SNMath::GetCos(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f;
+		Info.Acceleration.Y = -1 * (SNWObjectchip::Data[Info.Code].SpeedFlying * SNMath::GetSin(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f; // 画面と三角関数はY軸で反転している
+		break;
+
 	case SNWObjectStateFall:
+		// 目標速度をセット
+		Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedWalk * SNMath::GetCos(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f;
+		Info.Acceleration.Y = -1 * (SNWObjectchip::Data[Info.Code].SpeedWalk * SNMath::GetSin(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f; // 画面と三角関数はY軸で反転している
 		break;
 	}
 
 	// 向きを設定
 	Info.FrontDir = dir;
-
-	// 目標速度をセット
-	Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedWalk * SNMath::GetCos(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f;
-	Info.Acceleration.Y = -1 * (SNWObjectchip::Data[Info.Code].SpeedWalk * SNMath::GetSin(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f; // 画面と三角関数はY軸で反転している
 
 	return;
 }
@@ -247,23 +262,33 @@ Void SNWObjectBase::EventFuncJog(SNWObjectEventParam* param)
 	case SNWObjectStateWalk:
 	case SNWObjectStateJog:
 		SetState(SNWObjectStateJog);
+		// 目標速度をセット
+		Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedJog * SNMath::GetCos(angle) * SNSystemConfig::FPS / SNTrigFuncMax) / 1000.0f;
+		Info.Acceleration.Y = -1 * (SNWObjectchip::Data[Info.Code].SpeedJog * SNMath::GetSin(angle) * SNSystemConfig::FPS / SNTrigFuncMax) / 1000.0f; // 画面と三角関数はY軸で反転している
 		break;
 	case SNWObjectStateJump:
 	case SNWObjectStateAttack:
 	case SNWObjectStateKnockback:
 	case SNWObjectStateSpell:
 	case SNWObjectStateAction:
+		// 目標速度をセット
+		Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedJog * SNMath::GetCos(angle) * SNSystemConfig::FPS / SNTrigFuncMax) / 1000.0f;
+		Info.Acceleration.Y = -1 * (SNWObjectchip::Data[Info.Code].SpeedJog * SNMath::GetSin(angle) * SNSystemConfig::FPS / SNTrigFuncMax) / 1000.0f; // 画面と三角関数はY軸で反転している
+		break;
 	case SNWObjectStateFlying:
+		// 目標速度をセット
+		Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedFlying * SNMath::GetCos(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f;
+		Info.Acceleration.Y = -1 * (SNWObjectchip::Data[Info.Code].SpeedFlying * SNMath::GetSin(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f; // 画面と三角関数はY軸で反転している
+		break;
 	case SNWObjectStateFall:
+		// 目標速度をセット
+		Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedJog * SNMath::GetCos(angle) * SNSystemConfig::FPS / SNTrigFuncMax) / 1000.0f;
+		Info.Acceleration.Y = -1 * (SNWObjectchip::Data[Info.Code].SpeedJog * SNMath::GetSin(angle) * SNSystemConfig::FPS / SNTrigFuncMax) / 1000.0f; // 画面と三角関数はY軸で反転している
 		break;
 	}
 
 	// 向きを設定
 	Info.FrontDir = dir;
-
-	// 目標速度をセット
-	Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedJog * SNMath::GetCos(angle) * SNSystemConfig::FPS / SNTrigFuncMax) / 1000.0f;
-	Info.Acceleration.Y = -1 * (SNWObjectchip::Data[Info.Code].SpeedJog * SNMath::GetSin(angle) * SNSystemConfig::FPS / SNTrigFuncMax) / 1000.0f; // 画面と三角関数はY軸で反転している
 
 	return;
 }
@@ -279,9 +304,41 @@ Void SNWObjectBase::EventFuncJump(SNWObjectEventParam* param)
 		SetState(SNWObjectStateJump);
 		// 目標速度をセット
 		Info.Acceleration.Z = (SNWObjectchip::Data[Info.Code].SpeedJump * SNSystemConfig::FPS) / 1000.0f;
-		Info.Weight = false;
+		Info.Gravity = false;
 		break;
 	case SNWObjectStateJump:
+	case SNWObjectStateAttack:
+	case SNWObjectStateKnockback:
+	case SNWObjectStateSpell:
+	case SNWObjectStateAction:
+	case SNWObjectStateFlying:
+		SetState(SNWObjectStateFall);
+		Info.Gravity = true;
+		break;
+	case SNWObjectStateFall:
+		break;
+	}
+
+	return;
+}
+
+Void SNWObjectBase::EventFuncJumpEnd(SNWObjectEventParam* param)
+{
+	switch (Info.State)
+	{
+	case SNWObjectStateIdle:
+	case SNWObjectStateWalk:
+	case SNWObjectStateJog:
+		break;
+
+	case SNWObjectStateJump:
+		// 飛行可能なら飛行状態へ移行
+		if (SNWObjectchip::Data[Info.Code].Flyable)
+		{
+			SetState(SNWObjectStateFlying);
+		}
+		break;
+
 	case SNWObjectStateAttack:
 	case SNWObjectStateKnockback:
 	case SNWObjectStateSpell:
@@ -291,14 +348,44 @@ Void SNWObjectBase::EventFuncJump(SNWObjectEventParam* param)
 		break;
 	}
 
+	// 重力影響を戻す
+	Info.Gravity = true;
+
 	return;
 }
 
-
-Void SNWObjectBase::EventFuncJumpEnd(SNWObjectEventParam* param)
+Void SNWObjectBase::EventFuncElevation(SNWObjectEventParam* param)
 {
-	// 重力影響を戻す
-	Info.Weight = true;
+	switch (Info.State)
+	{
+	case SNWObjectStateIdle:
+	case SNWObjectStateWalk:
+	case SNWObjectStateJog:
+	case SNWObjectStateJump:
+	case SNWObjectStateAttack:
+	case SNWObjectStateKnockback:
+	case SNWObjectStateSpell:
+	case SNWObjectStateAction:
+		break;
+
+	case SNWObjectStateFlying:
+		// 上昇
+		if (param->Param1)
+		{
+			Info.Acceleration.Z = (SNWObjectchip::Data[Info.Code].SpeedFlying * SNSystemConfig::FPS) / 1000.0f;
+		}
+
+		// 下降
+		else
+		{
+			Info.Acceleration.Z = -1 * (SNWObjectchip::Data[Info.Code].SpeedFlying * SNSystemConfig::FPS) / 1000.0f;
+		}
+		break;
+
+	case SNWObjectStateFall:
+		break;
+	}
+
 
 	return;
 }
@@ -324,7 +411,11 @@ Void SNWObjectBase::UpdateState()
 	case SNWObjectStateKnockback:
 	case SNWObjectStateSpell:
 	case SNWObjectStateAction:
+		break;
+
 	case SNWObjectStateFlying:
+		break;
+
 	case SNWObjectStateFall:
 		// Fall中に落下速度=0になったらIdle
 		if (Info.Speed.Z == 0.0f)

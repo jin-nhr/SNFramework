@@ -97,6 +97,18 @@ Boolean SNWorldAppTest::OnGamePad()
 		// 操作説明表示要求
 	}
 
+	// 方向キー上
+	if (SNVirtualGamePad::DPadUpPress())
+	{
+		SNWorld::GetPCObject()->Elevation(true);
+	}
+
+	// 方向キー下
+	if (SNVirtualGamePad::DPadDownPress())
+	{
+		SNWorld::GetPCObject()->Elevation(false);
+	}
+
 	// 手前ブロック透過設定Down
 	if (SNVirtualGamePad::L1Push() || SNVirtualGamePad::L1Repeat())
 	{
@@ -130,7 +142,7 @@ Boolean SNWorldAppTest::OnGamePad()
 	// 右回転
 	if (SNVirtualGamePad::RStkRightPush() || SNVirtualGamePad::RStkRightRepeat())
 	{
-
+		
 	}
 
 

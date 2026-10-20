@@ -69,19 +69,6 @@ Void SNWActObject::SetVisible(Boolean visible)
 	return;
 }
 
-// d—Í‰e‹¿Ý’è
-Void SNWActObject::SetWeight(Boolean weight)
-{
-	SNWObjectInfo* info = RefInfo();
-
-	if (info != nullptr)
-	{
-		info->Weight = weight;
-	}
-
-	return;
-}
-
 // À•WÝ’è
 Void SNWActObject::SetPos(SNWorldPos* pos)
 {
@@ -168,4 +155,20 @@ Void SNWActObject::JumpEnd()
 
 	return;
 }
+
+// Elevation
+Void SNWActObject::Elevation(Boolean up)
+{
+	SNWObjectEventParam param = { 0 };
+
+	if (Object != nullptr)
+	{
+		param.Event = SNWObjectEventElevation;
+		param.Param1 = (UInt8)up;
+		Object->Notify(&param);
+	}
+
+	return;
+}
+
 

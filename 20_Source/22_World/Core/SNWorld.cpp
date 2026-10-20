@@ -298,6 +298,9 @@ Void SNWorld::RegisterGroundEffect()
 		Worker[cnt].WorkerFunc = RegisterGroundEffectImp;
 		Worker[cnt].IsComplete = false;
 		Worker[cnt].Run();
+		
+		// ワーカーをリセットする
+		Worker[cnt].Reset = true;
 	}
 
 	WorkerInfo[cnt][0] = start;
@@ -331,11 +334,20 @@ Void SNWorld::RegisterGroundEffectImp(UInt32 id, Void* param)
 	{
 		obj_ptr = NearbySpace.RefObject((Int32)cnt);
 
-		switch (obj_ptr->Type)
+		// 対象オブジェクトが
+		if ((SNSystemConfig::GroundEffectOutRangeH < obj_ptr->Pos.X) &&
+			(obj_ptr->Pos.X < SNWNearbySpaceSizeX - SNSystemConfig::GroundEffectOutRangeH) &&
+			(SNSystemConfig::GroundEffectOutRangeH < obj_ptr->Pos.Y) &&
+			(obj_ptr->Pos.Y < SNWNearbySpaceSizeY - SNSystemConfig::GroundEffectOutRangeH) &&
+			(SNSystemConfig::GroundEffectOutRangeV < obj_ptr->Pos.Z) &&
+			(obj_ptr->Pos.Z < SNWNearbySpaceSizeZ - SNSystemConfig::GroundEffectOutRangeV))
 		{
-		case SNWNearbyObjectTypeGround:
-			RegisterNearbyEffectGround(id, obj_ptr);
-			break;
+			switch (obj_ptr->Type)
+			{
+			case SNWNearbyObjectTypeGround:
+				RegisterNearbyEffectGround(id, obj_ptr);
+				break;
+			}
 		}
 	}
 
@@ -576,69 +588,61 @@ Boolean SNWorld::JudgeGroundPShadow(Int32 x, Int32 y, Int32 z, Boolean* lt, Bool
 		break;
 	}
 
-	// 対象オブジェクトが影投影対象化判定
-	if ((SNSystemConfig::GroundPShadowOutRange < ref_x) &&
-		(ref_x < SNWNearbySpaceSizeX - SNSystemConfig::GroundPShadowOutRange) &&
-		(SNSystemConfig::GroundPShadowOutRange < ref_y) &&
-		(ref_y < SNWNearbySpaceSizeY - SNSystemConfig::GroundPShadowOutRange) &&
-		(SNSystemConfig::GroundPShadowOutRange < ref_z) &&
-		(ref_z < SNWNearbySpaceSizeZ - SNSystemConfig::GroundPShadowOutRange))
+
+	ref_x += step_x;
+	ref_y += step_y;
+	ref_z += 1;
+
+	srch_cnt = 0;
+
+	while (NearbySpace.RefSpace(ref_x, ref_y, ref_z) &&
+			(SNSystemConfig::GroundPShadowSearchRange >= srch_cnt))
 	{
-		ref_x += step_x;
-		ref_y += step_y;
-		ref_z += 1;
+		ret = false;
 
-		srch_cnt = 0;
-
-		while (NearbySpace.RefSpace(ref_x, ref_y, ref_z) &&
-			   (SNSystemConfig::GroundPShadowSearchRange >= srch_cnt))
+		switch (GlobalLight)
 		{
-			ret = false;
-
-			switch (GlobalLight)
-			{
-			case SNWorldDirN:
-			case SNWorldDirS:
-			case SNWorldDirE:
-			case SNWorldDirW:
-				ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z, SNWNearbyObjectTypeGround);
-				ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
-				ref_x += step_x;
-				ref_y += step_y;
-				ref_z += 2;
-				break;
-			case SNWorldDirNE:
-			case SNWorldDirSE:
-			case SNWorldDirSW:
-			case SNWorldDirNW:
-				ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z, SNWNearbyObjectTypeGround);
-				ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
-				ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 2, SNWNearbyObjectTypeGround);
-				near_shadow_u |= NearbySpace.IsBlocked(ref_x, ref_y - 1, ref_z, SNWNearbyObjectTypeGround);
-				near_shadow_u |= NearbySpace.IsBlocked(ref_x, ref_y - 1, ref_z + 1, SNWNearbyObjectTypeGround);
-				near_shadow_u |= NearbySpace.IsBlocked(ref_x, ref_y - 1, ref_z + 2, SNWNearbyObjectTypeGround);
-				near_shadow_r |= NearbySpace.IsBlocked(ref_x + 1, ref_y, ref_z, SNWNearbyObjectTypeGround);
-				near_shadow_r |= NearbySpace.IsBlocked(ref_x + 1, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
-				near_shadow_r |= NearbySpace.IsBlocked(ref_x + 1, ref_y, ref_z + 2, SNWNearbyObjectTypeGround);
-				near_shadow_b |= NearbySpace.IsBlocked(ref_x, ref_y + 1, ref_z, SNWNearbyObjectTypeGround);
-				near_shadow_b |= NearbySpace.IsBlocked(ref_x, ref_y + 1, ref_z + 1, SNWNearbyObjectTypeGround);
-				near_shadow_b |= NearbySpace.IsBlocked(ref_x, ref_y + 1, ref_z + 2, SNWNearbyObjectTypeGround);
-				near_shadow_l |= NearbySpace.IsBlocked(ref_x - 1, ref_y, ref_z, SNWNearbyObjectTypeGround);
-				near_shadow_l |= NearbySpace.IsBlocked(ref_x - 1, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
-				near_shadow_l |= NearbySpace.IsBlocked(ref_x - 1, ref_y, ref_z + 2, SNWNearbyObjectTypeGround);
-				ref_x += step_x;
-				ref_y += step_y;
-				ref_z += 3;
-				break;
-			}
-
-			if (ret)
-			{
-				break;
-			}
-
-			srch_cnt++;
+		case SNWorldDirN:
+		case SNWorldDirS:
+		case SNWorldDirE:
+		case SNWorldDirW:
+			ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z, SNWNearbyObjectTypeGround);
+			ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
+			ref_x += step_x;
+			ref_y += step_y;
+			ref_z += 2;
+			break;
+		case SNWorldDirNE:
+		case SNWorldDirSE:
+		case SNWorldDirSW:
+		case SNWorldDirNW:
+			ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z, SNWNearbyObjectTypeGround);
+			ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
+			ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 2, SNWNearbyObjectTypeGround);
+			near_shadow_u |= NearbySpace.IsBlocked(ref_x, ref_y - 1, ref_z, SNWNearbyObjectTypeGround);
+			near_shadow_u |= NearbySpace.IsBlocked(ref_x, ref_y - 1, ref_z + 1, SNWNearbyObjectTypeGround);
+			near_shadow_u |= NearbySpace.IsBlocked(ref_x, ref_y - 1, ref_z + 2, SNWNearbyObjectTypeGround);
+			near_shadow_r |= NearbySpace.IsBlocked(ref_x + 1, ref_y, ref_z, SNWNearbyObjectTypeGround);
+			near_shadow_r |= NearbySpace.IsBlocked(ref_x + 1, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
+			near_shadow_r |= NearbySpace.IsBlocked(ref_x + 1, ref_y, ref_z + 2, SNWNearbyObjectTypeGround);
+			near_shadow_b |= NearbySpace.IsBlocked(ref_x, ref_y + 1, ref_z, SNWNearbyObjectTypeGround);
+			near_shadow_b |= NearbySpace.IsBlocked(ref_x, ref_y + 1, ref_z + 1, SNWNearbyObjectTypeGround);
+			near_shadow_b |= NearbySpace.IsBlocked(ref_x, ref_y + 1, ref_z + 2, SNWNearbyObjectTypeGround);
+			near_shadow_l |= NearbySpace.IsBlocked(ref_x - 1, ref_y, ref_z, SNWNearbyObjectTypeGround);
+			near_shadow_l |= NearbySpace.IsBlocked(ref_x - 1, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
+			near_shadow_l |= NearbySpace.IsBlocked(ref_x - 1, ref_y, ref_z + 2, SNWNearbyObjectTypeGround);
+			ref_x += step_x;
+			ref_y += step_y;
+			ref_z += 3;
+			break;
 		}
+
+		if (ret)
+		{
+			break;
+		}
+
+		srch_cnt++;
 	}
 
 	if (!ret)

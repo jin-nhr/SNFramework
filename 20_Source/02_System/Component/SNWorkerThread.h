@@ -16,6 +16,7 @@ public:
 	UInt32 ID;
 	Void* Param;
 	volatile Boolean IsComplete;
+	volatile Boolean Reset;
 
 private:
 	virtual Void UserMain();

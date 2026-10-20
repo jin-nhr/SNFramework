@@ -177,6 +177,7 @@ Void SNGUIWorldView::DrawWrokSurface()
 	SNWorldPos scr_offset;
 	SNPoint draw_base;
 	SNSize size;
+	SNWNearbyObject* obj_ptr;
 
 	// 描画の基点となる座標を求める
 	// カメラのターゲット座標と、空間座標(左上底面)の差分を取る
@@ -207,8 +208,19 @@ Void SNGUIWorldView::DrawWrokSurface()
 	// リスト内のオブジェクトループ
 	for (cnt = 0; cnt < list_num; cnt++)
 	{
-		// オブジェクト描画
-		DrawNearbyObject((SNWNearbyObject*)it->UserData, &draw_base);
+		obj_ptr = (SNWNearbyObject*)it->UserData;
+
+		// 対象オブジェクトが
+		if ((SNSystemConfig::NearbySpaceOutRangeH < obj_ptr->Pos.X) &&
+			(obj_ptr->Pos.X < SNWNearbySpaceSizeX - SNSystemConfig::NearbySpaceOutRangeH) &&
+			(SNSystemConfig::NearbySpaceOutRangeH < obj_ptr->Pos.Y) &&
+			(obj_ptr->Pos.Y < SNWNearbySpaceSizeY - SNSystemConfig::NearbySpaceOutRangeH) &&
+			(SNSystemConfig::NearbySpaceOutRangeV < obj_ptr->Pos.Z) &&
+			(obj_ptr->Pos.Z < SNWNearbySpaceSizeZ - SNSystemConfig::NearbySpaceOutRangeV))
+		{
+			// オブジェクト描画
+			DrawNearbyObject(obj_ptr, &draw_base);
+		}
 
 		it = it->Next;
 	}

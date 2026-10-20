@@ -31,9 +31,6 @@ public:
     // ‰Â‹‰»
     virtual Void SetVisible(Boolean visible);
 
-    // d—Í‰e‹¿İ’è
-    virtual Void SetWeight(Boolean weight);
-
     // À•Wİ’è
     virtual Void SetPos(SNWorldPos* pos);
 
@@ -53,6 +50,9 @@ public:
 
     // Jump End
     virtual Void JumpEnd();
+
+    // Elevation
+    virtual Void Elevation(Boolean up);
 
 
 private:

@@ -27,7 +27,8 @@ struct SNWObjectInfo
 
     Boolean Enable;                     // 有効
     Boolean Visible;                    // 可視
-    Boolean Weight;                     // 重力影響
+
+    Boolean Gravity;                    // 重力影響
 
     SNWObjectState State;               // 状態
     SNWObjectState PrevState;           // 前状態
@@ -85,6 +86,7 @@ private:
     virtual Void EventFuncJog(SNWObjectEventParam* param);
     virtual Void EventFuncJump(SNWObjectEventParam* param);
     virtual Void EventFuncJumpEnd(SNWObjectEventParam* param);
+    virtual Void EventFuncElevation(SNWObjectEventParam* param);
 
     // 状態更新
     virtual Void UpdateState();

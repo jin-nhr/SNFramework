@@ -35,9 +35,10 @@ public:
 		SNSize  ImgSize;
 		SNPoint imgCenterOffset;
 		UInt16 imgDirOffset[SNWorldDirNum];
-
 		Float32 SizeH;
 		Float32 SizeV;
+		Boolean Gravity;
+		Boolean Flyable;
 		SNWAnimationInfo AnimeCode[SNWObjectStateNum];		// アニメコード	
 		Float32 SpeedWalk;
 		Float32 SpeedJog;
@@ -51,6 +52,7 @@ public:
 	{
 		WObjectCodeBone,
 		WObjectCodeSlime,
+		WObjectCodeBat,
 		WObjectCodeNum,
 	};
 
@@ -72,6 +74,10 @@ public:
 
 			// Size
 			1, 3,
+
+			// Ability
+			// gravity, fly
+			true,       false,
 
 			// Animation
 			// Idle
@@ -220,6 +226,10 @@ public:
 			// Size
 			1, 1,
 
+			// Ability
+			// gravity, fly
+			true,       false,
+
 			// Animation
 			// Idle
 			true, 2,
@@ -335,6 +345,157 @@ public:
 			true, 1,
 			0, 1,
 			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Speed (blk/sec) ※ 1フレームでの移動距離は1blk上限とする (60fpsなら16.6くらい)
+			3.0f,			// Walk
+			5.0f,			// Jog
+			10.0f,			// Jump
+			5.0f,			// Flying
+			2.5f			// Swimming
+		},
+
+		// Bat
+		{
+			// Img offset
+			0, 608,
+
+			// img size
+			32, 32,
+
+			// center offset
+			16, 27,
+
+			// dir offset (c, n, ne, e, se, s, sw, w, nw)
+			0, 0, 0, 1, 1, 2, 2, 2, 3,
+
+			// Size
+			1, 1,
+
+			// Ability
+			// gravity, fly
+			true,       true,
+
+			// Animation
+			// Idle
+			true, 1,
+			1, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Walk
+			true, 2,
+			0, 100,
+			1, 100,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Jog
+			true, 2,
+			0, 100,
+			1, 100,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Jump
+			true, 2,
+			0, 100,
+			1, 100,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Attack
+			true, 2,
+			0, 100,
+			1, 100,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Knockback
+			true, 2,
+			0, 100,
+			1, 100,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Spell
+			true, 2,
+			0, 100,
+			1, 100,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// OtherAction
+			true, 2,
+			0, 100,
+			1, 100,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Flying
+			true, 2,
+			0, 100,
+			1, 100,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Fall
+			true, 2,
+			0, 100,
+			1, 100,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Swimming
+			true, 2,
+			0, 100,
+			1, 100,
 			0, 0,
 			0, 0,
 			0, 0,

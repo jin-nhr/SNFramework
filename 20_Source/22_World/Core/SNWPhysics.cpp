@@ -59,6 +59,7 @@ Void SNWPhysics::Update()
 	// 今はPC1個だけを対象に処理しているが
 	// 最終的には全オブジェクトを対象に処理するように変更する
 
+	// 周辺空間除外範囲のオブジェクトは更新対象としない
 
 	obj = GlobalObject->RefObject(SNWGlobalObjectPlayer);
 
@@ -106,17 +107,34 @@ Void SNWPhysics::UpdateObjectSpeed(SNWObjectInfo* info)
 	info->PhysicsAcc.Y = info->Acceleration.Y;
 	info->Acceleration.Y = 0;
 
-	info->PhysicsAcc.Z += (info->Acceleration.Z * SNMapchip::Data[floor_block_code].JumpScale);
-	info->Acceleration.Z = 0;	// 加速度反映後クリア
 
-	if (info->Weight)
+	// 飛行中以外のときは通常の重力計算
+	if (info->State != SNWObjectStateFlying)
 	{
-		info->PhysicsAcc.Z -= (SNGravityGain * SNSystemConfig::FPS / 1000.0f) * SNMapchip::Data[floor_block_code].FallScale;
+		info->PhysicsAcc.Z += (info->Acceleration.Z * SNMapchip::Data[floor_block_code].JumpScale);
+		info->Acceleration.Z = 0;	// 加速度反映後クリア
+
+		// 落下速度を反映する条件
+		if (SNWObjectchip::Data[info->Code].Gravity && info->Gravity)
+		{
+			info->PhysicsAcc.Z -= (SNGravityGain * SNSystemConfig::FPS / 1000.0f) * SNMapchip::Data[floor_block_code].FallScale;
+		}
+
+		info->Speed.X += (info->PhysicsAcc.X - info->Speed.X) * SNMapchip::Data[floor_block_code].MoveScale;
+		info->Speed.Y += (info->PhysicsAcc.Y - info->Speed.Y) * SNMapchip::Data[floor_block_code].MoveScale;
+		info->Speed.Z += (info->PhysicsAcc.Z - info->Speed.Z);
 	}
 
-	info->Speed.X += (info->PhysicsAcc.X - info->Speed.X) * SNMapchip::Data[floor_block_code].MoveScale;
-	info->Speed.Y += (info->PhysicsAcc.Y - info->Speed.Y) * SNMapchip::Data[floor_block_code].MoveScale;
-	info->Speed.Z += (info->PhysicsAcc.Z - info->Speed.Z);
+	// 飛行中は水平移動と同様の計算にする
+	else
+	{
+		info->PhysicsAcc.Z = info->Acceleration.Z;
+		info->Acceleration.Z = 0;	// 加速度反映後クリア
+
+		info->Speed.X += (info->PhysicsAcc.X - info->Speed.X) * SNMapchip::Data[floor_block_code].MoveScale;
+		info->Speed.Y += (info->PhysicsAcc.Y - info->Speed.Y) * SNMapchip::Data[floor_block_code].MoveScale;
+		info->Speed.Z += (info->PhysicsAcc.Z - info->Speed.Z) * SNMapchip::Data[floor_block_code].MoveScale;
+	}
 
 	// 極小の値は0にまるめる
 	if (SNMath::AbsF(info->Speed.X) < SNMinSpeed)

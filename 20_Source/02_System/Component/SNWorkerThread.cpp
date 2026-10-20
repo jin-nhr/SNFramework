@@ -9,6 +9,7 @@ SNWorkerThread::SNWorkerThread()
 	Param = nullptr;
 	WorkerFunc = nullptr;
 	IsComplete = false;
+	Reset = false;
 
 	return;
 }
@@ -20,6 +21,13 @@ SNWorkerThread::~SNWorkerThread()
 
 Void SNWorkerThread::UserMain()
 {
+	while (!Reset)
+	{
+		// Reset‚ªtrue‚É‚È‚é‚Ü‚Å‘Ò‹@‚·‚é
+	}
+
+	Reset = false;
+
 	if (WorkerFunc != nullptr)
 	{
 		WorkerFunc(ID, Param);
