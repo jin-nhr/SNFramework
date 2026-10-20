@@ -16,21 +16,15 @@
 // ‰Šú‰»ˆ—
 Void SNBitmapFont::Initialize()
 {
-	SNGraphicsResManager::AccessGet(SNGraphicsResGUI);
+	SNGraphicsResManager::AccessGet(SNGraphicsResGUIAndWorld);
 
-	return;
-}
-
-// Šg’£‹@”\‰Šú‰»
-Void SNBitmapFont::InitializeExtraFunc()
-{
 	return;
 }
 
 // I—¹ˆ—
 Void SNBitmapFont::Terminate()
 {
-	SNGraphicsResManager::AccessRelease(SNGraphicsResGUI);
+	SNGraphicsResManager::AccessRelease(SNGraphicsResGUIAndWorld);
 	return;
 }
 
@@ -41,7 +35,7 @@ Void SNBitmapFont::DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len, SN
 	SNPoint pt;
 	SNRect dst_rect;
 	SNRect src_rect;
-	SNBitmap* font_surface = SNGraphicsResManager::GetResource(SNGraphicsResGUI);
+	SNBitmap* font_surface = SNGraphicsResManager::GetResource(SNGraphicsResGUIAndWorld);
 
 	dst_rect.PointX = x;
 	dst_rect.PointY = y;

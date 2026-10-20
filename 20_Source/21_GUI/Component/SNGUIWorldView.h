@@ -23,6 +23,8 @@ public:
 	static constexpr UInt8 TransRangeMinZ = 1;
 	static constexpr Int32 TransViewRange = 128;
 
+	static constexpr Float32 CursorSpeed = 0.2f;
+
 	static constexpr Float32 FrontTransAlpha[SNGUIWorldViewFrontTransparentTypeNum] =
 	{
 		1.00f,

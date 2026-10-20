@@ -1,15 +1,15 @@
 パス名,モジュール名,種類,総ステップ数,実ステップ数,コメント[％]
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\01_Include\SNConst.h","モジュール外",h,56,25,18.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\01_Include\SNEnum.h","モジュール外",h,719,612,14.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\01_Include\SNConst.h","モジュール外",h,81,40,16.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\01_Include\SNEnum.h","モジュール外",h,783,667,14.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\01_Include\SNFramework.h","モジュール外",h,6,2,25.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\01_Include\SNFrameworkInternal.h","モジュール外",h,13,5,28.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\01_Include\SNStruct.h","モジュール外",h,71,48,42.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\01_Include\SNStruct.h","モジュール外",h,69,48,42.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\01_Include\SNTypes.h","モジュール外",h,32,21,8.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNAutoResource.cpp","モジュール外",cpp,3,2,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNAutoResource.cpp","SNAutoResource::SNAutoResource",cpp,13,9,9.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNAutoResource.cpp","SNAutoResource::~SNAutoResource",cpp,10,8,11.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNAutoResource.h","モジュール外",h,19,11,28.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNBMString.cpp","モジュール外",cpp,6,3,29.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNBMString.cpp","モジュール外",cpp,7,4,24.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNBMString.cpp","SNBMString::SNBMString()",cpp,11,7,21.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNBMString.cpp","SNBMString::SNBMString(String str)",cpp,9,5,34.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNBMString.cpp","SNBMString::SNBMString",cpp,9,5,28.9
@@ -25,7 +25,7 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNBMString.cpp","Void SNBMString::Clear",cpp,10,7,21.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNBMString.cpp","Void SNBMString::PreAllocate",cpp,10,7,32.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNBMString.cpp","Void SNBMString::ReplaceCharacter",cpp,18,13,27.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNBMString.cpp","SNSize SNBMString::GetStringImageSize",cpp,10,7,12.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNBMString.cpp","SNSize SNBMString::GetStringImageSize",cpp,10,7,12.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNBMString.h","モジュール外",h,64,26,41.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNCriticalSection.cpp","モジュール外",cpp,5,2,27.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNCriticalSection.cpp","SNCriticalSection::SNCriticalSection",cpp,8,5,15.7
@@ -104,8 +104,10 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNMath.cpp","Int64 SNMath::SaturateInc",cpp,17,13,9.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNMath.cpp","Int64 SNMath::SaturateDec",cpp,17,13,9.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNMath.cpp","Int64 SNMath::CalcDist2",cpp,10,7,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNMath.cpp","Int8 SNMath::CalcAngle",cpp,43,33,13.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNMath.h","モジュール外",h,81,40,18.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNMath.cpp","Int8 SNMath::CalcAngle",cpp,44,33,13.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNMath.cpp","Int8 SNMath::GetSin",cpp,14,10,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNMath.cpp","Int8 SNMath::GetCos",cpp,13,10,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNMath.h","モジュール外",h,74,31,24.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNMemory.cpp","モジュール外",cpp,5,2,21.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNMemory.cpp","SNMemory::SNMemory",cpp,11,7,24.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNMemory.cpp","SNMemory::~SNMemory",cpp,13,9,26.0
@@ -182,15 +184,21 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNSystemTimer.h","モジュール外",h,24,13,32.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.cpp","モジュール外",cpp,8,5,11.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.cpp","Void SNThread::EntryPoint",cpp,24,14,32.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.cpp","SNThread::SNThread",cpp,10,6,24.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.cpp","SNThread::SNThread",cpp,11,7,18.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.cpp","SNThread::~SNThread",cpp,16,11,34.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.cpp","Void SNThread::Run",cpp,18,11,36.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.cpp","Boolean SNThread::GetRunStatus",cpp,6,4,20.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.cpp","Handle SNThread::GetThreadHandle",cpp,7,4,24.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.cpp","Void SNThread::ThreadMain",cpp,17,8,33.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.cpp","Void SNThread::ThreadMain",cpp,35,22,15.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.cpp","Void SNThread::UserMain",cpp,7,4,62.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.cpp","Void SNThread::WaitForThreadEnd",cpp,14,10,16.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.h","モジュール外",h,44,19,49.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.cpp","Void SNThread::WaitForThreadEnd",cpp,15,10,16.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.cpp","Void SNThread::SetPriority",cpp,5,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNThread.h","モジュール外",h,55,27,42.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNWorkerThread.cpp","モジュール外",cpp,5,1,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNWorkerThread.cpp","SNWorkerThread::SNWorkerThread",cpp,10,8,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNWorkerThread.cpp","SNWorkerThread::~SNWorkerThread",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNWorkerThread.cpp","Void SNWorkerThread::UserMain",cpp,10,9,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Component\SNWorkerThread.h","モジュール外",h,23,16,6.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Core\SNEntryPoint.cpp","モジュール外",cpp,4,3,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Core\SNEntryPoint.cpp","int APIENTRY wWinMain",cpp,49,30,32.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\02_System\Core\SNSystem.cpp","モジュール外",cpp,21,17,17.6
@@ -222,13 +230,14 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\03_Resource\Resource.h","モジュール外",h,18,2,30.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\03_Resource\SNBMCharTable.h","モジュール外",h,28,23,2.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\03_Resource\SNBMCharTable.h","inline BMChar SNCharToBMChar",h,361,353,0.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\03_Resource\SNFixedString.h","モジュール外",h,52,45,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\03_Resource\SNGraphicsResource.h","モジュール外",h,91,57,30.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\03_Resource\SNGUIDef.h","モジュール外",h,116,84,16.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\03_Resource\SNMapchip.h","モジュール外",h,203,163,15.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\03_Resource\SNFixedString.h","モジュール外",h,66,55,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\03_Resource\SNGraphicsResource.h","モジュール外",h,62,29,47.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\03_Resource\SNGUIDef.h","モジュール外",h,202,135,14.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\03_Resource\SNMapchip.h","モジュール外",h,190,141,9.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\03_Resource\SNMusicResource.h","モジュール外",h,30,21,9.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\03_Resource\SNSoundResource.h","モジュール外",h,28,19,7.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\04_Config\Component\SNSystemConfig.h","モジュール外",h,171,53,39.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\03_Resource\SNWObjectchip.h","モジュール外",h,261,208,11.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\04_Config\Component\SNSystemConfig.h","モジュール外",h,200,64,36.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\04_Config\Component\SNUserConfig.cpp","モジュール外",cpp,12,5,25.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\04_Config\Component\SNUserConfig.cpp","Void SNUserConfig::Initialize",cpp,14,7,25.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\04_Config\Component\SNUserConfig.cpp","Void SNUserConfig::Terminate",cpp,9,5,26.6
@@ -238,7 +247,7 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\04_Config\Component\SNUserConfig.cpp","Void SNUserConfig::LoadUserConfig",cpp,64,35,27.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\04_Config\Component\SNUserConfig.cpp","Void SNUserConfig::SaveUserConfig",cpp,27,11,32.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\04_Config\Component\SNUserConfig.cpp","UInt32 SNUserConfig::CalcCheckSum",cpp,17,13,20.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\04_Config\Component\SNUserConfig.h","モジュール外",h,180,119,47.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\04_Config\Component\SNUserConfig.h","モジュール外",h,148,98,47.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\04_Config\Core\SNConfig.cpp","モジュール外",cpp,6,3,18.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\04_Config\Core\SNConfig.cpp","Void SNConfig::Initialize",cpp,6,4,15.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\04_Config\Core\SNConfig.cpp","Void SNConfig::Startup",cpp,10,5,50.0
@@ -305,7 +314,7 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\10_Storage\Component\SNSoundFile.h","モジュール外",h,24,13,23.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\10_Storage\Core\SNStorage.cpp","モジュール外",cpp,17,10,27.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\10_Storage\Core\SNStorage.cpp","Void SNStorage::Initialize",cpp,38,17,27.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\10_Storage\Core\SNStorage.cpp","Void SNStorage::Startup",cpp,15,6,53.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\10_Storage\Core\SNStorage.cpp","Void SNStorage::Startup",cpp,18,7,46.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\10_Storage\Core\SNStorage.cpp","Void SNStorage::Run",cpp,6,4,14.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\10_Storage\Core\SNStorage.cpp","Void SNStorage::BeforeTerminate",cpp,12,6,27.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\10_Storage\Core\SNStorage.cpp","Void SNStorage::Terminate",cpp,12,6,28.0
@@ -348,15 +357,15 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\10_Storage\Core\SNStorageThread.cpp","モジュール外",cpp,4,2,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\10_Storage\Core\SNStorageThread.cpp","Void SNStorageThread::UserMain",cpp,9,5,40.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\10_Storage\Core\SNStorageThread.h","モジュール外",h,12,8,26.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","モジュール外",cpp,14,7,16.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","Void SNGamePad::Initialize",cpp,8,6,7.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","Void SNGamePad::Terminate",cpp,8,6,9.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","Void SNGamePad::Update",cpp,9,6,6.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","Void SNGamePad::OnInitialize",cpp,17,10,17.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","void SNGamePad::OnTerminate",cpp,6,4,10.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","void SNGamePad::OnUpdate",cpp,139,88,23.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","void SNGamePad::GamePadInfoUpdate",cpp,103,63,9.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.h","モジュール外",h,83,42,45.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","モジュール外",cpp,14,7,18.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","Void SNGamePad::Initialize",cpp,7,5,11.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","Void SNGamePad::Terminate",cpp,7,5,14.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","Void SNGamePad::Update",cpp,8,5,10.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","Void SNGamePad::OnInitialize",cpp,17,10,18.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","void SNGamePad::OnTerminate",cpp,6,4,12.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","void SNGamePad::OnUpdate",cpp,139,88,24.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.cpp","void SNGamePad::GamePadInfoUpdate",cpp,103,63,10.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNGamePad.h","モジュール外",h,80,42,44.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNKeyboard.cpp","モジュール外",cpp,18,6,20.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNKeyboard.cpp","Void SNKeyboard::Initialize",cpp,27,16,32.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNKeyboard.cpp","Void SNKeyboard::Terminate",cpp,9,5,46.8
@@ -370,11 +379,11 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNMouse.cpp","Void SNMouse::UpdateButtonState",cpp,30,21,12.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNMouse.h","モジュール外",h,38,16,43.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualDirectGamePad.cpp","モジュール外",cpp,6,4,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualDirectGamePad.cpp","Void SNVirtualDirectGamePad::Initialize",cpp,12,7,10.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualDirectGamePad.cpp","Void SNVirtualDirectGamePad::Initialize",cpp,11,6,17.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualDirectGamePad.cpp","Void SNVirtualDirectGamePad::Terminate",cpp,6,4,15.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualDirectGamePad.cpp","Void SNVirtualDirectGamePad::Update",cpp,8,4,43.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualDirectGamePad.cpp","Void SNVirtualDirectGamePad::Activate",cpp,6,5,8.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualDirectGamePad.h","モジュール外",h,27,13,36.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualDirectGamePad.h","モジュール外",h,27,13,37.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualDirectKeyboard.cpp","モジュール外",cpp,7,4,6.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualDirectKeyboard.cpp","Void SNVirtualDirectKeyboard::Initialize",cpp,11,6,17.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualDirectKeyboard.cpp","Void SNVirtualDirectKeyboard::Terminate",cpp,6,4,14.8
@@ -382,20 +391,152 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualDirectKeyboard.cpp","Void SNVirtualDirectKeyboard::Activate",cpp,6,5,8.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualDirectKeyboard.h","モジュール外",h,27,13,37.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","モジュール外",cpp,11,8,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Void SNVirtualGamePad::Initialize",cpp,29,22,4.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Void SNVirtualGamePad::Initialize",cpp,25,18,5.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Void SNVirtualGamePad::Terminate",cpp,6,4,16.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Void SNVirtualGamePad::Update",cpp,15,7,31.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Void SNVirtualGamePad::UpdateButtonState",cpp,12,6,33.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Void SNVirtualGamePad::UpdatePrevState",cpp,32,20,12.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Void SNVirtualGamePad::UpdateButtonStateFromGamePad",cpp,34,23,17.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Void SNVirtualGamePad::UpdateButtonStateKeyboard",cpp,27,18,14.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Void SNVirtualGamePad::UpdateButtonEvent",cpp,15,10,11.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Void SNVirtualGamePad::UpdateEventPadID",cpp,79,51,13.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.h","モジュール外",h,61,27,38.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Void SNVirtualGamePad::UpdatePrevState",cpp,27,16,12.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Void SNVirtualGamePad::UpdateButtonStateFromGamePad",cpp,21,14,16.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Void SNVirtualGamePad::UpdateButtonStateKeyboard",cpp,22,14,14.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Void SNVirtualGamePad::UpdateButtonEvent",cpp,81,51,14.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadUpPush",cpp,5,4,4.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadUpPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadUpRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadUpLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadUpRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadDownPush",cpp,5,4,5.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadDownPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadDownRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadDownLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadDownRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadLeftPush",cpp,5,4,5.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadLeftPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadLeftRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadLeftLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadLeftRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadRightPush",cpp,5,4,6.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadRightPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadRightRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadRightLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::DPadRightRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::APush",cpp,5,4,3.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::APress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::ARepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::APadALong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::APadARelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::BPush",cpp,5,4,3.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::BPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::BRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::BLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::BRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::XPush",cpp,5,4,3.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::XPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::XRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::XLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::XRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::YPush",cpp,5,4,3.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::YPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::YRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::YLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::YRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::SelectPush",cpp,5,4,7.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::SelectPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::SelectRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::SelectLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::SelectRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::StartPush",cpp,5,4,6.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::StartPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::StartRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::StartLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::StartRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L1Push",cpp,5,4,3.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L1Press",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L1Repeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L1Long",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L1Release",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R1Push",cpp,5,4,3.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R1Press",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R1Repeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R1Long",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R1Release",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L2Push",cpp,5,4,4.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L2Press",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L2Repeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L2Long",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L2Release",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R2Push",cpp,5,4,4.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R2Press",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R2Repeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R2Long",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R2Release",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L3Push",cpp,5,4,4.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L3Press",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L3Repeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L3Long",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::L3Release",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R3Push",cpp,5,4,4.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R3Press",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R3Repeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R3Long",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::R3Release",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkUpPush",cpp,5,4,10.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkUpPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkUpRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkUpLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkUpRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkDownPush",cpp,5,4,11.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkDownPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkDownRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkDownLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkDownRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkLeftPush",cpp,5,4,11.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkLeftPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkLeftRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkLeftLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkLeftRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkRightPush",cpp,5,4,11.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkRightPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkRightRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkRightLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::LStkRightRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkUpPush",cpp,5,4,10.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkUpPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkUpRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkUpLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkUpRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkDownPush",cpp,5,4,11.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkDownPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkDownRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkDownLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkDownRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkLeftPush",cpp,5,4,11.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkLeftPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkLeftRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkLeftLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkLeftRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkRightPush",cpp,5,4,11.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkRightPress",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkRightRepeat",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkRightLong",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.cpp","Boolean SNVirtualGamePad::RStkRightRelease",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualGamePad.h","モジュール外",h,226,146,13.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","モジュール外",cpp,13,8,17.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Void SNVirtualPointingDevice::Initialize",cpp,29,19,8.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Void SNVirtualPointingDevice::Terminate",cpp,6,4,14.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Void SNVirtualPointingDevice::Update",cpp,37,13,50.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Void SNVirtualPointingDevice::Update",cpp,38,13,50.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Boolean SNVirtualPointingDevice::Decide",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Boolean SNVirtualPointingDevice::Cancel",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Boolean SNVirtualPointingDevice::MidButton",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Boolean SNVirtualPointingDevice::WheelUp",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Boolean SNVirtualPointingDevice::WheelDown",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Boolean SNVirtualPointingDevice::Move",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Boolean SNVirtualPointingDevice::Drag",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Boolean SNVirtualPointingDevice::Drop",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Boolean SNVirtualPointingDevice::Flick",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","SNPoint* SNVirtualPointingDevice::CurrentPos",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","SNPoint* SNVirtualPointingDevice::DragStartPos",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","SNPoint* SNVirtualPointingDevice::MoveDelta",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","SNPoint* SNVirtualPointingDevice::FlickVelocity",cpp,6,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Void SNVirtualPointingDevice::UpdatePrevProc",cpp,36,22,9.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Void SNVirtualPointingDevice::UpdateDecide",cpp,29,17,30.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Void SNVirtualPointingDevice::UpdateCancel",cpp,15,9,34.2
@@ -405,60 +546,40 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Void SNVirtualPointingDevice::UpdateDrop",cpp,17,11,27.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Void SNVirtualPointingDevice::UpdateFlick",cpp,62,43,14.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.cpp","Void SNVirtualPointingDevice::UpdateExBtn",cpp,14,9,34.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.h","モジュール外",h,74,37,33.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.cpp","モジュール外",cpp,13,10,5.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Component\SNVirtualPointingDevice.h","モジュール外",h,91,50,27.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.cpp","モジュール外",cpp,14,10,5.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.cpp","Void SNInput::Initialize",cpp,17,11,16.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.cpp","Void SNInput::Startup",cpp,6,4,19.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.cpp","Void SNInput::Run",cpp,6,4,14.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.cpp","Void SNInput::BeforeTerminate",cpp,6,4,19.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.cpp","Void SNInput::Terminate",cpp,17,11,16.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.cpp","Void SNInput::Update",cpp,15,7,32.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.cpp","Void SNInput::Update",cpp,16,7,31.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.cpp","Void SNInput::UpdateState",cpp,6,4,18.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.cpp","Void SNInput::UpdateDevice",cpp,16,7,39.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.cpp","Void SNInput::UpdateVirtualDevice",cpp,17,8,39.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.h","モジュール外",h,58,17,53.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.cpp","Void SNInput::UpdateVirtualDevice",cpp,18,8,39.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\11_Input\Core\SNInput.h","モジュール外",h,55,17,54.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.cpp","モジュール外",cpp,3,2,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.cpp","SNBitmap::SNBitmap",cpp,8,7,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.cpp","SNBitmap::~SNBitmap",cpp,8,5,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.cpp","Void SNBitmap::SetBitmap",cpp,12,8,8.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.cpp","Void SNBitmap::SetBitmap",cpp,12,8,9.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.cpp","Handle SNBitmap::Get3DTexture",cpp,6,4,22.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.cpp","Handle SNBitmap::GetTargetBitmap",cpp,6,4,19.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.cpp","Handle SNBitmap::GetSourceBitmap",cpp,6,4,15.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.cpp","Void SNBitmap::GetSize",cpp,13,8,18.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.cpp","Void SNBitmap::DeleteBitmap",cpp,28,22,3.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.h","モジュール外",h,33,19,16.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","モジュール外",cpp,18,10,11.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void SNBitmapFont::Initialize",cpp,8,5,10.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void SNBitmapFont::InitializeExtraFunc",cpp,28,20,5.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void SNBitmapFont::Terminate",cpp,22,18,1.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void SNBitmapFont::DrawSystemText",cpp,51,39,4.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","SNListContainer* SNBitmapFont::GetWorkSurface",cpp,6,4,19.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void SNBitmapFont::ReleaseWorkSurface",cpp,8,5,9.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void SNBitmapFont::PreDrawText",cpp,21,14,11.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void SNBitmapFont::DrawExtraText",cpp,27,21,3.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.cpp","Handle SNBitmap::GetSRV",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.cpp","Handle SNBitmap::GetRTV",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.cpp","Void SNBitmap::GetSize",cpp,15,9,17.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.cpp","Void SNBitmap::DeleteBitmap",cpp,28,22,3.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmap.h","モジュール外",h,31,19,10.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","モジュール外",cpp,15,9,14.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void SNBitmapFont::Initialize",cpp,8,5,10.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void SNBitmapFont::InitializeExtraFunc",cpp,6,4,21.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void SNBitmapFont::Terminate",cpp,7,5,9.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void SNBitmapFont::DrawSystemText",cpp,34,23,7.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void SNBitmapFont::StringToBMString",cpp,15,10,15.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Char SNBitmapFont::BMCharToChar",cpp,16,11,7.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void SNBitmapFont::BMStringToString",cpp,16,10,17.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","SNPoint SNBitmapFont::GetBMCharPoint",cpp,12,8,11.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","SNPoint SNBitmapFont::GetBMCharPoint",cpp,13,9,6.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","UInt8 SNBitmapFont::GetBMCharPage",cpp,8,5,20.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","UInt8 SNBitmapFont::GetBMCharCode",cpp,8,5,23.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void* SNBitmapFont::CreateWorkSurface",cpp,15,10,14.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","Void SNBitmapFont::DeleteWorkSurface",cpp,10,7,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.h","モジュール外",h,73,34,24.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNColorMatrix.cpp","モジュール外",cpp,3,2,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNColorMatrix.cpp","SNColorMatrix::SNColorMatrix",cpp,8,7,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNColorMatrix.cpp","SNColorMatrix::~SNColorMatrix",cpp,8,6,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNColorMatrix.cpp","Void SNColorMatrix::SetColorMatrix",cpp,11,6,15.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNColorMatrix.cpp","Void SNColorMatrix::DeleteColorMatrix",cpp,12,9,12.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNColorMatrix.cpp","Void SNColorMatrix::SetSource",cpp,14,9,16.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNColorMatrix.cpp","Void SNColorMatrix::ClearMatrix",cpp,17,13,5.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNColorMatrix.cpp","Void SNColorMatrix::SetMatrix",cpp,13,9,5.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNColorMatrix.cpp","Void SNColorMatrix::Multiply",cpp,20,14,3.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNColorMatrix.cpp","Void SNColorMatrix::Add",cpp,19,14,3.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNColorMatrix.cpp","Void SNColorMatrix::WeightedInput",cpp,19,14,6.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNColorMatrix.cpp","Void SNColorMatrix::WeightedOutput",cpp,19,14,6.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNColorMatrix.cpp","Void SNColorMatrix::CombineMatrix",cpp,44,32,16.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNColorMatrix.h","モジュール外",h,48,25,14.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.cpp","UInt8 SNBitmapFont::GetBMCharCode",cpp,7,5,23.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNBitmapFont.h","モジュール外",h,45,19,30.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNDIBPixel.cpp","モジュール外",cpp,4,2,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNDIBPixel.cpp","SNDIBPixel::SNDIBPixel",cpp,19,14,4.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNDIBPixel.cpp","SNDIBPixel::~SNDIBPixel",cpp,12,9,7.6
@@ -466,22 +587,6 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNDIBPixel.cpp","Int32 SNDIBPixel::GetStride",cpp,6,4,21.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNDIBPixel.cpp","Int32 SNDIBPixel::GetDataSize",cpp,5,4,23.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNDIBPixel.h","モジュール外",h,26,16,12.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","モジュール外",cpp,13,11,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","SNGraphicsContext::SNGraphicsContext",cpp,7,5,16.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","SNGraphicsContext::~SNGraphicsContext",cpp,7,5,14.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","Void SNGraphicsContext::CreateDeviceContext",cpp,16,9,11.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","Void SNGraphicsContext::DeleteDeviceContext",cpp,12,9,8.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","Void SNGraphicsContext::Begin",cpp,15,11,3.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","Void SNGraphicsContext::End",cpp,9,6,7.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","Handle SNGraphicsContext::GetDC",cpp,6,4,11.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","Void SNGraphicsContext::CreateBitmap",cpp,54,37,5.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","Void SNGraphicsContext::DrawImage",cpp,41,32,0.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","Void SNGraphicsContext::Clear",cpp,15,11,2.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","Void SNGraphicsContext::ColorMatrixEffect",cpp,25,19,3.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","Void SNGraphicsContext::CreateDIBFromBitmap",cpp,68,45,13.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","Void SNGraphicsContext::CreateBitmapFromDIB",cpp,35,25,12.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.cpp","Void SNGraphicsContext::CreateColorMatrix",cpp,15,9,14.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNGraphicsContext.h","モジュール外",h,71,35,17.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNScaling.cpp","モジュール外",cpp,4,3,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNScaling.cpp","Void SNScaling::LetterBox",cpp,29,18,13.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNScaling.cpp","Void SNScaling::Fit",cpp,29,18,12.8
@@ -490,6 +595,8 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Component\SNScaling.h","モジュール外",h,15,10,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SND3DShaderPS.h","モジュール外",h,2478,2425,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SND3DShaderVS.h","モジュール外",h,2835,2777,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SND3DWorldShaderPS.h","モジュール外",h,2557,2481,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SND3DWorldShaderVS.h","モジュール外",h,3553,3407,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","モジュール外",cpp,17,10,20.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Void SNGraphics::Initialize",cpp,8,4,30.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Void SNGraphics::Startup",cpp,20,12,15.4
@@ -502,9 +609,9 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Void SNGraphics::DeviceRestore",cpp,22,14,23.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Boolean SNGraphics::ClientToSurface",cpp,45,31,23.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Boolean SNGraphics::IsFullScreen",cpp,6,4,15.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","SNGraphicsContext* SNGraphics::GetContext",cpp,14,9,9.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Void SNGraphics::ReleaseContext",cpp,9,6,12.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Void SNGraphics::LoadStartupResource",cpp,16,10,25.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Void SNGraphics::BeginDraw",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Void SNGraphics::EndDraw",cpp,7,5,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Void SNGraphics::LoadSystemResource",cpp,10,6,13.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Boolean SNGraphics::IsSystemResourceLoaded",cpp,6,4,20.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Void SNGraphics::UnloadSystemResource",cpp,7,5,18.5
@@ -514,39 +621,48 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Void SNGraphics::LoadResource",cpp,11,9,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Boolean SNGraphics::IsResourceLoaded",cpp,12,10,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.cpp","Void SNGraphics::UnloadResource",cpp,11,9,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.h","モジュール外",h,88,34,35.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","モジュール外",cpp,27,23,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::Initialize",cpp,20,14,5.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphics.h","モジュール外",h,87,33,36.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","モジュール外",cpp,42,36,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::Initialize",cpp,19,13,5.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateDevice",cpp,21,17,7.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateSwapChain",cpp,34,26,3.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateRTV",cpp,16,12,2.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateD2DFactory",cpp,15,12,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateDeviceContext",cpp,22,14,2.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateSurface",cpp,14,8,12.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateBitmap",cpp,53,40,4.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateDIBFromBitmap",cpp,68,45,13.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateBitmapFromDIB",cpp,36,25,12.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateSurface",cpp,14,8,13.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateSRV",cpp,10,6,3.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateFullscreenQuad",cpp,41,30,9.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateFullscreenQuad",cpp,35,25,10.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateShaders",cpp,34,28,3.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateSampler",cpp,26,20,2.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::Terminate",cpp,19,14,4.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateSampler",cpp,24,20,2.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::CreateDrawImageD3D",cpp,188,143,4.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::Terminate",cpp,18,13,5.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::ReleaseDevice",cpp,16,14,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::ReleaseSwapChain",cpp,10,9,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::ReleaseRTV",cpp,10,9,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::ReleaseFactory",cpp,11,9,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::ReleaseDeviceContext",cpp,12,9,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::ReleaseSurface",cpp,6,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::ReleaseSurface",cpp,7,5,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::ReleaseSRV",cpp,10,9,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::ReleaseFullscreenQuad",cpp,10,9,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::ReleaseShaders",cpp,22,19,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::ReleaseSampler",cpp,10,9,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::ReleaseDrawImageD3D",cpp,70,58,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::Restore",cpp,17,8,26.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::ClearState",cpp,8,6,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::Flip",cpp,71,43,10.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::Flip",cpp,65,39,12.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::SetFullScreen",cpp,20,14,9.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::ResizeBuffer",cpp,13,9,14.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::GetWindowSize",cpp,11,8,15.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.h","モジュール外",h,116,53,23.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::GetWindowSize",cpp,12,8,15.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::Begin",cpp,60,36,7.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect)",cpp,6,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, SNColor* color)",cpp,5,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha)",cpp,6,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::DrawImage",cpp,6,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::DrawImageImp",cpp,49,35,5.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::End",cpp,11,6,20.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.cpp","Void SNGraphicsDevice::FlushD3DDrawCommand",cpp,39,24,9.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsDevice.h","モジュール外",h,190,101,23.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsResManager.cpp","モジュール外",cpp,18,8,20.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::Initialize",cpp,27,20,3.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::Initialize",cpp,26,18,8.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::Terminate",cpp,23,16,8.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::Update",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::AccessGet",cpp,7,5,23.6
@@ -558,7 +674,7 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::StateMachineResLoading",cpp,23,17,3.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::StateMachineResLoaded",cpp,31,24,9.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::StateMachineResUnloading",cpp,33,25,14.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::StateMachinePhaseProc",cpp,57,45,20.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsResManager.cpp","Void SNGraphicsResManager::StateMachinePhaseProc",cpp,57,45,20.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\12_Graphics\Core\SNGraphicsResManager.h","モジュール外",h,60,35,12.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\13_AudioVideo\Component\SNMusic.cpp","モジュール外",cpp,7,6,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\13_AudioVideo\Component\SNMusic.cpp","SNMusic::SNMusic",cpp,12,8,8.3
@@ -678,7 +794,7 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\14_Codec\Component\SNDIB.cpp","Void SNDIB::Encode",cpp,9,6,37.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\14_Codec\Component\SNDIB.cpp","SNImageCodecResult SNDIB::OnOperationImageDecode",cpp,6,5,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\14_Codec\Component\SNDIB.cpp","SNImageCodecResult SNDIB::OnOperationImageEncode",cpp,5,5,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\14_Codec\Component\SNDIB.h","モジュール外",h,55,27,31.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\14_Codec\Component\SNDIB.h","モジュール外",h,54,26,32.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\14_Codec\Component\SNPCM.cpp","モジュール外",cpp,7,4,9.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\14_Codec\Component\SNPCM.cpp","SNPCM::SNPCM",cpp,12,8,7.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\14_Codec\Component\SNPCM.cpp","SNPCM::~SNPCM",cpp,8,5,20.8
@@ -817,9 +933,9 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNLayerController.cpp","Void SNLayerController::Exit",cpp,21,12,18.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNLayerController.cpp","Void SNLayerController::Step",cpp,26,15,22.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNLayerController.cpp","Void SNLayerController::PreDraw",cpp,30,18,20.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNLayerController.cpp","Void SNLayerController::Draw",cpp,29,18,19.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNLayerController.cpp","Void SNLayerController::Draw",cpp,29,18,20.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNLayerController.cpp","Void SNLayerController::PostDraw",cpp,27,18,20.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNLayerController.h","モジュール外",h,42,18,22.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNLayerController.h","モジュール外",h,42,18,23.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNPhase.cpp","モジュール外",cpp,3,1,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNPhase.cpp","SNPhaseResult SNPhase::SequenceCallback",cpp,13,9,11.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNPhase.cpp","SNPhase::SNPhase",cpp,5,4,0.0
@@ -834,9 +950,9 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Void SNScene::Entry",cpp,7,5,12.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Void SNScene::Exit",cpp,7,5,11.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Void SNScene::Step",cpp,36,24,21.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Boolean SNScene::EventProc",cpp,40,33,7.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Boolean SNScene::EventProc",cpp,37,30,8.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Void SNScene::PreDraw",cpp,16,11,38.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Void SNScene::Draw",cpp,16,11,27.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Void SNScene::Draw",cpp,16,11,31.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Void SNScene::PostDraw",cpp,17,11,37.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Void SNScene::SetRect",cpp,12,8,18.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","SNRect SNScene::GetRect",cpp,14,9,22.5
@@ -852,16 +968,15 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Void SNScene::OnExit",cpp,6,4,13.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Boolean SNScene::OnNotifyEvent",cpp,6,4,17.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Boolean SNScene::OnInternalEvent",cpp,6,4,19.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Boolean SNScene::OnGamePad1",cpp,6,4,20.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Boolean SNScene::OnGamePad2",cpp,6,4,20.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Boolean SNScene::OnGamePad",cpp,6,4,21.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Boolean SNScene::OnPointingDevice",cpp,6,4,28.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Boolean SNScene::OnDirectKeyboard",cpp,6,4,26.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Boolean SNScene::OnDirectGamePad",cpp,7,4,28.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Void SNScene::OnCycle",cpp,6,4,26.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Void SNScene::OnPreDraw",cpp,6,4,21.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Void SNScene::OnDraw",cpp,6,4,14.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Void SNScene::OnDraw",cpp,6,4,20.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.cpp","Void SNScene::OnPostDraw",cpp,6,4,21.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.h","モジュール外",h,132,51,40.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNScene.h","モジュール外",h,127,49,40.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNSceneController.cpp","モジュール外",cpp,5,2,23.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNSceneController.cpp","SNSceneController::SNSceneController",cpp,6,4,22.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNSceneController.cpp","SNSceneController::~SNSceneController",cpp,8,5,15.3
@@ -904,11 +1019,11 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNStateController.cpp","Void SNStateController::Exit",cpp,12,6,26.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNStateController.cpp","Void SNStateController::Step",cpp,57,33,26.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNStateController.cpp","Void SNStateController::PreDraw",cpp,20,12,30.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNStateController.cpp","Void SNStateController::Draw",cpp,20,12,28.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNStateController.cpp","Void SNStateController::Draw",cpp,20,12,31.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNStateController.cpp","Void SNStateController::PostDraw",cpp,20,12,30.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNStateController.cpp","Void SNStateController::SetScene",cpp,24,11,42.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNStateController.cpp","Void SNStateController::CompleteSceneSet",cpp,11,6,45.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNStateController.h","モジュール外",h,63,24,38.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNStateController.h","モジュール外",h,63,24,38.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNThreadSequencer.cpp","モジュール外",cpp,3,2,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNThreadSequencer.cpp","SNThreadSequencer::SNThreadSequencer",cpp,9,6,13.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNThreadSequencer.cpp","SNThreadSequencer::~SNThreadSequencer",cpp,7,4,19.2
@@ -930,9 +1045,9 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNUserAppBase.cpp","SNUserAppBase::SNUserAppBase",cpp,8,5,27.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNUserAppBase.cpp","SNUserAppBase::~SNUserAppBase",cpp,5,4,22.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Component\SNUserAppBase.h","モジュール外",h,26,13,41.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","モジュール外",cpp,40,26,27.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","モジュール外",cpp,41,27,26.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","Void SNApplication::Initialize",cpp,18,11,17.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","Void SNApplication::Startup",cpp,24,13,30.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","Void SNApplication::Startup",cpp,25,14,28.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","Void SNApplication::Run",cpp,9,5,40.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","Void SNApplication::BeforeTerminate",cpp,15,7,33.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","Void SNApplication::Terminate",cpp,9,5,24.5
@@ -942,46 +1057,46 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","UInt32 SNApplication::GetProcFPS",cpp,6,4,14.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","UInt32 SNApplication::GetSkipFrame",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","UInt32 SNApplication::GetProcTime",cpp,6,4,13.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","Void SNApplication::UserMain",cpp,123,59,29.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","Void SNApplication::UserMain",cpp,121,58,30.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","Void SNApplication::Update",cpp,46,28,36.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.cpp","Boolean SNApplication::EventResultProc",cpp,19,12,29.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.h","モジュール外",h,102,47,37.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplication.h","モジュール外",h,104,49,36.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplicationThread.cpp","モジュール外",cpp,3,2,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplicationThread.cpp","Void SNApplicationThread::UserMain",cpp,6,5,27.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNApplicationThread.h","モジュール外",h,14,8,46.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNEvent.cpp","モジュール外",cpp,13,10,11.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNEvent.cpp","Void SNEvent::Initialize",cpp,24,17,5.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNEvent.cpp","Void SNEvent::Terminate",cpp,6,4,18.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNEvent.cpp","Void SNEvent::Update",cpp,72,49,15.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNEvent.cpp","Void SNEvent::Update",cpp,66,45,16.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\Core\SNEvent.h","モジュール外",h,27,13,36.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","モジュール外",cpp,8,5,10.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","モジュール外",cpp,10,7,8.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","SNDebugApp::SNDebugApp",cpp,6,4,26.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","SNDebugApp::~SNDebugApp",cpp,6,4,24.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","Void SNDebugApp::OnInitialize",cpp,45,36,6.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","Void SNDebugApp::OnInitialize",cpp,44,33,6.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","Void SNDebugApp::OnTerminate",cpp,8,5,12.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","Void SNDebugApp::OnEntry",cpp,9,6,8.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","Void SNDebugApp::OnExit",cpp,8,5,9.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","Void SNDebugApp::OnCycle",cpp,44,34,12.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","Void SNDebugApp::OnCycle",cpp,43,32,14.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","Void SNDebugApp::OnPreDraw",cpp,10,5,13.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","Void SNDebugApp::OnDraw",cpp,9,5,10.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","Void SNDebugApp::OnDraw",cpp,9,5,13.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.cpp","Void SNDebugApp::OnPostDraw",cpp,7,5,14.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.h","モジュール外",h,55,29,25.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\01_DebugApp\SNDebugApp.h","モジュール外",h,53,27,26.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","モジュール外",cpp,14,9,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::RegisterSysApp",cpp,12,9,13.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::ReleaseSysApp",cpp,12,8,24.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::CallbackPushButton",cpp,8,5,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::OnEntry",cpp,8,6,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::OnExit",cpp,9,6,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::OnCycle",cpp,10,8,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::OnCycle",cpp,32,24,14.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::RegisterUserApp",cpp,12,9,13.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Void SNFocus::ReleaseUserApp",cpp,11,8,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","SNFocus::SNFocus",cpp,8,7,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","SNFocus::SNFocus",cpp,9,8,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","SNFocus::~SNFocus",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","SNFocusGroup* SNFocus::GetTarget",cpp,16,13,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Boolean SNFocus::OnPointingDevice",cpp,49,41,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Boolean SNFocus::OnGamePad1",cpp,74,61,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Boolean SNFocus::OnPointingDevice",cpp,53,45,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","Boolean SNFocus::OnGamePad",cpp,78,65,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.cpp","SNPhaseResult SNFocus::PhaseStepFunc",cpp,33,29,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.h","モジュール外",h,51,31,8.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNFocus.h","モジュール外",h,52,32,8.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMusicPlayer.cpp","モジュール外",cpp,17,11,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMusicPlayer.cpp","SNMusicPlayer::SNMusicPlayer",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMusicPlayer.cpp","SNMusicPlayer::~SNMusicPlayer",cpp,5,4,0.0
@@ -993,19 +1108,19 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMusicPlayer.cpp","SNMusicLayer SNMusicPlayer::GetPlayingLayer",cpp,17,12,13.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMusicPlayer.cpp","SNPhaseResult SNMusicPlayer::PhaseStepFunc",cpp,104,84,4.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMusicPlayer.h","モジュール外",h,53,39,1.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","モジュール外",cpp,16,12,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","モジュール外",cpp,18,14,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","Void SNMute::SetMute",cpp,9,6,24.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","Boolean SNMute::GetNowSts",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","SNMute::SNMute",cpp,6,4,30.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","SNMute::~SNMute",cpp,6,4,27.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","Void SNMute::OnInitialize",cpp,31,21,8.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","Void SNMute::OnInitialize",cpp,25,17,7.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","Void SNMute::OnTerminate",cpp,8,5,12.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","Void SNMute::OnEntry",cpp,13,9,19.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","Void SNMute::OnEntry",cpp,35,25,5.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","Void SNMute::OnExit",cpp,6,4,13.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","Void SNMute::OnCycle",cpp,57,42,20.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","Void SNMute::OnDraw",cpp,24,17,2.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","Void SNMute::OnDraw",cpp,25,17,2.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.cpp","SNPhaseResult SNMute::PhaseStepFunc",cpp,68,58,4.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.h","モジュール外",h,57,29,15.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNMute.h","モジュール外",h,58,30,15.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNOverlapApp.cpp","モジュール外",cpp,3,1,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNOverlapApp.cpp","SNOverlapApp::SNOverlapApp",cpp,10,8,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\02_OverlapApp\SNOverlapApp.cpp","SNOverlapApp::~SNOverlapApp",cpp,4,4,0.0
@@ -1014,7 +1129,7 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysApp.cpp","SNSysApp::SNSysApp",cpp,22,19,39.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysApp.cpp","SNSysApp::~SNSysApp",cpp,4,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysApp.h","モジュール外",h,28,23,4.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.cpp","モジュール外",cpp,110,102,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.cpp","モジュール外",cpp,100,90,1.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.cpp","SNSysAppConfig::SNSysAppConfig",cpp,6,4,23.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.cpp","SNSysAppConfig::~SNSysAppConfig",cpp,6,4,21.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.cpp","Void SNSysAppConfig::OnInitialize",cpp,54,46,0.0
@@ -1023,20 +1138,20 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.cpp","Void SNSysAppConfig::OnExit",cpp,7,5,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.cpp","Void SNSysAppConfig::OnCycle",cpp,12,6,24.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.cpp","Boolean SNSysAppConfig::OnNotifyEvent",cpp,17,10,18.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.cpp","Void SNSysAppConfig::UpdateState",cpp,26,13,6.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.cpp","Void SNSysAppConfig::ProcButton",cpp,143,107,8.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.h","モジュール外",h,107,83,4.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.cpp","Void SNSysAppConfig::UpdateState",cpp,22,11,6.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.cpp","Void SNSysAppConfig::ProcButton",cpp,121,93,6.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppConfig.h","モジュール外",h,101,77,5.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp","モジュール外",cpp,10,7,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp","SNSysAppError::SNSysAppError",cpp,6,4,24.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp","SNSysAppError::~SNSysAppError",cpp,6,4,22.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp","Void SNSysAppError::OnInitialize",cpp,20,11,15.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp","Void SNSysAppError::OnInitialize",cpp,22,12,12.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp","Void SNSysAppError::OnTerminate",cpp,6,4,16.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp","Void SNSysAppError::OnEntry",cpp,9,5,23.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp","Void SNSysAppError::OnExit",cpp,11,6,33.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp","Void SNSysAppError::OnCycle",cpp,14,9,16.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp","SNPhaseResult SNSysAppError::PhaseStepFunc",cpp,14,11,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.cpp","SNPhaseResult SNSysAppError::SeqDisp",cpp,14,11,9.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.h","モジュール外",h,56,25,23.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppError.h","モジュール外",h,56,25,23.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppIdle.cpp","モジュール外",cpp,9,8,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppIdle.cpp","SNSysAppIdle::SNSysAppIdle",cpp,6,4,25.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppIdle.cpp","SNSysAppIdle::~SNSysAppIdle",cpp,6,4,22.7
@@ -1054,7 +1169,7 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","Void SNSysAppLoading::OnCycle",cpp,28,18,17.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","SNPhaseResult SNSysAppLoading::PhaseStepFunc",cpp,18,14,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","SNPhaseResult SNSysAppLoading::SeqDisp",cpp,92,68,17.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","SNPhaseResult SNSysAppLoading::SeqResLoad",cpp,56,44,16.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppLoading.cpp","SNPhaseResult SNSysAppLoading::SeqResLoad",cpp,54,43,14.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppLoading.h","モジュール外",h,63,31,21.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.cpp","モジュール外",cpp,8,7,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppPreClose.cpp","SNSysAppPreClose::SNSysAppPreClose",cpp,29,20,3.1
@@ -1066,15 +1181,15 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","モジュール外",cpp,10,7,14.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","SNSysAppStartup::SNSysAppStartup",cpp,6,4,23.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","SNSysAppStartup::~SNSysAppStartup",cpp,6,4,20.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","Void SNSysAppStartup::OnInitialize",cpp,37,26,6.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","Void SNSysAppStartup::OnInitialize",cpp,43,31,4.8
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","Void SNSysAppStartup::OnTerminate",cpp,6,4,16.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","Void SNSysAppStartup::OnEntry",cpp,10,6,18.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","Void SNSysAppStartup::OnExit",cpp,14,9,22.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","Void SNSysAppStartup::OnCycle",cpp,26,18,12.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","SNPhaseResult SNSysAppStartup::PhaseStepFunc",cpp,18,14,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","SNPhaseResult SNSysAppStartup::SeqDisp",cpp,78,66,10.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","SNPhaseResult SNSysAppStartup::SeqResLoad",cpp,33,26,15.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.h","モジュール外",h,65,33,19.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.cpp","SNPhaseResult SNSysAppStartup::SeqResLoad",cpp,56,44,16.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppStartup.h","モジュール外",h,65,33,20.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.cpp","モジュール外",cpp,29,23,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.cpp","SNSysAppTitle::SNSysAppTitle",cpp,6,4,24.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.cpp","SNSysAppTitle::~SNSysAppTitle",cpp,7,4,21.4
@@ -1082,30 +1197,50 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.cpp","Void SNSysAppTitle::OnTerminate",cpp,7,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.cpp","Void SNSysAppTitle::OnEntry",cpp,10,6,7.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.cpp","Void SNSysAppTitle::OnExit",cpp,8,5,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.cpp","Boolean SNSysAppTitle::OnGamePad1",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.cpp","Boolean SNSysAppTitle::OnGamePad",cpp,7,5,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.cpp","Void SNSysAppTitle::OnCycle",cpp,39,28,7.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.cpp","Boolean SNSysAppTitle::OnNotifyEvent",cpp,17,10,18.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.cpp","SNPhaseResult SNSysAppTitle::PhaseStepFunc",cpp,24,21,8.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\03_SysApp\SNSysAppTitle.h","モジュール外",h,63,39,13.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.cpp","モジュール外",cpp,3,2,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.cpp","SNUserApp::SNUserApp",cpp,23,14,22.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.cpp","SNUserApp::SNUserApp",cpp,15,11,25.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.cpp","SNUserApp::~SNUserApp",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.cpp","Void SNUserApp::OnInitialize",cpp,7,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.cpp","Void SNUserApp::OnTerminate",cpp,4,4,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.h","モジュール外",h,31,25,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMainMenu.cpp","モジュール外",cpp,23,19,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserApp.h","モジュール外",h,32,26,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppCreationMenu.cpp","モジュール外",cpp,23,19,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppCreationMenu.cpp","SNUserAppCreationMenu::SNUserAppCreationMenu",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppCreationMenu.cpp","SNUserAppCreationMenu::~SNUserAppCreationMenu",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppCreationMenu.cpp","Void SNUserAppCreationMenu::OnInitialize",cpp,26,22,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppCreationMenu.cpp","Void SNUserAppCreationMenu::OnEntry",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppCreationMenu.cpp","Void SNUserAppCreationMenu::OnExit",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppCreationMenu.cpp","Void SNUserAppCreationMenu::OnCycle",cpp,45,39,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppCreationMenu.h","モジュール外",h,45,30,6.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppJumpPos.cpp","モジュール外",cpp,166,144,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppJumpPos.cpp","SNUserAppJumpPos::SNUserAppJumpPos",cpp,30,25,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppJumpPos.cpp","SNUserAppJumpPos::~SNUserAppJumpPos",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppJumpPos.cpp","SNWorldPos* SNUserAppJumpPos::GetMoveToPos",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppJumpPos.cpp","Void SNUserAppJumpPos::OnInitialize",cpp,51,42,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppJumpPos.cpp","Void SNUserAppJumpPos::OnEntry",cpp,78,66,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppJumpPos.cpp","Void SNUserAppJumpPos::OnExit",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppJumpPos.cpp","Void SNUserAppJumpPos::OnCycle",cpp,188,165,1.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppJumpPos.cpp","Void SNUserAppJumpPos::OnPreDraw",cpp,49,43,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppJumpPos.h","モジュール外",h,144,120,1.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMainMenu.cpp","モジュール外",cpp,29,25,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMainMenu.cpp","SNUserAppMainMenu::SNUserAppMainMenu",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMainMenu.cpp","SNUserAppMainMenu::~SNUserAppMainMenu",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMainMenu.cpp","Void SNUserAppMainMenu::OnInitialize",cpp,26,22,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMainMenu.cpp","Void SNUserAppMainMenu::OnEntry",cpp,7,5,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMainMenu.cpp","Void SNUserAppMainMenu::OnExit",cpp,7,5,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMainMenu.cpp","Void SNUserAppMainMenu::OnCycle",cpp,20,17,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMainMenu.h","モジュール外",h,45,30,6.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.cpp","モジュール外",cpp,4,3,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMainMenu.cpp","Void SNUserAppMainMenu::OnExit",cpp,8,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMainMenu.cpp","Void SNUserAppMainMenu::OnCycle",cpp,40,34,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMainMenu.h","モジュール外",h,47,32,6.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.cpp","モジュール外",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.cpp","SNUserAppMenuOff::SNUserAppMenuOff",cpp,5,4,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.cpp","SNUserAppMenuOff::~SNUserAppMenuOff",cpp,6,4,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.cpp","Boolean SNUserAppMenuOff::OnGamePad1",cpp,16,12,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.h","モジュール外",h,24,11,17.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.cpp","SNUserAppMenuOff::~SNUserAppMenuOff",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.cpp","Boolean SNUserAppMenuOff::OnPointingDevice",cpp,16,11,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.cpp","Boolean SNUserAppMenuOff::OnGamePad",cpp,17,12,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.cpp","Boolean SNUserAppMenuOff::OnInternalEvent",cpp,16,11,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppMenuOff.h","モジュール外",h,26,13,18.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppOff.cpp","モジュール外",cpp,3,2,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppOff.cpp","SNUserAppOff::SNUserAppOff",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppOff.cpp","SNUserAppOff::~SNUserAppOff",cpp,6,4,0.0
@@ -1121,36 +1256,80 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.cpp","Boolean SNUserAppTitle::OnInternalEvent",cpp,17,10,23.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.cpp","Void SNUserAppTitle::OnPreDraw",cpp,7,5,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNUserAppTitle.h","モジュール外",h,24,15,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.cpp","モジュール外",cpp,7,6,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.cpp","SNWorldApp::SNWorldApp",cpp,7,5,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.cpp","SNWorldApp::~SNWorldApp",cpp,5,4,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.cpp","Void SNWorldApp::OnInitialize",cpp,18,12,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.cpp","Void SNWorldApp::OnEntry",cpp,30,21,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.cpp","Void SNWorldApp::OnExit",cpp,11,8,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.cpp","Boolean SNWorldApp::OnGamePad1",cpp,115,82,2.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.cpp","Void SNWorldApp::OnPreDraw",cpp,16,11,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.cpp","Void SNWorldApp::OnDraw",cpp,31,22,4.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\04_UserApp\SNWorldApp.h","モジュール外",h,37,27,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_BgApp\SNBgApp.cpp","モジュール外",cpp,7,4,19.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_BgApp\SNBgApp.cpp","SNBgApp::SNBgApp",cpp,6,4,29.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_BgApp\SNBgApp.cpp","SNBgApp::~SNBgApp",cpp,6,4,26.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_BgApp\SNBgApp.cpp","Boolean SNBgApp::OnNotifyEvent",cpp,14,10,9.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_BgApp\SNBgApp.h","モジュール外",h,23,12,32.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldApp.cpp","モジュール外",cpp,3,2,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldApp.cpp","SNWorldApp::SNWorldApp",cpp,12,8,25.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldApp.cpp","SNWorldApp::~SNWorldApp",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldApp.cpp","Void SNWorldApp::OnInitialize",cpp,7,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldApp.cpp","Void SNWorldApp::OnTerminate",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldApp.h","モジュール外",h,24,18,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppBase.cpp","モジュール外",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppBase.cpp","SNWorldAppBase::SNWorldAppBase",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppBase.cpp","SNWorldAppBase::~SNWorldAppBase",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppBase.cpp","Void SNWorldAppBase::OnInitialize",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppBase.cpp","Void SNWorldAppBase::OnTerminate",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppBase.cpp","Void SNWorldAppBase::OnEntry",cpp,11,9,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppBase.cpp","Void SNWorldAppBase::OnExit",cpp,8,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppBase.cpp","Boolean SNWorldAppBase::OnGamePad",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppBase.cpp","Boolean SNWorldAppBase::OnInternalEvent",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppBase.cpp","Void SNWorldAppBase::OnPreDraw",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppBase.cpp","Void SNWorldAppBase::OnDraw",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppBase.h","モジュール外",h,34,23,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","モジュール外",cpp,13,12,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","SNWorldAppCreation::SNWorldAppCreation",cpp,11,8,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","SNWorldAppCreation::~SNWorldAppCreation",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Void SNWorldAppCreation::OnInitialize",cpp,23,15,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Void SNWorldAppCreation::OnTerminate",cpp,11,7,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Void SNWorldAppCreation::OnEntry",cpp,33,22,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Void SNWorldAppCreation::OnExit",cpp,9,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Boolean SNWorldAppCreation::OnGamePad",cpp,156,102,13.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Boolean SNWorldAppCreation::OnPointingDevice",cpp,61,45,6.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Boolean SNWorldAppCreation::OnInternalEvent",cpp,58,49,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Void SNWorldAppCreation::OnPreDraw",cpp,16,11,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Void SNWorldAppCreation::OnDraw",cpp,82,48,9.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Void SNWorldAppCreation::WriteBlock",cpp,63,52,1.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Void SNWorldAppCreation::RangeCopy",cpp,91,75,7.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Void SNWorldAppCreation::RangeCut",cpp,13,7,9.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Void SNWorldAppCreation::Paste",cpp,46,36,6.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Void SNWorldAppCreation::RotateL",cpp,112,86,9.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.cpp","Void SNWorldAppCreation::RotateR",cpp,111,86,9.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppCreation.h","モジュール外",h,60,39,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppOff.cpp","モジュール外",cpp,3,2,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppOff.cpp","SNWorldAppOff::SNWorldAppOff",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppOff.cpp","SNWorldAppOff::~SNWorldAppOff",cpp,6,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppOff.cpp","Boolean SNWorldAppOff::OnInternalEvent",cpp,15,10,23.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppOff.h","モジュール外",h,18,12,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.cpp","モジュール外",cpp,10,8,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.cpp","SNWorldAppTest::SNWorldAppTest",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.cpp","SNWorldAppTest::~SNWorldAppTest",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.cpp","Void SNWorldAppTest::OnInitialize",cpp,14,10,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.cpp","Void SNWorldAppTest::OnTerminate",cpp,9,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.cpp","Void SNWorldAppTest::OnEntry",cpp,27,19,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.cpp","Void SNWorldAppTest::OnExit",cpp,14,9,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.cpp","Boolean SNWorldAppTest::OnGamePad",cpp,157,110,7.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.cpp","Boolean SNWorldAppTest::OnInternalEvent",cpp,40,32,4.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.cpp","Void SNWorldAppTest::OnCycle",cpp,27,22,17.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.cpp","Void SNWorldAppTest::OnPreDraw",cpp,18,12,6.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.cpp","Void SNWorldAppTest::OnDraw",cpp,9,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\05_WorldApp\SNWorldAppTest.h","モジュール外",h,38,25,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.cpp","モジュール外",cpp,7,4,19.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.cpp","SNBgApp::SNBgApp",cpp,6,4,29.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.cpp","SNBgApp::~SNBgApp",cpp,6,4,26.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.cpp","Boolean SNBgApp::OnNotifyEvent",cpp,14,10,9.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\20_Application\FrameworkApp\06_BgApp\SNBgApp.h","モジュール外",h,23,12,32.9
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","モジュール外",cpp,6,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","SNGUIButton::SNGUIButton",cpp,18,12,11.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","SNGUIButton::~SNGUIButton",cpp,6,4,22.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","Boolean SNGUIButton::CheckHover",cpp,13,11,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::OnInitialize",cpp,7,5,7.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::OnTerminate",cpp,7,5,8.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::OnInitialize",cpp,7,5,7.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::OnTerminate",cpp,7,5,8.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::OnCycle",cpp,10,6,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::OnDraw",cpp,10,6,8.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::DrawButton",cpp,10,6,5.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::DrawFocus",cpp,10,6,6.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::ButtonTiling",cpp,10,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::OnDraw",cpp,10,6,10.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::DrawButton",cpp,16,11,3.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","Void SNGUIButton::DrawFocus",cpp,15,11,5.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","SNGUIDef::ButtonBlockStatus SNGUIButton::JudgeStatus",cpp,28,21,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.cpp","SNGUIDef::ButtonFocusStatus SNGUIButton::JudgeFocusStatus",cpp,19,17,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.h","モジュール外",h,55,30,10.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIPicture.cpp","モジュール外",cpp,4,2,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIButton.h","モジュール外",h,53,29,12.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIPicture.cpp","モジュール外",cpp,4,3,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIPicture.cpp","SNGUIPicture::SNGUIPicture",cpp,8,6,14.5
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIPicture.cpp","SNGUIPicture::~SNGUIPicture",cpp,6,4,22.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIPicture.cpp","Void SNGUIPicture::SetBitmap",cpp,7,5,19.0
@@ -1160,177 +1339,270 @@
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIPicture.cpp","Void SNGUIPicture::OnPreDraw",cpp,6,4,20.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIPicture.cpp","Void SNGUIPicture::OnDraw",cpp,39,32,1.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIPicture.cpp","Void SNGUIPicture::OnPostDraw",cpp,5,4,20.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIPicture.h","モジュール外",h,40,20,19.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemText.cpp","モジュール外",cpp,7,4,10.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemText.cpp","SNGUISystemText::SNGUISystemText",cpp,8,4,32.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemText.cpp","SNGUISystemText::~SNGUISystemText",cpp,6,4,20.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemText.cpp","Void SNGUISystemText::OnInitialize",cpp,11,5,29.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemText.cpp","Void SNGUISystemText::OnTerminate",cpp,7,5,13.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemText.cpp","Void SNGUISystemText::OnDraw",cpp,19,12,8.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemText.cpp","Void SNGUISystemText::SetText(String text)",cpp,17,8,28.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemText.cpp","Void SNGUISystemText::SetText",cpp,16,8,25.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemText.h","モジュール外",h,34,17,22.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemTextEx.cpp","モジュール外",cpp,6,3,12.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemTextEx.cpp","SNGUISystemTextEx::SNGUISystemTextEx",cpp,10,6,24.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemTextEx.cpp","SNGUISystemTextEx::~SNGUISystemTextEx",cpp,6,4,19.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemTextEx.cpp","Void SNGUISystemTextEx::SetText",cpp,15,7,38.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemTextEx.cpp","Void SNGUISystemTextEx::SetValue",cpp,17,9,27.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemTextEx.cpp","Void SNGUISystemTextEx::OnInitialize",cpp,14,8,18.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemTextEx.cpp","Void SNGUISystemTextEx::OnTerminate",cpp,9,5,20.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemTextEx.cpp","Void SNGUISystemTextEx::OnPreDraw",cpp,22,12,25.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUISystemTextEx.h","モジュール外",h,35,19,23.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","モジュール外",cpp,7,6,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","SNGUIText::SNGUIText",cpp,10,6,18.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","SNGUIText::~SNGUIText",cpp,6,4,25.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","Void SNGUIText::OnEntry",cpp,7,5,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","Void SNGUIText::OnExit",cpp,7,5,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","Void SNGUIText::OnPreDraw",cpp,12,8,21.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","Void SNGUIText::OnDraw",cpp,19,13,16.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.h","モジュール外",h,32,18,13.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","モジュール外",cpp,7,6,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","SNGUITextEx::SNGUITextEx",cpp,10,6,18.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","SNGUITextEx::~SNGUITextEx",cpp,6,4,23.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","Void SNGUITextEx::OnEntry",cpp,7,5,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","Void SNGUITextEx::OnExit",cpp,7,5,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","Void SNGUITextEx::OnPreDraw",cpp,15,9,30.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","Void SNGUITextEx::OnDraw",cpp,19,13,16.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.h","モジュール外",h,32,18,13.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIPicture.h","モジュール外",h,41,21,19.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","モジュール外",cpp,8,7,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","SNGUIText::SNGUIText",cpp,9,5,21.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","SNGUIText::~SNGUIText",cpp,7,4,24.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","Void SNGUIText::SetText(String text)",cpp,17,8,29.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","Void SNGUIText::SetText",cpp,17,8,25.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","Void SNGUIText::OnInitialize",cpp,11,5,30.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","Void SNGUIText::OnTerminate",cpp,7,5,14.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","Void SNGUIText::OnPreDraw",cpp,6,4,20.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.cpp","Void SNGUIText::OnDraw",cpp,18,11,9.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIText.h","モジュール外",h,40,19,23.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","モジュール外",cpp,8,7,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","SNGUITextEx::SNGUITextEx",cpp,10,6,26.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","SNGUITextEx::~SNGUITextEx",cpp,8,4,22.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","Void SNGUITextEx::SetText",cpp,15,7,40.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","Void SNGUITextEx::SetValue",cpp,17,9,28.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","Void SNGUITextEx::OnInitialize",cpp,14,8,19.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","Void SNGUITextEx::OnTerminate",cpp,9,5,23.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.cpp","Void SNGUITextEx::OnPreDraw",cpp,22,12,26.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUITextEx.h","モジュール外",h,36,20,22.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWindow.cpp","モジュール外",cpp,9,7,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWindow.cpp","SNGUIWindow::SNGUIWindow",cpp,6,4,26.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWindow.cpp","SNGUIWindow::~SNGUIWindow",cpp,6,4,23.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWindow.cpp","Void SNGUIWindow::OnInitialize",cpp,7,5,7.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWindow.cpp","Void SNGUIWindow::OnTerminate",cpp,7,5,8.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWindow.cpp","Void SNGUIWindow::OnDraw",cpp,9,6,4.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWindow.h","モジュール外",h,25,14,16.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWindow.cpp","Void SNGUIWindow::OnInitialize",cpp,7,5,7.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWindow.cpp","Void SNGUIWindow::OnTerminate",cpp,7,5,9.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWindow.cpp","Void SNGUIWindow::OnDraw",cpp,9,6,5.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWindow.h","モジュール外",h,25,14,17.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","モジュール外",cpp,8,7,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","SNGUIWorldView::SNGUIWorldView",cpp,12,7,10.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","SNGUIWorldView::SNGUIWorldView",cpp,18,10,6.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","SNGUIWorldView::~SNGUIWorldView",cpp,6,4,21.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::SetViewPos",cpp,7,5,14.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::MoveViewPos",cpp,9,7,9.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::SaveFocusRangeStart",cpp,8,5,23.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::SetViewScale",cpp,8,5,13.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Float32 SNGUIWorldView::GetViewScale",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::UpViewScale",cpp,17,13,2.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DownViewScale",cpp,17,13,2.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::GetViewPos",cpp,8,5,14.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::OnInitialize",cpp,18,11,7.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::SetViewDir",cpp,8,5,14.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::RotateRViewDir",cpp,8,5,10.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::RotateLViewDir",cpp,8,5,10.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","SNWorldDir SNGUIWorldView::GetViewDir",cpp,6,4,17.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::OnPreDraw",cpp,11,7,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::SortObject",cpp,44,38,1.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawWrokSurface",cpp,53,36,14.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::OnDraw",cpp,20,14,1.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::UpToWorldDirPos",cpp,26,24,6.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DownToWorldDirPos",cpp,26,24,6.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::LeftToWorldDirPos",cpp,26,24,7.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::RightToWorldDirPos",cpp,27,24,7.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawNearbyObject",cpp,19,16,4.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawNearbyObjectGround",cpp,14,8,8.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawNearbyObjectEffectGround",cpp,228,118,4.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawNearbyObjectFocus",cpp,19,13,3.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawGround",cpp,31,22,6.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Boolean SNGUIWorldView::CompareDrawObjectN",cpp,20,15,8.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Boolean SNGUIWorldView::CompareDrawObjectNE",cpp,19,16,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Boolean SNGUIWorldView::CompareDrawObjectE",cpp,18,15,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Boolean SNGUIWorldView::CompareDrawObjectSE",cpp,19,16,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Boolean SNGUIWorldView::CompareDrawObjectS",cpp,18,15,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Boolean SNGUIWorldView::CompareDrawObjectSW",cpp,19,16,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Boolean SNGUIWorldView::CompareDrawObjectW",cpp,18,15,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Boolean SNGUIWorldView::CompareDrawObjectNW",cpp,18,16,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.h","モジュール外",h,79,49,4.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::GetRangeStartPos",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::OnInitialize",cpp,19,11,7.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::OnTerminate",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::OnPreDraw",cpp,15,10,21.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::SortObject",cpp,11,7,6.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawWrokSurface",cpp,50,33,16.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::OnDraw",cpp,35,24,4.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","SNWorldDir SNGUIWorldView::UpToAngle",cpp,5,4,35.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","SNWorldDir SNGUIWorldView::UpLeftToAngle",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","SNWorldDir SNGUIWorldView::UpRightToAngle",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","SNWorldDir SNGUIWorldView::DownToAngle",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","SNWorldDir SNGUIWorldView::DownLeftToAngle",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","SNWorldDir SNGUIWorldView::DownRightToAngle",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","SNWorldDir SNGUIWorldView::LeftToAngle",cpp,4,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","SNWorldDir SNGUIWorldView::RightToAngle",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::UpToWorldDirPos",cpp,7,5,21.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DownToWorldDirPos",cpp,7,5,21.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::LeftToWorldDirPos",cpp,7,5,22.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::RightToWorldDirPos",cpp,7,5,22.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::SetFocusVisible",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::ChangeTransparentFrontGround",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::CalcLeftTop",cpp,44,37,3.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::CalcoRightBottom",cpp,10,7,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawNearbyObject",cpp,23,20,4.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawNearbyObjectGround",cpp,14,8,8.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawNearbyObjectEffectGround",cpp,160,127,5.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawNearbyObjectActiveObject",cpp,17,10,1.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawNearbyObjectFocus",cpp,19,13,4.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawNearbyObjectShadow",cpp,8,5,10.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawGround",cpp,32,20,13.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::DrawActiveObject",cpp,35,24,12.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::CalcMapchipDrawPos",cpp,16,13,3.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::CalcObjectchipDrawPos",cpp,21,17,2.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Float32 SNGUIWorldView::JudgeFrontTransparent",cpp,23,16,8.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Void SNGUIWorldView::RegisterFocus",cpp,63,52,1.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.cpp","Boolean SNGUIWorldView::CompareDrawObject",cpp,44,33,9.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Component\SNGUIWorldView.h","モジュール外",h,138,97,4.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Core\SNGUI.cpp","モジュール外",cpp,8,7,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Core\SNGUI.cpp","Void SNGUI::Tiling",cpp,43,32,1.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Core\SNGUI.cpp","Void SNGUI::Tiling9",cpp,119,80,7.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Core\SNGUI.cpp","Void SNGUI::Tiling9",cpp,119,80,7.7
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Core\SNGUI.cpp","Void SNGUI::Initialize",cpp,6,4,22.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Core\SNGUI.cpp","Void SNGUI::Startup",cpp,6,4,20.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Core\SNGUI.cpp","Void SNGUI::Run",cpp,6,4,15.2
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Core\SNGUI.cpp","Void SNGUI::BeforeTerminate",cpp,6,4,20.3
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Core\SNGUI.cpp","Void SNGUI::Terminate",cpp,5,4,14.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Core\SNGUI.h","モジュール外",h,33,19,9.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\21_GUI\Core\SNGUI.h","モジュール外",h,32,18,10.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","モジュール外",cpp,3,2,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","SNWActObject::SNWActObject",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","SNWActObject::~SNWActObject",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","Void SNWActObject::SetObject",cpp,8,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","SNWObjectInfo* SNWActObject::RefInfo",cpp,10,6,11.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","Void SNWActObject::SetObjectCode",cpp,12,9,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","Void SNWActObject::SetEnable",cpp,13,9,5.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","Void SNWActObject::SetVisible",cpp,13,9,5.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","Void SNWActObject::SetWeight",cpp,13,9,8.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","Void SNWActObject::SetPos",cpp,13,9,6.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","Void SNWActObject::Walk",cpp,16,12,2.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","Void SNWActObject::Jog",cpp,16,12,2.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","Void SNWActObject::Stop",cpp,14,10,3.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","Void SNWActObject::Jump",cpp,14,10,3.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.cpp","Void SNWActObject::JumpEnd",cpp,14,10,4.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWActObject.h","モジュール外",h,61,24,30.1
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","モジュール外",cpp,4,3,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","SNWNearbySpace::SNWNearbySpace",cpp,11,9,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","SNWNearbySpace::~SNWNearbySpace",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Void SNWNearbySpace::Initialize",cpp,8,5,11.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Void SNWNearbySpace::Terminate",cpp,6,5,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Void SNWNearbySpace::UpdateStart",cpp,16,10,5.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Void SNWNearbySpace::RegisterGroundData",cpp,35,22,9.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Void SNWNearbySpace::RegisterGroundEffect",cpp,27,16,25.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Void SNWNearbySpace::RegisterFocus",cpp,28,18,11.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Void SNWNearbySpace::RegisterGroundData",cpp,41,28,7.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Void SNWNearbySpace::RegisterGObjectData",cpp,46,31,5.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Void SNWNearbySpace::RegisterGroundEffectToSpace",cpp,8,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Void SNWNearbySpace::RegisterFocus",cpp,34,24,9.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Void SNWNearbySpace::SearchFloorPos",cpp,42,33,8.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Void SNWNearbySpace::RegisterGObjectShadow",cpp,47,33,13.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Void SNWNearbySpace::UpdateObjectPos",cpp,11,8,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","SNWorldPos* SNWNearbySpace::GetBasePos",cpp,6,4,17.4
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","UInt32 SNWNearbySpace::GetTimeStamp",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","SNList* SNWNearbySpace::GetList",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","UInt32 SNWNearbySpace::GetObjectNum",cpp,6,4,19.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","SNWNearbyObject* SNWNearbySpace::RefObject(Int32 index)",cpp,6,4,20.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","SNWNearbyObject* SNWNearbySpace::RefObject",cpp,14,11,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","SNWNearbyObject* SNWNearbySpace::RefObject",cpp,6,4,20.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","SNWNearbyObject* SNWNearbySpace::RefObjectG",cpp,14,11,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","SNWNearbyObject* SNWNearbySpace::RefObjectO",cpp,15,11,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","SNWNearbySpaceCell* SNWNearbySpace::RefSpace",cpp,15,11,5.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Boolean SNWNearbySpace::IsBlocked",cpp,13,11,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.h","モジュール外",h,128,76,14.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","モジュール外",cpp,9,7,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","SNWGround::SNWGround",cpp,32,23,12.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","SNWGround::~SNWGround",cpp,6,4,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::Initialize",cpp,31,22,6.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::Terminate",cpp,18,15,2.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::Update",cpp,41,26,22.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::Write",cpp,17,12,12.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::RegisterNearbyObject",cpp,54,36,16.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::CvtPosToID",cpp,10,7,4.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::OffsetMeshID",cpp,30,25,14.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Boolean SNWGround::JudgeUpdateMesh",cpp,32,22,12.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::UpdateMesh",cpp,17,8,27.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::CalcMeshMoveDelta",cpp,13,8,14.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::MoveMesh",cpp,66,46,11.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::MoveMeshXY",cpp,24,18,7.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::MoveMeshZ",cpp,19,14,7.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::MoveMesh1",cpp,18,12,7.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::LoadMesh",cpp,42,31,7.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Boolean SNWGround::IsSameID",cpp,15,11,5.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::SaveMesh",cpp,25,20,6.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Boolean SNWGround::UpdateState",cpp,30,23,13.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::CvtIDToPos",cpp,10,7,6.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Boolean SNWGround::CvtIDAndLocalPos",cpp,58,40,5.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::CvtGlobalPos",cpp,15,9,10.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Boolean SNWGround::CollisionMeshVSSpace",cpp,27,16,7.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Boolean SNWGround::CollisionCellVSSpace",cpp,21,14,5.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.h","モジュール外",h,118,64,16.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","モジュール外",cpp,7,6,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","SNWGroundMesh::SNWGroundMesh",cpp,16,10,9.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","SNWGroundMesh::~SNWGroundMesh",cpp,5,4,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Void SNWGroundMesh::Initialize",cpp,12,7,22.2
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Void SNWGroundMesh::Terminate",cpp,9,5,27.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Void SNWGroundMesh::SetMeshID",cpp,10,7,9.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Void SNWGroundMesh::ClearMesh",cpp,13,9,5.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Void SNWGroundMesh::LoadMesh",cpp,14,9,13.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Void SNWGroundMesh::SaveMesh",cpp,14,9,13.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","SNWGroundMeshFileData* SNWGroundMesh::GetBlock",cpp,7,5,10.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Void SNWGroundMesh::ReleaseBlock",cpp,7,5,17.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Void SNWGroundMesh::SetCode",cpp,19,13,8.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Boolean SNWGroundMesh::IsProc",cpp,14,9,26.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Void SNWGroundMesh::InitBlockList",cpp,17,10,5.9
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Void SNWGroundMesh::UserMain",cpp,21,17,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Void SNWGroundMesh::ReadMeshFile",cpp,30,19,13.8
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Void SNWGroundMesh::WriteMeshFile",cpp,28,15,18.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Void SNWGroundMesh::SetCodeAsync",cpp,56,41,14.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Void SNWGroundMesh::SetFileName",cpp,17,9,7.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.cpp","Boolean SNWGroundMesh::IsValidFile",cpp,24,20,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGroundMesh.h","モジュール外",h,105,60,14.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","モジュール外",cpp,14,10,3.1
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::Initialize",cpp,17,12,3.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::Terminate",cpp,9,6,6.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::Start",cpp,7,6,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::End",cpp,6,5,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::Pause",cpp,16,12,8.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::Update",cpp,22,11,17.7
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::UpdateGround",cpp,14,6,24.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Boolean SNWNearbySpace::IsBlocked",cpp,15,11,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.cpp","Boolean SNWNearbySpace::CollisionCellVSSpace",cpp,22,15,5.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWNearbySpace.h","モジュール外",h,163,94,16.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","モジュール外",cpp,7,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","SNWObjectBase::SNWObjectBase",cpp,8,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","SNWObjectBase::~SNWObjectBase",cpp,6,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","Void SNWObjectBase::Initialize",cpp,8,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","Void SNWObjectBase::Terminate",cpp,6,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","SNWObjectInfo* SNWObjectBase::RefInfo",cpp,6,4,20.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","Void SNWObjectBase::InitObjectInfo",cpp,30,26,6.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","UInt16 SNWObjectBase::GetCode",cpp,6,4,17.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","UInt8 SNWObjectBase::GetActState",cpp,6,4,22.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","UInt8 SNWObjectBase::GetAnimeStep",cpp,7,4,19.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","SNWorldDir SNWObjectBase::GetDir",cpp,7,4,13.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","Void SNWObjectBase::Notify",cpp,15,11,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","Void SNWObjectBase::Update",cpp,29,15,24.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","Void SNWObjectBase::EventFunc",cpp,22,21,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","Void SNWObjectBase::EventFuncStop",cpp,29,23,8.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","Void SNWObjectBase::EventFuncWalk",cpp,34,25,8.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","Void SNWObjectBase::EventFuncJog",cpp,33,25,7.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","Void SNWObjectBase::EventFuncJump",cpp,26,22,3.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","Void SNWObjectBase::EventFuncJumpEnd",cpp,9,5,13.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","Void SNWObjectBase::UpdateState",cpp,34,27,13.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","Void SNWObjectBase::UpdateAnimation",cpp,35,24,9.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.cpp","Void SNWObjectBase::SetState",cpp,12,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Component\SNWObjectBase.h","モジュール外",h,103,59,18.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","モジュール外",cpp,7,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","SNWGlobalObject::SNWGlobalObject",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","SNWGlobalObject::~SNWGlobalObject",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::Initialize",cpp,11,6,21.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::Terminate",cpp,9,5,26.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::Load",cpp,14,9,14.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::Save",cpp,14,9,14.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","SNWObjectBase* SNWGlobalObject::RefObject",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Boolean SNWGlobalObject::IsProc",cpp,14,9,26.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::InitFileData",cpp,37,31,1.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::InitObjectBase",cpp,12,9,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::CopyObjectInfoFromFile",cpp,12,9,16.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::CopyObjectInfoToFile",cpp,15,10,13.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::Update",cpp,12,9,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::RegisterNearbyObject",cpp,24,17,15.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::RegisterShadow",cpp,35,23,15.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::UserMain",cpp,18,14,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::ReadGlobalObjectFile",cpp,29,18,14.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::WriteGlobalObjectFile",cpp,29,14,19.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Void SNWGlobalObject::SetFileName",cpp,17,9,7.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.cpp","Boolean SNWGlobalObject::IsValidFile",cpp,24,20,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGlobalObject.h","モジュール外",h,80,43,9.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","モジュール外",cpp,8,7,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","SNWGround::SNWGround",cpp,17,11,8.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","SNWGround::~SNWGround",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::Initialize",cpp,12,7,23.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::Terminate",cpp,9,5,28.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::SetMeshID",cpp,10,7,10.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::ClearMesh",cpp,13,9,5.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::LoadMesh",cpp,14,9,14.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::SaveMesh",cpp,14,9,14.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","SNWGroundFileData* SNWGround::GetBlock",cpp,7,5,11.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::ReleaseBlock",cpp,7,5,18.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::SetCode",cpp,15,12,4.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::RunSetCode",cpp,14,12,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Boolean SNWGround::IsProc",cpp,14,9,27.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::InitBlockList",cpp,17,10,6.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::UserMain",cpp,21,17,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::ReadMeshFile",cpp,30,19,14.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::WriteMeshFile",cpp,28,15,19.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::SetCodeAsync",cpp,65,49,11.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Void SNWGround::SetFileName",cpp,17,9,7.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.cpp","Boolean SNWGround::IsValidFile",cpp,24,20,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWGround.h","モジュール外",h,101,56,15.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","モジュール外",cpp,8,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","SNWMeshManager::SNWMeshManager",cpp,34,25,11.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","SNWMeshManager::~SNWMeshManager",cpp,6,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::Initialize",cpp,31,22,6.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::Terminate",cpp,29,22,8.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::Update",cpp,41,26,22.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::Write",cpp,17,12,11.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::RunWrite",cpp,17,13,21.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::RegisterNearbyObject",cpp,58,39,17.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Boolean SNWMeshManager::IsIdle",cpp,33,24,11.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::CvtPosToID",cpp,10,7,4.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::OffsetMeshID",cpp,30,25,14.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Boolean SNWMeshManager::JudgeUpdateMesh",cpp,32,22,12.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::UpdateMesh",cpp,17,8,26.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::CalcMeshMoveDelta",cpp,13,8,13.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::MoveMesh",cpp,66,46,11.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::MoveMeshXY",cpp,24,18,7.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::MoveMeshZ",cpp,19,14,6.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::MoveMesh1",cpp,18,12,7.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::LoadMesh",cpp,41,31,7.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Boolean SNWMeshManager::IsSameID",cpp,15,11,5.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::SaveMesh",cpp,25,20,6.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Boolean SNWMeshManager::UpdateState",cpp,30,23,13.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::CvtIDToPos",cpp,10,7,5.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Boolean SNWMeshManager::CvtIDAndLocalPos",cpp,58,40,5.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Void SNWMeshManager::CvtGlobalPos",cpp,15,9,10.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.cpp","Boolean SNWMeshManager::CollisionMeshVSSpace",cpp,26,16,7.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWMeshManager.h","モジュール外",h,117,63,16.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","モジュール外",cpp,30,21,1.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::Initialize",cpp,45,30,9.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::Terminate",cpp,15,9,12.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::Start",cpp,8,7,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::End",cpp,7,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::Pause",cpp,8,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::Update",cpp,74,37,26.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Boolean SNWorld::IsReady",cpp,9,6,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Boolean SNWorld::IsSuspend",cpp,6,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","SNWActObject* SNWorld::GetPCObject",cpp,6,4,11.6
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::SetCurrentPos",cpp,8,5,17.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","SNWorldPos* SNWorld::GetCurrentPos",cpp,5,4,0.0
 "C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::MoveCurrentPos",cpp,10,7,11.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::WriteGroundData",cpp,8,5,12.3
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","SNWNearbySpace* SNWorld::GetNearbySpace",cpp,6,4,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","SNWEasyLightDir SNWorld::RefEasyLightDir",cpp,29,24,0.0
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::RegisterNearbyEffect",cpp,24,17,13.5
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::RegisterNearbyEffectGround",cpp,102,74,7.4
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Boolean SNWorld::JudgeGroundPShadow",cpp,54,45,2.6
-"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.h","モジュール外",h,85,41,24.6
-全ステップ数, , ,33029,23307,12.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::WriteGroundData",cpp,8,5,10.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::FlushGroundData",cpp,7,5,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","SNWNearbySpace* SNWorld::GetNearbySpace",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","SNWGlobalObject* SNWorld::GetGlobalObject",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Int32 SNWorld::GetAGroundAnimeStep",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","SNWTimeZone SNWorld::GetTimeZone",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Int8 SNWorld::DirToAngle",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::RegisterNearbyEffect",cpp,8,4,31.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::RegisterGroundEffect",cpp,42,31,11.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::RegisterGroundEffectImp",cpp,25,16,12.6
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::RegisterNearbyEffectGround",cpp,170,127,3.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Boolean SNWorld::JudgeGroundPShadow",cpp,161,146,0.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.cpp","Void SNWorld::UpdateWorldTime",cpp,13,11,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWorld.h","モジュール外",h,230,131,13.3
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","モジュール外",cpp,4,3,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","SNWPhysics::SNWPhysics",cpp,18,13,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","SNWPhysics::~SNWPhysics",cpp,5,4,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","Void SNWPhysics::Initialize",cpp,19,13,3.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","Void SNWPhysics::Terminate",cpp,6,4,12.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","Void SNWPhysics::Update",cpp,29,14,28.9
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","Void SNWPhysics::SetSpace",cpp,8,5,14.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","Void SNWPhysics::SetGlobalObject",cpp,8,5,22.1
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","Void SNWPhysics::UpdateObjectSpeed",cpp,47,33,8.2
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","Void SNWPhysics::UpdateObjectPos",cpp,256,189,7.8
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","Boolean SNWPhysics::ColTest",cpp,12,9,0.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","Int32 SNWPhysics::GetNearbyBlockCenter",cpp,19,16,3.5
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","Int32 SNWPhysics::GetNearbyBlockFloor",cpp,20,16,3.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","Int32 SNWPhysics::GetNearbyBlockFace",cpp,49,39,3.7
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","UInt16 SNWPhysics::GetFloorBlockCode",cpp,19,15,8.0
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.cpp","Boolean SNWPhysics::NearbyBlockCollision",cpp,18,14,6.4
+"C:\Users\shinj\OneDrive\ドキュメント\Creation\ソフト開発\SNFramework\20_Source\22_World\Core\SNWPhysics.h","モジュール外",h,91,55,11.5
+全ステップ数, , ,44813,33533,9.6
 
-クラス数,111
-モジュール数,1091
+クラス数,118
+モジュール数,1346

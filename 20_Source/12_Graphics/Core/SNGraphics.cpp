@@ -192,10 +192,10 @@ Boolean SNGraphics::IsFullScreen()
 Void SNGraphics::LoadStartupResource()
 {
 	// スタートアップ処理のロードを実行
-	LoadResource(SNGraphicsResStartupTop, SNGraphicsResStartupEnd);
+	LoadResource(SNGraphicsResTop, SNGraphicsResEnd);
 
 	// 処理完了までループ
-	while (!IsResourceLoaded(SNGraphicsResStartupTop, SNGraphicsResStartupEnd))
+	while (!IsResourceLoaded(SNGraphicsResTop, SNGraphicsResEnd))
 	{
 		SNGraphicsResManager::Update();
 		Sleep(1);
@@ -215,49 +215,6 @@ Void SNGraphics::EndDraw()
 {
 	SNGraphicsDevice::End();
 
-	return;
-}
-
-// システムリソースロード
-Void SNGraphics::LoadSystemResource()
-{
-	LoadResource(SNGraphicsResSystemTop, SNGraphicsResSystemEnd);
-
-	SNBitmapFont::InitializeExtraFunc();
-
-	return;
-}
-
-// システムリソースロード完了判定
-Boolean SNGraphics::IsSystemResourceLoaded()
-{
-	return IsResourceLoaded(SNGraphicsResSystemTop, SNGraphicsResSystemEnd);
-}
-
-// システムリソースアンロード
-Void SNGraphics::UnloadSystemResource()
-{
-	UnloadResource(SNGraphicsResSystemTop, SNGraphicsResSystemEnd);
-	return;
-}
-
-// アプリリソースロード
-Void SNGraphics::LoadAppResource()
-{
-	LoadResource(SNGraphicsResAppTop, SNGraphicsResAppEnd);
-	return;
-}
-
-// アプリリソースロード完了判定
-Boolean SNGraphics::IsAppResourceLoaded()
-{
-	return IsResourceLoaded(SNGraphicsResAppTop, SNGraphicsResAppEnd);
-}
-
-// アプリリソースアンロード
-Void SNGraphics::UnloadAppResource()
-{
-	UnloadResource(SNGraphicsResAppTop, SNGraphicsResAppEnd);
 	return;
 }
 

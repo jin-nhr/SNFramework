@@ -44,14 +44,14 @@ Boolean SNGUIButton::CheckHover(SNPoint* pnt)
 // èâä˙âª
 Void SNGUIButton::OnInitialize()
 {
-    SNGraphicsResManager::AccessGet(SNGraphicsResGUI);
+    SNGraphicsResManager::AccessGet(SNGraphicsResGUIAndWorld);
     return;
 }
 
 // èIóπèàóù
 Void SNGUIButton::OnTerminate()
 {
-    SNGraphicsResManager::AccessRelease(SNGraphicsResGUI);
+    SNGraphicsResManager::AccessRelease(SNGraphicsResGUIAndWorld);
     return;
 }
 
@@ -83,7 +83,7 @@ Void SNGUIButton::DrawButton()
 
     SNGUI::Tiling9(
         &rect, 
-        SNGraphicsResGUI, 
+        SNGraphicsResGUIAndWorld,
         SNGUIDef::GUIButtonBlockDef, 
         &SNGUIDef::ButtonBlockOffset[button_sts]);
 
@@ -99,7 +99,7 @@ Void SNGUIButton::DrawFocus()
 
     SNGUI::Tiling9(
         &rect, 
-        SNGraphicsResGUI, 
+        SNGraphicsResGUIAndWorld,
         SNGUIDef::GUIFocusBlockDef, 
         &SNGUIDef::FocusBlockOffset[button_sts]);
 

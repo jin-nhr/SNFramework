@@ -6,17 +6,17 @@ class SNMapchip
 {
 public:
 	// マップチップリソース
-	static constexpr SNGraphicsResID MapchipResource = SNGraphicsResWorld;
-	static constexpr SNGraphicsResID MapBGResource = SNGraphicsResWorld;
+	static constexpr SNGraphicsResID MapchipResource = SNGraphicsResGUIAndWorld;
+	static constexpr SNGraphicsResID MapBGResource = SNGraphicsResGUIAndWorld;
 
-	static constexpr UInt32 MapchipBaseX = 0;
+	static constexpr UInt32 MapchipBaseX = 256;
 	static constexpr UInt32 MapchipBaseY = 0;
 
 	static constexpr UInt32 MapchipOffsetX = 0;
 	static constexpr UInt32 MapchipOffsetY = 384;
 
 	static constexpr UInt32 MapBGBaseX = 4;
-	static constexpr UInt32 MapBGBaseY = 1536;
+	static constexpr UInt32 MapBGBaseY = 1384;
 
 	static constexpr UInt32 MapBGOffsetX = 4;
 	static constexpr UInt32 MapBGOffsetY = 0;
@@ -175,7 +175,7 @@ public:
 		UInt16 tmp_code = (code & SNMapchipCodeMask);
 
 		out_rect->PointX = MapchipBaseX + (tmp_code / MapchipBlockNumY) * MapchipBlockSizeX + MapchipOffset.PointX + MapchipOffsetX * res_id;
-		out_rect->PointY = MapchipBaseX + (tmp_code % MapchipBlockNumY) * MapchipBlockSizeY + MapchipOffset.PointY + MapchipOffsetY * res_id;
+		out_rect->PointY = MapchipBaseY + (tmp_code % MapchipBlockNumY) * MapchipBlockSizeY + MapchipOffset.PointY + MapchipOffsetY * res_id;
 		out_rect->Width  = MapchipOffset.Width;
 		out_rect->Height = MapchipOffset.Height;
 		

@@ -258,9 +258,9 @@ Void SNUserAppJumpPos::OnInitialize()
 Void SNUserAppJumpPos::OnEntry()
 {
 	SNWorldPos* current = SNWorld::GetCurrentPos();
-	Int32 x = current->X;
-	Int32 y = current->Y;
-	Int32 z = current->Z;
+	Int32 x = (Int32)current->X;
+	Int32 y = (Int32)current->Y;
+	Int32 z = (Int32)current->Z;
 
 	FocusGp.Entry();
 

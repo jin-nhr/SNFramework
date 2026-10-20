@@ -88,7 +88,7 @@ Void SNMute::OnEntry()
 	SNRect dst_rect;
 	SNRect src_rect;
 	SNSize size;
-	SNBitmap* src_bmp = SNGraphicsResManager::GetResource(SNGraphicsResGUI);
+	SNBitmap* src_bmp = SNGraphicsResManager::GetResource(SNGraphicsResGUIAndWorld);
 
 	src_bmp->GetSize(&size);
 

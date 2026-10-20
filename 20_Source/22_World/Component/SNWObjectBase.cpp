@@ -45,7 +45,8 @@ Void SNWObjectBase::InitObjectInfo()
 
 	info = &Info;
 
-	info->Code = SNWObjectchip::WObjectCodeBone;
+//	info->Code = SNWObjectchip::WObjectCodeBone;
+	info->Code = SNWObjectchip::WObjectCodeSlime;
 	info->AnimationStep = 0;
 	info->Enable = false;
 	info->Visible = false;
@@ -115,26 +116,38 @@ Void SNWObjectBase::Update()
 	SNListContainer* it;
 	SNWObjectEventParam evt;
 
-	// 状態更新処理
-	UpdateState();
-
-	// リストすべてを参照
-	while (EventList.GetNum() != 0)
+	if (Info.Enable)
 	{
-		// 先頭を取る
-		it = EventList.GetTop();
+		// 状態更新処理
+		UpdateState();
 
-		evt = *((SNWObjectEventParam*)&(it->UserData));
+		// リストすべてを参照
+		while (EventList.GetNum() != 0)
+		{
+			// 先頭を取る
+			it = EventList.GetTop();
 
-		// イベント処理
-		EventFunc(&evt);
+			evt = *((SNWObjectEventParam*)&(it->UserData));
 
-		// 処理済みを削除
-		EventList.Remove(it);
+			// イベント処理
+			EventFunc(&evt);
+
+			// 処理済みを削除
+			EventList.Remove(it);
+		}
+
+		// オブジェクトのアニメ更新
+		UpdateAnimation();
+
+		// 前状態を更新しておく
+		Info.PrevState = Info.State;
 	}
 
-	// オブジェクトのアニメ更新
-	UpdateAnimation();
+	else
+	{
+		Info.PrevState = SNWObjectStateNum;
+		Info.State = SNWObjectStateIdle;
+	}
 
 	return;
 }
@@ -170,8 +183,7 @@ Void SNWObjectBase::EventFuncStop(SNWObjectEventParam* param)
 	case SNWObjectStateWalk:
 	case SNWObjectStateJog:
 		// 状態を設定
-		Info.PrevState = Info.State;
-		Info.State = SNWObjectStateIdle;
+		SetState(SNWObjectStateIdle);
 		break;
 	case SNWObjectStateJump:
 	case SNWObjectStateAttack:
@@ -363,7 +375,6 @@ Void SNWObjectBase::UpdateAnimation()
 
 Void SNWObjectBase::SetState(SNWObjectState state)
 {
-	Info.PrevState = Info.State;
 	Info.State = state;
 
 	return;

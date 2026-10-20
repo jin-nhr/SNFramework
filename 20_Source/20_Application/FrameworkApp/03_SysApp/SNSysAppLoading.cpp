@@ -243,20 +243,7 @@ SNPhaseResult SNSysAppLoading::SeqResLoad(Int32 phase_idx, Int32 call_count)
 		break;
 
 	case 1:
-		if (SNGraphics::IsAppResourceLoaded())
-		{
-			ret = SNPhaseResultNext;
-		}
-		else if (call_count > SeqChResLoadRetry)
-		{
-			// エラー時はアクセス権リリース
-			SNGraphics::UnloadAppResource();
-			ret = SNPhaseResultError;
-		}
-		else
-		{
-			// 完了待ち
-		}
+		ret = SNPhaseResultNext;
 		break;
 
 	case 2:

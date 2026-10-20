@@ -113,6 +113,9 @@ Void SNWGlobalObject::InitFileData(SNWGlobalObjectFileData* obj_file)
 		info->Acceleration.X = 0;
 		info->Acceleration.Y = 0;
 		info->Acceleration.Z = 0;
+		info->PhysicsAcc.X = 0;
+		info->PhysicsAcc.Y = 0;
+		info->PhysicsAcc.Z = 0;
 		info->Speed.X = 0;
 		info->Speed.Y = 0;
 		info->Speed.Z = 0;

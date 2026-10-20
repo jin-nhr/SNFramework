@@ -53,24 +53,6 @@ public:
 	// スタートアップリソースロード(やり切り)
 	static Void LoadStartupResource();
 
-	// システムリソースロード
-	static Void LoadSystemResource();
-
-	// システムリソースロード完了判定
-	static Boolean IsSystemResourceLoaded();
-
-	// システムリソースアンロード
-	static Void UnloadSystemResource();
-
-	// アプリリソースロード
-	static Void LoadAppResource();
-
-	// アプリリソースロード完了判定
-	static Boolean IsAppResourceLoaded();
-
-	// アプリリソースアンロード
-	static Void UnloadAppResource();
-
 	// リソースロード
 	static Void LoadResource(SNGraphicsResID st_id, SNGraphicsResID ed_id);
 

@@ -8,30 +8,15 @@ enum SNGraphicsResID
 {
 	// -----------------------------------------------
 	// 起動リソース
-	SNGraphicsResStartupTop,
 
-	SNGraphicsResGUI = SNGraphicsResStartupTop,
+	SNGraphicsResTop = 0,
 
-	SNGraphicsResStartupEnd = SNGraphicsResGUI,
-	// -----------------------------------------------
-
-	// -----------------------------------------------
-	// システムリソース
-	SNGraphicsResSystemTop,
-	SNGraphicsResStartLogo1 = SNGraphicsResSystemTop,
+	SNGraphicsResGUIAndWorld = SNGraphicsResTop,
+	SNGraphicsResStartLogo1,
 	SNGraphicsResStartLogo2,
+	SNGraphicsResAppTitle,
 
-	SNGraphicsResSystemEnd = SNGraphicsResStartLogo2,
-	// -----------------------------------------------
-
-	// -----------------------------------------------
-	// アプリケーションリソース
-	SNGraphicsResAppTop,
-
-	SNGraphicsResAppTitle = SNGraphicsResAppTop,
-	SNGraphicsResWorld,
-
-	SNGraphicsResAppEnd = SNGraphicsResWorld,
+	SNGraphicsResEnd = SNGraphicsResAppTitle,
 	// -----------------------------------------------
 
 	SNGraphicsResNum,
@@ -44,19 +29,10 @@ public:
 	{
 		// -----------------------------------------------
 		// 起動リソース
-		(String)L"GUI.png",
-		// -----------------------------------------------
-		
-		// -----------------------------------------------
-		// システムリソース
+		(String)L"GraphicsResource.png",
 		(String)L"起動ロゴ1.png",
 		(String)L"起動ロゴ2.png",
-		// -----------------------------------------------
-
-		// -----------------------------------------------
-		// アプリケーションリソース
 		(String)L"湖とお城.png",
-		(String)L"World.png",
 		// -----------------------------------------------
 	};
 };

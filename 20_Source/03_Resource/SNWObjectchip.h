@@ -6,9 +6,9 @@ class SNWObjectchip
 {
 public:
 
-	static constexpr SNGraphicsResID ObjectchipResource = SNGraphicsResWorld;
+	static constexpr SNGraphicsResID ObjectchipResource = SNGraphicsResGUIAndWorld;
 
-	static constexpr UInt32 WObjectBaseX = 256;
+	static constexpr UInt32 WObjectBaseX = 512;
 	static constexpr UInt32 WObjectBaseY = 0;
 
 	static constexpr Int32 AnimationStepNum = 8;	// 最大コマ数
@@ -50,6 +50,7 @@ public:
 	enum WObjectCode
 	{
 		WObjectCodeBone,
+		WObjectCodeSlime,
 		WObjectCodeNum,
 	};
 
@@ -67,7 +68,7 @@ public:
 			16, 27,
 
 			// dir offset (c, n, ne, e, se, s, sw, w, nw)
-			0, 0, 32, 64, 96, 128, 160, 192, 224,
+			0, 0, 0, 1, 1, 2, 2, 2, 3,
 
 			// Size
 			1, 3,
@@ -138,7 +139,7 @@ public:
 			0, 0,
 			0, 0,
 			0, 0,
-
+			
 			// Spell
 			true, 1,
 			0, 1,
@@ -202,12 +203,159 @@ public:
 			2.5f			// Swimming
 		},
 
+		// Slime
+		{
+			// Img offset
+			0, 512,
+
+			// img size
+			32, 32,
+
+			// center offset
+			16, 27,
+
+			// dir offset (c, n, ne, e, se, s, sw, w, nw)
+			0, 0, 0, 1, 1, 2, 2, 2, 0,
+
+			// Size
+			1, 1,
+
+			// Animation
+			// Idle
+			true, 2,
+			0, 300,
+			1, 300,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Walk
+			true, 5,
+			1, 100,
+			2, 100,
+			0, 100,
+			3, 100,
+			0, 100,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Jog
+			true, 5,
+			1, 100,
+			2, 100,
+			0, 100,
+			3, 100,
+			0, 100,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Jump
+			false, 1,
+			1, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Attack
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Knockback
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Spell
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// OtherAction
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Flying
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Fall
+			false, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Swimming
+			true, 1,
+			0, 1,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+			0, 0,
+
+			// Speed (blk/sec) ※ 1フレームでの移動距離は1blk上限とする (60fpsなら16.6くらい)
+			3.0f,			// Walk
+			5.0f,			// Jog
+			10.0f,			// Jump
+			5.0f,			// Flying
+			2.5f			// Swimming
+		},
+
 	};
 
 	static inline Void CodeToRect(UInt16 code, Int32 dir, UInt8 anm_state, UInt8 anm_step, SNRect* out_rect)
 	{
 		out_rect->PointX = WObjectBaseX + Data[code].ImgOffset.X + Data[code].ImgSize.Width * (Data[code].AnimeCode[anm_state].StepInfo[anm_step].State);
-		out_rect->PointY = WObjectBaseY + Data[code].ImgOffset.Y + Data[code].imgDirOffset[dir];
+		out_rect->PointY = WObjectBaseY + Data[code].ImgOffset.Y + Data[code].ImgSize.Height * Data[code].imgDirOffset[dir];
 		out_rect->Width = Data[code].ImgSize.Width;
 		out_rect->Height = Data[code].ImgSize.Height;
 
