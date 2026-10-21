@@ -51,6 +51,7 @@ Void SNWObjectBase::InitObjectInfo()
 	info->AnimationStep = 0;
 	info->Enable = false;
 	info->Visible = false;
+	info->Gravity = true;
 	info->State = SNWObjectStateIdle;
 	info->PrevState = SNWObjectStateNum;	// いずれの状態とも一致しない値としておく
 	info->FrontDir = SNWorldDirS;
@@ -145,8 +146,8 @@ Void SNWObjectBase::Update()
 
 	else
 	{
+		// 再開時にアニメ開始するために前状態をリセット
 		Info.PrevState = SNWObjectStateNum;
-		Info.State = SNWObjectStateIdle;
 	}
 
 	return;
@@ -329,6 +330,8 @@ Void SNWObjectBase::EventFuncJumpEnd(SNWObjectEventParam* param)
 	case SNWObjectStateIdle:
 	case SNWObjectStateWalk:
 	case SNWObjectStateJog:
+		// 重力影響を戻す
+		Info.Gravity = true;
 		break;
 
 	case SNWObjectStateJump:
@@ -336,6 +339,7 @@ Void SNWObjectBase::EventFuncJumpEnd(SNWObjectEventParam* param)
 		if (SNWObjectchip::Data[Info.Code].Flyable)
 		{
 			SetState(SNWObjectStateFlying);
+			Info.Gravity = false;
 		}
 		break;
 
@@ -344,12 +348,13 @@ Void SNWObjectBase::EventFuncJumpEnd(SNWObjectEventParam* param)
 	case SNWObjectStateSpell:
 	case SNWObjectStateAction:
 	case SNWObjectStateFlying:
+		break;
+
 	case SNWObjectStateFall:
+		// 重力影響を戻す
+		Info.Gravity = true;
 		break;
 	}
-
-	// 重力影響を戻す
-	Info.Gravity = true;
 
 	return;
 }
