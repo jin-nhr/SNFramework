@@ -205,15 +205,7 @@ Boolean SNWorldAppTest::OnGamePad()
 
 	if (dir_input)
 	{
-		// ダッシュ？
-		if (SNVirtualGamePad::YPress())
-		{
-			SNWorld::GetPCObject()->Jog(dir, SNWorld::DirToAngle(dir));
-		}
-		else
-		{
-			SNWorld::GetPCObject()->Walk(dir, SNWorld::DirToAngle(dir));
-		}
+		SNWorld::GetPCObject()->Walk(dir, SNWorld::DirToAngle(dir));
 	}
 
 	// 方向入力なし

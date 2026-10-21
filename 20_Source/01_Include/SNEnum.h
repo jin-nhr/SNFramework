@@ -746,7 +746,6 @@ enum SNWObjectState
 {
     SNWObjectStateIdle,
     SNWObjectStateWalk,
-    SNWObjectStateJog,
     SNWObjectStateJump,
     SNWObjectStateAttack,
     SNWObjectStateKnockback,
@@ -763,7 +762,6 @@ enum SNWObjectEvent
 {
     SNWObjectEventStop,
     SNWObjectEventWalk,
-    SNWObjectEventJog,
     SNWObjectEventJump,
     SNWObjectEventJumpEnd,
     SNWObjectEventElevation,

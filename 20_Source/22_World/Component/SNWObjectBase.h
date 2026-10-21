@@ -83,7 +83,6 @@ private:
     virtual Void EventFunc(SNWObjectEventParam* param);
     virtual Void EventFuncStop(SNWObjectEventParam* param);
     virtual Void EventFuncWalk(SNWObjectEventParam* param);
-    virtual Void EventFuncJog(SNWObjectEventParam* param);
     virtual Void EventFuncJump(SNWObjectEventParam* param);
     virtual Void EventFuncJumpEnd(SNWObjectEventParam* param);
     virtual Void EventFuncElevation(SNWObjectEventParam* param);

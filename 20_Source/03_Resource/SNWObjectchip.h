@@ -41,7 +41,6 @@ public:
 		Boolean Flyable;
 		SNWAnimationInfo AnimeCode[SNWObjectStateNum];		// アニメコード	
 		Float32 SpeedWalk;
-		Float32 SpeedJog;
 		Float32 SpeedJump;
 		Float32 SpeedFlying;
 		Float32 SpeedSwimming;
@@ -92,17 +91,6 @@ public:
 			0, 0,
 
 			// Walk
-			true, 8,
-			2, 100,
-			3, 100,
-			4, 100,
-			5, 100,
-			6, 100,
-			7, 100,
-			8, 100,
-			1, 100,
-
-			// Jog
 			true, 8,
 			2, 100,
 			3, 100,
@@ -203,10 +191,9 @@ public:
 
 			// Speed (blk/sec) ※ 1フレームでの移動距離は1blk上限とする (60fpsなら16.6くらい)
 			3.0f,			// Walk
-			5.0f,			// Jog
 			10.0f,			// Jump
-			5.0f,			// Flying
-			2.5f			// Swimming
+			1.0f,			// Flying
+			1.0f			// Swimming
 		},
 
 		// Slime
@@ -221,7 +208,7 @@ public:
 			16, 27,
 
 			// dir offset (c, n, ne, e, se, s, sw, w, nw)
-			0, 0, 0, 1, 1, 2, 2, 2, 0,
+			0, 0, 0, 1, 1, 2, 2, 2, 3,
 
 			// Size
 			1, 1,
@@ -243,17 +230,6 @@ public:
 			0, 0,
 
 			// Walk
-			true, 5,
-			1, 100,
-			2, 100,
-			0, 100,
-			3, 100,
-			0, 100,
-			0, 0,
-			0, 0,
-			0, 0,
-
-			// Jog
 			true, 5,
 			1, 100,
 			2, 100,
@@ -353,17 +329,16 @@ public:
 			0, 0,
 
 			// Speed (blk/sec) ※ 1フレームでの移動距離は1blk上限とする (60fpsなら16.6くらい)
-			3.0f,			// Walk
-			5.0f,			// Jog
+			2.0f,			// Walk
 			10.0f,			// Jump
-			5.0f,			// Flying
-			2.5f			// Swimming
+			1.0f,			// Flying
+			1.0f			// Swimming
 		},
 
 		// Bat
 		{
 			// Img offset
-			0, 608,
+			0, 640,
 
 			// img size
 			32, 32,
@@ -404,17 +379,6 @@ public:
 			0, 0,
 			0, 0,
 
-			// Jog
-			true, 2,
-			0, 100,
-			1, 100,
-			0, 0,
-			0, 0,
-			0, 0,
-			0, 0,
-			0, 0,
-			0, 0,
-
 			// Jump
 			true, 2,
 			0, 100,
@@ -505,10 +469,9 @@ public:
 
 			// Speed (blk/sec) ※ 1フレームでの移動距離は1blk上限とする (60fpsなら16.6くらい)
 			3.0f,			// Walk
-			5.0f,			// Jog
-			10.0f,			// Jump
-			5.0f,			// Flying
-			2.5f			// Swimming
+			6.0f,			// Jump
+			4.0f,			// Flying
+			1.0f			// Swimming
 		},
 
 	};

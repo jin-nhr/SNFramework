@@ -163,9 +163,6 @@ Void SNWObjectBase::EventFunc(SNWObjectEventParam* param)
 	case SNWObjectEventWalk:
 		EventFuncWalk(param);
 		break;
-	case SNWObjectEventJog:
-		EventFuncJog(param);
-		break;
 	case SNWObjectEventJump:
 		EventFuncJump(param);
 		break;
@@ -185,7 +182,6 @@ Void SNWObjectBase::EventFuncStop(SNWObjectEventParam* param)
 	{
 	case SNWObjectStateIdle:
 	case SNWObjectStateWalk:
-	case SNWObjectStateJog:
 		// 状態を設定
 		SetState(SNWObjectStateIdle);
 		break;
@@ -216,7 +212,6 @@ Void SNWObjectBase::EventFuncWalk(SNWObjectEventParam* param)
 	{
 	case SNWObjectStateIdle:
 	case SNWObjectStateWalk:
-	case SNWObjectStateJog:
 		SetState(SNWObjectStateWalk);
 		// 目標速度をセット
 		Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedWalk * SNMath::GetCos(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f;
@@ -252,56 +247,12 @@ Void SNWObjectBase::EventFuncWalk(SNWObjectEventParam* param)
 }
 
 
-Void SNWObjectBase::EventFuncJog(SNWObjectEventParam* param)
-{
-	SNWorldDir dir = (SNWorldDir)param->Param1;
-	Int8 angle = (Int8)param->Param2;
-
-	switch (Info.State)
-	{
-	case SNWObjectStateIdle:
-	case SNWObjectStateWalk:
-	case SNWObjectStateJog:
-		SetState(SNWObjectStateJog);
-		// 目標速度をセット
-		Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedJog * SNMath::GetCos(angle) * SNSystemConfig::FPS / SNTrigFuncMax) / 1000.0f;
-		Info.Acceleration.Y = -1 * (SNWObjectchip::Data[Info.Code].SpeedJog * SNMath::GetSin(angle) * SNSystemConfig::FPS / SNTrigFuncMax) / 1000.0f; // 画面と三角関数はY軸で反転している
-		break;
-	case SNWObjectStateJump:
-	case SNWObjectStateAttack:
-	case SNWObjectStateKnockback:
-	case SNWObjectStateSpell:
-	case SNWObjectStateAction:
-		// 目標速度をセット
-		Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedJog * SNMath::GetCos(angle) * SNSystemConfig::FPS / SNTrigFuncMax) / 1000.0f;
-		Info.Acceleration.Y = -1 * (SNWObjectchip::Data[Info.Code].SpeedJog * SNMath::GetSin(angle) * SNSystemConfig::FPS / SNTrigFuncMax) / 1000.0f; // 画面と三角関数はY軸で反転している
-		break;
-	case SNWObjectStateFlying:
-		// 目標速度をセット
-		Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedFlying * SNMath::GetCos(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f;
-		Info.Acceleration.Y = -1 * (SNWObjectchip::Data[Info.Code].SpeedFlying * SNMath::GetSin(angle) / SNTrigFuncMax * SNSystemConfig::FPS) / 1000.0f; // 画面と三角関数はY軸で反転している
-		break;
-	case SNWObjectStateFall:
-		// 目標速度をセット
-		Info.Acceleration.X = (SNWObjectchip::Data[Info.Code].SpeedJog * SNMath::GetCos(angle) * SNSystemConfig::FPS / SNTrigFuncMax) / 1000.0f;
-		Info.Acceleration.Y = -1 * (SNWObjectchip::Data[Info.Code].SpeedJog * SNMath::GetSin(angle) * SNSystemConfig::FPS / SNTrigFuncMax) / 1000.0f; // 画面と三角関数はY軸で反転している
-		break;
-	}
-
-	// 向きを設定
-	Info.FrontDir = dir;
-
-	return;
-}
-
-
 Void SNWObjectBase::EventFuncJump(SNWObjectEventParam* param)
 {
 	switch (Info.State)
 	{
 	case SNWObjectStateIdle:
 	case SNWObjectStateWalk:
-	case SNWObjectStateJog:
 		SetState(SNWObjectStateJump);
 		// 目標速度をセット
 		Info.Acceleration.Z = (SNWObjectchip::Data[Info.Code].SpeedJump * SNSystemConfig::FPS) / 1000.0f;
@@ -317,6 +268,12 @@ Void SNWObjectBase::EventFuncJump(SNWObjectEventParam* param)
 		Info.Gravity = true;
 		break;
 	case SNWObjectStateFall:
+		// 飛行可能なら飛行状態へ移行
+		if (SNWObjectchip::Data[Info.Code].Flyable)
+		{
+			SetState(SNWObjectStateFlying);
+			Info.Gravity = false;
+		}
 		break;
 	}
 
@@ -329,7 +286,6 @@ Void SNWObjectBase::EventFuncJumpEnd(SNWObjectEventParam* param)
 	{
 	case SNWObjectStateIdle:
 	case SNWObjectStateWalk:
-	case SNWObjectStateJog:
 		// 重力影響を戻す
 		Info.Gravity = true;
 		break;
@@ -351,8 +307,6 @@ Void SNWObjectBase::EventFuncJumpEnd(SNWObjectEventParam* param)
 		break;
 
 	case SNWObjectStateFall:
-		// 重力影響を戻す
-		Info.Gravity = true;
 		break;
 	}
 
@@ -365,7 +319,6 @@ Void SNWObjectBase::EventFuncElevation(SNWObjectEventParam* param)
 	{
 	case SNWObjectStateIdle:
 	case SNWObjectStateWalk:
-	case SNWObjectStateJog:
 	case SNWObjectStateJump:
 	case SNWObjectStateAttack:
 	case SNWObjectStateKnockback:
@@ -404,7 +357,6 @@ Void SNWObjectBase::UpdateState()
 	{
 	case SNWObjectStateIdle:
 	case SNWObjectStateWalk:
-	case SNWObjectStateJog:
 	case SNWObjectStateJump:
 		// 落下速度ありならFall
 		if (Info.Speed.Z < 0.0f)

@@ -98,22 +98,6 @@ Void SNWActObject::Walk(SNWorldDir dir, Int8 angle)
 	return;
 }
 
-// Jog
-Void SNWActObject::Jog(SNWorldDir dir, Int8 angle)
-{
-	SNWObjectEventParam param = { 0 };
-
-	if (Object != nullptr)
-	{
-		param.Event = SNWObjectEventJog;
-		param.Param1 = dir;
-		param.Param2 = angle;
-		Object->Notify(&param);
-	}
-
-	return;
-}
-
 // Stop
 Void SNWActObject::Stop()
 {
