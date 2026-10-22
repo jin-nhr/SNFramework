@@ -29,7 +29,7 @@ Void SNBitmapFont::Terminate()
 }
 
 // •¶Žš—ñ•`‰æ
-Void SNBitmapFont::DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len, SNColor* color)
+Void SNBitmapFont::DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len, SNColor* color, Float32 scale_h, Float32 scale_v)
 {
 	UInt32 cnt;
 	SNPoint pt;
@@ -39,8 +39,8 @@ Void SNBitmapFont::DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len, SN
 
 	dst_rect.PointX = x;
 	dst_rect.PointY = y;
-	dst_rect.Width = SNGUIDef::BMCharWidth;
-	dst_rect.Height = SNGUIDef::BMCharHeight;
+	dst_rect.Width = (Int32)(SNGUIDef::BMCharWidth * scale_h);
+	dst_rect.Height = (Int32)(SNGUIDef::BMCharHeight * scale_v);
 	src_rect.Width = SNGUIDef::BMCharWidth;
 	src_rect.Height = SNGUIDef::BMCharHeight;
 
@@ -56,7 +56,7 @@ Void SNBitmapFont::DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len, SN
 		SNGraphicsDevice::DrawImage(&dst_rect, font_surface, &src_rect, SNAlphaMax, color);
 
 		// 1•¶Žš•ª•`‰æˆÊ’u‚ð‚¸‚ç‚·
-		dst_rect.PointX += SNGUIDef::BMCharWidth;
+		dst_rect.PointX += (SNGUIDef::BMCharWidth * scale_h);
 	}
 
 	return;

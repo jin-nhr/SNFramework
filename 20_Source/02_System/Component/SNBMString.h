@@ -56,7 +56,7 @@ public:
 	Void ReplaceCharacter(BMChar char1, BMChar char2);
 
 	// 文字列のイメージサイズ
-	SNSize GetStringImageSize();
+	SNSize GetStringImageSize(Float32 scale_h, Float32 scale_v);
 
 private:
 	SNMemory StringBuffer;	// 文字列バッファ

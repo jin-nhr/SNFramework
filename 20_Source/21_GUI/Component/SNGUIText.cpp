@@ -12,6 +12,9 @@ SNGUIText::SNGUIText()
 	// 変数初期化
 	Color = SNGUIDef::FontColor[SNGUIDef::FontColorNormal];
 
+	ScaleH = 1.0f;
+	ScaleV = 1.0f;
+
 	return;
 }
 
@@ -31,7 +34,7 @@ Void SNGUIText::SetText(String text)
 	Text.SetString(text);
 
 	// 文字列サイズ取得
-	size = Text.GetStringImageSize();
+	size = Text.GetStringImageSize(ScaleH, ScaleV);
 
 	// 自身のサイズを変更
 	Resize(size.Width, size.Height);
@@ -48,7 +51,7 @@ Void SNGUIText::SetText(SNBMString* text)
 	Text.SetString(text->GetString(), text->GetLength());
 
 	// 文字列サイズ取得
-	size = Text.GetStringImageSize();
+	size = Text.GetStringImageSize(ScaleH, ScaleV);
 
 	// 自身のサイズを変更
 	Resize(size.Width, size.Height);
@@ -91,7 +94,9 @@ Void SNGUIText::OnDraw()
 		rect.PointY,
 		Text.GetString(),
 		Text.GetLength(),
-		&Color);
+		&Color,
+		ScaleH,
+		ScaleV);
 
 
 	return;

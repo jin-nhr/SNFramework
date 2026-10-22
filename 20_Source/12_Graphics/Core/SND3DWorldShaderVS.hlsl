@@ -13,7 +13,7 @@ struct Tile
     float Alpha;
     float ScreenWidth;
     float ScreenHeight;
-    float reserve;
+    uint Shape;
 
     float MulR;
     float MulG;
@@ -35,6 +35,8 @@ struct VS_OUTPUT
     float2 Tex : TEXCOORD0;
     float Alpha : TEXCOORD1;
     float4 ColorMul : TEXCOORD2;
+    uint Shape : TEXCOORD3;
+    float2 LocalUV : TEXCOORD4;
 };
 
 VS_OUTPUT main(VS_INPUT input, uint instanceID : SV_InstanceID)
@@ -54,6 +56,8 @@ VS_OUTPUT main(VS_INPUT input, uint instanceID : SV_InstanceID)
     o.Tex.x = (t.SrcX + input.Tex.x * t.SrcW);
     o.Tex.y = (t.SrcY + input.Tex.y * t.SrcH);
     o.Alpha = t.Alpha;
+    o.Shape = t.Shape;
+    o.LocalUV = input.Tex;
     
     o.ColorMul = float4(t.MulR, t.MulG, t.MulB, t.MulA);
 

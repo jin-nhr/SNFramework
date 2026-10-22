@@ -21,6 +21,8 @@ public:
 
 	// F
 	SNColor Color;
+	Float32 ScaleH;
+	Float32 ScaleV;
 
 protected:
 	// ‰Šú‰»

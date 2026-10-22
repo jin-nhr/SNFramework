@@ -6,6 +6,13 @@
 class SNGraphicsDevice
 {
 public:
+	enum SNTileShape
+	{
+		SNTileShapeRect,
+		SNTileShapeCircle
+	};
+
+public:
 
 	////////////////////////////////////////////
 	// 初期化
@@ -113,8 +120,9 @@ public:
 	static Void DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, SNColor* color);
 	static Void DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha);
 	static Void DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNColor* color);
+	static Void DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, SNTileShape shape);
 
-	static Void DrawImageImp(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNColor* color);
+	static Void DrawImageImp(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNColor* color, SNTileShape shape);
 
 
 	static Void End();
@@ -148,7 +156,7 @@ public:
 		Float32 Alpha;
 		Float32 ScreenWidth;
 		Float32 ScreenHeight;
-		Float32 reserve;
+		UInt32 Shape;	// 0:Rect, 1:Circle
 
 		Float32 MulR;
 		Float32 MulG;

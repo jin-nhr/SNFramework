@@ -90,7 +90,7 @@ Void SNGUITextEx::OnPreDraw()
 		Text.Print((String)Format.GetString(), Value);
 
 		// 文字列サイズ取得
-		size = Text.GetStringImageSize();
+		size = Text.GetStringImageSize(ScaleH, ScaleV);
 
 		// 自身のサイズを変更
 		Resize(size.Width, size.Height);

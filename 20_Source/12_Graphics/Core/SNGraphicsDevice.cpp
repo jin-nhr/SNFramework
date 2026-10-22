@@ -390,7 +390,7 @@ Void SNGraphicsDevice::CreateSampler()
 
     if (dev != nullptr)
     {
-         sd.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+         sd.Filter = D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
         sd.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
         sd.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
         sd.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
@@ -550,7 +550,7 @@ Void SNGraphicsDevice::CreateDrawImageD3D()
         WorldInputLayout = input_layout;
     }
 
-     sd.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+     sd.Filter = D3D11_FILTER_MIN_LINEAR_MAG_MIP_POINT;
     sd.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
     sd.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
     sd.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
@@ -973,27 +973,34 @@ Void SNGraphicsDevice::Begin(SNBitmap* target)
 Void SNGraphicsDevice::DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect)
 {
     SNColor color = { 255, 255, 255, 255 };
-    DrawImageImp(dst_rect, src, src_rect, SNAlphaMax, &color);
+    DrawImageImp(dst_rect, src, src_rect, SNAlphaMax, &color, SNTileShapeRect);
     return;
 }
 Void SNGraphicsDevice::DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, SNColor* color)
 {
-    DrawImageImp(dst_rect, src, src_rect, SNAlphaMax, color);
+    DrawImageImp(dst_rect, src, src_rect, SNAlphaMax, color, SNTileShapeRect);
     return;
 }
 Void SNGraphicsDevice::DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha)
 {
     SNColor color = { 255, 255, 255, 255 };
-    DrawImageImp(dst_rect, src, src_rect, alpha, &color);
+    DrawImageImp(dst_rect, src, src_rect, alpha, &color, SNTileShapeRect);
     return;
 }
 Void SNGraphicsDevice::DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNColor* color)
 {
-    DrawImageImp(dst_rect, src, src_rect, alpha, color);
+    DrawImageImp(dst_rect, src, src_rect, alpha, color, SNTileShapeRect);
     return;
 }
 
-Void SNGraphicsDevice::DrawImageImp(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNColor* color)
+Void SNGraphicsDevice::DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, SNTileShape shape)
+{
+    SNColor color = { 255, 255, 255, 255 };
+    DrawImageImp(dst_rect, src, src_rect, SNAlphaMax, &color, shape);
+    return;
+}
+
+Void SNGraphicsDevice::DrawImageImp(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNColor* color, SNTileShape shape)
 {
     SNTile* tile;
 
@@ -1029,6 +1036,7 @@ Void SNGraphicsDevice::DrawImageImp(SNRect* dst_rect, SNBitmap* src, SNRect* src
         tile->MulG = color->Green / 255.0f;
         tile->MulB = color->Blue / 255.0f;
         tile->MulA = color->Alpha / 255.0f;
+        tile->Shape = shape;
 
         D3DDrawCommandNum++;
     }

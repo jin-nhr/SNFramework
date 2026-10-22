@@ -220,12 +220,12 @@ Void SNBMString::ReplaceCharacter(BMChar char1, BMChar char2)
 }
 
 // 文字列のイメージサイズ
-SNSize SNBMString::GetStringImageSize()
+SNSize SNBMString::GetStringImageSize(Float32 scale_h, Float32 scale_v)
 {
 	SNSize size;
 
-	size.Width = Length * SNGUIDef::BMCharWidth;
-	size.Height = SNGUIDef::BMCharHeight;
+	size.Width = (Int32)(Length * SNGUIDef::BMCharWidth * scale_h);
+	size.Height = (Int32)(SNGUIDef::BMCharHeight * scale_v);
 
 	return size;
 }

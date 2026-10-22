@@ -19,7 +19,7 @@ public:
 	static Void Terminate();
 
 	// システムテキスト描画
-	static Void DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len, SNColor* color);
+	static Void DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len, SNColor* color, Float32 scale_h, Float32 scale_v);
 
 
 	// String→BMString
