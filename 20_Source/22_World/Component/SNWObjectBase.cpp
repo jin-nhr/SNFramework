@@ -45,9 +45,10 @@ Void SNWObjectBase::InitObjectInfo()
 
 	info = &Info;
 
-//	info->Code = SNWObjectchip::WObjectCodeBone;
+	info->Code = SNWObjectchip::WObjectCodeBone;
 //	info->Code = SNWObjectchip::WObjectCodeSlime;
-	info->Code = SNWObjectchip::WObjectCodeBat;
+//	info->Code = SNWObjectchip::WObjectCodeBat;
+//	info->Code = SNWObjectchip::WObjectCodeMouse;
 	info->AnimationStep = 0;
 	info->Enable = false;
 	info->Visible = false;
@@ -297,6 +298,10 @@ Void SNWObjectBase::EventFuncJumpEnd(SNWObjectEventParam* param)
 			SetState(SNWObjectStateFlying);
 			Info.Gravity = false;
 		}
+		else
+		{
+			Info.Gravity = true;
+		}
 		break;
 
 	case SNWObjectStateAttack:
@@ -307,6 +312,7 @@ Void SNWObjectBase::EventFuncJumpEnd(SNWObjectEventParam* param)
 		break;
 
 	case SNWObjectStateFall:
+		Info.Gravity = true;
 		break;
 	}
 

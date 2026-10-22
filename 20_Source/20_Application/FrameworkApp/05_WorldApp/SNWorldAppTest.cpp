@@ -221,12 +221,12 @@ Boolean SNWorldAppTest::OnGamePad()
 		JumpTimer.Start(100);
 		SNWorld::GetPCObject()->Jump();
 	}
-	else if (SNVirtualGamePad::BRelease())
+	else if (SNVirtualGamePad::BRelease() && bsts)
 	{
 		bsts = false;
 		SNWorld::GetPCObject()->JumpEnd();
 	}
-	else if (JumpTimer.IsTimeout())
+	else if (JumpTimer.IsTimeout() && bsts)
 	{
 		bsts = false;
 		SNWorld::GetPCObject()->JumpEnd();
