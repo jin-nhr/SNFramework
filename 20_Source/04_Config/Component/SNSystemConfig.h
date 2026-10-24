@@ -184,7 +184,7 @@ public:
 
 
 	// 周辺空間サイズ(半径)
-	static constexpr Int32 WorldNearbySpaceSizeH = 64;
+	static constexpr Int32 WorldNearbySpaceSizeH = 72;
 	static constexpr Int32 WorldNearbySpaceSizeV = 24;
 
 	// 地形アニメインターバル

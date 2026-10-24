@@ -25,6 +25,8 @@ public:
 
 	static constexpr Float32 CursorSpeed = 0.2f;
 
+	static constexpr Float32 SegmentHeight = 8;
+
 	static constexpr Float32 FrontTransAlpha[SNGUIWorldViewFrontTransparentTypeNum] =
 	{
 		1.00f,
@@ -46,6 +48,10 @@ public:
 		2,
 		0,
 	};
+
+	SNSize MiniMapSize = { 128, 80 };
+	SNPoint MiniMapPos = { 816, 16 };
+	Float32 MiniMapScale = 0.125f;
 
 public:
 	// コンストラクタ
@@ -70,6 +76,8 @@ public:
 	virtual Void GetViewPos(SNWorldPos* pos);
 
 	virtual Void GetRangeStartPos(SNWorldPos* pos);
+
+	virtual Void SetVisibleMiniMap(Boolean visible);
 
 	virtual SNWorldDir UpToAngle();
 	virtual SNWorldDir UpLeftToAngle();
@@ -134,5 +142,8 @@ private:
 	
 	SNBitmap WorkSurface;
 	SNSize WorkSurfaceSize;
+
+	Boolean VisibleMiniMap;
+
 	SNGUIWorldViewFrontTransparentType TransparentFrontGround;
 };

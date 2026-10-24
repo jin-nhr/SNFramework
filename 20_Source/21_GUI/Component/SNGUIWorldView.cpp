@@ -21,6 +21,8 @@ SNGUIWorldView::SNGUIWorldView()
 
 	WorkSurfaceSize = {0};
 
+	VisibleMiniMap = false;
+
 	return;
 }
 
@@ -112,6 +114,13 @@ Void SNGUIWorldView::GetViewPos(SNWorldPos* pos)
 Void SNGUIWorldView::GetRangeStartPos(SNWorldPos* pos)
 {
 	*pos = RangeStart;
+
+	return;
+}
+
+Void SNGUIWorldView::SetVisibleMiniMap(Boolean visible)
+{
+	VisibleMiniMap = visible;
 
 	return;
 }
@@ -261,6 +270,26 @@ Void SNGUIWorldView::OnDraw()
 
 	// 前景合成
 	SNGraphicsDevice::DrawImage(&dst_rect, bg_bmp, &bg_rect, TimeZoneAlpha);
+
+
+	if (VisibleMiniMap)
+	{
+		// ミニマップ描画
+		dst_rect.Width = MiniMapSize.Width;
+		dst_rect.Height = MiniMapSize.Height;
+		dst_rect.PointX = MiniMapPos.X;
+		dst_rect.PointY = MiniMapPos.Y;
+
+		src_rect.Width = (Int32)(dst_rect.Width / MiniMapScale);
+		src_rect.Height = (Int32)(dst_rect.Height / MiniMapScale);
+		src_rect.PointX = (size.Width - src_rect.Width) / 2;
+		src_rect.PointY = (size.Height - src_rect.Height) / 2;
+
+		SNGraphicsDevice::DrawImage(&dst_rect, &WorkSurface, &src_rect, SNGraphicsDevice::SNTileShapeCircle);
+
+		// ミニマップへの前景合成
+		SNGraphicsDevice::DrawImage(&dst_rect, bg_bmp, &bg_rect, TimeZoneAlpha, SNGraphicsDevice::SNTileShapeCircle);
+	}
 
 	return;
 }
@@ -671,6 +700,8 @@ Void SNGUIWorldView::DrawGround(SNWNearbyObject* obj, UInt16 code, SNPoint* draw
 Void SNGUIWorldView::DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorldDir obj_dir, UInt8 act_state, UInt8 anm_step, SNPoint* draw_base)
 {
 	SNPoint pos;
+	SNWorldPos* segment = &obj->Segment;
+	Float32 segment_offset = SNWObjectchip::Data[code].ImgSize.Height - (segment->Z + 1) * SegmentHeight;
 	SNRect src_rect;
 	SNRect dst_rect;
 	Float32 a_gain = 0.0f;
@@ -680,13 +711,17 @@ Void SNGUIWorldView::DrawActiveObject(SNWNearbyObject* obj, UInt16 code, SNWorld
 
 	// チップの描画先座標計算
 	CalcObjectchipDrawPos(obj, draw_base, &pos);
-	//CalcMapchipDrawPos(obj, draw_base, &pos);
+
+	src_rect.PointY = (Int32)(src_rect.PointY + segment_offset);
+	src_rect.Height = (Int32)SegmentHeight;
+
 	dst_rect.PointX = pos.X 
 		+ SNMapchip::MapchipBottomCenterOffset.X
 		- SNWObjectchip::Data[code].imgCenterOffset.X;
-	dst_rect.PointY = pos.Y
+	dst_rect.PointY = (Int32)(pos.Y
 		+ SNMapchip::MapchipBottomCenterOffset.Y
-		- SNWObjectchip::Data[code].imgCenterOffset.Y;
+		- SNWObjectchip::Data[code].imgCenterOffset.Y
+		+ segment_offset);
 	dst_rect.Width = src_rect.Width;
 	dst_rect.Height = src_rect.Height;
 
@@ -746,6 +781,17 @@ Float32 SNGUIWorldView::JudgeFrontTransparent(SNWNearbyObject* obj, SNRect* dst_
 	Int32 dx = 0;
 	Int32 dy = 0;
 	Int32 dist2 = 0;
+	Float32 target_z;
+
+	switch (obj->Type)
+	{
+	case SNWNearbyObjectTypeActiveObject:
+		target_z = ((SNWObjectBase*)obj->UserData)->RefInfo()->Pos.Z;
+		break;
+	default:
+		target_z = obj->Pos.Z;
+		break;
+	}
 
 	dx = dst_rect->PointX - (WorkSurfaceSize.Width / 2);
 	dy = dst_rect->PointY - (WorkSurfaceSize.Height / 2);
@@ -753,7 +799,7 @@ Float32 SNGUIWorldView::JudgeFrontTransparent(SNWNearbyObject* obj, SNRect* dst_
 	dist2 = dx * dx + dy * dy;
 
 	// 高さが一定以上、かつ一定範囲内の場合は透過率を変更
-	if ((obj->Pos.Z > SNSystemConfig::WorldNearbySpaceSizeV + TransRangeMinZ + FrontTransZ[TransparentFrontGround]) &&
+	if ((target_z > SNSystemConfig::WorldNearbySpaceSizeV + TransRangeMinZ + FrontTransZ[TransparentFrontGround]) &&
 		(dist2 < TransViewRange * TransViewRange))
 	{
 		ret = FrontTransAlpha[TransparentFrontGround];
@@ -832,36 +878,17 @@ Boolean SNGUIWorldView::CompareDrawObject(Void* a, Void* b)
 	Boolean ret = false;
 	SNWNearbyObject* a_obj = (SNWNearbyObject*)a;
 	SNWNearbyObject* b_obj = (SNWNearbyObject*)b;
-	SNWorldPos* ap = &a_obj->KeyPos;
-	SNWorldPos* bp = &b_obj->KeyPos;;
 	SNWNearbyObjectType at = a_obj->Type;
 	SNWNearbyObjectType bt = b_obj->Type;
 
-	Float32 axy = (ap->X + ap->Y);
-	Float32 bxy = (bp->X + bp->Y);
-
-	if (axy < bxy)
+	if (a_obj->Dist2 > b_obj->Dist2)
 	{
 		ret = true;
 	}
-
-	else if (axy > bxy)
+	else if (a_obj->Dist2 < b_obj->Dist2)
 	{
 		ret = false;
 	}
-
-	// Z軸上でaが下
-	else if (ap->Z < bp->Z)
-	{
-		ret = true;
-	}
-
-	// Z軸上でbが下
-	else if (ap->Z > bp->Z)
-	{
-		ret = false;
-	}
-
 	// 種別の値が小さい
 	else if (at < bt)
 	{

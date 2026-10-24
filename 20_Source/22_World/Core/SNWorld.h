@@ -24,6 +24,9 @@ public:
 	{
 #if 0
 		// 8•ûŒü‰e•\Ž¦
+		SNWorldDirNW,
+		SNWorldDirNW,
+		SNWorldDirN,
 		SNWorldDirN,
 		SNWorldDirN,
 		SNWorldDirNE,
@@ -45,10 +48,10 @@ public:
 		SNWorldDirW,
 		SNWorldDirW,
 		SNWorldDirNW,
-		SNWorldDirNW,
-		SNWorldDirNW,
-		SNWorldDirN,
 #else
+		SNWorldDirW,
+		SNWorldDirN,
+		SNWorldDirN,
 		SNWorldDirN,
 		SNWorldDirN,
 		SNWorldDirN,
@@ -70,9 +73,6 @@ public:
 		SNWorldDirW,
 		SNWorldDirW,
 		SNWorldDirW,
-		SNWorldDirW,
-		SNWorldDirN,
-		SNWorldDirN,
 #endif
 	};
 

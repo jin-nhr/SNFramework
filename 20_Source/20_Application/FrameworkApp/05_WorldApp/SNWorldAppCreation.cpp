@@ -91,6 +91,8 @@ Void SNWorldAppCreation::OnEntry()
 	RangeMode = false;
 	WorldView.SaveFocusRangeStart();
 
+	WorldView.SetVisibleMiniMap(false);
+
 	return;
 }
 

@@ -1000,6 +1000,14 @@ Void SNGraphicsDevice::DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_re
     return;
 }
 
+Void SNGraphicsDevice::DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNTileShape shape)
+{
+    SNColor color = { 255, 255, 255, 255 };
+    DrawImageImp(dst_rect, src, src_rect, alpha, &color, shape);
+    return;
+}
+
+
 Void SNGraphicsDevice::DrawImageImp(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNColor* color, SNTileShape shape)
 {
     SNTile* tile;

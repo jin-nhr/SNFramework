@@ -46,9 +46,6 @@ Void SNWObjectBase::InitObjectInfo()
 	info = &Info;
 
 	info->Code = SNWObjectchip::WObjectCodeBone;
-//	info->Code = SNWObjectchip::WObjectCodeSlime;
-//	info->Code = SNWObjectchip::WObjectCodeBat;
-//	info->Code = SNWObjectchip::WObjectCodeMouse;
 	info->AnimationStep = 0;
 	info->Enable = false;
 	info->Visible = false;

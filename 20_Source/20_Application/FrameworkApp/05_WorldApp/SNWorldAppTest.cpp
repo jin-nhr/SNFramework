@@ -67,6 +67,8 @@ Void SNWorldAppTest::OnEntry()
 
 	WorldRunSts = true;
 
+	WorldView.SetVisibleMiniMap(true);
+
 	return;
 }
 

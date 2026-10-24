@@ -32,9 +32,9 @@ struct SNWNearbyObject
 	SNWorldPos          Pos;		// セル登録位置
 	Void*               UserData;	// 種別に応じたデータをセットする
 	UInt64              Effect;
-	SNWorldPos			RealPos;	// 実際の位置情報
-	SNWorldPos			KeyPos;
 	SNWorldPos			Size;		// オブジェクトサイズ
+	SNWorldPos			Segment;	// セグメントNo All=0が本体
+	Float32				Dist2;
 };
 
 // SNWNearbyObjectTypeGround
@@ -82,14 +82,15 @@ enum SNWNearbyEffectGroundBit
 
 
 
-
 // 周辺空間セル
+static constexpr Int32 SNWNearbySpaceObjectNum = 4;
+
 struct SNWNearbySpaceCell
 {
 	UInt32 TimeStampG;
-	UInt32 TimeStampO;
+	UInt32 TimeStampO[SNWNearbySpaceObjectNum];
 	SNWNearbyObject* ObjectG;
-	SNWNearbyObject* ObjectO;
+	SNWNearbyObject* ObjectO[SNWNearbySpaceObjectNum];
 };
 
 class SNWNearbySpace
@@ -121,8 +122,8 @@ public:
 	// グローバルオブジェクトの影登録
 	virtual Void RegisterGObjectShadow(SNWObjectBase* obj, SNWorldPos* floor_pos);
 
-	// オブジェクトの位置情報更新
-	virtual Void UpdateObjectPos(SNWNearbyObject* obj_ptr, SNWorldPos* pos);
+	// オブジェクト距離更新
+	virtual Void UpdateObjectDist2();
 
 	// 起点座標取得
 	virtual SNWorldPos* GetBasePos();
@@ -139,7 +140,7 @@ public:
 	// オブジェクトアクセス
 	virtual SNWNearbyObject* RefObject(Int32 index);
 	virtual SNWNearbyObject* RefObjectG(Int32 x, Int32 y, Int32 z);
-	virtual SNWNearbyObject* RefObjectO(Int32 x, Int32 y, Int32 z);
+	virtual Boolean RefObjectO(Int32 x, Int32 y, Int32 z, SNWNearbyObject** out_ptr, Int32 obj_num);
 
 	// 周辺空間アクセス
 	virtual SNWNearbySpaceCell* RefSpace(Int32 x, Int32 y, Int32 z);
@@ -152,6 +153,9 @@ public:
 
 
 private:
+	static constexpr Float32 SNJinView = 10000;	// 神視点距離
+	static constexpr Float32 SNShadowHeight = 1.0f;
+
 	UInt32 TimeStamp;
 	SNWorldPos BasePos;
 	SNWNearbyObject Object[SNWNearbyObjectNum];

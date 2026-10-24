@@ -149,6 +149,9 @@ Void SNWorld::Update()
 
 		// グローバルオブジェクトの影登録
 		GlobalObject.RegisterShadow(&NearbySpace);
+
+		// 距離更新
+		NearbySpace.UpdateObjectDist2();
 	}
 	// サスペンド中
 	else if (Run && Suspend)

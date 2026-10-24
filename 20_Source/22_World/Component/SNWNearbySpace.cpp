@@ -70,11 +70,12 @@ Void SNWNearbySpace::RegisterGroundData(SNWorldPos* glb_pos, UInt16 code)
 
 		obj_ptr->UserData = (Void*)code;
 		obj_ptr->Effect = 0;
-		obj_ptr->RealPos = obj_ptr->Pos;
-		obj_ptr->KeyPos = obj_ptr->Pos;
 		obj_ptr->Size.X = 1;
 		obj_ptr->Size.Y = 1;
 		obj_ptr->Size.Z = 1;
+		obj_ptr->Segment.X = 0;
+		obj_ptr->Segment.Y = 0;
+		obj_ptr->Segment.Z = 0;
 
 		// リスト登録
 		it = ObjectList.InsertLast();
@@ -96,39 +97,56 @@ Void SNWNearbySpace::RegisterGObjectData(SNWObjectBase* obj)
 	SNWNearbyObject* obj_ptr = nullptr;
 	SNWNearbySpaceCell* cell_ptr = nullptr;
 	SNWObjectInfo* obj_info = obj->RefInfo();
+	Float32 height = SNWObjectchip::Data[obj->GetCode()].SizeV;
+	Int32 cnt_z;
+	Int32 cnt;
 
-	if (ObjectNum < SNWNearbyObjectNum)
+	Float32 size_h = SNWObjectchip::Data[obj->GetCode()].SizeH;
+	Float32 size_v = SNWObjectchip::Data[obj->GetCode()].SizeV;
+
+	// 高さで分割してオブジェクト登録する
+	for (cnt_z = 0; cnt_z < size_v; cnt_z++)
 	{
-		// オブジェクト設定
-		obj_ptr = &Object[ObjectNum];
-		ObjectNum++;
+		if (ObjectNum < SNWNearbyObjectNum)
+		{
+			// オブジェクト設定
+			obj_ptr = &Object[ObjectNum];
+			ObjectNum++;
 
-		obj_ptr->Type = SNWNearbyObjectTypeActiveObject;
+			obj_ptr->Type = SNWNearbyObjectTypeActiveObject;
 
-		// ローカル座標に変換
-		obj_ptr->Pos.X = obj_info->Pos.X - BasePos.X;
-		obj_ptr->Pos.Y = obj_info->Pos.Y - BasePos.Y;
-		obj_ptr->Pos.Z = obj_info->Pos.Z - BasePos.Z;
+			// ローカル座標に変換
+			obj_ptr->Pos.X = obj_info->Pos.X - BasePos.X;
+			obj_ptr->Pos.Y = obj_info->Pos.Y - BasePos.Y;
+			obj_ptr->Pos.Z = obj_info->Pos.Z - BasePos.Z + cnt_z;
 
-		obj_ptr->UserData = (Void*)obj;
-		obj_ptr->Effect = 0;
-		obj_ptr->RealPos = obj_ptr->Pos;
-		obj_ptr->KeyPos = obj_ptr->Pos;
-		obj_ptr->Size.X = SNWObjectchip::Data[obj->GetCode()].SizeH;
-		obj_ptr->Size.Y = SNWObjectchip::Data[obj->GetCode()].SizeH;
-		obj_ptr->Size.Z = SNWObjectchip::Data[obj->GetCode()].SizeV;
-		obj_ptr->KeyPos.X = (Float32)SNMath::FloorToInt(obj_ptr->KeyPos.X + (0.5f + obj_ptr->Size.X / 2));
-		obj_ptr->KeyPos.Y = (Float32)SNMath::FloorToInt(obj_ptr->KeyPos.Y + (0.5f + obj_ptr->Size.Y / 2));
+			obj_ptr->UserData = (Void*)obj;
+			obj_ptr->Effect = 0;
+			obj_ptr->Size.X = size_h;
+			obj_ptr->Size.Y = size_h;
+			obj_ptr->Size.Z = 1.0f;
+			obj_ptr->Segment.X = 0;
+			obj_ptr->Segment.Y = 0;
+			obj_ptr->Segment.Z = (Float32)cnt_z;
 
-		// リスト登録
-		it = ObjectList.InsertLast();
-		it->UserData = (Void*)obj_ptr;
+			// リスト登録
+			it = ObjectList.InsertLast();
+			it->UserData = (Void*)obj_ptr;
 
-		// 空間登録
-		cell_ptr = &NearbySpace[(Int32)obj_ptr->Pos.Z][(Int32)obj_ptr->Pos.Y][(Int32)obj_ptr->Pos.X];
+			// 空間登録
+			cell_ptr = &NearbySpace[(Int32)obj_ptr->Pos.Z][(Int32)obj_ptr->Pos.Y][(Int32)obj_ptr->Pos.X];
 
-		cell_ptr->ObjectO = obj_ptr;
-		cell_ptr->TimeStampO = TimeStamp;
+			for (cnt = 0; cnt < SNWNearbySpaceObjectNum; cnt++)
+			{
+				// 空きがあれば登録
+				if (cell_ptr->TimeStampO[cnt] != TimeStamp)
+				{
+					cell_ptr->ObjectO[cnt] = obj_ptr;
+					cell_ptr->TimeStampO[cnt] = TimeStamp;
+					break;
+				}
+			}
+		}
 	}
 
 	return;
@@ -144,10 +162,15 @@ Void SNWNearbySpace::RegisterGroundEffectToSpace(SNWNearbyObject* obj_ptr, UInt6
 
 
 // フォーカス登録
+// フォーカスの登録はワールドではなくViewで実施するため
+// 距離計算なども行っておく必要がある
 Void SNWNearbySpace::RegisterFocus(SNWorldPos* glb_pos)
 {
 	SNListContainer* it = nullptr;
 	SNWNearbyObject* obj_ptr = nullptr;
+	Float32 dx;
+	Float32 dy;
+	Float32 dz;
 
 	if (ObjectNum < SNWNearbyObjectNum)
 	{
@@ -164,11 +187,19 @@ Void SNWNearbySpace::RegisterFocus(SNWorldPos* glb_pos)
 
 		obj_ptr->UserData = 0;
 		obj_ptr->Effect = 0;
-		obj_ptr->RealPos = obj_ptr->Pos;
-		obj_ptr->KeyPos = obj_ptr->Pos;
 		obj_ptr->Size.X = 1;
 		obj_ptr->Size.Y = 1;
 		obj_ptr->Size.Z = 1;
+		obj_ptr->Segment.X = 0;
+		obj_ptr->Segment.Y = 0;
+		obj_ptr->Segment.Z = 0;
+
+		// 距離計算
+		dx = SNJinView - (obj_ptr->Pos.X + obj_ptr->Size.X);
+		dy = SNJinView - (obj_ptr->Pos.Y + obj_ptr->Size.Y);
+		dz = SNJinView - (obj_ptr->Pos.Z + obj_ptr->Size.Z);
+
+		obj_ptr->Dist2 = dx * dx + dy * dy + dz * dz;
 
 		// リスト登録
 		it = ObjectList.InsertLast();
@@ -185,8 +216,8 @@ Void SNWNearbySpace::SearchFloorPos(SNWorldPos* center_pos, SNWorldPos* out_pos)
 	Int32 y = SNMath::FloorToInt(center_pos->Y - BasePos.Y);
 	Int32 z = SNMath::FloorToInt(center_pos->Z - BasePos.Z) - 1;
 	SNWNearbySpaceCell* cell;
-	SNWNearbyObject* obj_ptr;
-	SNWObjectBase* base_ptr;
+//	SNWNearbyObject* obj_ptr;
+//	SNWObjectBase* base_ptr;
 	Int32 cnt = 0;
 
 	cell = RefSpace(x, y, z);
@@ -201,15 +232,15 @@ Void SNWNearbySpace::SearchFloorPos(SNWorldPos* center_pos, SNWorldPos* out_pos)
 			break;
 		}
 
-		// オブジェクト検索の方法は別途見当が必要かも
+		// オブジェクト検索の方法は別途検討が必要かも
 		else if (IsBlocked(x, y, z, SNWNearbyObjectTypeActiveObject))
 		{
-			obj_ptr = RefObjectO(x, y, z);
-			base_ptr = (SNWObjectBase*)obj_ptr->UserData;
-			out_pos->X = (Float32)x;
-			out_pos->Y = (Float32)y;
-			out_pos->Z = (Float32)(z + SNWObjectchip::Data[base_ptr->GetCode()].SizeV);
-			break;
+			//obj_ptr = RefObjectO(x, y, z);
+			//base_ptr = (SNWObjectBase*)obj_ptr->UserData;
+			//out_pos->X = (Float32)x;
+			//out_pos->Y = (Float32)y;
+			//out_pos->Z = (Float32)(z + SNWObjectchip::Data[base_ptr->GetCode()].SizeV);
+			//break;
 		}
 
 		z--;
@@ -224,6 +255,9 @@ Void SNWNearbySpace::RegisterGObjectShadow(SNWObjectBase* obj, SNWorldPos* floor
 {
 	SNListContainer* it = nullptr;
 	SNWNearbyObject* obj_ptr = nullptr;
+	Float32 dx = 0;
+	Float32 dy = 0;
+	Float32 dz = 0;
 
 	if (ObjectNum < SNWNearbyObjectNum)
 	{
@@ -250,13 +284,12 @@ Void SNWNearbySpace::RegisterGObjectShadow(SNWObjectBase* obj, SNWorldPos* floor
 
 		obj_ptr->UserData = (Void*)SNWorldShadowObject1;
 		obj_ptr->Effect = 0;
-		obj_ptr->RealPos = obj_ptr->Pos;
-		obj_ptr->KeyPos = obj_ptr->Pos;
 		obj_ptr->Size.X = SNWObjectchip::Data[obj->GetCode()].SizeH;
 		obj_ptr->Size.Y = SNWObjectchip::Data[obj->GetCode()].SizeH;
-		obj_ptr->Size.Z = SNWObjectchip::Data[obj->GetCode()].SizeV;
-		obj_ptr->KeyPos.X = (Float32)SNMath::FloorToInt(obj_ptr->KeyPos.X + (0.5f + obj_ptr->Size.X / 2));
-		obj_ptr->KeyPos.Y = (Float32)SNMath::FloorToInt(obj_ptr->KeyPos.Y + (0.5f + obj_ptr->Size.Y / 2));
+		obj_ptr->Size.Z = SNShadowHeight;
+		obj_ptr->Segment.X = 0;
+		obj_ptr->Segment.Y = 0;
+		obj_ptr->Segment.Z = 0;
 
 		// リスト登録
 		it = ObjectList.InsertLast();
@@ -266,13 +299,54 @@ Void SNWNearbySpace::RegisterGObjectShadow(SNWObjectBase* obj, SNWorldPos* floor
 	return;
 }
 
-Void SNWNearbySpace::UpdateObjectPos(SNWNearbyObject* obj_ptr, SNWorldPos* pos)
+Void SNWNearbySpace::UpdateObjectDist2()
 {
-	obj_ptr->RealPos = *pos;
-	obj_ptr->KeyPos = *pos;
+	SNListContainer* it = ObjectList.GetTop();
+	SNWNearbyObject* obj_ptr;
+	SNWObjectBase* obj;
+	Int32 cnt;
+	SNWorldPos ref_pos;
 
-	obj_ptr->KeyPos.X = (Float32)SNMath::FloorToInt(obj_ptr->KeyPos.X + (0.5f + obj_ptr->Size.X / 2));
-	obj_ptr->KeyPos.Y = (Float32)SNMath::FloorToInt(obj_ptr->KeyPos.Y + (0.5f + obj_ptr->Size.Y / 2));
+
+	Float32 dx = 0;
+	Float32 dy = 0;
+	Float32 dz = 0;
+
+
+	for (cnt = 0; cnt < ObjectList.GetNum(); cnt++)
+	{
+		obj_ptr = (SNWNearbyObject*)it->UserData;
+
+		switch (obj_ptr->Type)
+		{
+		// オブジェクトの場合は座標更新も行う
+		case SNWNearbyObjectTypeActiveObject:
+			obj = (SNWObjectBase*)obj_ptr->UserData;
+			ref_pos = obj->RefInfo()->Pos;
+			ref_pos.X -= BasePos.X;
+			ref_pos.Y -= BasePos.Y;
+			ref_pos.Z = ref_pos.Z - BasePos.Z + obj_ptr->Segment.Z + 0.5f;
+			break;
+
+		case SNWNearbyObjectTypeObjectShadow:
+			ref_pos = obj_ptr->Pos;
+			ref_pos.Z += 0.5f;
+			break;
+
+		default:
+			ref_pos = obj_ptr->Pos;
+			break;
+		}
+
+		// 距離計算
+		dx = SNJinView - (ref_pos.X + obj_ptr->Size.X);
+		dy = SNJinView - (ref_pos.Y + obj_ptr->Size.Y);
+		dz = SNJinView - (ref_pos.Z + obj_ptr->Size.Z);
+
+		obj_ptr->Dist2 = dx * dx + dy * dy + dz * dz;
+
+		it = it->Next;
+	}
 
 	return;
 }
@@ -319,15 +393,16 @@ SNWNearbyObject* SNWNearbySpace::RefObjectG(Int32 x, Int32 y, Int32 z)
 	return ret;
 }
 
-SNWNearbyObject* SNWNearbySpace::RefObjectO(Int32 x, Int32 y, Int32 z)
+Boolean SNWNearbySpace::RefObjectO(Int32 x, Int32 y, Int32 z, SNWNearbyObject** out_ptr, Int32 obj_num)
 {
-	SNWNearbyObject* ret = nullptr;
+	Boolean ret = false;
 	SNWNearbySpaceCell* cell;
 
 	cell = RefSpace(x, y, z);
-	if ((cell != nullptr) && (cell->ObjectO != nullptr) && (cell->TimeStampO == TimeStamp))
+	if ((cell != nullptr) && (cell->ObjectO[obj_num] != nullptr) && (cell->TimeStampO[obj_num] == TimeStamp))
 	{
-		ret = cell->ObjectO;
+		*out_ptr = cell->ObjectO[obj_num];
+		ret = true;
 	}
 
 	return ret;

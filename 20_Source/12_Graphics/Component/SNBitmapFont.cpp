@@ -56,7 +56,7 @@ Void SNBitmapFont::DrawSystemText(Int32 x, Int32 y, BMString str, UInt32 len, SN
 		SNGraphicsDevice::DrawImage(&dst_rect, font_surface, &src_rect, SNAlphaMax, color);
 
 		// 1•¶Žš•ª•`‰æˆÊ’u‚ð‚¸‚ç‚·
-		dst_rect.PointX += (SNGUIDef::BMCharWidth * scale_h);
+		dst_rect.PointX += (Int32)(SNGUIDef::BMCharWidth * scale_h);
 	}
 
 	return;

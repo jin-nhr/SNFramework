@@ -121,6 +121,8 @@ public:
 	static Void DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha);
 	static Void DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNColor* color);
 	static Void DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, SNTileShape shape);
+	static Void DrawImage(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNTileShape shape);
+
 
 	static Void DrawImageImp(SNRect* dst_rect, SNBitmap* src, SNRect* src_rect, UInt8 alpha, SNColor* color, SNTileShape shape);
 
