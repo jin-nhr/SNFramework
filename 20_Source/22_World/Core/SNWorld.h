@@ -22,58 +22,31 @@ class SNWorld
 public:
 	static constexpr SNWorldDir TimeToGlobalLight[SNWTimeStepNum] =
 	{
-#if 0
 		// 8方向影表示
 		SNWorldDirNW,
+		SNWorldDirN,
+		SNWorldDirN,
+		SNWorldDirN,
+		SNWorldDirNE,
+		SNWorldDirNE,
+		SNWorldDirNE,
+		SNWorldDirE,
+		SNWorldDirE,
+		SNWorldDirE,
+		SNWorldDirSE,
+		SNWorldDirSE,
+		SNWorldDirSE,
+		SNWorldDirS,
+		SNWorldDirS,
+		SNWorldDirS,
+		SNWorldDirSW,
+		SNWorldDirSW,
+		SNWorldDirSW,
+		SNWorldDirW,
+		SNWorldDirW,
+		SNWorldDirW,
+		SNWorldDirNW,		
 		SNWorldDirNW,
-		SNWorldDirN,
-		SNWorldDirN,
-		SNWorldDirN,
-		SNWorldDirNE,
-		SNWorldDirNE,
-		SNWorldDirNE,
-		SNWorldDirE,
-		SNWorldDirE,
-		SNWorldDirE,
-		SNWorldDirSE,
-		SNWorldDirSE,
-		SNWorldDirSE,
-		SNWorldDirS,
-		SNWorldDirS,
-		SNWorldDirS,
-		SNWorldDirSW,
-		SNWorldDirSW,
-		SNWorldDirSW,
-		SNWorldDirW,
-		SNWorldDirW,
-		SNWorldDirW,
-		SNWorldDirNW,
-#else
-		SNWorldDirW,
-		SNWorldDirN,
-		SNWorldDirN,
-		SNWorldDirN,
-		SNWorldDirN,
-		SNWorldDirN,
-		SNWorldDirN,
-		SNWorldDirE,
-		SNWorldDirE,
-		SNWorldDirE,
-		SNWorldDirE,
-		SNWorldDirE,
-		SNWorldDirE,
-		SNWorldDirS,
-		SNWorldDirS,
-		SNWorldDirS,
-		SNWorldDirS,
-		SNWorldDirS,
-		SNWorldDirS,
-		SNWorldDirW,
-		SNWorldDirW,
-		SNWorldDirW,
-		SNWorldDirW,
-		SNWorldDirW,
-#endif
 	};
 
 	static constexpr SNWTimeZone TimeToTimeZone[SNWTimeStepNum] =
@@ -82,7 +55,6 @@ public:
 		SNWTimeZoneNight,
 		SNWTimeZoneNight,
 		SNWTimeZoneNight,
-		SNWTimeZoneNight,
 		SNWTimeZoneMorning,
 		SNWTimeZoneMorning,
 		SNWTimeZoneMorning,
@@ -95,6 +67,7 @@ public:
 		SNWTimeZoneAfternoon,
 		SNWTimeZoneAfternoon,
 		SNWTimeZoneAfternoon,
+		SNWTimeZoneEvening,
 		SNWTimeZoneEvening,
 		SNWTimeZoneEvening,
 		SNWTimeZoneEvening,
@@ -185,10 +158,22 @@ public:
 	// 方向→角度変換
 	static Int8 DirToAngle(SNWorldDir dir);
 
-protected:
-	// エフェクト登録
-	static Void RegisterNearbyEffect();
+	// 地形エフェクト更新モード
+	static Void SetGroundEffectUpdateMode(Boolean update);
 
+	// グローバル光源方向取得
+	static SNWorldDir GetGlobalLight();
+
+	// ワールドタイム取得
+	static Void GetWorldTime(Int32* min, Int32* hour, Int32* day);
+
+	// ワールドタイム設定
+	static Void SetWorldTime(Int32 min, Int32 hour, Int32 day);
+
+	// ワールドタイムアクセラレーション
+	static Void SetWorldTimeAcc(Int32 acc);
+
+protected:
 	static Void RegisterGroundEffect();
 
 	static Void RegisterGroundEffectImp(UInt32 id, Void* param);
@@ -212,13 +197,18 @@ private:
 	static SNSoftTimer GroundAnimeTimer;
 	static Int32 GroundAnimeStep;
 
+	static Boolean GroundEffectUpdateMode;
+
 	static SNWMeshManager MeshManager;		// メッシュ管理
 
 	static SNWGlobalObject GlobalObject;
 	
 	static SNWNearbySpace NearbySpace;	// 周辺空間
 
-	static Int32 TimeHour;	// j時間
+	static Int32 WorldTimeAcc;
+	static Int32 TimeMin;
+	static Int32 TimeHour;	// 時間
+	static Int32 TimeDay;
 	static SNWorldDir GlobalLight;	// グローバル光源の位置
 
 	static SNWActObject PCObject;

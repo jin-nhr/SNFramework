@@ -69,6 +69,9 @@ Void SNWorldAppTest::OnEntry()
 
 	WorldView.SetVisibleMiniMap(true);
 
+	SNWorld::SetGroundEffectUpdateMode(false);
+	SNWorld::SetWorldTimeAcc(60);
+
 	return;
 }
 

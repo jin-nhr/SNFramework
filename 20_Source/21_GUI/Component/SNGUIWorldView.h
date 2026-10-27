@@ -49,9 +49,33 @@ public:
 		0,
 	};
 
-	SNSize MiniMapSize = { 128, 80 };
-	SNPoint MiniMapPos = { 816, 16 };
-	Float32 MiniMapScale = 0.125f;
+	static constexpr SNSize MiniMapSize = { 128, 80 };
+	static constexpr SNPoint MiniMapPos = { 816, 16 };
+	static constexpr Float32 MiniMapScale = 0.125f;
+
+	static constexpr SNPoint MiniMapFramePos = { 96, 48 };
+
+	static constexpr SNPoint TimeIconPos[SNWTimeZoneNum] =
+	{
+		{112, 128},
+		{128, 128},
+		{144, 128},
+		{ 96, 128 }
+	};
+
+	static constexpr SNSize TimeIconSize = { 16, 16 };
+
+	static constexpr SNPoint TimeIconDrawPos =
+	{
+		MiniMapSize.Width,
+		MiniMapSize.Height
+	};
+
+	static constexpr SNPoint TimeIconDrawPosCenter =
+	{
+		MiniMapPos.X + MiniMapSize.Width / 2,
+		MiniMapPos.Y + MiniMapSize.Height / 2
+	};
 
 public:
 	// コンストラクタ

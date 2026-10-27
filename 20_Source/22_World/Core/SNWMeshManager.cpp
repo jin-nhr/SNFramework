@@ -16,6 +16,8 @@ SNWMeshManager::SNWMeshManager()
 	CurrentID = { 0 };
 	SavedCenterID = { 255.0f, 255.0f, 255.0f };	// 初期位置と被らない値にしておく
 
+	UpdateEffectSts = false;
+
 	// MeshInfo, MeshRef初期化
 	for (z = 0; z < SNWorldElevationNum; z++)
 	{
@@ -224,7 +226,7 @@ Void SNWMeshManager::RegisterNearbyObject(SNWNearbySpace* space)
 						if (space->CollisionCellVSSpace(&glb_pos))
 						{
 							// オブジェクト登録
-							space->RegisterGroundData(&glb_pos, mesh_data->Block[cnt].Code);
+							space->RegisterGroundData(&glb_pos, mesh_data->Block[cnt].Code, mesh_data->Block[cnt].Effect);
 						}
 					}
 
@@ -281,6 +283,80 @@ Void SNWMeshManager::CvtPosToID(SNWorldPos* cur_pos, SNWorldPos* out_id)
 
 	return;
 }
+
+
+Boolean SNWMeshManager::BeginUpdateEffect()
+{
+	Boolean ret = false;
+	Int32 mesh_dir;
+	Int32 mesh_z;
+	SNWMeshInfo* mesh_info;
+
+	if (IsIdle())
+	{
+		// 全メッシュをロック
+		for (mesh_z = 0; mesh_z < SNWorldElevationNum; mesh_z++)
+		{
+			for (mesh_dir = 0; mesh_dir < SNWorldDirNum; mesh_dir++)
+			{
+				mesh_info = &MeshInfo[MeshRef[mesh_z][mesh_dir]];
+				mesh_info->Ground.GetBlock();
+			}
+		}
+
+		UpdateEffectSts = true;
+	}
+
+	return ret;
+}
+
+// エフェクト登録
+Void SNWMeshManager::SetEffect(SNWorldPos* pos, SNWorldDir dir, UInt64 effect)
+{
+	SNWorldDir mesh_dir;
+	SNWorldElevation mesh_z;
+	SNWorldPos local_pos;
+	SNWMeshInfo* mesh_info;
+
+	if (UpdateEffectSts)
+	{
+		// ID+ローカル座標変換
+		if (CvtIDAndLocalPos(pos, &mesh_dir, &mesh_z, &local_pos))
+		{
+			mesh_info = &MeshInfo[MeshRef[mesh_z][mesh_dir]];
+			mesh_info->Ground.SetEffect(&local_pos, dir, effect);
+			mesh_info->DirtyGround = true;
+		}
+	}
+
+	return;
+}
+
+// エフェクト更新終了
+Void SNWMeshManager::EndUpdateEffect()
+{
+	Int32 mesh_dir;
+	Int32 mesh_z;
+	SNWMeshInfo* mesh_info;
+
+	if (UpdateEffectSts)
+	{
+		// 全メッシュをアンロック
+		for (mesh_z = 0; mesh_z < SNWorldElevationNum; mesh_z++)
+		{
+			for (mesh_dir = 0; mesh_dir < SNWorldDirNum; mesh_dir++)
+			{
+				mesh_info = &MeshInfo[MeshRef[mesh_z][mesh_dir]];
+				mesh_info->Ground.ReleaseBlock();
+			}
+		}
+
+		UpdateEffectSts = false;
+	}
+
+	return;
+}
+
 
 // メッシュIDオフセット
 Void SNWMeshManager::OffsetMeshID(SNWorldPos* cur_id, SNWorldDir dir, SNWorldElevation ele, SNWorldPos* out_id)

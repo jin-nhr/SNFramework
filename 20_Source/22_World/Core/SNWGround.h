@@ -21,6 +21,7 @@ struct SNWGroundBlockData
 	UInt16 X;
 	UInt16 Y;
 	UInt16 Z;
+	UInt64 Effect[SNWorldDirNum];
 };
 
 struct SNWGroundFileData
@@ -62,6 +63,9 @@ public:
 
 	// Code‘‚«‚İ
 	virtual Void SetCode(Int32 x, Int32 y, Int32 z, SNMapchip::SNMapchipCode code);
+
+	// Effect‘‚«‚İ
+	virtual Void SetEffect(SNWorldPos* pos, SNWorldDir dir, UInt64 effect);
 
 	// Code‘‚«‚İÀs
 	virtual Void RunSetCode();

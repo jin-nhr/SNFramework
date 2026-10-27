@@ -184,8 +184,8 @@ public:
 
 
 	// 周辺空間サイズ(半径)
-	static constexpr Int32 WorldNearbySpaceSizeH = 72;
-	static constexpr Int32 WorldNearbySpaceSizeV = 24;
+	static constexpr Int32 WorldNearbySpaceSizeH = 74;
+	static constexpr Int32 WorldNearbySpaceSizeV = 36;
 
 	// 地形アニメインターバル
 	static constexpr Int32 GroundAnimeInterval = 500;
@@ -194,12 +194,12 @@ public:
 	static constexpr Int32 GroundPShadowSearchRange = 12;
 
 	// 地形エフェクト除外範囲
-	static constexpr Int32 GroundEffectOutRangeH = 8;
-	static constexpr Int32 GroundEffectOutRangeV = 4;
+	static constexpr Int32 GroundEffectOutRangeH = 12;
+	static constexpr Int32 GroundEffectOutRangeV = 12;
 
 	// 周辺空間除外範囲
-	static constexpr Int32 NearbySpaceOutRangeH = 8;
-	static constexpr Int32 NearbySpaceOutRangeV = 4;
+	static constexpr Int32 NearbySpaceOutRangeH = 12;
+	static constexpr Int32 NearbySpaceOutRangeV = 12;
 
 
 

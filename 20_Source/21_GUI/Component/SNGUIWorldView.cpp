@@ -246,8 +246,15 @@ Void SNGUIWorldView::OnDraw()
 	SNRect src_rect;
 	SNSize size;
 	SNBitmap* bg_bmp = SNGraphicsResManager::GetResource(SNMapchip::MapBGResource);
+	SNBitmap* gui_bmp = SNGraphicsResManager::GetResource(SNMapchip::GUIResource);
 	SNSize bg_size;
 	SNRect bg_rect;
+	Int8 cos;
+	Int8 sin;
+	Int32 time;
+	Int32 min;
+	Int32 hour;
+	Int32 day;
 
 	dst_rect = CalcGlobalRect();
 	size = WorkSurfaceSize;
@@ -289,6 +296,33 @@ Void SNGUIWorldView::OnDraw()
 
 		// ミニマップへの前景合成
 		SNGraphicsDevice::DrawImage(&dst_rect, bg_bmp, &bg_rect, TimeZoneAlpha, SNGraphicsDevice::SNTileShapeCircle);
+
+		src_rect.PointX = MiniMapFramePos.X;
+		src_rect.PointY = MiniMapFramePos.Y;
+		src_rect.Width = MiniMapSize.Width;
+		src_rect.Height = MiniMapSize.Height;
+
+		// ミニマップのフレーム描画
+		SNGraphicsDevice::DrawImage(&dst_rect, gui_bmp, &src_rect, SNAlphaMax);
+
+		SNWorld::GetWorldTime(&min, &hour, &day);
+		time = (min + hour * 60) * 255 / (60 * 24);
+		time -= SNTrigFuncOffset;
+		cos = SNMath::GetCos(time);
+		sin = -1 * SNMath::GetSin(time);
+
+		src_rect.PointX = TimeIconPos[SNWorld::GetTimeZone()].X;
+		src_rect.PointY = TimeIconPos[SNWorld::GetTimeZone()].Y;
+		src_rect.Width = TimeIconSize.Width;
+		src_rect.Height = TimeIconSize.Height;
+
+		dst_rect.Width = src_rect.Width;
+		dst_rect.Height = src_rect.Height;
+		dst_rect.PointX = TimeIconDrawPosCenter.X - src_rect.Width / 2 + TimeIconDrawPos.X * sin / 255;
+		dst_rect.PointY = TimeIconDrawPosCenter.Y - src_rect.Height / 2 + TimeIconDrawPos.Y * cos / 255;
+
+		// アイコン描画
+		SNGraphicsDevice::DrawImage(&dst_rect, gui_bmp, &src_rect, SNAlphaMax);
 	}
 
 	return;
@@ -463,7 +497,7 @@ Void SNGUIWorldView::DrawNearbyObjectGround(SNWNearbyObject* obj, SNPoint* draw_
 
 Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNWNearbyObject* obj, SNPoint* draw_base)
 {
-	UInt64 effect_flg = (UInt64)(intptr_t)obj->Effect;
+	UInt64 effect_flg = (UInt64)(intptr_t)obj->Effect[SNWorld::GetGlobalLight()];
 	UInt16 code;
 
 	static constexpr UInt64 glight_mask[4] =

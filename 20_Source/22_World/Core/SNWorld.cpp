@@ -13,11 +13,16 @@ UInt32 SNWorld::WorldTime = 0;
 SNSoftTimer SNWorld::GroundAnimeTimer;
 Int32 SNWorld::GroundAnimeStep;
 
+Boolean SNWorld::GroundEffectUpdateMode = false;
+
 Boolean SNWorld::Run = false;
 Boolean SNWorld::Suspend = false;
 SNWNearbySpace SNWorld::NearbySpace;	// 周辺空間
 
+Int32 SNWorld::WorldTimeAcc = 1;
+Int32 SNWorld::TimeMin;
 Int32 SNWorld::TimeHour;
+Int32 SNWorld::TimeDay;
 SNWorldDir SNWorld::GlobalLight;
 
 SNWActObject SNWorld::PCObject;
@@ -272,10 +277,41 @@ Int8 SNWorld::DirToAngle(SNWorldDir dir)
 	return DirToAngleTable[dir];
 }
 
-// 周辺空間へのエフェクト登録
-Void SNWorld::RegisterNearbyEffect()
+Void SNWorld::SetGroundEffectUpdateMode(Boolean update)
 {
+	GroundEffectUpdateMode = update;
 
+	return;
+}
+
+SNWorldDir SNWorld::GetGlobalLight()
+{
+	return GlobalLight;
+}
+
+// ワールドタイム取得
+Void SNWorld::GetWorldTime(Int32* min, Int32* hour, Int32* day)
+{
+	*min = TimeMin;
+	*hour = TimeHour;
+	*day = TimeDay;
+
+	return;
+}
+
+// ワールドタイム設定
+Void SNWorld::SetWorldTime(Int32 min, Int32 hour, Int32 day)
+{
+	TimeMin = min;
+	TimeHour = hour;
+	TimeDay = day;
+
+	return;
+}
+
+Void SNWorld::SetWorldTimeAcc(Int32 acc)
+{
+	WorldTimeAcc = acc;
 
 	return;
 }
@@ -287,42 +323,64 @@ Void SNWorld::RegisterGroundEffect()
 	UInt32 start_step = (obj_num / ParallelProcNum) + (Int64)((obj_num % ParallelProcNum) != 0);
 	UInt32 start = 0;
 	Boolean run = true;
+	static Int32 effect_update_cnt = 0;
 
-	for (cnt = 0; cnt < WorkerThreadNum; cnt++)
+	effect_update_cnt++;
+
+	if (GroundEffectUpdateMode && (SNSystemConfig::FPS <= effect_update_cnt))
 	{
-		// ワーカー用の情報セット
-		WorkerInfo[cnt][0] = start;
-		WorkerInfo[cnt][1] = SNMath::SelectMin(obj_num, start_step);
-		obj_num -= start_step;
-		start += start_step;
+		effect_update_cnt = 0;
 
-		// 実行関数を登録/実行
-		Worker[cnt].ID = cnt;
-		Worker[cnt].WorkerFunc = RegisterGroundEffectImp;
-		Worker[cnt].IsComplete = false;
-		Worker[cnt].Run();
-		
-		// ワーカーをリセットする
-		Worker[cnt].Reset = true;
-	}
+		// エフェクト更新開始
+		// 更新中は地形データをロックする
+		// ロックできない場合、更新処理を行わない
+		//
+		// マルチスレッド処理だが同一ブロックへの更新はしないので
+		// メインスレッドでのロックのみを行う
 
-	WorkerInfo[cnt][0] = start;
-	WorkerInfo[cnt][1] = SNMath::SelectMin(obj_num, start_step);
+		MeshManager.BeginUpdateEffect();
 
-	// 自分もワーカー処理
-	RegisterGroundEffectImp(cnt, nullptr);
-
-	// ワーカースレッドすべてが完了するまで待つ
-	while (run)
-	{
-		Sleep(0);
-
-		run = false;
 		for (cnt = 0; cnt < WorkerThreadNum; cnt++)
 		{
-			run |= (!Worker[cnt].IsComplete);
+			// ワーカー用の情報セット
+			WorkerInfo[cnt][0] = start;
+			WorkerInfo[cnt][1] = SNMath::SelectMin(obj_num, start_step);
+			obj_num -= start_step;
+			start += start_step;
+
+			// 実行関数を登録/実行
+			Worker[cnt].ID = cnt;
+			Worker[cnt].WorkerFunc = RegisterGroundEffectImp;
+			Worker[cnt].IsComplete = false;
+			Worker[cnt].Run();
+
+			// ワーカーをリセットする
+			Worker[cnt].Reset = true;
 		}
+
+		WorkerInfo[cnt][0] = start;
+		WorkerInfo[cnt][1] = SNMath::SelectMin(obj_num, start_step);
+
+		// 自分もワーカー処理
+		RegisterGroundEffectImp(cnt, nullptr);
+
+		// ワーカースレッドすべてが完了するまで待つ
+		while (run)
+		{
+			Sleep(0);
+
+			run = false;
+			for (cnt = 0; cnt < WorkerThreadNum; cnt++)
+			{
+				run |= (!Worker[cnt].IsComplete);
+			}
+		}
+
+		// エフェクト更新終了
+		MeshManager.EndUpdateEffect();
 	}
+
+	return;
 }
 
 // 周辺空間へのエフェクト登録
@@ -380,6 +438,8 @@ Void SNWorld::RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr)
 	Boolean ps_lb;
 	Boolean ps_rt;
 	Boolean ps_rb;
+
+	SNWorldPos glb_pos;
 
 
 	static UInt64 gshadow[SNWorldDirNum] =
@@ -524,7 +584,14 @@ Void SNWorld::RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr)
 	}
 
 	// 周辺空間へエフェクト登録
-	NearbySpace.RegisterGroundEffectToSpace(obj_ptr, effect_flg);
+	if (NearbySpace.RegisterGroundEffectToSpace(obj_ptr, GlobalLight, effect_flg))
+	{
+		glb_pos.X = obj_ptr->Pos.X + NearbySpace.GetBasePos()->X;
+		glb_pos.Y = obj_ptr->Pos.Y + NearbySpace.GetBasePos()->Y;
+		glb_pos.Z = obj_ptr->Pos.Z + NearbySpace.GetBasePos()->Z;
+
+		MeshManager.SetEffect(&glb_pos, GlobalLight, effect_flg);
+	}
 
 	return;
 }
@@ -684,14 +751,27 @@ Boolean SNWorld::JudgeGroundPShadow(Int32 x, Int32 y, Int32 z, Boolean* lt, Bool
 
 Void SNWorld::UpdateWorldTime()
 {
-	WorldTime += 10;
+	WorldTime += WorldTimeAcc;
 
-	if ((SNWTimeHour * SNSystemConfig::FPS / 1000) <= WorldTime)
+	if (WorldTime >= SNSystemConfig::FPS)
 	{
-		TimeHour = (Int32)SNMath::Increment(TimeHour, 0, SNWTimeStepNum - 1);
-		GlobalLight = TimeToGlobalLight[TimeHour];
 		WorldTime = 0;
+		TimeMin++;
+
+		if (TimeMin >= 60)
+		{
+			TimeMin = 0;
+			TimeHour++;
+
+			if (TimeHour >= 24)
+			{
+				TimeHour = 0;
+				TimeDay++;
+			}
+		}
 	}
+
+	GlobalLight = TimeToGlobalLight[TimeHour];
 
 	return;
 }

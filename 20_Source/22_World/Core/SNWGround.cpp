@@ -117,13 +117,44 @@ Void SNWGround::ReleaseBlock()
 // Code書き込み
 Void SNWGround::SetCode(Int32 x, Int32 y, Int32 z, SNMapchip::SNMapchipCode code)
 {
+	Int32 cnt;
+
 	if (!IsProc())
 	{
 		SetCodeInfo[SetCodeInfoNum].X = (UInt16)x;
 		SetCodeInfo[SetCodeInfoNum].Y = (UInt16)y;
 		SetCodeInfo[SetCodeInfoNum].Z = (UInt16)z;
 		SetCodeInfo[SetCodeInfoNum].Code = (UInt16)code;
+		
+		for (cnt = 0; cnt < SNWorldDirNum; cnt++)
+		{
+			SetCodeInfo->Effect[cnt] = 0;
+		}
 		SetCodeInfoNum++;
+	}
+
+	return;
+}
+
+Void SNWGround::SetEffect(SNWorldPos* pos, SNWorldDir dir, UInt64 effect)
+{
+	Int64 cnt;
+	SNWGroundFileData* data_adr = (SNWGroundFileData*)BlockList.GetAddress();
+	Int32 code_num = SetCodeInfoNum;
+	Int32 code_index = 0;
+
+	for (cnt = 0; cnt < data_adr->BlockNum; cnt++)
+	{
+		// 同一座標のデータあり
+		if ((data_adr->Block[cnt].X == (Int32)pos->X) &&
+			(data_adr->Block[cnt].Y == (Int32)pos->Y) &&
+			(data_adr->Block[cnt].Z == (Int32)pos->Z) &&
+			(data_adr->Block[cnt].Code != 0))
+		{
+			// エフェクト登録
+			data_adr->Block[cnt].Effect[dir] = effect;
+			break;
+		}
 	}
 
 	return;
@@ -265,9 +296,9 @@ Void SNWGround::SetCodeAsync()
 		for (cnt = 0; cnt < data_adr->BlockNum; cnt++)
 		{
 			// 同一座標のデータあり
-			if ((data_adr->Block[cnt].X) == (SetCodeInfo[code_index].X) &&
-				(data_adr->Block[cnt].Y) == (SetCodeInfo[code_index].Y) &&
-				(data_adr->Block[cnt].Z) == (SetCodeInfo[code_index].Z))
+			if ((data_adr->Block[cnt].X == SetCodeInfo[code_index].X) &&
+				(data_adr->Block[cnt].Y == SetCodeInfo[code_index].Y) &&
+				(data_adr->Block[cnt].Z == SetCodeInfo[code_index].Z))
 			{
 				break;
 			}

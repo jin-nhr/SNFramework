@@ -8,6 +8,7 @@ public:
 	// マップチップリソース
 	static constexpr SNGraphicsResID MapchipResource = SNGraphicsResGUIAndWorld;
 	static constexpr SNGraphicsResID MapBGResource = SNGraphicsResGUIAndWorld;
+	static constexpr SNGraphicsResID GUIResource = SNGraphicsResGUIAndWorld;
 
 	static constexpr UInt32 MapchipBaseX = 256;
 	static constexpr UInt32 MapchipBaseY = 0;

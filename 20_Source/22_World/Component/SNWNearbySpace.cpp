@@ -49,11 +49,12 @@ Void SNWNearbySpace::UpdateStart(SNWorldPos* cur_pos, UInt32 world_time)
 }
 
 // 地形データ登録
-Void SNWNearbySpace::RegisterGroundData(SNWorldPos* glb_pos, UInt16 code)
+Void SNWNearbySpace::RegisterGroundData(SNWorldPos* glb_pos, UInt16 code, UInt64* effect)
 {
 	SNListContainer* it = nullptr;
 	SNWNearbyObject* obj_ptr = nullptr;
 	SNWNearbySpaceCell* cell_ptr = nullptr;
+	Int32 cnt;
 
 	if (ObjectNum < SNWNearbyObjectNum)
 	{
@@ -69,7 +70,11 @@ Void SNWNearbySpace::RegisterGroundData(SNWorldPos* glb_pos, UInt16 code)
 		obj_ptr->Pos.Z = glb_pos->Z - BasePos.Z;
 
 		obj_ptr->UserData = (Void*)code;
-		obj_ptr->Effect = 0;
+		
+		for (cnt = 0; cnt < SNWorldDirNum; cnt++)
+		{
+			obj_ptr->Effect[cnt] = effect[cnt];
+		}
 		obj_ptr->Size.X = 1;
 		obj_ptr->Size.Y = 1;
 		obj_ptr->Size.Z = 1;
@@ -121,7 +126,6 @@ Void SNWNearbySpace::RegisterGObjectData(SNWObjectBase* obj)
 			obj_ptr->Pos.Z = obj_info->Pos.Z - BasePos.Z + cnt_z;
 
 			obj_ptr->UserData = (Void*)obj;
-			obj_ptr->Effect = 0;
 			obj_ptr->Size.X = size_h;
 			obj_ptr->Size.Y = size_h;
 			obj_ptr->Size.Z = 1.0f;
@@ -153,11 +157,17 @@ Void SNWNearbySpace::RegisterGObjectData(SNWObjectBase* obj)
 }
 
 
-Void SNWNearbySpace::RegisterGroundEffectToSpace(SNWNearbyObject* obj_ptr, UInt64 effect)
+Boolean SNWNearbySpace::RegisterGroundEffectToSpace(SNWNearbyObject* obj_ptr, SNWorldDir glb_light, UInt64 effect)
 {
-	obj_ptr->Effect = effect;
+	Boolean ret = false;
 
-	return;
+	if (obj_ptr->Effect[glb_light] != effect)
+	{
+		obj_ptr->Effect[glb_light] = effect;
+		ret = true;
+	}
+
+	return ret;
 }
 
 
@@ -185,8 +195,7 @@ Void SNWNearbySpace::RegisterFocus(SNWorldPos* glb_pos)
 		obj_ptr->Pos.Y = glb_pos->Y - BasePos.Y;
 		obj_ptr->Pos.Z = glb_pos->Z - BasePos.Z;
 
-		obj_ptr->UserData = 0;
-		obj_ptr->Effect = 0;
+		obj_ptr->UserData = 0;	
 		obj_ptr->Size.X = 1;
 		obj_ptr->Size.Y = 1;
 		obj_ptr->Size.Z = 1;
@@ -283,7 +292,6 @@ Void SNWNearbySpace::RegisterGObjectShadow(SNWObjectBase* obj, SNWorldPos* floor
 		}
 
 		obj_ptr->UserData = (Void*)SNWorldShadowObject1;
-		obj_ptr->Effect = 0;
 		obj_ptr->Size.X = SNWObjectchip::Data[obj->GetCode()].SizeH;
 		obj_ptr->Size.Y = SNWObjectchip::Data[obj->GetCode()].SizeH;
 		obj_ptr->Size.Z = SNShadowHeight;

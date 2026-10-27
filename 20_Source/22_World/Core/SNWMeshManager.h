@@ -55,6 +55,18 @@ public:
 	// 全Meshの処理が完了しているか
 	virtual Boolean IsIdle();
 
+
+	// エフェクト更新開始
+	// true:更新OK
+	// false:不可
+	virtual Boolean BeginUpdateEffect();
+
+	// エフェクト登録
+	virtual Void SetEffect(SNWorldPos* pos, SNWorldDir dir, UInt64 effect);
+
+	// エフェクト更新終了
+	virtual Void EndUpdateEffect();
+
 protected:
 	// 座標→ID変換
 	virtual Void CvtPosToID(SNWorldPos* cur_pos, SNWorldPos* out_id);
@@ -107,6 +119,8 @@ private:
 	SNWorldPos CurrentPos;
 	SNWorldPos CurrentID;
 	SNWorldPos SavedCenterID;
+
+	Boolean UpdateEffectSts;
 
 	SNWMeshInfo	MeshInfo[SNWorldElevationNum * SNWorldDirNum];
 	Int16 MeshRef[SNWorldElevationNum][SNWorldDirNum];

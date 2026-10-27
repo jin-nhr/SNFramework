@@ -31,7 +31,7 @@ struct SNWNearbyObject
 	SNWNearbyObjectType Type;
 	SNWorldPos          Pos;		// セル登録位置
 	Void*               UserData;	// 種別に応じたデータをセットする
-	UInt64              Effect;
+	UInt64              Effect[SNWorldDirNum];
 	SNWorldPos			Size;		// オブジェクトサイズ
 	SNWorldPos			Segment;	// セグメントNo All=0が本体
 	Float32				Dist2;
@@ -106,13 +106,14 @@ public:
 	virtual Void UpdateStart(SNWorldPos* cur_pos, UInt32 world_time);
 
 	// 地形データ登録
-	virtual Void RegisterGroundData(SNWorldPos* glb_pos, UInt16 code);
+	virtual Void RegisterGroundData(SNWorldPos* glb_pos, UInt16 code, UInt64* effect);
 
 	// オブジェクト登録
 	virtual Void RegisterGObjectData(SNWObjectBase* obj);
 
 	// 地形エフェクト登録(周辺空間)
-	virtual Void RegisterGroundEffectToSpace(SNWNearbyObject* obj_ptr, UInt64 effect);
+	// true:変化あり、false:変化なし
+	virtual Boolean RegisterGroundEffectToSpace(SNWNearbyObject* obj_ptr, SNWorldDir glb_light, UInt64 effect);
 
 	virtual Void RegisterFocus(SNWorldPos* local_pos);
 
