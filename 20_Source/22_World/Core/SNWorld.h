@@ -184,6 +184,9 @@ protected:
 	// 地形の投影チェック
 	static Boolean JudgeGroundPShadow(Int32 x, Int32 y, Int32 z, Boolean* lt, Boolean* rt, Boolean* lb, Boolean* rb);
 
+	// 光源チェック
+	static Void JudgeGroundLight(Int32 x, Int32 y, Int32 z, Boolean* top, Boolean* left, Boolean* right);
+
 	// ワールドタイム更新
 	static Void UpdateWorldTime();
 

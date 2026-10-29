@@ -701,14 +701,14 @@ enum SNWorldElevation
 // ‰e•ûŒü
 enum SNWorldShadowDir
 {
-    SNWorldShadowNon,
-    SNWorldShadowDirR,
-    SNWorldShadowDirB,
-    SNWorldShadowDirL,
-    SNWorldShadowDirU,
-    SNWorldShadowDirT,
-    SNWorldShadowSideR,
-    SNWorldShadowSideL,
+    SNWorldShadowBase,
+    SNWorldShadowLLow,
+    SNWorldShadowRLow,
+    SNWorldShadowLMid,
+    SNWorldShadowRMid,
+    SNWorldShadowLHigh,
+    SNWorldShadowRHigh,
+    SNWorldShadowTop,
     SNWorldShadowTUL,
     SNWorldShadowTUR,
     SNWorldShadowTBR,

@@ -43,17 +43,10 @@ struct SNWNearbyObject
 enum SNWNearbyEffectGroundBit
 {
 	// グローバル光源による影
-	SNWNearbyEffectGroundBitGShadowU = 0x00000001,
-	SNWNearbyEffectGroundBitGShadowR = 0x00000002,
-	SNWNearbyEffectGroundBitGShadowB = 0x00000004,
-	SNWNearbyEffectGroundBitGShadowL = 0x00000008,
+	SNWNearbyEffectGroundBitGShadowBase  = 0x00000001,
 
 	// 他地形の投影
-	SNWNearbyEffectGroundBitPShadowU = 0x00000010,
-	SNWNearbyEffectGroundBitPShadowR = 0x00000020,
-	SNWNearbyEffectGroundBitPShadowB = 0x00000040,
-	SNWNearbyEffectGroundBitPShadowL = 0x00000080,
-	SNWNearbyEffectGroundBitPShadowT = 0x00000F00,
+	SNWNearbyEffectGroundBitPShadowT = 0x00000040,
 
 	SNWNearbyEffectGroundBitPShadowTUR = 0x00000100,
 	SNWNearbyEffectGroundBitPShadowTBR = 0x00000200,
@@ -66,12 +59,18 @@ enum SNWNearbyEffectGroundBit
 	SNWNearbyEffectGroundBitBorderB = 0x00004000,
 	SNWNearbyEffectGroundBitBorderL = 0x00008000,
 
-	SNWNearbyEffectGroundBitBorderSideU = 0x00010000,
 	SNWNearbyEffectGroundBitBorderSideR = 0x00020000,
-	SNWNearbyEffectGroundBitBorderSideB = 0x00040000,
 	SNWNearbyEffectGroundBitBorderSideL = 0x00080000,
 
 	SNWNearbyEffectGroundBitBorderBottom = 0x00100000,
+
+	// グローバル光源による影
+	SNWNearbyEffectGroundBitGShadowLLow = 0x01000000,
+	SNWNearbyEffectGroundBitGShadowRLow = 0x02000000,
+	SNWNearbyEffectGroundBitGShadowLMid = 0x04000000,
+	SNWNearbyEffectGroundBitGShadowRMid = 0x08000000,
+	SNWNearbyEffectGroundBitGShadowLHigh = 0x10000000,
+	SNWNearbyEffectGroundBitGShadowRHigh = 0x20000000,
 };
 
 // SNWNearbyObjectTypeActiveObject
@@ -148,6 +147,18 @@ public:
 
 	// 指定ブロックが指定種別か
 	virtual Boolean IsBlocked(Int32 x, Int32 y, Int32 z, SNWNearbyObjectType type);
+
+	// 影対象ブロックか判定
+	virtual Boolean IsShadowBlocked(Int32 x, Int32 y, Int32 z);
+
+	// 光源ブロックか判定
+	virtual Boolean IsLightBlocked(Int32 x, Int32 y, Int32 z);
+
+	// 遮蔽ブロック確認
+	virtual Boolean ExistShadowBlock(Int32 from_x, Int32 from_y, Int32 from_z, Int32 to_x, Int32 to_y, Int32 to_z);
+
+	// 経路探索
+	virtual Boolean SearchRoute(Int32 from_x, Int32 from_y, Int32 from_z, Int32 to_x, Int32 to_y, Int32 to_z);
 
 	// 周辺空間内か判定する
 	virtual Boolean CollisionCellVSSpace(SNWorldPos* cell_pos);

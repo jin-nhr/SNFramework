@@ -1,6 +1,7 @@
 #include "SNWNearbySpace.h"
 #include "SNWindowsAPI.h"
 #include "SNMath.h"
+#include "SNMapchip.h"
 
 SNWNearbySpace::SNWNearbySpace()
 {
@@ -441,6 +442,121 @@ Boolean SNWNearbySpace::IsBlocked(Int32 x, Int32 y, Int32 z, SNWNearbyObjectType
 	if ((top != nullptr) && (top->Type == type))
 	{
 		ret = true;
+	}
+
+	return ret;
+}
+
+Boolean SNWNearbySpace::IsShadowBlocked(Int32 x, Int32 y, Int32 z)
+{
+	Boolean ret = false;
+	SNWNearbyObject* top;
+
+	top = RefObjectG(x, y, z);
+	if ((top != nullptr) && (top->Type == SNWNearbyObjectTypeGround))
+	{
+		if (SNMapchip::Data[(Int32)(intptr_t)top->UserData].Shadow)
+		{
+			ret = true;
+		}
+	}
+
+	return ret;
+}
+
+Boolean SNWNearbySpace::IsLightBlocked(Int32 x, Int32 y, Int32 z)
+{
+	Boolean ret = false;
+	SNWNearbyObject* top;
+
+	top = RefObjectG(x, y, z);
+	if ((top != nullptr) && (top->Type == SNWNearbyObjectTypeGround))
+	{
+		if (SNMapchip::Data[(Int32)(intptr_t)top->UserData].Light)
+		{
+			ret = true;
+		}
+	}
+
+	return ret;
+}
+
+Boolean SNWNearbySpace::ExistShadowBlock(Int32 from_x, Int32 from_y, Int32 from_z, Int32 to_x, Int32 to_y, Int32 to_z)
+{
+	Boolean ret = true;
+	Boolean route = false;
+
+	Int32 dx = to_x - from_x;
+	Int32 dy = to_y - from_y;
+	Int32 dz = to_z - from_z;
+
+	Int32 step_x = (dx < 0 ? -1 : 1);
+	Int32 step_y = (dy < 0 ? -1 : 1);
+	Int32 step_z = (dz < 0 ? -1 : 1);
+
+	if (dx != 0)
+	{
+		route = SearchRoute(from_x + step_x, from_y, from_z, to_x, to_y, to_z);
+	}
+
+	if ((dy != 0) && !route)
+	{
+		route = SearchRoute(from_x, from_y + step_y, from_z, to_x, to_y, to_z);
+	}
+
+	if ((dz != 0) && !route)
+	{
+		route = SearchRoute(from_x, from_y, from_z + step_z, to_x, to_y, to_z);
+	}
+
+	if (route)
+	{
+		// ŽÕ•Á•¨‚È‚µ
+		ret = false;
+	}
+		
+	return ret;
+}
+
+Boolean SNWNearbySpace::SearchRoute(Int32 from_x, Int32 from_y, Int32 from_z, Int32 to_x, Int32 to_y, Int32 to_z)
+{
+	Boolean ret = false;
+
+
+	Int32 dx = to_x - from_x;
+	Int32 dy = to_y - from_y;
+	Int32 dz = to_z - from_z;
+
+	Int32 step_x = (dx < 0 ? -1 : 1);
+	Int32 step_y = (dy < 0 ? -1 : 1);
+	Int32 step_z = (dz < 0 ? -1 : 1);
+
+	if ((dx == 0) && (dy == 0) && (dz == 0))
+	{
+		ret = true;
+	}
+
+	else if (IsShadowBlocked(from_x, from_y, from_z))
+	{
+		ret = false;
+	}
+
+	else
+	{
+		if (dx != 0)
+		{
+			ret = SearchRoute(from_x + step_x, from_y, from_z, to_x, to_y, to_z);
+		}
+
+		if ((dy != 0) && !ret)
+		{
+			ret = SearchRoute(from_x, from_y + step_y, from_z, to_x, to_y, to_z);
+		}
+
+		if ((dz != 0) && !ret)
+		{
+			ret = SearchRoute(from_x, from_y, from_z + step_z, to_x, to_y, to_z);
+		}
 	}
 
 	return ret;

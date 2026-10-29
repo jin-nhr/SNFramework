@@ -193,6 +193,9 @@ public:
 	// 影投影オブジェクトの検索範囲
 	static constexpr Int32 GroundPShadowSearchRange = 12;
 
+	// 光源オブジェクトの検索範囲
+	static constexpr Int32 GroundLightSearchRange = 6;
+
 	// 地形エフェクト除外範囲
 	static constexpr Int32 GroundEffectOutRangeH = 12;
 	static constexpr Int32 GroundEffectOutRangeV = 12;

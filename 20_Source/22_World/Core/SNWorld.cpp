@@ -395,13 +395,14 @@ Void SNWorld::RegisterGroundEffectImp(UInt32 id, Void* param)
 	{
 		obj_ptr = NearbySpace.RefObject((Int32)cnt);
 
-		// 対象オブジェクトが
+		// 対象オブジェクトが対象範囲内？
 		if ((SNSystemConfig::GroundEffectOutRangeH < obj_ptr->Pos.X) &&
 			(obj_ptr->Pos.X < SNWNearbySpaceSizeX - SNSystemConfig::GroundEffectOutRangeH) &&
 			(SNSystemConfig::GroundEffectOutRangeH < obj_ptr->Pos.Y) &&
 			(obj_ptr->Pos.Y < SNWNearbySpaceSizeY - SNSystemConfig::GroundEffectOutRangeH) &&
 			(SNSystemConfig::GroundEffectOutRangeV < obj_ptr->Pos.Z) &&
-			(obj_ptr->Pos.Z < SNWNearbySpaceSizeZ - SNSystemConfig::GroundEffectOutRangeV))
+			(obj_ptr->Pos.Z < SNWNearbySpaceSizeZ - SNSystemConfig::GroundEffectOutRangeV) &&
+			(SNMapchip::Data[(Int32)(intptr_t)obj_ptr->UserData].Shadow))
 		{
 			switch (obj_ptr->Type)
 			{
@@ -439,20 +440,24 @@ Void SNWorld::RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr)
 	Boolean ps_rt;
 	Boolean ps_rb;
 
+	Boolean lt_top = false;
+	Boolean lt_left = false;
+	Boolean lt_right = false;
+
 	SNWorldPos glb_pos;
 
 
 	static UInt64 gshadow[SNWorldDirNum] =
 	{
-		SNWNearbyEffectGroundBitGShadowB,
-		SNWNearbyEffectGroundBitGShadowB,
-		SNWNearbyEffectGroundBitGShadowB,
-		SNWNearbyEffectGroundBitGShadowL,
-		SNWNearbyEffectGroundBitGShadowL,
-		SNWNearbyEffectGroundBitGShadowU,
-		SNWNearbyEffectGroundBitGShadowU,
-		SNWNearbyEffectGroundBitGShadowR,
-		SNWNearbyEffectGroundBitGShadowR,
+		SNWNearbyEffectGroundBitGShadowLHigh | SNWNearbyEffectGroundBitGShadowRMid,	// top
+		SNWNearbyEffectGroundBitGShadowLHigh | SNWNearbyEffectGroundBitGShadowRMid,	// N
+		SNWNearbyEffectGroundBitGShadowLHigh | SNWNearbyEffectGroundBitGShadowRLow,	// NE
+		SNWNearbyEffectGroundBitGShadowLMid  | SNWNearbyEffectGroundBitGShadowRLow,	// E
+		SNWNearbyEffectGroundBitGShadowLLow | SNWNearbyEffectGroundBitGShadowRLow,	// SE
+		SNWNearbyEffectGroundBitGShadowLLow | SNWNearbyEffectGroundBitGShadowRMid,	// S
+		SNWNearbyEffectGroundBitGShadowLLow | SNWNearbyEffectGroundBitGShadowRHigh,	// SW
+		SNWNearbyEffectGroundBitGShadowLMid | SNWNearbyEffectGroundBitGShadowRHigh,	// W
+		SNWNearbyEffectGroundBitGShadowLHigh | SNWNearbyEffectGroundBitGShadowRHigh,// NW
 	};
 
 	x = (Int32)obj_ptr->Pos.X;
@@ -460,23 +465,26 @@ Void SNWorld::RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr)
 	z = (Int32)obj_ptr->Pos.Z;
 
 	// 周囲4つが地形？
-	exist_u = NearbySpace.IsBlocked(x, y - 1, z, SNWNearbyObjectTypeGround);
-	exist_r = NearbySpace.IsBlocked(x + 1, y, z, SNWNearbyObjectTypeGround);
-	exist_b = NearbySpace.IsBlocked(x, y + 1, z, SNWNearbyObjectTypeGround);
-	exist_l = NearbySpace.IsBlocked(x - 1, y, z, SNWNearbyObjectTypeGround);
+	exist_u = NearbySpace.IsShadowBlocked(x, y - 1, z);
+	exist_r = NearbySpace.IsShadowBlocked(x + 1, y, z);
+	exist_b = NearbySpace.IsShadowBlocked(x, y + 1, z);
+	exist_l = NearbySpace.IsShadowBlocked(x - 1, y, z);
 
-	exist_top = NearbySpace.IsBlocked(x, y, z + 1, SNWNearbyObjectTypeGround);
+	exist_top = NearbySpace.IsShadowBlocked(x, y, z + 1);
 
-	exist_uu = NearbySpace.IsBlocked(x, y - 1, z + 1, SNWNearbyObjectTypeGround);
-	exist_ru = NearbySpace.IsBlocked(x + 1, y, z + 1, SNWNearbyObjectTypeGround);
-	exist_bu = NearbySpace.IsBlocked(x, y + 1, z + 1, SNWNearbyObjectTypeGround);
-	exist_lu = NearbySpace.IsBlocked(x - 1, y, z + 1, SNWNearbyObjectTypeGround);
+	exist_uu = NearbySpace.IsShadowBlocked(x, y - 1, z + 1);
+	exist_ru = NearbySpace.IsShadowBlocked(x + 1, y, z + 1);
+	exist_bu = NearbySpace.IsShadowBlocked(x, y + 1, z + 1);
+	exist_lu = NearbySpace.IsShadowBlocked(x - 1, y, z + 1);
 
-	exist_bottom = NearbySpace.IsBlocked(x, y, z - 1, SNWNearbyObjectTypeGround);
+	exist_bottom = NearbySpace.IsShadowBlocked(x, y, z - 1);
 
 	// 周囲に地形以外のセルがある
 	if (!(exist_u && exist_r && exist_b && exist_l))
 	{
+		// ベースの影設定
+		effect_flg |= SNWNearbyEffectGroundBitGShadowBase;
+
 		// グローバル光源の反映
 		effect_flg |= gshadow[GlobalLight];
 
@@ -490,20 +498,9 @@ Void SNWorld::RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr)
 				}
 	}
 
-	// ボーダー追加設定 周りが高いとき
-	if (!exist_top)
-	{
-		// ボーダーの反映
-		effect_flg |= (exist_uu ? SNWNearbyEffectGroundBitBorderU : 0);
-		effect_flg |= (exist_ru ? SNWNearbyEffectGroundBitBorderR : 0);
-		effect_flg |= (exist_bu ? SNWNearbyEffectGroundBitBorderB : 0);
-		effect_flg |= (exist_lu ? SNWNearbyEffectGroundBitBorderL : 0);
-	}
-
-	effect_flg |= (exist_u ? 0 : SNWNearbyEffectGroundBitBorderSideU);
-	effect_flg |= (exist_r ? 0 : SNWNearbyEffectGroundBitBorderSideR);
-	effect_flg |= (exist_b ? 0 : SNWNearbyEffectGroundBitBorderSideB);
-	effect_flg |= (exist_l ? 0 : SNWNearbyEffectGroundBitBorderSideL);
+	// 側面、下面のボーダー設定
+	effect_flg |= ((exist_r || exist_u) ? 0 : SNWNearbyEffectGroundBitBorderSideR);
+	effect_flg |= ((exist_l || exist_b) ? 0 : SNWNearbyEffectGroundBitBorderSideL);
 	effect_flg |= (exist_bottom ? 0 : SNWNearbyEffectGroundBitBorderBottom);
 
 
@@ -519,21 +516,13 @@ Void SNWorld::RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr)
 		if (JudgeGroundPShadow(x, y, z, &ps_lt, &ps_rt, &ps_lb, &ps_rb))
 		{
 			// 投影情報をセット
-			effect_flg |= (exist_b || (GlobalLight != SNWorldDirS) ? 0 : SNWNearbyEffectGroundBitPShadowB);
-			effect_flg |= (exist_b || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitPShadowB);
-			effect_flg |= (exist_b || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitPShadowB);
+			effect_flg |= (exist_b || (GlobalLight != SNWorldDirS) ? 0 : SNWNearbyEffectGroundBitGShadowLHigh);
+			effect_flg |= (exist_b || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitGShadowLHigh);
+			effect_flg |= (exist_b || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitGShadowLHigh);
 
-			effect_flg |= (exist_l || (GlobalLight != SNWorldDirW) ? 0 : SNWNearbyEffectGroundBitPShadowL);
-			effect_flg |= (exist_l || (GlobalLight != SNWorldDirNW) ? 0 : SNWNearbyEffectGroundBitPShadowL);
-			effect_flg |= (exist_l || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitPShadowL);
-
-			effect_flg |= (exist_u || (GlobalLight != SNWorldDirN) ? 0 : SNWNearbyEffectGroundBitPShadowU);
-			effect_flg |= (exist_u || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitPShadowU);
-			effect_flg |= (exist_u || (GlobalLight != SNWorldDirNW) ? 0 : SNWNearbyEffectGroundBitPShadowU);
-
-			effect_flg |= (exist_r || (GlobalLight != SNWorldDirE) ? 0 : SNWNearbyEffectGroundBitPShadowR);
-			effect_flg |= (exist_r || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitPShadowR);
-			effect_flg |= (exist_r || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitPShadowR);
+			effect_flg |= (exist_r || (GlobalLight != SNWorldDirE) ? 0 : SNWNearbyEffectGroundBitGShadowRHigh);
+			effect_flg |= (exist_r || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitGShadowRHigh);
+			effect_flg |= (exist_r || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitGShadowRHigh);
 
 			effect_flg |= (exist_top ? 0 : SNWNearbyEffectGroundBitPShadowT);
 		}
@@ -542,46 +531,65 @@ Void SNWorld::RegisterNearbyEffectGround(UInt32 id, SNWNearbyObject* obj_ptr)
 		{
 			if (ps_lt)
 			{
-				effect_flg |= (exist_l || (GlobalLight != SNWorldDirNW) ? 0 : SNWNearbyEffectGroundBitPShadowL);
-				effect_flg |= (exist_l || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitPShadowL);
-
-				effect_flg |= (exist_u || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitPShadowU);
-				effect_flg |= (exist_u || (GlobalLight != SNWorldDirNW) ? 0 : SNWNearbyEffectGroundBitPShadowU);
+				effect_flg |= (exist_l || (GlobalLight != SNWorldDirNW) ? 0 : SNWNearbyEffectGroundBitGShadowLHigh);
+				effect_flg |= (exist_l || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitGShadowLHigh);
 
 				effect_flg |= (exist_top ? 0 : SNWNearbyEffectGroundBitPShadowTUL);
 			}
 			if (ps_rt)
 			{
-				effect_flg |= (exist_u || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitPShadowU);
-				effect_flg |= (exist_u || (GlobalLight != SNWorldDirNW) ? 0 : SNWNearbyEffectGroundBitPShadowU);
 
-				effect_flg |= (exist_r || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitPShadowR);
-				effect_flg |= (exist_r || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitPShadowR);
+				effect_flg |= (exist_r || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitGShadowRHigh);
+				effect_flg |= (exist_r || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitGShadowRHigh);
 
 				effect_flg |= (exist_top ? 0 : SNWNearbyEffectGroundBitPShadowTUR);
 			}
 			if (ps_lb)
 			{
-				effect_flg |= (exist_b || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitPShadowB);
-				effect_flg |= (exist_b || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitPShadowB);
-
-				effect_flg |= (exist_l || (GlobalLight != SNWorldDirNW) ? 0 : SNWNearbyEffectGroundBitPShadowL);
-				effect_flg |= (exist_l || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitPShadowL);
+				effect_flg |= (exist_l || (GlobalLight != SNWorldDirNW) ? 0 : SNWNearbyEffectGroundBitGShadowLHigh);
+				effect_flg |= (exist_l || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitGShadowLHigh);
 
 				effect_flg |= (exist_top ? 0 : SNWNearbyEffectGroundBitPShadowTBL);
 			}
 			if (ps_rb)
 			{
-				effect_flg |= (exist_b || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitPShadowB);
-				effect_flg |= (exist_b || (GlobalLight != SNWorldDirSW) ? 0 : SNWNearbyEffectGroundBitPShadowB);
-
-				effect_flg |= (exist_r || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitPShadowR);
-				effect_flg |= (exist_r || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitPShadowR);
+				effect_flg |= (exist_r || (GlobalLight != SNWorldDirNE) ? 0 : SNWNearbyEffectGroundBitGShadowRHigh);
+				effect_flg |= (exist_r || (GlobalLight != SNWorldDirSE) ? 0 : SNWNearbyEffectGroundBitGShadowRHigh);
 
 				effect_flg |= (exist_top ? 0 : SNWNearbyEffectGroundBitPShadowTBR);
 			}
 		}
 	}
+
+	// 光源チェック
+	JudgeGroundLight(x, y, z, &lt_top, &lt_left, &lt_right);
+
+	if (lt_top)
+	{
+		effect_flg &= 
+					~(SNWNearbyEffectGroundBitPShadowT |
+					 SNWNearbyEffectGroundBitPShadowTUR |
+					 SNWNearbyEffectGroundBitPShadowTBR |
+					 SNWNearbyEffectGroundBitPShadowTBL |
+					 SNWNearbyEffectGroundBitPShadowTUL);
+	}
+
+	if (lt_left)
+	{
+		effect_flg &=
+			~(SNWNearbyEffectGroundBitGShadowLLow |
+			SNWNearbyEffectGroundBitGShadowLMid |
+			SNWNearbyEffectGroundBitGShadowLHigh);
+	}
+
+	if (lt_right)
+	{
+		effect_flg &=
+			~(SNWNearbyEffectGroundBitGShadowRLow |
+			SNWNearbyEffectGroundBitGShadowRMid |
+			SNWNearbyEffectGroundBitGShadowRHigh);
+	}
+	
 
 	// 周辺空間へエフェクト登録
 	if (NearbySpace.RegisterGroundEffectToSpace(obj_ptr, GlobalLight, effect_flg))
@@ -676,8 +684,8 @@ Boolean SNWorld::JudgeGroundPShadow(Int32 x, Int32 y, Int32 z, Boolean* lt, Bool
 		case SNWorldDirS:
 		case SNWorldDirE:
 		case SNWorldDirW:
-			ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z, SNWNearbyObjectTypeGround);
-			ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
+			ret |= NearbySpace.IsShadowBlocked(ref_x, ref_y, ref_z);
+			ret |= NearbySpace.IsShadowBlocked(ref_x, ref_y, ref_z + 1);
 			ref_x += step_x;
 			ref_y += step_y;
 			ref_z += 2;
@@ -686,21 +694,21 @@ Boolean SNWorld::JudgeGroundPShadow(Int32 x, Int32 y, Int32 z, Boolean* lt, Bool
 		case SNWorldDirSE:
 		case SNWorldDirSW:
 		case SNWorldDirNW:
-			ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z, SNWNearbyObjectTypeGround);
-			ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
-			ret |= NearbySpace.IsBlocked(ref_x, ref_y, ref_z + 2, SNWNearbyObjectTypeGround);
-			near_shadow_u |= NearbySpace.IsBlocked(ref_x, ref_y - 1, ref_z, SNWNearbyObjectTypeGround);
-			near_shadow_u |= NearbySpace.IsBlocked(ref_x, ref_y - 1, ref_z + 1, SNWNearbyObjectTypeGround);
-			near_shadow_u |= NearbySpace.IsBlocked(ref_x, ref_y - 1, ref_z + 2, SNWNearbyObjectTypeGround);
-			near_shadow_r |= NearbySpace.IsBlocked(ref_x + 1, ref_y, ref_z, SNWNearbyObjectTypeGround);
-			near_shadow_r |= NearbySpace.IsBlocked(ref_x + 1, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
-			near_shadow_r |= NearbySpace.IsBlocked(ref_x + 1, ref_y, ref_z + 2, SNWNearbyObjectTypeGround);
-			near_shadow_b |= NearbySpace.IsBlocked(ref_x, ref_y + 1, ref_z, SNWNearbyObjectTypeGround);
-			near_shadow_b |= NearbySpace.IsBlocked(ref_x, ref_y + 1, ref_z + 1, SNWNearbyObjectTypeGround);
-			near_shadow_b |= NearbySpace.IsBlocked(ref_x, ref_y + 1, ref_z + 2, SNWNearbyObjectTypeGround);
-			near_shadow_l |= NearbySpace.IsBlocked(ref_x - 1, ref_y, ref_z, SNWNearbyObjectTypeGround);
-			near_shadow_l |= NearbySpace.IsBlocked(ref_x - 1, ref_y, ref_z + 1, SNWNearbyObjectTypeGround);
-			near_shadow_l |= NearbySpace.IsBlocked(ref_x - 1, ref_y, ref_z + 2, SNWNearbyObjectTypeGround);
+			ret |= NearbySpace.IsShadowBlocked(ref_x, ref_y, ref_z);
+			ret |= NearbySpace.IsShadowBlocked(ref_x, ref_y, ref_z + 1);
+			ret |= NearbySpace.IsShadowBlocked(ref_x, ref_y, ref_z + 2);
+			near_shadow_u |= NearbySpace.IsShadowBlocked(ref_x, ref_y - 1, ref_z);
+			near_shadow_u |= NearbySpace.IsShadowBlocked(ref_x, ref_y - 1, ref_z + 1);
+			near_shadow_u |= NearbySpace.IsShadowBlocked(ref_x, ref_y - 1, ref_z + 2);
+			near_shadow_r |= NearbySpace.IsShadowBlocked(ref_x + 1, ref_y, ref_z);
+			near_shadow_r |= NearbySpace.IsShadowBlocked(ref_x + 1, ref_y, ref_z + 1);
+			near_shadow_r |= NearbySpace.IsShadowBlocked(ref_x + 1, ref_y, ref_z + 2);
+			near_shadow_b |= NearbySpace.IsShadowBlocked(ref_x, ref_y + 1, ref_z);
+			near_shadow_b |= NearbySpace.IsShadowBlocked(ref_x, ref_y + 1, ref_z + 1);
+			near_shadow_b |= NearbySpace.IsShadowBlocked(ref_x, ref_y + 1, ref_z + 2);
+			near_shadow_l |= NearbySpace.IsShadowBlocked(ref_x - 1, ref_y, ref_z);
+			near_shadow_l |= NearbySpace.IsShadowBlocked(ref_x - 1, ref_y, ref_z + 1);
+			near_shadow_l |= NearbySpace.IsShadowBlocked(ref_x - 1, ref_y, ref_z + 2);
 			ref_x += step_x;
 			ref_y += step_y;
 			ref_z += 3;
@@ -720,26 +728,26 @@ Boolean SNWorld::JudgeGroundPShadow(Int32 x, Int32 y, Int32 z, Boolean* lt, Bool
 		switch (GlobalLight)
 		{
 		case SNWorldDirNE:
-			near_shadow_u |= NearbySpace.IsBlocked(x, y - 1, z + 1, SNWNearbyObjectTypeGround);
-			near_shadow_r |= NearbySpace.IsBlocked(x + 1, y, z + 1, SNWNearbyObjectTypeGround);
+			near_shadow_u |= NearbySpace.IsShadowBlocked(x, y - 1, z + 1);
+			near_shadow_r |= NearbySpace.IsShadowBlocked(x + 1, y, z + 1);
 			*lt = near_shadow_l && near_shadow_u;
 			*rb = near_shadow_r && near_shadow_b;
 			break;
 		case SNWorldDirSE:
-			near_shadow_r |= NearbySpace.IsBlocked(x + 1, y, z + 1, SNWNearbyObjectTypeGround);
-			near_shadow_b |= NearbySpace.IsBlocked(x, y + 1, z + 1, SNWNearbyObjectTypeGround);
+			near_shadow_r |= NearbySpace.IsShadowBlocked(x + 1, y, z + 1);
+			near_shadow_b |= NearbySpace.IsShadowBlocked(x, y + 1, z + 1);
 			*rt = near_shadow_r && near_shadow_u;
 			*lb = near_shadow_l && near_shadow_b;
 			break;
 		case SNWorldDirSW:
-			near_shadow_b |= NearbySpace.IsBlocked(x, y + 1, z + 1, SNWNearbyObjectTypeGround);
-			near_shadow_l |= NearbySpace.IsBlocked(x - 1, y, z + 1, SNWNearbyObjectTypeGround);
+			near_shadow_b |= NearbySpace.IsShadowBlocked(x, y + 1, z + 1);
+			near_shadow_l |= NearbySpace.IsShadowBlocked(x - 1, y, z + 1);
 			*lt = near_shadow_l && near_shadow_u;
 			*rb = near_shadow_r && near_shadow_b;
 			break;
 		case SNWorldDirNW:
-			near_shadow_u |= NearbySpace.IsBlocked(x, y - 1, z + 1, SNWNearbyObjectTypeGround);
-			near_shadow_l |= NearbySpace.IsBlocked(x - 1, y, z + 1, SNWNearbyObjectTypeGround);
+			near_shadow_u |= NearbySpace.IsShadowBlocked(x, y - 1, z + 1);
+			near_shadow_l |= NearbySpace.IsShadowBlocked(x - 1, y, z + 1);
 			*rt = near_shadow_r && near_shadow_u;
 			*lb = near_shadow_l && near_shadow_b;
 			break;
@@ -748,6 +756,79 @@ Boolean SNWorld::JudgeGroundPShadow(Int32 x, Int32 y, Int32 z, Boolean* lt, Bool
 
 	return ret;
 }
+
+
+Void SNWorld::JudgeGroundLight(Int32 x, Int32 y, Int32 z, Boolean* top, Boolean* left, Boolean* right)
+{
+	Int32 cnt_x;
+	Int32 cnt_y;
+	Int32 cnt_z;
+	Int32 dx = 0;
+	Int32 dy = 0;
+	Int32 dz = 0;
+	Boolean tmp_top = false;
+	Boolean tmp_left = false;
+	Boolean tmp_right = false;
+
+	Float32 dist2;
+	Float32 range_dist2 = SNSystemConfig::GroundLightSearchRange * SNSystemConfig::GroundLightSearchRange + 1;
+
+	SNWNearbyObject* obj_ptr = nullptr;
+
+	*top = false;
+	*left = false;
+	*right = false;
+
+	for (cnt_z = z - SNSystemConfig::GroundLightSearchRange; cnt_z < z + SNSystemConfig::GroundLightSearchRange; cnt_z++)
+	{
+		for (cnt_y = y - SNSystemConfig::GroundLightSearchRange; cnt_y < y + SNSystemConfig::GroundLightSearchRange; cnt_y++)
+		{
+			for (cnt_x = x - SNSystemConfig::GroundLightSearchRange; cnt_x < x + SNSystemConfig::GroundLightSearchRange; cnt_x++)
+			{
+				if ((x < cnt_x) || (y < cnt_y) || (z < cnt_z))
+				{
+					dx = x - cnt_x;
+					dy = y - cnt_y;
+					dz = z - cnt_z;
+
+					dist2 = (Float32)(dx * dx + dy * dy + dz * dz);
+
+					if (dist2 < range_dist2)
+					{
+						if (NearbySpace.IsLightBlocked(cnt_x, cnt_y, cnt_z))
+						{
+							if (!NearbySpace.ExistShadowBlock(x, y, z, cnt_x, cnt_y, cnt_z))
+							{
+								// 最近の光源オブジェクトを記憶する
+								obj_ptr = NearbySpace.RefObjectG(cnt_x, cnt_y, cnt_z);
+								// Topの影キャンセル判定
+								if (obj_ptr->Pos.Z > z)
+								{
+									*top = true;
+								}
+
+								// leftの影キャンセル判定
+								if (obj_ptr->Pos.Y > y)
+								{
+									*left = true;
+								}
+
+								// rightの影キャンセル判定
+								if (obj_ptr->Pos.X > x)
+								{
+									*right = true;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return;
+}
+
 
 Void SNWorld::UpdateWorldTime()
 {

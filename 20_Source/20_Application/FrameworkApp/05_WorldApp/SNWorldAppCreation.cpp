@@ -408,7 +408,7 @@ Void SNWorldAppCreation::OnDraw()
 	UInt16 code_tmp;
 	SNRect src_rect;
 	Int32 cnt;
-	SNWorldShadowDir shadow_dir = SNWorldShadowDirR;
+	SNWorldShadowDir shadow_dir = SNWorldShadowBase;
 
 	SNWorldAppBase::OnDraw();
 

@@ -70,14 +70,14 @@ public:
 	// âeÉuÉçÉbÉN
 	static constexpr UInt16 ShadowCode[SNWorldShadowDirNum] =
 	{
-		0x0000,
-		MapchipBlockNumY + 0x0000,
-		MapchipBlockNumY + 0x0001,
-		MapchipBlockNumY + 0x0002,
-		MapchipBlockNumY + 0x0003,
-		MapchipBlockNumY + 0x0004,
-		MapchipBlockNumY + 0x0005,
-		MapchipBlockNumY + 0x0006,
+		0x0009,
+		0x000B,
+		0x000C,
+		0x000E,
+		0x000F,
+		0x0016,
+		0x0015,
+		0x0014,
 		0x0004,
 		0x0005,
 		0x0006,
@@ -89,14 +89,14 @@ public:
 	static constexpr UInt16 BorderCode[SNWorldGroundBorderDirNum] =
 	{
 		0x0000,
-		MapchipBlockNumY + 0x0007,
-		MapchipBlockNumY + 0x0008,
-		MapchipBlockNumY + 0x0009,
-		MapchipBlockNumY + 0x000A,
-		MapchipBlockNumY + 0x000B,
-		MapchipBlockNumY + 0x000C,
-		MapchipBlockNumY + 0x000D,
-		MapchipBlockNumY + 0x000E,
+		0x0017,
+		0x0018,
+		0x0019,
+		0x001A,
+		0x001B,
+		0x001C,
+		0x001D,
+		0x001E,
 	};
 
 
@@ -138,6 +138,7 @@ public:
 		SNMapchipRedBrick2,
 		SNMapchipWhiteBrick1,
 		SNMapchipWhiteBrick2,
+		SNMapchipLight,
 		SNMapchipNum
 	};
 
@@ -167,6 +168,7 @@ public:
 		{	0x0051,	0x0051,	0x0051,	0x0051,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// RedBrick2
 		{	0x0052,	0x0052,	0x0052,	0x0052,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// WhiteBrick1
 		{	0x0053,	0x0053,	0x0053,	0x0053,	true,	true,		false,	true,	0.30f,		1.0f,		0.0f,		},		// WhiteBrick2
+		{	0x0060,	0x0060,	0x0060,	0x0060,	true,	true,		true,	false,	0.30f,		1.0f,		0.0f,		},		// Light
 	};
 		
 			

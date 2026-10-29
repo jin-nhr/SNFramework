@@ -500,125 +500,97 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNWNearbyObject* obj, SNPoint*
 	UInt64 effect_flg = (UInt64)(intptr_t)obj->Effect[SNWorld::GetGlobalLight()];
 	UInt16 code;
 
-	static constexpr UInt64 glight_mask[4] =
-		{ SNWNearbyEffectGroundBitGShadowU,
-		  SNWNearbyEffectGroundBitGShadowR,
-		  SNWNearbyEffectGroundBitGShadowB,
-		  SNWNearbyEffectGroundBitGShadowL };
-
-	static constexpr UInt64 border_mask[8] =
-		{ SNWNearbyEffectGroundBitBorderU,
-		  SNWNearbyEffectGroundBitBorderL,
-		  SNWNearbyEffectGroundBitBorderR,
-		  SNWNearbyEffectGroundBitBorderB,
-		  0,
-		  SNWNearbyEffectGroundBitBorderSideU,
-		  SNWNearbyEffectGroundBitBorderSideL,
-		  SNWNearbyEffectGroundBitBorderBottom };
-
-	static constexpr UInt64 pshadow_mask[2] =
-		{ SNWNearbyEffectGroundBitPShadowR,
-		  SNWNearbyEffectGroundBitPShadowB };
-
-	static constexpr UInt64 pshadow_top_mask[4] =
-		{ SNWNearbyEffectGroundBitPShadowTUL, 
-		  SNWNearbyEffectGroundBitPShadowTUR, 
-		  SNWNearbyEffectGroundBitPShadowTBR, 
-		  SNWNearbyEffectGroundBitPShadowTBL };
-
-
 	code = 0;
 
 	//////////////////////////////////////////////////
-	// ÉOÉçÅ[ÉoÉãåıåπÇÃâeï`âÊ
+	// â°ñ ÇÃâe
 
-	if ((effect_flg & glight_mask[0]) != 0)
+	if ((effect_flg & SNWNearbyEffectGroundBitGShadowBase) != 0)
 	{
-		code = SNMapchip::ShadowCode[SNWorldShadowDirU];
+		code = SNMapchip::ShadowCode[SNWorldShadowBase];
 		DrawGround(obj, code, draw_base);
 	}
-	else if ((effect_flg & glight_mask[1]) != 0)
+	if ((effect_flg & SNWNearbyEffectGroundBitGShadowLLow) != 0)
 	{
-		code = SNMapchip::ShadowCode[SNWorldShadowDirR];
+		code = SNMapchip::ShadowCode[SNWorldShadowLLow];
 		DrawGround(obj, code, draw_base);
 	}
-	else if ((effect_flg & glight_mask[2]) != 0)
+	if ((effect_flg & SNWNearbyEffectGroundBitGShadowRLow) != 0)
 	{
-		code = SNMapchip::ShadowCode[SNWorldShadowDirB];
+		code = SNMapchip::ShadowCode[SNWorldShadowRLow];
 		DrawGround(obj, code, draw_base);
 	}
-	else if ((effect_flg & glight_mask[3]) != 0)
+	if ((effect_flg & SNWNearbyEffectGroundBitGShadowLMid) != 0)
 	{
-		code = SNMapchip::ShadowCode[SNWorldShadowDirL];
+		code = SNMapchip::ShadowCode[SNWorldShadowLMid];
 		DrawGround(obj, code, draw_base);
 	}
+	if ((effect_flg & SNWNearbyEffectGroundBitGShadowRMid) != 0)
+	{
+		code = SNMapchip::ShadowCode[SNWorldShadowRMid];
+		DrawGround(obj, code, draw_base);
+	}
+	if ((effect_flg & SNWNearbyEffectGroundBitGShadowLHigh) != 0)
+	{
+		code = SNMapchip::ShadowCode[SNWorldShadowLHigh];
+		DrawGround(obj, code, draw_base);
+	}
+	if ((effect_flg & SNWNearbyEffectGroundBitGShadowRHigh) != 0)
+	{
+		code = SNMapchip::ShadowCode[SNWorldShadowRHigh];
+		DrawGround(obj, code, draw_base);
+	}
+
 
 
 	//////////////////////////////////////////////////
 	// ã´äE
-	if ((effect_flg & border_mask[0]) != 0)
+	if ((effect_flg & SNWNearbyEffectGroundBitBorderU) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirR];
 		DrawGround(obj, code, draw_base);
 	}
-	if ((effect_flg & border_mask[1]) != 0)
+	if ((effect_flg & SNWNearbyEffectGroundBitBorderL) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirL];
 		DrawGround(obj, code, draw_base);
 	}
 
-	if ((effect_flg & border_mask[2]) != 0)
+	if ((effect_flg & SNWNearbyEffectGroundBitBorderR) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirRB];
 		DrawGround(obj, code, draw_base);
 	}
 
-	if ((effect_flg & border_mask[3]) != 0)
+	if ((effect_flg & SNWNearbyEffectGroundBitBorderB) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderDirLB];
 		DrawGround(obj, code, draw_base);
 	}
 
-	if ((effect_flg & border_mask[4]) != 0)
-	{
-		code = SNMapchip::BorderCode[SNWorldGroundBorderDirT];
-		DrawGround(obj, code, draw_base);
-	}
-
-	if ((effect_flg & border_mask[5]) != 0)
+	if ((effect_flg & SNWNearbyEffectGroundBitBorderSideR) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderSideR];
 		DrawGround(obj, code, draw_base);
 	}
 
-	if ((effect_flg & border_mask[6]) != 0)
+	if ((effect_flg & SNWNearbyEffectGroundBitBorderSideL) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderSideL];
 		DrawGround(obj, code, draw_base);
 	}
 
-	if ((effect_flg & border_mask[7]) != 0)
+	if ((effect_flg & SNWNearbyEffectGroundBitBorderBottom) != 0)
 	{
 		code = SNMapchip::BorderCode[SNWorldGroundBorderBottom];
 		DrawGround(obj, code, draw_base);
 	}
 
 	//////////////////////////////////////////////////
-	// ìäâe
-	if ((effect_flg & pshadow_mask[0]) != 0)
+	// è„ñ ÇÃâe
+	if ((effect_flg & SNWNearbyEffectGroundBitPShadowT) != 0)
 	{
-		code = SNMapchip::ShadowCode[SNWorldShadowSideR];
-		DrawGround(obj, code, draw_base);
-	}
-	if ((effect_flg & pshadow_mask[1]) != 0)
-	{
-		code = SNMapchip::ShadowCode[SNWorldShadowSideL];
-		DrawGround(obj, code, draw_base);
-	}
-
-	if ((effect_flg & SNWNearbyEffectGroundBitPShadowT) == SNWNearbyEffectGroundBitPShadowT)
-	{
-		code = SNMapchip::ShadowCode[SNWorldShadowDirT];
+		code = SNMapchip::ShadowCode[SNWorldShadowTop];
 		DrawGround(obj, code, draw_base);
 	}
 
@@ -626,25 +598,25 @@ Void SNGUIWorldView::DrawNearbyObjectEffectGround(SNWNearbyObject* obj, SNPoint*
 	{
 		// è„ñ ëSëÃÇÃâeÇ≈ÇÕÇ»Ç¢Ç∆Ç´ÇÕå¬ï Ç…ï`âÊÇ∑ÇÈ
 
-		if ((effect_flg & pshadow_top_mask[0]) != 0)
+		if ((effect_flg & SNWNearbyEffectGroundBitPShadowTUL) != 0)
 		{
 			code = SNMapchip::ShadowCode[SNWorldShadowTUL];
 			DrawGround(obj, code, draw_base);
 		}
 
-		if ((effect_flg & pshadow_top_mask[1]) != 0)
+		if ((effect_flg & SNWNearbyEffectGroundBitPShadowTUR) != 0)
 		{
 			code = SNMapchip::ShadowCode[SNWorldShadowTUR];
 			DrawGround(obj, code, draw_base);
 		}
 		
-		if ((effect_flg & pshadow_top_mask[2]) != 0)
+		if ((effect_flg & SNWNearbyEffectGroundBitPShadowTBR) != 0)
 		{
 			code = SNMapchip::ShadowCode[SNWorldShadowTBR];
 			DrawGround(obj, code, draw_base);
 		}
 
-		if ((effect_flg & pshadow_top_mask[3]) != 0)
+		if ((effect_flg & SNWNearbyEffectGroundBitPShadowTBL) != 0)
 		{
 			code = SNMapchip::ShadowCode[SNWorldShadowTBL];
 			DrawGround(obj, code, draw_base);
